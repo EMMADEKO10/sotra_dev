@@ -1,13 +1,20 @@
-import { Button} from 'antd';
+import { BrowserRouter, Routes , Route } from "react-router-dom"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+
+
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
-    <div className="bg-primary h-screen flex justify-center items-center">
-      <div className="bg-white p-5">
-        <h1> Sotradon</h1>
-        <Button type="primary">Primary Button</Button>
-      </div>
+    <div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
     </div>
   )
 }

@@ -13,8 +13,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         Button : {
           colorPrimary : '#405138',
           colorPrimaryBgHover : '#405138',
-          borderRadius : '0px',
+          borderRadius : '2px',
         }
+      },
+      token : {
+        borderRadius : '2px',
       }
     }}
     >

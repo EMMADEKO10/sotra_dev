@@ -1,19 +1,19 @@
 
 // import './App.css'
 import HeaderTop from "../../components/HeaderTop"
-import Header from "../../components/Header"
-import Banner from "../../components/Banner"
-import AboutArea from "../../components/AboutArea"
-import Activity from "../../components/Activity"
-import OurMission from "../../components/OurMission"
-import Causes from "../../components/Causes"
-import Volunteer from "../../components/Volunteer"
-import EventArea from "../../components/EventArea"
-import Donnation from "../../components/Donnation"
-import Testimonials from "../../components/Testimonials"
-import GalleryArea from "../../components/GalleryArea"
-import Blog from "../../components/Blog"
-import Footer from "../../components/Footer"
+import Header from "../components/Header"
+import Banner from "../components/Banner"
+import AboutArea from "../components/AboutArea"
+import Activity from "../components/Activity"
+import OurMission from "../components/OurMission"
+import Causes from "../components/Causes"
+import Volunteer from "../components/Volunteer"
+import EventArea from "../components/EventArea"
+import Donnation from "../components/Donnation"
+import Testimonials from "../components/Testimonials"
+import GalleryArea from "../components/GalleryArea"
+import Blog from "../components/Blog"
+import Footer from "../components/Footer"
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
 

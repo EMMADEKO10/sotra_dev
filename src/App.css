@@ -1,0 +1,51 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+ */
+
+
+.asideNavbar {
+  position: fixed;
+}
+
+/* div{
+  border: 1px solid black;
+ } */
+
+
+.sticky-sidebar {
+  position: sticky;
+  top: 20px;
+  /* Ajustez cette valeur selon vos besoins pour définir à quelle distance du haut la sidebar doit rester en position sticky */
+  z-index: 990;
+  /* ou toute autre valeur de z-index selon votre disposition */
+}
+
+.cours {
+  /* background-image: url("src/assets/banner-images/home-page-banner.png"); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+
+/* theme-light.css */
+:root {
+  --primary-color: #3498db;
+  --background-color: #ffffff;
+}
+
+/* theme-dark.css */
+:root {
+  --primary-color: #f39c12;
+  --background-color: #1a1a1a;
+}
+
+/* Accueil.module.css */
+.container {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}

@@ -6,8 +6,8 @@
 
 
         $('.form-btn').click(function(){
-		    $('.form-btn').removeClass('active').addClass('inactive');
-		    $(this).removeClass('inactive').addClass('active');
+		    $('.form-btn').removeclass('active').addclass('inactive');
+		    $(this).removeclass('inactive').addclass('active');
 	    });
       
 

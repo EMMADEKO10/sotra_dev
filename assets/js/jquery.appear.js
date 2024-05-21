@@ -139,7 +139,7 @@
 
         //run checks when these methods are called
         $.each(['append', 'prepend', 'after', 'before', 'attr',
-        'removeAttr', 'addClass', 'removeClass', 'toggleClass',
+        'removeAttr', 'addclass', 'removeclass', 'toggleclass',
         'remove', 'css', 'show', 'hide'], function(i, n) {
             var old = $.fn[n];
             if (old) {

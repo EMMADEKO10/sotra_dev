@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         }
       },
       token : {
-        borderRadius : '2px',
+        borderRadius : '2px'
       }
     }}
     >

@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function Volonteer() {
   return (
@@ -12,15 +12,15 @@ export default function Volonteer() {
               <div className="container">
                   <div className="row">
                       <div className="col-lg-8 offset-lg-2">
-                          <h5>Become a Volunteer</h5>
-                          <h2 className="text-blur">Volunteer</h2>
-                          <h2 className="area-title">We’ve funded 120,00 charity projects for 20M people around the world.</h2>
+                          <h5>Devenir sponsors</h5>
+                          <h2 className="text-blur">Sponsors</h2>
+                          <h2 className="area-title">Nous avons financé 120000 projets caritatifs pour 20 millions de personnes dans le monde.</h2>
                           <p>
-                              Replied joy age visitor nothing cottage. Mrs door paid led loud sure easy read. Hastily at perhaps as neither or ye fertile tedious visitor. Use fine bed none call busy dull when. Quiet ought match my right by table means. Principles up do in me favourable affronting. Twenty mother denied effect we to do on.
+                          Répondit visiteur de l’âge de la joie rien de cottage. Mme la porte payée menait fort sûr facile à lire. Hâtez-vous peut-être comme ni l’un ni l’autre ou vous êtes un visiteur ennuyeux fertile. Utiliser un beau lit que personne n’appelle occupé à s’ennuyer quand. Le calme devrait correspondre à mon droit par des moyens de table. Les principes élevés font en moi un affront favorable. Vingt mères ont refusé l’effet que nous devions faire.
                           </p>
                           <form action="#">
-                              <input type="email" placeholder="Your Email" className="form-control" name="email" />
-                              <button type="submit"> Join Now</button>
+                              <input type="email" placeholder="Votre email" className="form-control" name="email" />
+                              <button type="submit"> Rejoignez-nous maintenant</button>
                           </form>
                       </div>
                   </div>

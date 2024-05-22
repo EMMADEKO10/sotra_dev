@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function Donnation() {
   return (
@@ -11,18 +11,18 @@ export default function Donnation() {
               <div className="container">
                   <div className="row align-center">
                       <div className="col-lg-6 info">
-                          <h5>Donate Today</h5>
-                          <h2 className="area-title">Donate today and get involved to save the world</h2>
+                          <h5>Faire un don maintenant</h5>
+                          <h2 className="area-title">Faites un don aujourd’hui et participez à sauver le monde</h2>
                           <p>
-                              Drawings sir gay together landlord had law smallest. Formerly welcomed attended declared met say unlocked. Jennings outlived no dwelling denoting in peculiar as he believed. Behaviour excellent middleton be as it curiosity departure ourselves. For looking two cousins regular amongst.
+                          Dessins sir gay ensemble propriétaire avait la loi la plus petite. Autrefois accueilli assisté déclaré met dit déverrouillé. Jennings n’a survécu à aucun logement dénotant en particulier comme il le croyait. Comportement excellent middleton être comme il s’éloigne de la curiosité nous-mêmes. Pour chercher deux cousins réguliers parmi.
                           </p>
                           <div className="question">
                               <div className="icon">
                                   <i className="fas fa-phone"></i>
                               </div>
                               <div className="info">
-                                  <h5>Have any question about donation? </h5>
-                                  <span>Call Now: +123 3456789</span>
+                                  <h5>Vous avez des questions sur les dons? </h5>
+                                  <span>Appelez maintenant : +243 3456789</span>
                               </div>
                           </div>
                       </div>
@@ -32,7 +32,7 @@ export default function Donnation() {
                                   <div className="row">
                                       <div className="col-lg-6">
                                           <div className="form-group">
-                                              <label htmlFor="Amount">Amount</label>
+                                              <label htmlFor="Amount">Montant</label>
                                               <div className="input-group">
                                                   <input type="text" className="form-control" id="Amount" placeholder="$129.00" required />
                                                   <span className="input-group-addon"><i className="fas fa-dollar-sign"></i></span>
@@ -41,18 +41,18 @@ export default function Donnation() {
                                       </div>
                                       <div className="col-lg-6">
                                           <div className="form-group">
-                                              <label htmlFor="donateType">Frequency</label>
+                                              <label htmlFor="donateType">Fréquence</label>
                                               <select id="donateType" className="form-control">
-                                                  <option value="once">Once</option>
-                                                  <option value="weekly">Weekly</option>
-                                                  <option value="Fortnightly">Fortnightly</option>
-                                                  <option value="Monthly">Monthly</option>
+                                                  <option value="once">une fois</option>
+                                                  <option value="weekly">Hebdomadaire</option>
+                                                  <option value="Fortnightly">Tous les quinze jours</option>
+                                                  <option value="Monthly">Mensuel</option>
                                               </select>
                                           </div>
                                       </div>
                                       <div className="col-md-12">
                                           <div className="form-group">
-                                              <label htmlFor="cardNumber">Card Number</label>
+                                              <label htmlFor="cardNumber">Numéro de carte</label>
                                               <div className="input-group">
                                                   <input type="text" className="form-control" id="cardNumber" placeholder="Valid Card Number" required />
                                                   <span className="input-group-addon"><i className="fas fa-credit-card"></i></span>
@@ -63,7 +63,7 @@ export default function Donnation() {
                                           <div className="form-group">
                                               <div className="row">
                                                   <div className="col-sm-12">
-                                                      <label htmlFor="expMonth">Expiration Date</label>
+                                                      <label htmlFor="expMonth">Date d'expiration</label>
                                                   </div>
                                               </div>
                                               <div className="row">
@@ -83,7 +83,7 @@ export default function Donnation() {
                                           </div>
                                       </div>
                                       <div className="col-md-12">
-                                          <button className="btn btn-theme effect btn-md" type="submit">Donate Now</button>
+                                          <button className="btn btn-theme effect btn-md" type="submit">Faire un don maintenant</button>
                                       </div>
                                   </div>
                               </form>

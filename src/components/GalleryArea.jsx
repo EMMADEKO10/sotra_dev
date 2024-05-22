@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function GalleryArea() {
   return (
@@ -8,16 +8,16 @@ export default function GalleryArea() {
                   <div className="heading-left">
                       <div className="row">
                           <div className="col-lg-6 left-info">
-                              <h5>What We Did</h5>
+                              <h5>Ce que nous avons accompli</h5>
                               <h2>
-                                  Featured projects from <br /> our latest causes
+                              Projets vedettes de <br /> nos dernières causes
                               </h2>
                           </div>
                           <div className="col-lg-6 right-info">
                               <p>
-                                  Everything melancholy uncommonly but solicitude inhabiting projection off. Connection stimulated estimating excellence an to impression.
+                              Tout est mélancolique, rarement, mais la sollicitude habite la projection. La connexion stimule l’estimation de l’excellence et de l’impression.
                               </p>
-                              <a className="btn circle btn-md btn-gradient wow fadeInUp" href="#">View All <i className="fas fa-angle-right"></i></a>
+                              <a className="btn circle btn-md btn-gradient wow fadeInUp" href="#">Voir tout <i className="fas fa-angle-right"></i></a>
                           </div>
                       </div>
                   </div>
@@ -34,8 +34,8 @@ export default function GalleryArea() {
                                               <div className="item-inner">
                                                   <img src="assets/img/800x800.png" alt="Thumb" />
                                                   <div className="overlay">
-                                                      <h4><a href="#">Food Served</a></h4>
-                                                      <span className="cats">Poor</span>
+                                                      <h4><a href="#">Nourriture servie</a></h4>
+                                                      <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
                                                       <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
@@ -46,8 +46,8 @@ export default function GalleryArea() {
                                               <div className="item-inner">
                                                   <img src="assets/img/800x800.png" alt="Thumb" />
                                                   <div className="overlay">
-                                                      <h4><a href="#">Water Collect</a></h4>
-                                                      <span className="cats">Poor</span>
+                                                      <h4><a href="#">Collecte d’eau</a></h4>
+                                                      <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
                                                       <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
@@ -58,8 +58,8 @@ export default function GalleryArea() {
                                               <div className="item-inner">
                                                   <img src="assets/img/800x800.png" alt="Thumb" />
                                                   <div className="overlay">
-                                                      <h4><a href="#">Blood Donate</a></h4>
-                                                      <span className="cats">Poor</span>
+                                                      <h4><a href="#">Don de sang</a></h4>
+                                                      <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
                                                       <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
@@ -70,8 +70,8 @@ export default function GalleryArea() {
                                               <div className="item-inner">
                                                   <img src="assets/img/800x800.png" alt="Thumb" />
                                                   <div className="overlay">
-                                                      <h4><a href="#">Child Education</a></h4>
-                                                      <span className="cats">Poor</span>
+                                                      <h4><a href="#">Education des enfants</a></h4>
+                                                      <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
                                                       <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
@@ -82,8 +82,8 @@ export default function GalleryArea() {
                                               <div className="item-inner">
                                                   <img src="assets/img/800x800.png" alt="Thumb" />
                                                   <div className="overlay">
-                                                      <h4><a href="#">Help Homeless</a></h4>
-                                                      <span className="cats">Poor</span>
+                                                      <h4><a href="#">Aident les sans-abri</a></h4>
+                                                      <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
                                                       <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
@@ -94,8 +94,8 @@ export default function GalleryArea() {
                                               <div className="item-inner">
                                                   <img src="assets/img/800x800.png" alt="Thumb" />
                                                   <div className="overlay">
-                                                      <h4><a href="#">Rebuild Home</a></h4>
-                                                      <span className="cats">Poor</span>
+                                                      <h4><a href="#">Reconstruire la maison</a></h4>
+                                                      <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
                                                       <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>

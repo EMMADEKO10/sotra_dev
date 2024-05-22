@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function Testimonials() {
   return (
@@ -10,7 +10,7 @@ export default function Testimonials() {
                           <div className="site-heading text-center">
                               <h5>Testimonials</h5>
                               <h2>
-                                  What people say <br /> About Poora
+                              Ce que les gens disent <br /> À propos de Sotradon
                               </h2>
                               <div className="heading-divider"></div>
                           </div>
@@ -28,7 +28,7 @@ export default function Testimonials() {
                                           <i className="flaticon-left-quote-1"></i>
                                           <div className="provider">
                                               <h4>Jeckey Pura</h4>
-                                              <span>Volunteer</span>
+                                              <span>bénévole</span>
                                           </div>
                                       </div>
                                       <p>

@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function Activity() {
   return (
@@ -8,9 +8,9 @@ export default function Activity() {
                   <div className="row">
                       <div className="col-lg-8 offset-lg-2">
                           <div className="site-heading text-center">
-                              <h5>What we do</h5>
+                              <h5>Ce que l'on fait</h5>
                               <h2>
-                                  We Donate to charity causes <br /> around the world.
+                              Nous faisons des dons à des causes caritatives <br /> dans le monde entier.
                               </h2>
                               <div className="heading-divider"></div>
                           </div>
@@ -24,9 +24,9 @@ export default function Activity() {
                           <div className="single-item col-lg-3 col-md-6">
                               <div className="item">
                                   <i className="flaticon-water-bottle"></i>
-                                  <h4>Water Delivery</h4>
+                                  <h4>Distribution d'eau</h4>
                                   <p>
-                                      Always length letter adieus add number moment she. Promise few compass.
+                                  Toujours longueur lettre adieus ajouter le nombre moment elle. Promettez peu de boussole.
                                   </p>
                               </div>
                           </div>
@@ -35,9 +35,9 @@ export default function Activity() {
                           <div className="single-item col-lg-3 col-md-6">
                               <div className="item">
                                   <i className="flaticon-pharmacy"></i>
-                                  <h4>Medicine Help</h4>
+                                  <h4>Aide médicale</h4>
                                   <p>
-                                      Always length letter adieus add number moment she. Promise few compass.
+                                  Toujours longueur lettre adieus ajouter le nombre moment elle. Promettez peu de boussole.
                                   </p>
                               </div>
                           </div>
@@ -48,7 +48,7 @@ export default function Activity() {
                                   <i className="flaticon-planet-earth"></i>
                                   <h4>Save Plants</h4>
                                   <p>
-                                      Always length letter adieus add number moment she. Promise few compass.
+                                  Toujours longueur lettre adieus ajouter le nombre moment elle. Promettez peu de boussole.
                                   </p>
                               </div>
                           </div>
@@ -57,9 +57,9 @@ export default function Activity() {
                           <div className="single-item col-lg-3 col-md-6">
                               <div className="item">
                                   <i className="flaticon-home"></i>
-                                  <h4>We Build & Create</h4>
+                                  <h4>Nous construisons et créons</h4>
                                   <p>
-                                      Always length letter adieus add number moment she. Promise few compass.
+                                  Toujours longueur lettre adieus ajouter le nombre moment elle. Promettez peu de boussole.
                                   </p>
                               </div>
                           </div>

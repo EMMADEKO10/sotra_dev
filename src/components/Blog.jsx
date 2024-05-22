@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function Blog() {
     return (
@@ -8,9 +8,9 @@ export default function Blog() {
                     <div className="row">
                         <div className="col-lg-8 offset-lg-2">
                             <div className="site-heading text-center">
-                                <h5>Latest News</h5>
+                                <h5>Dernières nouvelles</h5>
                                 <h2>
-                                    Stay Update with Us from <br /> latest & popular News
+                                Restez informé avec nous des <br /> dernières et populaires nouvelles
                                 </h2>
                                 <div className="heading-divider"></div>
                             </div>
@@ -27,22 +27,22 @@ export default function Blog() {
                                         <a href="#">
                                             <img src="assets/img/800x600.png" alt="Thumb" />
                                             <span className="date">
-                                                24 <strong>Aug</strong>
+                                                24 <strong>Août</strong>
                                             </span>
                                         </a>
                                     </div>
                                     <div className="info">
                                         <h4>
-                                            <a href="#">Advantage frankness to concluded unwilling. </a>
+                                            <a href="#">Avantage franchise à conclu peu disposé. </a>
                                         </h4>
                                         <div className="meta">
                                             <ul>
                                                 <li>By <a href="#">Jones</a></li>
-                                                <li><a href="#"><i className="fas fa-comments"></i> 12 Comments</a></li>
+                                                <li><a href="#"><i className="fas fa-comments"></i> 12 Commentaires</a></li>
                                             </ul>
                                         </div>
                                         <p>
-                                            Court in of leave again as am. Greater sixteen to forming colonel no on be. So an advice hardly barton process.
+                                        Le tribunal est de nouveau en congé comme je le suis. Plus de 16 ans pour former le colonel no on be. Donc un conseil à peine barton processus.
                                         </p>
                                         <a className="btn-more" href="#">Read More</a>
                                     </div>
@@ -62,16 +62,16 @@ export default function Blog() {
                                     </div>
                                     <div className="info">
                                         <h4>
-                                            <a href="#">Extremely depending he gentleman improving.</a>
+                                            <a href="#">Extrêmement dépendant il gentleman s’améliorant.</a>
                                         </h4>
                                         <div className="meta">
                                             <ul>
                                                 <li>By <a href="#">Spark</a></li>
-                                                <li><a href="#"><i className="fas fa-comments"></i> 26 Comments</a></li>
+                                                <li><a href="#"><i className="fas fa-comments"></i> 26 Commentaires</a></li>
                                             </ul>
                                         </div>
                                         <p>
-                                            Court in of leave again as am. Greater sixteen to forming colonel no on be. So an advice hardly barton process.
+                                        Le tribunal est de nouveau en congé comme je le suis. Plus de 16 ans pour former le colonel no on be. Donc un conseil à peine barton processus.
                                         </p>
                                         <a className="btn-more" href="#">Read More</a>
                                     </div>
@@ -91,16 +91,16 @@ export default function Blog() {
                                     </div>
                                     <div className="info">
                                         <h4>
-                                            <a href="#">Going as by do known noise he wrote round.</a>
+                                            <a href="#">Il a écrit comme un bruit connu.</a>
                                         </h4>
                                         <div className="meta">
                                             <ul>
                                                 <li>By <a href="#">Mohin</a></li>
-                                                <li><a href="#"><i className="fas fa-comments"></i> 05 Comments</a></li>
+                                                <li><a href="#"><i className="fas fa-comments"></i> 00 Commentaires</a></li>
                                             </ul>
                                         </div>
                                         <p>
-                                            Court in of leave again as am. Greater sixteen to forming colonel no on be. So an advice hardly barton process.
+                                        Le tribunal est de nouveau en congé comme je le suis. Plus de 16 ans pour former le colonel no on be. Donc un conseil à peine barton processus.
                                         </p>
                                         <a className="btn-more" href="#">Read More</a>
                                     </div>

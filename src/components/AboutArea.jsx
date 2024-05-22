@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function AboutArea() {
   return (
@@ -76,7 +75,7 @@ export default function AboutArea() {
                       <div className="col-lg-6 info">
                           <h5>Qui sommes-nous</h5>
                           <h2 className="text-blur">à propos</h2>
-                          <h2 className="area-title">Nous sommes une organisation caritative mondiale à but non lucratif.</h2>
+                          <h2 className="area-title">Faciliter le lien entre les grandes entreprises et les initiatives sociales innovantes</h2>
                           <p>
                           Les principes voyageant souvent de loin ravissent son acceptation particulière. Le bonheur nécessaire contenait l’empressement dans l’admission commandée. Sa sollicitude était loin de lui causer des difficultés persistantes favorables. Elle ne doutait pas non plus de l’offre de la veuve consciente de la mort. Nous pourrons chanter tous les deux.
                           </p>
@@ -97,7 +96,7 @@ export default function AboutArea() {
                                   <span>Ocean Proteced</span>
                               </li>
                           </ul>
-                          <a className="btn circle btn-theme border btn-md" href="#">become a volunteer</a>
+                          <a className="btn circle btn-theme border btn-md" href="#">Devenir sponsor</a>
                       </div>
 
                   </div>

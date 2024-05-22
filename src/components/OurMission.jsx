@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function OurMission() {
     return (
@@ -22,17 +21,17 @@ export default function OurMission() {
                         <div className="col-lg-6 info">
                             <h5>Our Mission</h5>
                             <h2 className="text-blur">Mission</h2>
-                            <h2 className="area-title">We believe that we can save more lifes with you.</h2>
+                            <h2 className="area-title">Nous croyons que nous pouvons sauver plus de vies avec vous.</h2>
                             <p>
-                                Their end whole might began her. Behaved the comfort another fifteen eat. Partiality had his themselves ask pianoforte increasing discovered. So mr delay at since place whole above miles.
+                            Leur fin toute entière la fit commencer. Se comporta le réconfort une autre quinzaine de manger. La partialité fit découvrir sa propre demande pianoforte croissante. Donc, mr retard à puisque lieu entier au-dessus des miles.
                             </p>
-                            <h4>Our strategic priorities up to 2020 are:</h4>
+                            <h4>Nos priorités stratégiques jusqu’en 2020 sont les suivantes :</h4>
                             <ul>
-                                <li>Protecting charities from abuse or mismanagement</li>
-                                <li>Enabling trustees to run their charities effectively </li>
-                                <li>Encouraging greater transparency and accountability</li>
+                                <li>Protéger les organismes de bienfaisance contre les abus ou la mauvaise gestion</li>
+                                <li>Permettre aux fiduciaires de gérer efficacement leurs organismes de bienfaisance </li>
+                                <li>Encourager une plus grande transparence et responsabilisation</li>
                             </ul>
-                            <a className="btn circle btn-theme border btn-md" href="#">Join With Us</a>
+                            <a className="btn circle btn-theme border btn-md" href="#">Se joindre à nous</a>
                         </div>
                     </div>
                 </div>

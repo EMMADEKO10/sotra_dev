@@ -1,11 +1,22 @@
-import React from 'react'
+// import React from 'react'
 
 export default function BlogAllPages() {
   return (
-    <>
+    <div>
       {/* <!-- Start Blog
     ============================================= --> */}
-    <div className="blog-area full-blog blog-standard full-blog grid-colum default-padding">
+    <div className="blog-area full-blog blog-standard full-blog grid-colum mt-10">
+              {/* Barre de recherche */}
+              <div className="input-group mb-3">
+                  <span className="input-group-text">
+                      <i className="bi bi-search"></i>
+                  </span>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Rechercher dans le blog..."
+                  />
+              </div>
         <div className="container">
             <div className="blog-items content-less">
                 <div className="blog-content">
@@ -196,6 +207,6 @@ export default function BlogAllPages() {
     </div>
     {/* <!-- End Blog --> */}
 
-    </>
+    </div>
   )
 }

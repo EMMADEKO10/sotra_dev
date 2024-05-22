@@ -14,7 +14,7 @@ export default function HeaderTop() {
                                     <i className="fas fa-envelope-open"></i> Info@gmail.com
                                 </li>
                                 <li>
-                                    <i className="fas fa-phone"></i> +123 456 7890
+                                    <i className="fas fa-phone"></i> +243 456 7890
                                 </li>
                             </ul>
                         </div>

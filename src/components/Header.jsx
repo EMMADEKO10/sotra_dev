@@ -1,4 +1,3 @@
-import React from 'react'
 // import logo from '../../../source/assets/img/Sotradons A.svg';
 
 
@@ -15,7 +14,7 @@ export default function Header() {
                       {/* <!-- Start Atribute Navigation --> */}
                       <div className="attr-nav border-less">
                           <ul>
-                              <li className="button"><a href="#"><i className="fas fa-heart"></i> Donate</a></li>
+                              <li className="button"><a href="#"><i className="fas fa-heart"></i> Sponsoriser</a></li>
                           </ul>
                       </div>
                       {/* <!-- End Atribute Navigation -->

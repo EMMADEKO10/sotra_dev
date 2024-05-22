@@ -36,7 +36,7 @@ export default function Header() {
                         {/* <!-- End Header Navigation -->
 
                 <!-- Collect the nav links, forms, and other content for toggling --> */}
-                        <div className="collapse navbar-collapse" id="navbar-menu">
+                        <div className="ml-20 " id="navbar-menu">
                             <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
                                 <li className="dropdown">
                                     <a href="#" className="dropdown-toggle active" data-toggle="dropdown" >Home</a>
@@ -85,7 +85,7 @@ export default function Header() {
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="contact.html">Contact</a>
+                                    <a href="">Contact</a>
                                 </li>
                             </ul>
                         </div>

@@ -1,4 +1,5 @@
-import React from 'react'
+// import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 export default function Causes() {
   return (
@@ -17,7 +18,8 @@ export default function Causes() {
                               <p>
                                   Everything melancholy uncommonly but solicitude inhabiting projection off. Connection stimulated estimating excellence an to impression.
                               </p>
-                              <a className="btn circle btn-md btn-gradient wow fadeInUp" href="#">View All <i className="fas fa-angle-right"></i></a>
+                              <NavLink to ='/projet'><a className="btn circle btn-md btn-gradient wow fadeInUp" >View All <i className="fas fa-angle-right"></i></a>
+                              </NavLink>
                           </div>
                       </div>
                   </div>

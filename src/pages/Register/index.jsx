@@ -89,7 +89,7 @@ function Register() {
 
 
             <Button type="primary" htmlType="submit" block>
-              S'inscrire
+              S inscrire
             </Button>
 
             <div className='mt-5 text-center'>

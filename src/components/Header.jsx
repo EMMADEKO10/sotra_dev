@@ -1,5 +1,9 @@
 // import React from 'react'
+
+import { NavLink } from "react-router-dom"
+
 // import logo from '../../../source/assets/img/Sotradons A.svg';
+
 
 
 export default function Header() {
@@ -15,7 +19,7 @@ export default function Header() {
                         {/* <!-- Start Atribute Navigation --> */}
                         <div className="attr-nav border-less">
                             <ul>
-                                <li className="button"><a href="#"><i className="fas fa-heart"></i> Donate</a></li>
+                                <li className="button"><NavLink to ='/projet'><i className="fas fa-heart"></i>Project</NavLink></li>
                             </ul>
                         </div>
                         {/* <!-- End Atribute Navigation -->
@@ -25,10 +29,9 @@ export default function Header() {
                             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                                 <i className="fa fa-bars"></i>
                             </button>
-                            <a className="navbar-brand" href="index.html">
+                            <NavLink to ='/'>
                                 <img width={60} height={60} src="assets/img/Sotradons (2).png" className="logo" alt="Logo" />
-
-                            </a>
+                            </NavLink>      
                         </div>
                         {/* <!-- End Header Navigation -->
 

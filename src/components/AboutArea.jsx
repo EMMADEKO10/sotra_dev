@@ -9,7 +9,7 @@ export default function AboutArea() {
 
                       <div className="col-lg-6 popular-causes">
                           <div className="causes-box">
-                              <h4> <i className="fas fa-bolt"></i> Popular Causes</h4>
+                              <h4> <i className="fas fa-bolt"></i> Causes populaires</h4>
                               <div className="item">
                                   <div className="thumb">
                                       <img src="assets/img/800x800.png" alt="Thumb" />
@@ -19,14 +19,14 @@ export default function AboutArea() {
                                           Education
                                       </span>
                                       <h4>
-                                          <a href="#">Give Education To Africa</a>
+                                          <a href="#">Donner l’éducation en République Démocratique du Congo</a>
                                       </h4>
                                       <div className="progress-box">
-                                          <p>Raised : $6,230 <span className="float-right">Goal : $8,400</span></p>
+                                          <p>Recueilli : $6,230 <span className="float-right">Objectif : $8,400</span></p>
                                           <div className="progress">
                                               <div className="progress-bar" role="progressbar" data-width="87"></div>
                                           </div>
-                                          <span>Fund collect : 87%</span>
+                                          <span>Collecte de fonds : 87%</span>
                                       </div>
                                   </div>
                               </div>
@@ -39,10 +39,10 @@ export default function AboutArea() {
                                           Water
                                       </span>
                                       <h4>
-                                          <a href="#">Water For All Children</a>
+                                          <a href="#">De l’eau pour tous les enfants</a>
                                       </h4>
                                       <div className="progress-box">
-                                          <p>Raised : $970 <span className="float-right">Goal : $1,800</span></p>
+                                          <p>Recueilli : $970 <span className="float-right">Objectif : $1,800</span></p>
                                           <div className="progress">
                                               <div className="progress-bar" role="progressbar" data-width="55"></div>
                                           </div>
@@ -59,10 +59,10 @@ export default function AboutArea() {
                                           Food
                                       </span>
                                       <h4>
-                                          <a href="#">Healthy Food</a>
+                                          <a href="#">Nourriture saine</a>
                                       </h4>
                                       <div className="progress-box">
-                                          <p>Raised : $2,400 <span className="float-right">Goal : $4,300</span></p>
+                                          <p>Recueilli : $2,400 <span className="float-right">Objectif : $4,300</span></p>
                                           <div className="progress">
                                               <div className="progress-bar" role="progressbar" data-width="77"></div>
                                           </div>
@@ -74,23 +74,23 @@ export default function AboutArea() {
                       </div>
 
                       <div className="col-lg-6 info">
-                          <h5>About Us</h5>
-                          <h2 className="text-blur">About</h2>
-                          <h2 className="area-title">We’re worldwide non-profit charity ogranization.</h2>
+                          <h5>Qui sommes-nous</h5>
+                          <h2 className="text-blur">à propos</h2>
+                          <h2 className="area-title">Nous sommes une organisation caritative mondiale à but non lucratif.</h2>
                           <p>
-                              Principles travelling frequently far delightful its especially acceptance. Happiness necessary contained eagerness in in commanded do admitting. Favourable continuing difficulty had her solicitude far. Nor doubt off widow all death aware offer. We will up able in both do sing.
+                          Les principes voyageant souvent de loin ravissent son acceptation particulière. Le bonheur nécessaire contenait l’empressement dans l’admission commandée. Sa sollicitude était loin de lui causer des difficultés persistantes favorables. Elle ne doutait pas non plus de l’offre de la veuve consciente de la mort. Nous pourrons chanter tous les deux.
                           </p>
                           <p>
-                              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore nesciunt ad suscipit iusto dolorum quae recusandae quo illum libero excepturi, provident facere. Delectus possimus cupiditate voluptatum sapiente eos, vitae, repellat.
+                          Notre plateforme vise à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en offrant un site web dédié au soutien de ces initiatives essentielles.
                           </p>
                           <ul>
                               <li>
                                   <h5>168K</h5>
-                                  <span>Plants Protected</span>
+                                  <span>Plantes protégées</span>
                               </li>
                               <li>
                                   <h5>5M Ton </h5>
-                                  <span>Water Conserved</span>
+                                  <span>Eau économisés</span>
                               </li>
                               <li>
                                   <h5>37K Sqmi.</h5>

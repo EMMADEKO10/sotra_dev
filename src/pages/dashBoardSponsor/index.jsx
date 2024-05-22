@@ -15,13 +15,14 @@ export default function DashBoardSponsor() {
                     <ListProjet />
                 </div>
             </div>
-
         </div>
     )
 }
 
 
-function Sidebar() {
+// -------------------------------------------------------------------------------------------
+
+export function Sidebar() {
     return (
         <div className="w-[25%]">
             <div className="flex h-screen flex-col justify-between border-e bg-white">

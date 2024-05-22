@@ -1411,6 +1411,11 @@ body,
   padding: 150px 0;
 }
 
+.content {
+  height: 700px !important;
+  padding: 150px 0;
+}
+
 .banner-area .box-cell {
   display: table-cell;
   vertical-align: middle;

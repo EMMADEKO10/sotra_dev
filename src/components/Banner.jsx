@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Banner() {
     return (
         <>
@@ -23,7 +21,7 @@ export default function Banner() {
                     {/* <!-- Wrapper for slides --> */}
                     <div className="carousel-inner carousel-zoom">
                         <div className="carousel-item active">
-                            <div className="slider-thumb bg-cover" style={{ backgroundImage: "url('assets/img/smiley-woman-holding-box-donations.jpg')" }}></div>
+                            <div className="slider-thumb bg-cover" style={{ backgroundImage: "url('src/assets/hero section/group-diverse-teens-young-people-doing-activities-together-celebrating-world-youth-skills-day (1).jpg')" }}></div>
 
                             <div className="box-table">
                                 <div className="box-cell shadow dark">
@@ -31,9 +29,9 @@ export default function Banner() {
                                         <div className="row">
                                             <div className="col-lg-9">
                                                 <div className="content">
-                                                    <h4 data-animation="animated slideInDown">Get started today</h4>
-                                                    <h2 data-animation="animated slideInRight">Join with us and <strong>save the world</strong></h2>
-                                                    <a data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" href="#">Discover More</a>
+                                                    <h4 data-animation="animated slideInDown">Votre innovation mérite d'être vue</h4>
+                                                    <h2 data-animation="animated slideInRight">Transformez vos idées<strong>en réalisations concrètes</strong></h2>
+                                                    <a data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" href="#">Découvrez-en plus</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -42,16 +40,16 @@ export default function Banner() {
                             </div>
                         </div>
                         <div className="carousel-item">
-                            {/* <div className ="slider-thumb bg-cover" style="background-image: url(assets/img/2440x1578.png);"></div> */}
+                            <div className="slider-thumb bg-cover" style={{ backgroundImage: "url('src/assets/hero section/Sans titre-1.jpg')" }}></div>
                             <div className="box-table">
                                 <div className="box-cell shadow dark">
                                     <div className="container">
                                         <div className="row">
                                             <div className="col-lg-9">
                                                 <div className="content">
-                                                    <h4 data-animation="animated slideInDown">Get started today</h4>
-                                                    <h2 data-animation="animated slideInRight">Help us to save <strong>Homeless People</strong></h2>
-                                                    <a data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" href="#">Discover More</a>
+                                                    <h4 data-animation="animated slideInDown">Investissez dans l'avenir</h4>
+                                                    <h2 data-animation="animated slideInRight">Transformez votre portefeuille avec<strong>des investissements durables</strong></h2>
+                                                    <a data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" href="#">Découvrez-en plus</a>
                                                 </div>
                                             </div>
                                         </div>

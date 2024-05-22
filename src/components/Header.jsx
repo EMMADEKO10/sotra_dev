@@ -25,12 +25,12 @@ export default function Header() {
                         {/* <!-- End Atribute Navigation -->
 
                 <!-- Start Header Navigation --> */}
-                        <div className="navbar-header">
+                        <div className="navbar-header items-center justify-center">
                             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                                 <i className="fa fa-bars"></i>
                             </button>
                             <NavLink to ='/'>
-                                <img width={60} height={60} src="assets/img/Sotradons (2).png" className="logo" alt="Logo" />
+                                <img width={90} height={90} src="assets/img/Sotradons (2).png" className="logo mt-1" alt="Logo" />
                             </NavLink>      
                         </div>
                         {/* <!-- End Header Navigation -->

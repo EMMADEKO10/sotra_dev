@@ -8,11 +8,11 @@ export default function OurMission() {
                         <div className="col-lg-6 thumb-box">
                             <div className="thumb">
                                 <div className="thumb-1">
-                                    <img src="assets/img/800x800.png" alt="Thumb" />
+                                    <img src="assets/img/Sotradons.jpg" alt="Thumb" />
                                 </div>
                                 <div className="thumb-2">
-                                    <img src="assets/img/800x800.png" alt="Thumb" />
-                                    <a href="https://www.youtube.com/watch?v=owhuBrGIOsE" className="popup-youtube light video-play-button item-center">
+                                    <img src="assets/img/Sotradons.jpg" alt="Thumb" />
+                                    <a href="https://youtu.be/KgMJ3-RByMA?t=1434" className="popup-youtube light video-play-button item-center">
                                         <i className="fa fa-play"></i>
                                     </a>
                                 </div>

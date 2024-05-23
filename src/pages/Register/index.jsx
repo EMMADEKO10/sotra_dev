@@ -1,17 +1,52 @@
 import {Form, Input, Button} from 'antd'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Divider from '../../components/Divider';
+import axios from 'axios';
+import { useState } from 'react';
 
-// const rules = [
-//   { 
-//     required: true, 
-//     message: 'Veuillez entrer !' 
-//   },
-// ]
+
+
+
 function Register() {
 
-  const onFinish = (value) => {
+  const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+
+  // const DATA_URL = import.meta.env.DATA_URL;
+
+  const DATA_URL = "http://localhost:3700/api"
+
+  const onFinish = async (value) => {
     console.log('Received values of form: ', value);
+    // Par exemple, vous pouvez convertir l'objet en JSON
+    try {
+      const {name, email, password} = value
+      const response = await axios.post(`${DATA_URL}/users`, { name, email, password });
+
+      // Ajoutez ici la logique pour gérer la réponse de votre backend
+      if (response.status === 201) { // Check for successful registration response
+        setIsRegistrationSuccessful(true);
+        setSuccessMessage('Inscription réussie !'); // Set success message
+        // Optionally, perform other actions like clearing the form
+
+        // After a short delay, redirect to the homepage
+        setTimeout(() => {
+          navigate('/Login');
+        }, 3000); // Replace 2000 with desired delay in milliseconds
+      } else {
+        // Handle unsuccessful registration (e.g., display error message)
+      }
+    } catch (error) {
+      if (error.response) {
+        // Erreur avec réponse du serveur
+        console.error('Erreur de réponse du serveur:', error.response.data);
+      
+      } else {
+        // Erreur de configuration ou autre
+        console.error('Erreur lors de la requête:', error.message);
+      }
+    }
   }
 
   const validateMessages = {
@@ -25,7 +60,10 @@ function Register() {
     pattern: {
       mismatch: '${label} n\'est pas valide',
     },
+
+    
   };
+
   
 
   return (

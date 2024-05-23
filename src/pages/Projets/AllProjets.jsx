@@ -4,6 +4,7 @@ import Header from '../../components/Header'
 import Breadcrumb from '../../components/Components_AllPages/Breadcrumb'
 import BlogAllPages from '../../components/Components_AllPages/BlogAllPages'
 import Footer from '../../components/Footer'
+// import Table from '../../components/Components_AllPages/TableProjet'
 // import { Sidebar } from '../dashBoardSponsor/index'
 
 export default function AllProjets() {

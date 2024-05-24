@@ -83,7 +83,7 @@ export default function Donnation() {
                                           </div>
                                       </div>
                                       <div className="col-md-12">
-                                          <button className="btn btn-theme effect btn-md" type="submit">Faire un don maintenant</button>
+                                          <button className="btn btn-theme effect btn-md" type="submit">Financer un Projet maintenant</button>
                                       </div>
                                   </div>
                               </form>

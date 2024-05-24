@@ -11,7 +11,7 @@ export default function HeaderTop() {
                         <div className="col-lg-6 info">
                             <ul>
                                 <li>
-                                    <i className="fas fa-envelope-open"></i> Info@gmail.com
+                                    <i className="fas fa-envelope-open"></i> info@sotradons.com
                                 </li>
                                 <li>
                                     <i className="fas fa-phone"></i> +243 456 7890

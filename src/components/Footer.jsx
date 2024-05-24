@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function Footer() {
   return (
@@ -14,7 +14,7 @@ export default function Footer() {
                       <div className="row">
                           <div className="col-lg-4 col-md-6 item">
                               <div className="f-item about">
-                                  <img src="assets/img/logo-light.png" alt="Logo" />
+                                  <img src="assets\img\Sotradons.png" alt="Logo" className="w-32 h-32 mx-auto" />
                                   <p>
                                       Happen active county. Winding morning am shyness evident to. Garrets because elderly new manners however one village she.
                                   </p>

@@ -19,7 +19,7 @@ export default function Header() {
                         {/* <!-- Start Atribute Navigation --> */}
                         <div className="attr-nav border-less">
                             <ul>
-                                <li className="button"><NavLink to ='/projet'><i className="fas fa-heart"></i>Project</NavLink></li>
+                                <li className="button"><NavLink to ='/projet'><i className="fas fa-heart"></i>Decouvrez les projets</NavLink></li>
                             </ul>
                         </div>
                         {/* <!-- End Atribute Navigation -->
@@ -39,26 +39,16 @@ export default function Header() {
                         <div className="ml-20 " id="navbar-menu">
                             <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
                                 <li className="dropdown">
-                                    <a href="#" className="dropdown-toggle active" data-toggle="dropdown" >Home</a>
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Son fonctionnement</a>
                                     <ul className="dropdown-menu">
-                                        <li><a href="index.html">Home Version One</a></li>
-                                        <li><a href="index-2.html">Home Version Two</a></li>
-                                        <li><a href="index-3.html">Home Version Three</a></li>
-                                        <li><a href="index-4.html">Home Version Four</a></li>
+                                        <li><a href="#">Son fonctionnement</a></li>
+                                        <li><a href="#">Social Bonds</a></li>
+                                        <li><a href="#">Collecter des fonds</a></li>
+                                        <li><a href="#">Comment Devenir un Sponsor</a></li>
                                     </ul>
                                 </li>
                                 <li className="dropdown">
-                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Pages</a>
-                                    <ul className="dropdown-menu">
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="volunteer.html">Voluntter</a></li>
-                                        <li><a href="our-mission.html">Our Mission</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="404.html">Error Page</a></li>
-                                    </ul>
-                                </li>
-                                <li className="dropdown">
-                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Donations</a>
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Démarrer un projet</a>
                                     <ul className="dropdown-menu">
                                         <li><a href="donation-1.html">Donations Version One</a></li>
                                         <li><a href="donation-2.html">Donations Version Two</a></li>
@@ -66,13 +56,13 @@ export default function Header() {
                                         <li><a href="donation-single.html">Donations Single</a></li>
                                     </ul>
                                 </li>
-                                <li className="dropdown">
+                                {/* <li className="dropdown">
                                     <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Event</a>
                                     <ul className="dropdown-menu">
                                         <li><a href="event-1.html">Event Version One</a></li>
                                         <li><a href="event-2.html">Event Version Two</a></li>
                                     </ul>
-                                </li>
+                                </li> */}
                                 <li className="dropdown">
                                     <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Blog</a>
                                     <ul className="dropdown-menu">

@@ -11,7 +11,7 @@ export default function OurMission() {
                                     <img src="assets/img/Sotradons.jpg" alt="Thumb" />
                                 </div>
                                 <div className="thumb-2">
-                                    <img src="assets/img/Sotradons.jpg" alt="Thumb" />
+                                    <img src="assets\img\media\Photo _ Neil Palmer (CIAT) Flickr CC.jpeg" alt="Thumb" />
                                     <a href="https://youtu.be/KgMJ3-RByMA?t=1434" className="popup-youtube light video-play-button item-center">
                                         <i className="fa fa-play"></i>
                                     </a>
@@ -21,7 +21,7 @@ export default function OurMission() {
                         <div className="col-lg-6 info">
                             <h5>Our Mission</h5>
                             <h2 className="text-blur">Mission</h2>
-                            <h2 className="area-title">Nous croyons que nous pouvons sauver plus de vies avec vous.</h2>
+                            <h2 className="area-title">Faciliter le lien entre les grandes entreprises et les initiatives sociales innovantes</h2>
                             <p>
                             Leur fin toute entière la fit commencer. Se comporta le réconfort une autre quinzaine de manger. La partialité fit découvrir sa propre demande pianoforte croissante. Donc, mr retard à puisque lieu entier au-dessus des miles.
                             </p>

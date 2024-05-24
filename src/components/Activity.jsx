@@ -10,7 +10,7 @@ export default function Activity() {
                           <div className="site-heading text-center">
                               <h5>Ce que l'on fait</h5>
                               <h2>
-                              Nous faisons des dons à des causes caritatives <br /> dans le monde entier.
+                              Faciliter la connexion entre les grandes entreprises et les initiatives sociales innovantes <br/> pour un changement positif
                               </h2>
                               <div className="heading-divider"></div>
                           </div>

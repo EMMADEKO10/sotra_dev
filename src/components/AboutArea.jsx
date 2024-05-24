@@ -75,9 +75,9 @@ export default function AboutArea() {
                       <div className="col-lg-6 info">
                           <h5>Qui sommes-nous</h5>
                           <h2 className="text-blur">à propos</h2>
-                          <h2 className="area-title">Faciliter le lien entre les grandes entreprises et les initiatives sociales innovantes</h2>
+                          <h2 className="area-title">La RSE Market Place by Gouvernix</h2>
                           <p>
-                          Les principes voyageant souvent de loin ravissent son acceptation particulière. Le bonheur nécessaire contenait l’empressement dans l’admission commandée. Sa sollicitude était loin de lui causer des difficultés persistantes favorables. Elle ne doutait pas non plus de l’offre de la veuve consciente de la mort. Nous pourrons chanter tous les deux.
+                          est conçue comme un marché où les prestataires sociaux soumettent leurs projets à la fondation Sara pour évaluation.
                           </p>
                           <p>
                           Notre plateforme vise à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en offrant un site web dédié au soutien de ces initiatives essentielles.

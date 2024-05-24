@@ -32,73 +32,73 @@ export default function GalleryArea() {
                                       <div id="portfolio-grid" className="gallery-items colums-3">
                                           <div className="pf-item">
                                               <div className="item-inner">
-                                                  <img src="assets/img/800x800.png" alt="Thumb" />
+                                              <img src="assets/img/media/african-kid-marketplace.jpg" alt="Thumb" />
                                                   <div className="overlay">
                                                       <h4><a href="#">Nourriture servie</a></h4>
                                                       <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
-                                                      <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
+                                                  <a href="assets/img/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
                                                   </div>
                                               </div>
                                           </div>
                                           <div className="pf-item wide">
                                               <div className="item-inner">
-                                                  <img src="assets/img/800x800.png" alt="Thumb" />
+                                              <img src="assets/img/media/african-kid-marketplace.jpg" alt="Thumb" />
                                                   <div className="overlay">
                                                       <h4><a href="#">Collecte d’eau</a></h4>
                                                       <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
-                                                      <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
+                                                  <a href="assets/img/media/2-students-in-World-Bank-ACEESD.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
                                                   </div>
                                               </div>
                                           </div>
                                           <div className="pf-item">
                                               <div className="item-inner">
-                                                  <img src="assets/img/800x800.png" alt="Thumb" />
+                                              <img src="assets/img/media/l’éducation.jpg" alt="Thumb" />
                                                   <div className="overlay">
                                                       <h4><a href="#">Don de sang</a></h4>
                                                       <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
-                                                      <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
+                                                  <a href="assets/img/media/african-kid-marketplace.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
                                                   </div>
                                               </div>
                                           </div>
                                           <div className="pf-item">
                                               <div className="item-inner">
-                                                  <img src="assets/img/800x800.png" alt="Thumb" />
+                                              <img src="assets/img/media/Photo _ Neil Palmer (CIAT) Flickr CC.jpeg" alt="Thumb" />
                                                   <div className="overlay">
                                                       <h4><a href="#">Education des enfants</a></h4>
                                                       <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
-                                                      <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
+                                                  <a href="assets/img/media/people-repairing-computer-chips.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
                                                   </div>
                                               </div>
                                           </div>
                                           <div className="pf-item">
                                               <div className="item-inner">
-                                                  <img src="assets/img/800x800.png" alt="Thumb" />
+                                              <img src="assets/img/media/l’eau pour tous.jpg" alt="Thumb" />
                                                   <div className="overlay">
                                                       <h4><a href="#">Aident les sans-abri</a></h4>
                                                       <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
-                                                      <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
+                                                  <a href="assets/img/media/l’éducation.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
                                                   </div>
                                               </div>
                                           </div>
                                           <div className="pf-item">
                                               <div className="item-inner">
-                                                  <img src="assets/img/800x800.png" alt="Thumb" />
+                                              <img src="assets/img/media/medium-shot-woman-posing-outdoors.jpg" alt="Thumb" />
                                                   <div className="overlay">
                                                       <h4><a href="#">Reconstruire la maison</a></h4>
                                                       <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
-                                                      <a href="assets/img/800x800.png" className="item popup-link"><i className="fa fa-plus"></i></a>
+                                                  <a href="assets/img/media/side-view-people-doing-pottery.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
                                                   </div>
                                               </div>
                                           </div>

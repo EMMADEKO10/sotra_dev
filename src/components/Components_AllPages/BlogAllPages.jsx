@@ -1,6 +1,6 @@
 // import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
-import Table from '../../components/Components_AllPages/TableProjet'
+// import Table from '../../components/Components_AllPages/TableProjet'
 import { useState } from 'react';
 
 export default function BlogAllPages() {
@@ -29,7 +29,7 @@ export default function BlogAllPages() {
 
     </div>
     {/* <!-- End Blog --> */}
-          {isListProjet ? (<BlogArea />):( <Table />)}
+          {isListProjet ? (<BlogArea />) : (<BlogArea />)}
 
     </div>
   )
@@ -48,7 +48,7 @@ function BlogArea(){
                                     <div className="item wow fadeInUp" data-wow-delay="500ms">
                                         <div className="thumb">
                                             <a href="#">
-                                                <img src="assets/img/800x600.png" alt="Thumb" />
+                                                <img src="assets/img/media/Photo _ Neil Palmer (CIAT) Flickr CC.jpeg" alt="Thumb" />
                                             </a>
                                         </div>
                                         <div className="info">
@@ -67,8 +67,8 @@ function BlogArea(){
                                             </h4>
                                             <div className='flex flex-col'>
                                                 <a className="btn circle btn-theme border btn-sm" href="#">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                                <a className="btn circle btn-theme border btn-sm" href="#">Modifier </a>
-                                                <a className="btn circle btn-theme border btn-sm" href="#">Supprimer </a>
+                                                {/* <a className="btn circle btn-theme border btn-sm" href="#">Modifier </a>
+                                                <a className="btn circle btn-theme border btn-sm" href="#">Supprimer </a> */}
                                             </div>
 
                                         </div>
@@ -81,7 +81,7 @@ function BlogArea(){
                                     <div className="item wow fadeInUp" data-wow-delay="600ms">
                                         <div className="thumb">
                                             <a href="#">
-                                                <img src="assets/img/800x600.png" alt="Thumb" />
+                                                <img src="assets/img/media/medium-shot-woman-posing-outdoors.jpg" alt="Thumb" />
                                             </a>
                                         </div>
                                         <div className="info">
@@ -108,7 +108,7 @@ function BlogArea(){
                                     <div className="item wow fadeInUp" data-wow-delay="700ms">
                                         <div className="thumb">
                                             <a href="#">
-                                                <img src="assets/img/800x600.png" alt="Thumb" />
+                                                <img src="assets/img/media/2-students-in-World-Bank-ACEESD.jpg" alt="Thumb" />
                                             </a>
                                         </div>
                                         <div className="info">
@@ -135,7 +135,7 @@ function BlogArea(){
                                     <div className="item wow fadeInUp" data-wow-delay="500ms">
                                         <div className="thumb">
                                             <a href="#">
-                                                <img src="assets/img/800x600.png" alt="Thumb" />
+                                                <img src="assets/img/media/l’éducation.jpg" alt="Thumb" />
                                             </a>
                                         </div>
                                         <div className="info">
@@ -162,7 +162,7 @@ function BlogArea(){
                                     <div className="item wow fadeInUp" data-wow-delay="600ms">
                                         <div className="thumb">
                                             <a href="#">
-                                                <img src="assets/img/800x600.png" alt="Thumb" />
+                                                <img src="assets/img/media/african-kid-marketplace.jpg" alt="Thumb" />
                                             </a>
                                         </div>
                                         <div className="info">
@@ -189,7 +189,7 @@ function BlogArea(){
                                     <div className="item wow fadeInUp" data-wow-delay="700ms">
                                         <div className="thumb">
                                             <a href="#">
-                                                <img src="assets/img/800x600.png" alt="Thumb" />
+                                                <img src="assets/img/media/professional-artisan-job-workshop.jpg" alt="Thumb" />
                                             </a>
                                         </div>
                                         <div className="info">

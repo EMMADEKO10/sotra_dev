@@ -1,0 +1,32 @@
+.custom-button {
+    background-color: #3bcf93;
+    border-color: #3bcf93;
+    color: #fff;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  
+  /* Hover effect */
+  .custom-button:hover {
+    background-color: #32b77b;
+    border-color: #32b77b;
+    color: #ffffff;
+  }
+  
+  /* Active/click effect */
+  .custom-button:active {
+    background-color: #28a067;
+    border-color: #28a067;
+    color: #ffffff;
+  }
+  
+  /* Disabled state */
+  .custom-button:disabled {
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
+    color: #8c8c8c;
+    cursor: not-allowed;
+  }
+  

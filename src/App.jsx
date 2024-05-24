@@ -3,9 +3,10 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import AllProjets from "./pages/Projets/AllProjets"
-import DashBoardAdmin from "./pages/dashBoardAdmin"
-import DashBoardPrestataire from "./pages/dashBoardPrestataire"
-import DashBoardSponsor from "./pages/dashBoardSponsor"
+import Profile from "./pages/Profile"
+// import DashBoardAdmin from "./pages/dashBoardAdmin"
+// import DashBoardPrestataire from "./pages/dashBoardPrestataire"
+// import DashBoardSponsor from "./pages/dashBoardSponsor"
 
 
 function App() {
@@ -18,9 +19,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/projet" element={<AllProjets />} />
-          <Route path="/admin" element={<DashBoardAdmin />} />
+          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/admin" element={<DashBoardAdmin />} />
           <Route path="/sponsor" element={<DashBoardSponsor />} />
-          <Route path="/admin" element={<DashBoardPrestataire />} />
+          <Route path="/admin" element={<DashBoardPrestataire />} /> */}
 
 
 

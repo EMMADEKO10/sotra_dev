@@ -1,79 +1,37 @@
-
+// import React from 'react';
 
 export default function Testimonials() {
-  return (
-    <>
-          <div className="testimonials-area carousel-shadow bg-gray default-padding">
-              <div className="container">
-                  <div className="row">
-                      <div className="col-lg-8 offset-lg-2">
-                          <div className="site-heading text-center">
-                              <h5>Testimonials</h5>
-                              <h2>
-                              Ce que les gens disent <br /> À propos de Sotradon
-                              </h2>
-                              <div className="heading-divider"></div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div className="container">
-                  <div className="row">
-                      <div className="col-lg-12">
-                          <div className="testimonial-items testimonial-carousel owl-carousel owl-theme">
-                              {/* <!-- Single Item  --> */}
-                              <div className="item">
-                                  <div className="info">
-                                      <div className="top-info">
-                                          <i className="flaticon-left-quote-1"></i>
-                                          <div className="provider">
-                                              <h4>Jeckey Pura</h4>
-                                              <span>bénévole</span>
-                                          </div>
-                                      </div>
-                                      <p>
-                                          Numerous indulged distance old law you. Total state as merit court green decay he. Steepest sex bachelor the may delicate its yourself. As he instantly on discovery concluded to. Open draw far pure miss felt say yet few sigh.
-                                      </p>
-                                  </div>
-                              </div>
-                              {/* <!-- End Single Item  -->
-                <!-- Single Item  --> */}
-                              <div className="item">
-                                  <div className="info">
-                                      <div className="top-info">
-                                          <i className="flaticon-left-quote-1"></i>
-                                          <div className="provider">
-                                              <h4>Benil Sraw</h4>
-                                              <span>Volunteer</span>
-                                          </div>
-                                      </div>
-                                      <p>
-                                          Numerous indulged distance old law you. Total state as merit court green decay he. Steepest sex bachelor the may delicate its yourself. As he instantly on discovery concluded to. Open draw far pure miss felt say yet few sigh.
-                                      </p>
-                                  </div>
-                              </div>
-                              {/* <!-- End Single Item  -->
-                <!-- Single Item  --> */}
-                              <div className="item">
-                                  <div className="info">
-                                      <div className="top-info">
-                                          <i className="flaticon-left-quote-1"></i>
-                                          <div className="provider">
-                                              <h4>Adam Blaur</h4>
-                                              <span>Volunteer</span>
-                                          </div>
-                                      </div>
-                                      <p>
-                                          Numerous indulged distance old law you. Total state as merit court green decay he. Steepest sex bachelor the may delicate its yourself. As he instantly on discovery concluded to. Open draw far pure miss felt say yet few sigh.
-                                      </p>
-                                  </div>
-                              </div>
-                              {/* <!-- End Single Item  --> */}
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-    </>
-  )
+    return (
+        <div className="testimonials-area bg-gray py-12">
+            <div className="container mx-auto px-4">
+                <h2 className="text-3xl font-bold text-center mb-8">Ce que les gens disent à propos de Sotradon</h2>
+                <div className="flex flex-col lg:flex-row lg:space-x-8">
+                    {/* Témoignage 1 */}
+                    <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-lg p-6 mb-6">
+                        <blockquote className="text-lg mb-4">
+                            Numerous indulged distance old law you. Total state as merit court green decay he. Steepest sex bachelor the may delicate its yourself.
+                        </blockquote>
+                        <cite className="text-sm font-bold">Jeckey Pura</cite>
+                        <span className="block text-xs">Bénévole</span>
+                    </div>
+                    {/* Témoignage 2 */}
+                    <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-lg p-6 mb-6">
+                        <blockquote className="text-lg mb-4">
+                            Numerous indulged distance old law you. Total state as merit court green decay he. Steepest sex bachelor the may delicate its yourself.
+                        </blockquote>
+                        <cite className="text-sm font-bold">Benil Sraw</cite>
+                        <span className="block text-xs">Volunteer</span>
+                    </div>
+                    {/* Témoignage 3 */}
+                    <div className="w-full lg:w-1/3 bg-white rounded-lg shadow-lg p-6 mb-6">
+                        <blockquote className="text-lg mb-4">
+                            Numerous indulged distance old law you. Total state as merit court green decay he. Steepest sex bachelor the may delicate its yourself.
+                        </blockquote>
+                        <cite className="text-sm font-bold">Adam Blaur</cite>
+                        <span className="block text-xs">Volunteer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }

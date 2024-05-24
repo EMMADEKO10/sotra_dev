@@ -5,7 +5,7 @@ export default function Donnation() {
     <>
           <div className="donation-area text-light bg-gray default-padding">
               {/* <!-- Fixed BG--> */}
-              {/* <div className="fixed-bg" style={{ backgroundImage: 'url(assets/img/2440x1578.png)' }}></div> */}
+              <div className="fixed-bg" style={{ backgroundImage: "url('assets/img/blogs/side-view-people-chatting-work.jpg')" }}></div> 
 
               {/* <!-- End Fixed BG--> */}
               <div className="container">
@@ -22,7 +22,7 @@ export default function Donnation() {
                               </div>
                               <div className="info">
                                   <h5>Vous avez des questions sur les dons? </h5>
-                                  <span>Appelez maintenant : +243 3456789</span>
+                                  <span>Appelez maintenant: +2433456789</span>
                               </div>
                           </div>
                       </div>
@@ -63,7 +63,7 @@ export default function Donnation() {
                                           <div className="form-group">
                                               <div className="row">
                                                   <div className="col-sm-12">
-                                                      <label htmlFor="expMonth">Date d'expiration</label>
+                                                      <label htmlFor="expMonth">Date d expiration</label>
                                                   </div>
                                               </div>
                                               <div className="row">

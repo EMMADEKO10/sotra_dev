@@ -1,4 +1,4 @@
-import {Form, Input, Button} from 'antd'
+import { Form, Input, Button } from 'antd'
 import { Link, useNavigate } from 'react-router-dom';
 import Divider from '../../components/Divider';
 import { useState } from 'react';
@@ -23,24 +23,29 @@ function Login() {
       console.log('Received values of form: ', password, email);
 
       const response = await axios.post(`${DATA_URL}/login`, { password, email });
-      console.log("voici la reponse",response.data)
+      console.log("voici la reponse", response.data.token)
+
+      localStorage.setItem("token", response.data.token)
+      // window.location.href = "/";
+
+      
       // Ajoutez ici la logique pour gérer la réponse de votre backend
       if (response.status === 201) { // Check for successful registration response
         setIsRegistrationSuccessful(true);
-        setSuccessMessage('Connexion réussie !'); // Set success message
+        setSuccessMessage('Connexion réussie ! :', isRegistrationSuccessful, successMessage); // Set success message
         // Optionally, perform other actions like clearing the form
 
         // After a short delay, redirect to the homepage
         setTimeout(() => {
           navigate('/');
-        }, 3000); // Replace 2000 with desired delay in milliseconds
+        }); // Replace 2000 with desired delay in milliseconds
       } else {
         // Handle unsuccessful registration (e.g., display error message)
       }
     } catch (error) {
       if (error.response) {
         // Erreur avec réponse du serveur
-        console.error('Erreur de réponse du serveur:', error.response.data);
+        console.error('Erreur de réponse du serveur:', error.response);
 
       } else {
         // Erreur de configuration ou autre
@@ -48,7 +53,7 @@ function Login() {
       }
     }
 
-// -------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------
 
   }
 
@@ -64,6 +69,12 @@ function Login() {
       mismatch: '${label} n\'est pas valide',
     },
   };
+
+  // useEffect(()=>{
+  //   if (localStorage.getItem("token")) {
+  //     navigate("/");
+  //   }
+  // }, [navigate]);
 
 
   return (

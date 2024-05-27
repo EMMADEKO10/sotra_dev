@@ -27,7 +27,7 @@ function Register() {
       // Ajoutez ici la logique pour gérer la réponse de votre backend
       if (response.status === 201) { // Check for successful registration response
         setIsRegistrationSuccessful(true);
-        setSuccessMessage('Inscription réussie !'); // Set success message
+        setSuccessMessage('Inscription réussie !', isRegistrationSuccessful, successMessage); // Set success message
         // Optionally, perform other actions like clearing the form
 
         // After a short delay, redirect to the homepage

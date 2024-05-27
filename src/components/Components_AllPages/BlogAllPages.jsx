@@ -1,237 +1,139 @@
-// import React from 'react'
-import MenuIcon from '@mui/icons-material/Menu';
-// import Table from '../../components/Components_AllPages/TableProjet'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-export default function BlogAllPages() {
-    const [isListProjet, setIsListProjet] = useState(false)
-    
-    function handleClickIconList(){
-        setIsListProjet(!isListProjet)
-    }
-  return (
-    <div>
-      {/* <!-- Start Blog
-    ============================================= --> */}
-    <div className="block blog-area full-blog blog-standard full-blog grid-colum mt-10  pr-20">
-              {/* Barre de recherche */}
-              <div className="input-group mb-3 mr-20 items-center justify-center flex gap-10 pr-10">
-                  <span className="input-group-text">
-                      <i className="bi bi-search"></i>
-                  </span>
-                  <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Rechercher un projet ..."
-                  />
-                  <MenuIcon onClick={handleClickIconList} className=''/>
-              </div>
+export default function Blog() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentProject, setCurrentProject] = useState(null);
+    // const navigate = useNavigate();
 
-    </div>
-    {/* <!-- End Blog --> */}
-          {isListProjet ? (<BlogArea />) : (<BlogArea />)}
+    useEffect(() => {
+        if (isModalOpen) {
+            // Désactiver le défilement
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Réactiver le défilement
+            document.body.style.overflow = 'auto';
+        }
 
-    </div>
-  )
-}
+        // Nettoyage à la fermeture du composant
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isModalOpen]);
 
-function BlogArea(){
-    return(
-        <div>
-            <div className="container">
-                <div className="blog-items content-less">
-                    <div className="blog-content">
-                        <div className="blog-item-box">
-                            <div className="row">
-                                {/* <!-- Single Item --> */}
-                                <div className="col-lg-4 col-md-6 single-item">
+    const openModal = (project) => {
+        setCurrentProject(project);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setCurrentProject(null);
+    };
+
+    const handleFinanceClick = () => {
+        closeModal();
+        // navigate(`/project/${currentProject.id}`);
+    };
+
+    const projects = [
+        {
+            id: 1,
+            title: 'Lasting out end article express fortune demands own charmed',
+            imgSrc: 'assets/img/media/Photo _ Neil Palmer (CIAT) Flickr CC.jpeg',
+            tags: ['Poor', 'Health'],
+            date: '05 Dec, 2020',
+            author: 'Park Lee'
+        },
+        {
+            id: 2,
+            title: 'Surprise steepest recurred landlord mr wandered',
+            imgSrc: 'assets/img/media/medium-shot-woman-posing-outdoors.jpg',
+            tags: ['Education', 'Donate'],
+            date: '26 Sep, 2020',
+            author: 'Park Lee'
+        },
+        // Ajoutez plus de projets ici si nécessaire
+    ];
+
+    return (
+        <div className="container">
+            <div className="blog-items content-less">
+                <div className="blog-content">
+                    <div className="blog-item-box">
+                        <div className="row">
+                            {projects.map((project) => (
+                                <div key={project.id} className="col-lg-4 col-md-6 single-item">
                                     <div className="item wow fadeInUp" data-wow-delay="500ms">
                                         <div className="thumb">
-                                            <a href="#">
-                                                <img src="assets/img/media/Photo _ Neil Palmer (CIAT) Flickr CC.jpeg" alt="Thumb" />
+                                            <a href="#" onClick={() => openModal(project)}>
+                                                <img src={project.imgSrc} alt="Thumb" />
                                             </a>
                                         </div>
                                         <div className="info">
                                             <div className="tags">
-                                                <a href="#">Poor</a>
-                                                <a href="#">Health</a>
+                                                {project.tags.map(tag => (
+                                                    <a key={tag} href="#">{tag}</a>
+                                                ))}
                                             </div>
                                             <div className="meta">
                                                 <ul>
-                                                    <li><i className="fas fa-calendar-alt"></i> 05 Dec, 2020</li>
-                                                    <li>By <a href="#">Park Lee</a></li>
+                                                    <li><i className="fas fa-calendar-alt"></i> {project.date}</li>
+                                                    <li>By <a href="#">{project.author}</a></li>
                                                 </ul>
                                             </div>
                                             <h4>
-                                                <a href="#">Lasting out end article express fortune demands own charmed</a>
+                                                <a href="#" onClick={() => openModal(project)}>{project.title}</a>
                                             </h4>
                                             <div className='flex flex-col'>
-                                                <a className="btn circle btn-theme border btn-sm" href="#">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                                {/* <a className="btn circle btn-theme border btn-sm" href="#">Modifier </a>
-                                                <a className="btn circle btn-theme border btn-sm" href="#">Supprimer </a> */}
+                                                <a className="btn circle btn-theme border btn-sm" href="#" onClick={() => openModal(project)}>Read More <i className="fas fa-long-arrow-alt-right"></i></a>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
-                                {/* <!-- End Single Item -->
-                            <!-- Single Item --> */}
-                            
-                                <div className="col-lg-4 col-md-6 single-item">
-                                    <div className="item wow fadeInUp" data-wow-delay="600ms">
-                                        <div className="thumb">
-                                            <a href="#">
-                                                <img src="assets/img/media/medium-shot-woman-posing-outdoors.jpg" alt="Thumb" />
-                                            </a>
-                                        </div>
-                                        <div className="info">
-                                            <div className="tags">
-                                                <a href="#">Education</a>
-                                                <a href="#">Donate</a>
-                                            </div>
-                                            <div className="meta">
-                                                <ul>
-                                                    <li><i className="fas fa-calendar-alt"></i> 26 Sep, 2020</li>
-                                                    <li>By <a href="#">Park Lee</a></li>
-                                                </ul>
-                                            </div>
-                                            <h4>
-                                                <a href="#">Surprise steepest recurred landlord mr wandered</a>
-                                            </h4>
-                                            <a className="btn circle btn-theme border btn-sm" href="#">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- End Single Item -->
-                            <!-- Single Item --> */}
-                                <div className="col-lg-4 col-md-6 single-item">
-                                    <div className="item wow fadeInUp" data-wow-delay="700ms">
-                                        <div className="thumb">
-                                            <a href="#">
-                                                <img src="assets/img/media/2-students-in-World-Bank-ACEESD.jpg" alt="Thumb" />
-                                            </a>
-                                        </div>
-                                        <div className="info">
-                                            <div className="tags">
-                                                <a href="#">Water</a>
-                                                <a href="#">Pure</a>
-                                            </div>
-                                            <div className="meta">
-                                                <ul>
-                                                    <li><i className="fas fa-calendar-alt"></i> 18 Nov, 2020</li>
-                                                    <li>By <a href="#">Park Lee</a></li>
-                                                </ul>
-                                            </div>
-                                            <h4>
-                                                <a href="#">Old insipidity motionless continuing law shy partiality.</a>
-                                            </h4>
-                                            <a className="btn circle btn-theme border btn-sm" href="#">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- End Single Item -->
-                            <!-- Single Item --> */}
-                                <div className="col-lg-4 col-md-6 single-item">
-                                    <div className="item wow fadeInUp" data-wow-delay="500ms">
-                                        <div className="thumb">
-                                            <a href="#">
-                                                <img src="assets/img/media/l’éducation.jpg" alt="Thumb" />
-                                            </a>
-                                        </div>
-                                        <div className="info">
-                                            <div className="tags">
-                                                <a href="#">Children</a>
-                                                <a href="#">Help</a>
-                                            </div>
-                                            <div className="meta">
-                                                <ul>
-                                                    <li><i className="fas fa-calendar-alt"></i> 30 Dec, 2020</li>
-                                                    <li>By <a href="#">John</a></li>
-                                                </ul>
-                                            </div>
-                                            <h4>
-                                                <a href="#">Inquietude simplicity terminated she compliment</a>
-                                            </h4>
-                                            <a className="btn circle btn-theme border btn-sm" href="#">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- End Single Item -->
-                            <!-- Single Item --> */}
-                                <div className="col-lg-4 col-md-6 single-item">
-                                    <div className="item wow fadeInUp" data-wow-delay="600ms">
-                                        <div className="thumb">
-                                            <a href="#">
-                                                <img src="assets/img/media/african-kid-marketplace.jpg" alt="Thumb" />
-                                            </a>
-                                        </div>
-                                        <div className="info">
-                                            <div className="tags">
-                                                <a href="#">Africa</a>
-                                                <a href="#">School</a>
-                                            </div>
-                                            <div className="meta">
-                                                <ul>
-                                                    <li><i className="fas fa-calendar-alt"></i> 05 Dec, 2020</li>
-                                                    <li>By <a href="#">Park Lee</a></li>
-                                                </ul>
-                                            </div>
-                                            <h4>
-                                                <a href="#">Lasting out end article express fortune demands own charmed</a>
-                                            </h4>
-                                            <a className="btn circle btn-theme border btn-sm" href="#">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- End Single Item -->
-                            <!-- Single Item --> */}
-                                <div className="col-lg-4 col-md-6 single-item">
-                                    <div className="item wow fadeInUp" data-wow-delay="700ms">
-                                        <div className="thumb">
-                                            <a href="#">
-                                                <img src="assets/img/media/professional-artisan-job-workshop.jpg" alt="Thumb" />
-                                            </a>
-                                        </div>
-                                        <div className="info">
-                                            <div className="tags">
-                                                <a href="#">Child</a>
-                                                <a href="#">Health</a>
-                                            </div>
-                                            <div className="meta">
-                                                <ul>
-                                                    <li><i className="fas fa-calendar-alt"></i> 26 Sep, 2020</li>
-                                                    <li>By <a href="#">Park Lee</a></li>
-                                                </ul>
-                                            </div>
-                                            <h4>
-                                                <a href="#">Surprise steepest recurred landlord mr wandered.</a>
-                                            </h4>
-                                            <a className="btn circle btn-theme border btn-sm" href="#">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- End Single Item --> */}
-                            </div>
-
-                            {/* <!-- Pagination --> */}
-                            <div className="row">
-                                <div className="col-md-12 pagi-area text-center">
-                                    <nav aria-label="navigation">
-                                        <ul className="pagination">
-                                            <li className="page-item"><a className="page-link" href="#"><i className="fas fa-angle-double-left"></i></a></li>
-                                            <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                            <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                            <li className="page-item"><a className="page-link" href="#"><i className="fas fa-angle-double-right"></i></a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
+
+            {isModalOpen && currentProject && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4 sm:mx-auto sm:w-3/4 md:w-1/2 max-h-screen overflow-y-auto">
+                        <h2 className="text-2xl font-bold mb-4">{currentProject.title}</h2>
+                        <img src={currentProject.imgSrc} alt="Project" className="w-full mb-4" />
+                        <form>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+                                    Montant à payer
+                                </label>
+                                <input
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="amount"
+                                    type="number"
+                                    placeholder="Entrez le montant"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <NavLink to={`/project/${currentProject.id}`}><button onClick={handleFinanceClick}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    type="button"
+                                >
+                                    Financer
+                                </button></NavLink>
+                                <button
+                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    type="button"
+                                    onClick={closeModal}
+                                >
+                                    Fermer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
-    )
+    );
 }

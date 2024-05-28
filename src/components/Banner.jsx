@@ -1,4 +1,9 @@
+import ProjectsForm from "../pages/Profile/Projects/ProjectsForm";
+import React from "react";
+
 export default function Banner() {
+    const [showProjectForm, setShowProjectForm] = React.useState(false);
+
     return (
         <>
             <div className="banner-area inc-shape inc-indicator content-less text-large">
@@ -31,9 +36,12 @@ export default function Banner() {
                                                 <div className="content">
                                                     <h4 data-animation="animated slideInDown">Votre innovation mérite d'être vue</h4>
                                                     <h2 data-animation="animated slideInRight">Transformez vos idées<strong>en réalisations concrètes</strong></h2>
-                                                    <a data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" href="#">Démarrer un projets</a>
+
+                                                    <a onClick={() => setShowProjectForm(!showProjectForm)} data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" >Démarrer un projets</a>
                                                 </div>
                                             </div>
+                                            {showProjectForm && <ProjectsForm showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />}
+
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +57,8 @@ export default function Banner() {
                                                 <div className="content">
                                                     <h4 data-animation="animated slideInDown">Investissez dans l'avenir</h4>
                                                     <h2 data-animation="animated slideInRight">Transformez votre portefeuille avec<strong>des investissements durables</strong></h2>
-                                                    <a data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" href="#">Découvrez les Projets</a>
+                                                    
+                                                    <a onClick={() => setShowProjectForm(!showProjectForm)} data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" >Démarrer un projets</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -17,11 +17,23 @@ export default function Header() {
                     <div className="container-full">
 
                         {/* <!-- Start Atribute Navigation --> */}
-                        <div className="attr-nav border-less">
-                            <ul>
-                                <li className="button"><NavLink to ='/projet'><i className="fas fa-heart"></i>Decouvrez les projets</NavLink></li>
+                        <div className="flex justify-center items-center attr-nav border-less content-center text-center gap-4">
+                            <ul className="flex  items-center justify-center ">
+                                <li className="button"><NavLink to='/projet'><i className="fas fa-heart"></i>Decouvrez les projets</NavLink></li>
                             </ul>
+                            <div className="text-center w-[60px] h-[60px] mt-1 rounded-full flex items-center justify-center border border-black bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('assets/img/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg')" }}>
+                            </div>
+
+
                         </div>
+
+                        {/* <div className="flex items-center justify-center ">
+                            <ul className="flex  items-center justify-center ">
+                                <li className="button"><NavLink to='/projet'><i className="fas fa-heart"></i>Decouvrez les projets</NavLink></li>
+                            </ul>
+                            <div className="w-20 h-20 rounded-full flex items-center justify-center border border-black">  </div>
+
+                        </div> */}
                         {/* <!-- End Atribute Navigation -->
 
                 <!-- Start Header Navigation --> */}
@@ -29,9 +41,9 @@ export default function Header() {
                             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                                 <i className="fa fa-bars"></i>
                             </button>
-                            <NavLink to ='/'>
+                            <NavLink to='/'>
                                 <img width={90} height={90} src="assets/img/Sotradons (2).png" className="logo mt-1" alt="Logo" />
-                            </NavLink>      
+                            </NavLink>
                         </div>
                         {/* <!-- End Header Navigation -->
 

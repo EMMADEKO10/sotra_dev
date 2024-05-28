@@ -5,7 +5,7 @@ import Register from "./pages/Register"
 import AllProjets from "./pages/Projets/AllProjets"
 import Profile from "./pages/Profile"
 import Sponsorise from "./pages/Add_projet/Sponsorise"
-import ProtectedPage from "./components/Components_AllPages/ProtectedPage"
+// import ProtectedPage from "./components/Components_AllPages/ProtectedPage"
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"

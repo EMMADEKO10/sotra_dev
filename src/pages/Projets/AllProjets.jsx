@@ -4,31 +4,222 @@ import Header from '../../components/Header'
 import Breadcrumb from '../../components/Components_AllPages/Breadcrumb'
 import BlogAllPages from '../../components/Components_AllPages/BlogAllPages'
 import Footer from '../../components/Footer'
+import { useState } from 'react'
+import PropTypes from 'prop-types';
 // import Table from '../../components/Components_AllPages/TableProjet'
 // import { Sidebar } from '../dashBoardSponsor/index'
 
-export default function AllProjets() {
+const AllProjets = () => {
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const projects = [
+    {
+      id: 1,
+      nom: 'Projet A',
+      description: 'Description A',
+      montant: 1000,
+      duree: '6 mois'
+    },
+    {
+      id: 2,
+      nom: 'Projet B',
+      description: 'Description B',
+      montant: 2000,
+      duree: '12 mois'
+    },
+    // Ajoutez plus de projets ici
+  ];
+
+  const handleSearch = ({ searchTerm, minAmount, maxAmount, specificAmount }) => {
+    let results = projects;
+
+    if (searchTerm) {
+      results = results.filter(project =>
+        project.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (specificAmount) {
+      results = results.filter(project => project.montant == specificAmount);
+    }
+
+    if (minAmount && maxAmount) {
+      results = results.filter(project =>
+        project.montant >= minAmount && project.montant <= maxAmount
+      );
+    }
+
+    setFilteredProjects(results);
+  };
+
+  const handleSort = (field, order) => {
+    const sortedProjects = [...filteredProjects].sort((a, b) => {
+      if (order === 'asc') {
+        return a[field] > b[field] ? 1 : -1;
+      } else {
+        return a[field] < b[field] ? 1 : -1;
+      }
+    });
+    setFilteredProjects(sortedProjects);
+  };
+
   return (
     <div>
-      {/* <!-- Preloader Start --> */}
-      {/* <div className ="se-pre-con"></div> */}
-      {/* <!-- Preloader Ends --> */}
-
       <Header />
       <HeaderTop />
       <Breadcrumb />
       <div className='flex flex-row mb-10'>
-        {/* <Sidebar /> */}
-        {/* <AllItems /> */}
-        <div className='w-[25%]'></div>
-        <div className='m-10'><BlogAllPages /></div>
-        
+        <div className='w-[25%]'>
+          <SearchAndFilter onSearch={handleSearch} onSort={handleSort} />
+        </div>
+        <div className='flex-1 m-10'>
+          <BlogAllPages projects={filteredProjects.length ? filteredProjects : projects} />
+        </div>
       </div>
-      {/* <AllItems /> */}
       <Footer />
     </div>
-  )
-}
+  );
+};
+export default AllProjets;
+// -------------------------------------------------------------
+
+
+
+const SearchAndFilter = ({ onSearch, onSort }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [minAmount, setMinAmount] = useState('');
+  const [maxAmount, setMaxAmount] = useState('');
+  const [specificAmount, setSpecificAmount] = useState('');
+  const [sortField, setSortField] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
+
+  const handleSearch = () => {
+    onSearch({ searchTerm, minAmount, maxAmount, specificAmount });
+  };
+
+  const handleSort = (field) => {
+    const order = sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortField(field);
+    setSortOrder(order);
+    onSort(field, order);
+  };
+
+  return (
+    <div className="p-4 bg-gray-100 rounded-lg shadow-md space-y-4">
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700">Rechercher par mot-clé</label>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700">Rechercher par montant spécifique</label>
+        <input
+          type="number"
+          value={specificAmount}
+          onChange={(e) => setSpecificAmount(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700">Rechercher par tranche de montant</label>
+        <div className="flex space-x-2">
+          <input
+            type="number"
+            placeholder="Min"
+            value={minAmount}
+            onChange={(e) => setMinAmount(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200"
+          />
+          <input
+            type="number"
+            placeholder="Max"
+            value={maxAmount}
+            onChange={(e) => setMaxAmount(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200"
+          />
+        </div>
+      </div>
+
+      <button
+        onClick={handleSearch}
+        className="mt-2 w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+      >
+        Rechercher
+      </button>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700">Trier par</label>
+        <div className="space-y-2">
+          <button
+            onClick={() => handleSort('nom')}
+            className="w-full bg-white text-gray-700 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200"
+          >
+            Nom {sortField === 'nom' && (sortOrder === 'asc' ? '↑' : '↓')}
+          </button>
+          <button
+            onClick={() => handleSort('duree')}
+            className="w-full bg-white text-gray-700 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200"
+          >
+            Durée {sortField === 'duree' && (sortOrder === 'asc' ? '↑' : '↓')}
+          </button>
+          <button
+            onClick={() => handleSort('montant')}
+            className="w-full bg-white text-gray-700 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-200"
+          >
+            Montant {sortField === 'montant' && (sortOrder === 'asc' ? '↑' : '↓')}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+
+
+SearchAndFilter.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

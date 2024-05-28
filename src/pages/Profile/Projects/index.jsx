@@ -77,7 +77,7 @@ function Projects() {
     },
     {
       title: "Durée",
-      dataIndex: "duration", // Assurez-vous que le dataIndex correspond aux données
+      dataIndex: "duree", // Assurez-vous que le dataIndex correspond aux données
       key: "duration",
     },
     {
@@ -102,22 +102,15 @@ function Projects() {
 
  
   return (
-    <div>
-      <div className="flex justify-end">
-        <Button
-          type="default"
-          className="custom-button"
-          onClick={() => setShowProjectForm(true)}
-        >
+    <div className="container mx-auto p-4 bg-gray-50 min-h-screen">
+      <div className="flex justify-end mb-4">
+        <Button type="default" className="custom-button" onClick={() => setShowProjectForm(true)}>
           Ajouter un Projet
         </Button>
       </div>
       <Table columns={columns} dataSource={projects} rowKey="id" />
       {showProjectForm && (
-        <ProjectsForm
-          showProjectForm={showProjectForm}
-          setShowProjectForm={setShowProjectForm}
-        />
+        <ProjectsForm showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />
       )}
     </div>
   );

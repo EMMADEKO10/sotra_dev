@@ -22,7 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/projet" element={<AllProjets />} />
-          <Route path="/profile" element={<ProtectedPage ><Profile /></ProtectedPage>} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/project/:id" element={<Sponsorise />} />
           {/* <Route path="/admin" element={<DashBoardAdmin />} />
           <Route path="/sponsor" element={<DashBoardSponsor />} />

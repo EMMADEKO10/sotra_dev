@@ -1,43 +1,47 @@
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
+import Navbar from '../../components/Navbars/NavBar'
 
 const OneProjet = () => {
 
     const collectedAmount = 500; // Montant collecté
     const targetAmount = 1000; // Objectif
     return (
-        <div className="flex shadow-sm gap-5 lg:ml-24 lg:mr-24">
-            <div className="w-[60%] p-4 shadow">
-                <div className=' shadow-lg'>
-                    <div className="mb-[100px]">
-                        <img src="assets/img/media/2-students-in-World-Bank-ACEESD.jpg" alt="" />
+        <div>
+            <Navbar />
+            <div className="flex shadow-sm gap-5 lg:ml-24 lg:mr-24 ">
+                <div className="w-[60%] p-4 shadow">
+                    <div className=' shadow-lg'>
+                        <div className="mb-[100px]">
+                            <img src="assets/img/media/2-students-in-World-Bank-ACEESD.jpg" alt="" />
+                        </div>
+
+                        <div>
+
+                            <ShareInfo />
+                            <ArticleHeader />
+                            <hr className="block h-0.5 my-2 mt-2 bg-gray-200 border-none" />
+                            <UserProfile />
+                        </div>
                     </div>
 
-                    <div>
-                        
-                        <ShareInfo />
-                        <ArticleHeader />
-                        <hr className="block h-0.5 my-2 mt-2 bg-gray-200 border-none" />
-                        <UserProfile />
-                    </div>
                 </div>
-
-            </div>
-            <div className="w-[35%] shadow-sm">
+                <div className="w-[35%] shadow-sm">
 
 
-                <FundingProgressBar />
+                    <FundingProgressBar />
 
-                <div className="container mx-auto p-4">
-                    <h1 className="text-2xl mb-4">Progression du projet</h1>
-                    <div className="flex items-center justify-center bg-gray-50">
-                        <ProgressBar collected={collectedAmount} target={targetAmount} />
+                    <div className="container mx-auto p-4">
+                        <h1 className="text-2xl mb-4">Progression du projet</h1>
+                        <div className="flex items-center justify-center bg-gray-50">
+                            <ProgressBar collected={collectedAmount} target={targetAmount} />
+                        </div>
                     </div>
+
+                    <FundingInfo />
+
                 </div>
-
-                <FundingInfo />
-
             </div>
         </div>
     )
@@ -142,7 +146,7 @@ function FundingProgressBar() {
                     </div>
                 </div>
             </div>
-            
+
             <ShareButton />
 
             <div className="bg-gray-100 p-3 rounded-lg mt-6 md:hidden">

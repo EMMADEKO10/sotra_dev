@@ -4,6 +4,7 @@ import ProjectsForm from "./ProjectsForm";
 import React, { useEffect } from "react";
 import axios from "axios"; // Importer axios
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 // import ProjectsDeux from "./essaie";
 
 function Projects() {
@@ -18,7 +19,7 @@ function Projects() {
         const response = await axios.get("http://localhost:3700/api/projects");
         console.log("voici la reponse", response.data)
         setDataProjet(response.data)
-        setProjects(response.data); 
+        setProjects(response.data);
         console.log(response.data)
         // Ajoutez ici la logique pour gérer la réponse de votre backend
         if (response.status === 201) { // Check for successful registration response
@@ -108,7 +109,7 @@ function Projects() {
           Ajouter un Projet
         </Button>
       </div>
-      <Table columns={columns} dataSource={projects} rowKey="id" />
+      <Table columns={columns} dataSource={projects} rowKey="id" key = {uuidv4()}/>
       {showProjectForm && (
         <ProjectsForm showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />
       )}

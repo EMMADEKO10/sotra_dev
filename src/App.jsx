@@ -5,6 +5,7 @@ import Register from "./pages/Register"
 import AllProjets from "./pages/Projets/AllProjets"
 import Profile from "./pages/Profile"
 import Sponsorise from "./pages/Add_projet/Sponsorise"
+import OneProjet from "./pages/Projets/OneProjet"
 // import ProtectedPage from "./components/Components_AllPages/ProtectedPage"
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -24,6 +25,9 @@ function App() {
           <Route path="/projet" element={<AllProjets />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/project/:id" element={<Sponsorise />} />
+          <Route path="/oneprojet" element={<OneProjet />} />
+
+          
           {/* <Route path="/admin" element={<DashBoardAdmin />} />
           <Route path="/sponsor" element={<DashBoardSponsor />} />
           <Route path="/admin" element={<DashBoardPrestataire />} /> */}

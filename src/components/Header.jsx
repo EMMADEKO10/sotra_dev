@@ -1,9 +1,4 @@
-// import React from 'react'
-
 import { NavLink } from "react-router-dom"
-
-// import logo from '../../../source/assets/img/Sotradons A.svg';
-
 
 
 export default function Header() {
@@ -12,28 +7,21 @@ export default function Header() {
             <header id="home">
 
                 {/* <!-- Start Navigation --> */}
-                <nav className="navbar navbar-default navbar-sticky bootsnav">
+                <nav className="navbar navbar-default navbar-sticky bg-white shadow-lg">
 
                     <div className="container-full">
 
                         {/* <!-- Start Atribute Navigation --> */}
                         <div className="flex justify-center items-center attr-nav border-less content-center text-center gap-4">
-                            <ul className="flex  items-center justify-center ">
+                            <ul className="flex items-center justify-center ">
                                 <li className="button"><NavLink to='/projet'><i className="fas fa-heart"></i>Decouvrez les projets</NavLink></li>
                             </ul>
-                            <div className="text-center w-[60px] h-[60px] mt-1 rounded-full flex items-center justify-center border border-black bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('assets/img/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg')" }}>
-                            </div>
+                            {/* <div className="text-center w-[60px] h-[60px] mt-1 rounded-full flex items-center justify-center border border-black bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('assets/img/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg')" }}>
+                            </div> */}
 
 
                         </div>
 
-                        {/* <div className="flex items-center justify-center ">
-                            <ul className="flex  items-center justify-center ">
-                                <li className="button"><NavLink to='/projet'><i className="fas fa-heart"></i>Decouvrez les projets</NavLink></li>
-                            </ul>
-                            <div className="w-20 h-20 rounded-full flex items-center justify-center border border-black">  </div>
-
-                        </div> */}
                         {/* <!-- End Atribute Navigation -->
 
                 <!-- Start Header Navigation --> */}
@@ -68,13 +56,7 @@ export default function Header() {
                                         <li><a href="donation-single.html">Donations Single</a></li>
                                     </ul>
                                 </li>
-                                {/* <li className="dropdown">
-                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Event</a>
-                                    <ul className="dropdown-menu">
-                                        <li><a href="event-1.html">Event Version One</a></li>
-                                        <li><a href="event-2.html">Event Version Two</a></li>
-                                    </ul>
-                                </li> */}
+
                                 <li className="dropdown">
                                     <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Blog</a>
                                     <ul className="dropdown-menu">

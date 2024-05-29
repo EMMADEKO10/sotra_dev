@@ -14,6 +14,7 @@ import Testimonials from "../../components/Testimonials"
 import GalleryArea from "../../components/GalleryArea"
 import Blog from "../../components/Blog"
 import Footer from "../../components/Footer"
+import NavBar from "../../components/Navbars/NavBar"
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -28,11 +29,10 @@ function Home() {
             {/* <!-- Preloader Ends --> */}
 
             <HeaderTop />
-
             {/* // <!-- Header 
     // ============================================= -->  */}
-
-            <Header />
+        <NavBar />
+            {/* <Header /> */}
 
             {/* <!-- End Header -->
 

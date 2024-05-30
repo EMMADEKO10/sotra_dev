@@ -40,29 +40,23 @@ const Navbar = () => {
             <ul className="flex flex-row justify-between items-center bg-white p-4 uppercase">
                 {[
                     {
-                        title: "Formations",
-                        subItems: [ "Bootcamp carrière", "Kadea Boost", "Kadea Online","Certificat Executive",],
+                        title: "Projets",
+                        subItems: [ "Découvrer les projets", "Démarrer un projet",],
                     },
 
-                    { 
-                        title: "Campus", 
-                        subItems: ["Kinshasa", "Goma", "Lubumbashi"] 
-                    },
 
                     {
-                        title: "Découvrir",
-                        subItems: [ "À propos","Emploi à la clé","Réalisations","Carrière","Frais académiques",],
+                        title: "Info",
+                        subItems: [ "Devenir prestataire","Social bonds","Charte","Blog",],
                     },
                     {
-                        title: "Entreprises",
-                        subItems: ["Mentor4Job", "Kadea Software"],
+                        title: "Sponsor",
+                        subItems: ["Nos sponsors", "Devenir sponsor"],
                     },
                     {
-                        title: "Vodacom Lab",
-                        subItems: ["Vodacom Digital Lab", "Kadea Online"],
+                        title: "Sotradons",
+                        subItems: ["À propos", "Vision et Mission", "Contact"],
                     },
-                    { title: "Communauté", 
-                    subItems: ["State of Dev"] },
 
                 ].map((item, index) => (
                     <li key={index} className="px-3 py-4 whitespace-nowrap uppercase relative">
@@ -91,7 +85,7 @@ const Navbar = () => {
             {/* Call action */}
             <div className="w-full xs:hidden flex items-right justify-between py-2">
             <a
-                href="https://forms.fillout.com/t/kb72R3kuNfus"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="whitespace-nowrap"
@@ -100,7 +94,7 @@ const Navbar = () => {
                 className="bg-primary hover:bg-white hover:text-primary text-white border-primary border-2 flex flex-row items-center ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
                 type="button"
                 >
-                <span>Inscris-toi</span>
+                <span>Connexion</span>
                 </button>
             </a>
             </div>

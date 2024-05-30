@@ -1,0 +1,25 @@
+/* CSS */
+.sotradons {
+    font-size: 2rem; /* Utilisation de vw (viewport width) pour la taille de police */
+    font-weight: bold;
+    letter-spacing: 0.1rem; 
+    /* text-transform: uppercase; */
+    /* font-family: 'Arial', sans-serif; */
+}
+
+/* Couleurs pour chaque lettre avec animation */
+.s { color: #FFC107; animation: colorChange 2s infinite alternate; }
+.o { color: #4CAF50; animation: colorChange 2s infinite alternate; }
+.t { color: #9C27B0; animation: colorChange 2s infinite alternate; }
+.r { color: #F44336; animation: colorChange 2s infinite alternate; }
+.a { color: #8BC34A; animation: colorChange 2s infinite alternate; }
+.d { color: #2196F3; animation: colorChange 2s infinite alternate; }
+.n { color: #9E9E9E; animation: colorChange 2s infinite alternate; }
+.s { color: #FF9800; animation: colorChange 2s infinite alternate; }
+
+/* Animation de changement de couleur */
+@keyframes colorChange {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+

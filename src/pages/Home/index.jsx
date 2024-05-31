@@ -46,6 +46,12 @@ function Home() {
             <AboutArea />
             {/* <!-- End About Area -->
 
+      <!-- Start Causes 
+    ============================================= --> */}
+            <Causes />
+            {/* <!-- End Causes -->
+
+            
       <!-- Start What We Do 
     ============================================= --> */}
             <Activity />
@@ -55,10 +61,6 @@ function Home() {
     ============================================= --> */}
             <OurMission />
             {/* <!-- End Our Mission -->
-      <!-- Start Causes 
-    ============================================= --> */}
-            <Causes />
-            {/* <!-- End Causes -->
 
 
       <!-- Start Volunteer 

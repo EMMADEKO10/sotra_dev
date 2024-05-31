@@ -3,7 +3,7 @@
 export default function Activity() {
   return (
     <>
-          <div className="we-do-area half-bg default-padding bottom-less bg-gray">
+          <div className="we-do-area half-bg default-padding bottom-less ">
               <div className="container">
                   <div className="row">
                       <div className="col-lg-8 offset-lg-2">

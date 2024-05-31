@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import axios from "axios";
 
+
 export default function ProtectedPage({ children }) {
     const [user, setUser] = useState(null)
     const navigate = useNavigate();
@@ -22,7 +23,8 @@ export default function ProtectedPage({ children }) {
 
         const validateToken = async () => {
             try {
-                const response = await axios.get("http://localhost:3700/api/currentuser", config);
+                const apiUrl = import.meta.env.VITE_API_URL;
+                const response = await axios.get(`${apiUrl}/currentuser`, config);
                 console.log("Reussite totale", response.data.message )
 
                 if (response.data.message) {

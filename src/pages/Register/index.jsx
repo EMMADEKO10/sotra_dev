@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import Navbar from '../../components/Navbars/NavBar';
 
-const DATA_URL = "http://localhost:3700/api";
 
 function Register() {
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
@@ -16,8 +15,10 @@ function Register() {
     console.log('Received values of form: ', value);
 
     try {
-      const { name, email, password } = value;
-      const response = await axios.post(`${DATA_URL}/users`, { name, email, password });
+      const {name, email, password} = value
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${apiUrl}/users`, { name, email, password });
+      
 
       if (response.status === 201) {
         setIsRegistrationSuccessful(true);

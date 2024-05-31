@@ -5,7 +5,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../components/Navbars/NavBar';
 
-const DATA_URL = "http://localhost:3700/api";
 
 function Login() {
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
@@ -16,8 +15,12 @@ function Login() {
     console.log('Received values of form: ', value);
 
     try {
-      const { email, password } = value;
-      const response = await axios.post(`${DATA_URL}/login`, { password, email });
+      const { email, password } = value
+      const apiUrl = import.meta.env.VITE_API_URL;
+      console.log('Received values of form: ', password, email);
+
+      const response = await axios.post(`${apiUrl}/login`, { password, email });
+      console.log("voici la reponse", response.data.token)
 
       localStorage.setItem("token", response.data.token);
 
@@ -99,7 +102,7 @@ function Login() {
 
             <div className='text-center'>
               <span className='text-gray-500'>
-                Vous n'avez pas de compte ? <Link to="/register" className="text-[#3bcf93] hover:text-[#34b684]">S'inscrire</Link>
+                Vous n avez pas de compte ? <Link to="/register" className="text-[#3bcf93] hover:text-[#34b684]">S inscrire</Link>
               </span>
             </div>
           </Form>

@@ -2,11 +2,41 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../../components/Navbars/NavBar'
+import { useState,useEffect } from 'react';
+import { Upload, Button,  } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 const OneProjet = () => {
 
     const collectedAmount = 500; // Montant collecté
     const targetAmount = 1000; // Objectif
+
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0]; // Get the first file
+        if (file) {
+            setSelectedImage(file); // Update the state with the selected file
+        }
+    };
+
+    const [selectedImageURL, setSelectedImageURL] = useState(null);
+
+    useEffect(() => {
+        if (selectedImage) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setSelectedImageURL(event.target.result); // Set the base64 URL in state
+            };
+            reader.readAsDataURL(selectedImage);
+        }
+    }, [selectedImage]);
+
+    // Display the image using the base64 URL
+    { selectedImageURL && <img src={selectedImageURL} alt="Selected Image" /> }
+
+
+
     return (
         <div>
             <Navbar />
@@ -15,7 +45,14 @@ const OneProjet = () => {
                     <div className=' shadow-lg'>
                         <div className="mb-[100px]">
                             <img src="assets/img/media/2-students-in-World-Bank-ACEESD.jpg" alt="" />
+                            <div className=''><input type="file" className='' hidden />Edit BackGround</div>
+                        
+                            <Upload accept=".jpg,.jpeg,.png" multiple onChange={handleImageUpload}>
+                                <Button icon={<UploadOutlined />}>Télécharger les images</Button>
+                            </Upload>
+
                         </div>
+
 
                         <div>
 

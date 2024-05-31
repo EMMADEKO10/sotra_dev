@@ -3,7 +3,7 @@ import HeaderTop from '../../components/HeaderTop'
 import Breadcrumb from '../../components/Components_AllPages/Breadcrumb'
 import BlogAllPages from '../../components/Components_AllPages/BlogAllPages'
 import Footer from '../../components/Footer'
-import { useState } from 'react'
+import { useState, } from 'react'
 import PropTypes from 'prop-types';
 import Navbar from '../../components/Navbars/NavBar'
 // import Table from '../../components/Components_AllPages/TableProjet'
@@ -28,6 +28,8 @@ const AllProjets = () => {
     },
     // Ajoutez plus de projets ici
   ];
+
+ 
 
   const handleSearch = ({ searchTerm, minAmount, maxAmount, specificAmount }) => {
     let results = projects;
@@ -179,7 +181,6 @@ const SearchAndFilter = ({ onSearch, onSort }) => {
     </div>
   );
 };
-
 
 
 

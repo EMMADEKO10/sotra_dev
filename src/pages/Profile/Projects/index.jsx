@@ -1,15 +1,14 @@
 import { Button, Table } from "antd";
 import "../../../assets/Projects.css";
 import ProjectsForm from "./ProjectsForm";
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import axios from "axios"; 
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-// import ProjectsDeux from "./essaie";
 
 function Projects() {
-  const [projects, setProjects] = React.useState([]);
-  const [showProjectForm, setShowProjectForm] = React.useState(false);
+  const [projects, setProjects] = useState([]);
+  const [showProjectForm, setShowProjectForm] = useState(false);
   const [dataProject, setDataProjet] = useState(null);
 
   useEffect(() => {
@@ -17,54 +16,42 @@ function Projects() {
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${apiUrl}/projects`);
-        console.log("voici la reponse", response.data)
-        setDataProjet(response.data)
+        console.log("voici la reponse", response.data);
+        setDataProjet(response.data);
         setProjects(response.data);
-        console.log(response.data)
-        // Ajoutez ici la logique pour gérer la réponse de votre backend
-        if (response.status === 201) { // Check for successful registration response
-          console.log('Connexion réussie ! :')
-
-        } else {
-          // Handle unsuccessful registration (e.g., display error message)
-        }
       } catch (error) {
         if (error.response) {
-          // Erreur avec réponse du serveur
           console.error('Erreur de réponse du serveur:', error.response);
-
         } else {
-          // Erreur de configuration ou autre
           console.error('Erreur lors de la requête:', error.message);
         }
       }
-
     };
-    fetchData(); // Call the function to fetch data
-  }, []); // Empty dependency array ensures the effect runs only once
-
-  // -----------------------------------------------------------------------------------
+    fetchData();
+  }, []);
 
   if (!dataProject) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
-
 
   const columns = [
     {
-      title: "Name",
+      title: "Nom",
       dataIndex: "nom",
       key: "name",
+      responsive: ['md'], // Column will only show on md and larger screens
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      responsive: ['lg'],
     },
     {
       title: "Montant Recherché",
       dataIndex: "montant",
       key: "amountSought",
+      responsive: ['md'],
     },
     {
       title: "Montant Reçu",
@@ -78,7 +65,7 @@ function Projects() {
     },
     {
       title: "Durée",
-      dataIndex: "duree", // Assurez-vous que le dataIndex correspond aux données
+      dataIndex: "duree",
       key: "duration",
     },
     {
@@ -91,8 +78,10 @@ function Projects() {
       dataIndex: "action",
       key: "action",
       render: (_, record) => (
-        <Button onClick={() => handleEdit(record)}>Edit</Button>
-      ), // Exemple de bouton d'action
+        <Button onClick={() => handleEdit(record)} type="primary">
+          Edit
+        </Button>
+      ),
     },
   ];
 
@@ -101,15 +90,23 @@ function Projects() {
     console.log(record);
   };
 
- 
   return (
     <div className="container mx-auto p-4 bg-gray-50 min-h-screen">
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Projects</h1>
         <Button type="default" className="custom-button" onClick={() => setShowProjectForm(true)}>
           Ajouter un Projet
         </Button>
       </div>
-      <Table columns={columns} dataSource={projects} rowKey="id" key = {uuidv4()}/>
+      <Table 
+        columns={columns} 
+        dataSource={projects} 
+        rowKey="id" 
+        key={uuidv4()} 
+        className="bg-white rounded-lg shadow-sm"
+        pagination={{ pageSize: 5 }} 
+        responsive
+      />
       {showProjectForm && (
         <ProjectsForm showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />
       )}

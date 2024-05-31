@@ -1,11 +1,13 @@
 // import React from 'react'
 import HeaderTop from '../../components/HeaderTop'
-import Header from '../../components/Header'
 import Breadcrumb from '../../components/Components_AllPages/Breadcrumb'
 import BlogAllPages from '../../components/Components_AllPages/BlogAllPages'
 import Footer from '../../components/Footer'
 import { useState, } from 'react'
 import PropTypes from 'prop-types';
+import Navbar from '../../components/Navbars/NavBar'
+// import Table from '../../components/Components_AllPages/TableProjet'
+// import { Sidebar } from '../dashBoardSponsor/index'
 
 const AllProjets = () => {
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -65,8 +67,8 @@ const AllProjets = () => {
 
   return (
     <div>
-      <Header />
       <HeaderTop />
+      <Navbar/>
       <Breadcrumb />
       <div className='flex flex-row mb-10'>
         <div className='w-[25%]'>
@@ -179,7 +181,6 @@ const SearchAndFilter = ({ onSearch, onSort }) => {
     </div>
   );
 };
-
 
 
 

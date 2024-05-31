@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function HeaderTop() {
     return (
@@ -22,10 +23,10 @@ export default function HeaderTop() {
                             <div className="info">
                                 <ul>
                                     <li>
-                                        <a href="#">Login</a>
+                                        <Link to="/login">Connexion</Link>
                                     </li>
                                     <li>
-                                        <a href="#">Register</a>
+                                        <Link to="/register">S'inscrire</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -52,7 +53,7 @@ export default function HeaderTop() {
                     </div>
                 </div>
             </div>
-             {/* <!-- End Header Top --> */}
-    </div>
-  )
+            {/* <!-- End Header Top --> */}
+        </div>
+    )
 }

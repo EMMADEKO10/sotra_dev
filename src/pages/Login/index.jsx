@@ -5,9 +5,6 @@ import { useState } from 'react';
 import axios from 'axios';
 
 
-const DATA_URL = "http://localhost:3700/api"
-
-
 function Login() {
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -19,10 +16,10 @@ function Login() {
 
     try {
       const { email, password } = value
-
+      const apiUrl = import.meta.env.VITE_API_URL;
       console.log('Received values of form: ', password, email);
 
-      const response = await axios.post(`${DATA_URL}/login`, { password, email });
+      const response = await axios.post(`${apiUrl}/login`, { password, email });
       console.log("voici la reponse", response.data.token)
 
       localStorage.setItem("token", response.data.token)

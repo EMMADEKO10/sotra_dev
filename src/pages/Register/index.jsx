@@ -4,25 +4,19 @@ import Divider from '../../components/Divider';
 import axios from 'axios';
 import { useState } from 'react';
 
-
-
-
 function Register() {
 
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
-  // const DATA_URL = import.meta.env.DATA_URL;
-
-  const DATA_URL = "http://localhost:3700/api"
-
   const onFinish = async (value) => {
     console.log('Received values of form: ', value);
     // Par exemple, vous pouvez convertir l'objet en JSON
     try {
       const {name, email, password} = value
-      const response = await axios.post(`${DATA_URL}/users`, { name, email, password });
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${apiUrl}/users`, { name, email, password });
 
       // Ajoutez ici la logique pour gérer la réponse de votre backend
       if (response.status === 201) { // Check for successful registration response

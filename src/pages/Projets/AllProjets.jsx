@@ -4,10 +4,8 @@ import Header from '../../components/Header'
 import Breadcrumb from '../../components/Components_AllPages/Breadcrumb'
 import BlogAllPages from '../../components/Components_AllPages/BlogAllPages'
 import Footer from '../../components/Footer'
-import { useState } from 'react'
+import { useState, } from 'react'
 import PropTypes from 'prop-types';
-// import Table from '../../components/Components_AllPages/TableProjet'
-// import { Sidebar } from '../dashBoardSponsor/index'
 
 const AllProjets = () => {
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -28,6 +26,8 @@ const AllProjets = () => {
     },
     // Ajoutez plus de projets ici
   ];
+
+ 
 
   const handleSearch = ({ searchTerm, minAmount, maxAmount, specificAmount }) => {
     let results = projects;

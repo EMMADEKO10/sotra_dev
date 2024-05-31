@@ -37,8 +37,9 @@ const [dataProject, setDataProjet] = useState(null);
     const fetchData = async () => {
 
       try {
-        // const response = await axios.get(`${DATA_URL}/projects`);
-        const response = await axios.get("http://localhost:3700/api/projects");
+        const apiUrl = import.meta.env.VITE_API_URL;
+
+        const response = await axios.get(`${apiUrl}/projects`);
         console.log("voici la reponse", response.data)
         setDataProjet(response.data)
         console.log(response.data)

@@ -6,7 +6,7 @@ import AllProjets from "./pages/Projets/AllProjets"
 import Profile from "./pages/Profile"
 import Sponsorise from "./pages/Add_projet/Sponsorise"
 import OneProjet from "./pages/Projets/OneProjet"
-import Contact from "./pages/Contact"
+import Contact from "./pages/Info/Contact"
 // import ProtectedPage from "./components/Components_AllPages/ProtectedPage"
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"

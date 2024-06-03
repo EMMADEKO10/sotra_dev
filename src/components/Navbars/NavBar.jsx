@@ -43,7 +43,7 @@ const Navbar = () => {
       subItems: [
         { name: "À propos", link: "#" },
         { name: "Vision et Mission", link: "#" },
-        { name: "Contact", link: "#" }
+        { name: "Contact", link: "/contact" }
       ],
     },
   ];

@@ -25,7 +25,7 @@ function Home() {
     return (
         <>
             {/* <!-- Preloader Start --> */}
-            <div className="se-pre-con"></div>
+            {/* <div className="se-pre-con"></div> */}
             {/* <!-- Preloader Ends --> */}
 
             <HeaderTop />

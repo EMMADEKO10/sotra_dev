@@ -8,6 +8,7 @@ import Sponsorise from "./pages/Add_projet/Sponsorise";
 import OneProjet from "./pages/Projets/OneProjet";
 import Contact from "./pages/Info/Contact";
 import About from "./pages/Info/About";
+import NosSponsorts from "./pages/Info/NosSponsorts";
 
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -30,6 +31,7 @@ function App() {
           <Route path="/oneprojet" element={<OneProjet />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/nossponsorts" element={<NosSponsorts />} />
 
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />

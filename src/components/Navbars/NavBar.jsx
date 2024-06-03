@@ -42,7 +42,7 @@ const Navbar = () => {
       title: "Sotradons",
       subItems: [
         { name: "À propos", link: "#" },
-        { name: "Vision et Mission", link: "#" },
+        { name: "Vision et Mission", link: "/about" },
         { name: "Contact", link: "/contact" }
       ],
     },

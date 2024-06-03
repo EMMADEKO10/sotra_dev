@@ -1,13 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import AllProjets from "./pages/Projets/AllProjets"
-import Profile from "./pages/Profile"
-import Sponsorise from "./pages/Add_projet/Sponsorise"
-import OneProjet from "./pages/Projets/OneProjet"
-import Contact from "./pages/Info/Contact"
-// import ProtectedPage from "./components/Components_AllPages/ProtectedPage"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import AllProjets from "./pages/Projets/AllProjets";
+import Profile from "./pages/Profile";
+import Sponsorise from "./pages/Add_projet/Sponsorise";
+import OneProjet from "./pages/Projets/OneProjet";
+import Contact from "./pages/Info/Contact";
+import About from "./pages/Info/About";
+
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
@@ -28,6 +29,7 @@ function App() {
           <Route path="/project/:id" element={<Sponsorise />} />
           <Route path="/oneprojet" element={<OneProjet />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
 
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />

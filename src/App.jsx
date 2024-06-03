@@ -6,6 +6,7 @@ import AllProjets from "./pages/Projets/AllProjets"
 import Profile from "./pages/Profile"
 import Sponsorise from "./pages/Add_projet/Sponsorise"
 import OneProjet from "./pages/Projets/OneProjet"
+import Contact from "./pages/Contact"
 // import ProtectedPage from "./components/Components_AllPages/ProtectedPage"
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -26,6 +27,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/project/:id" element={<Sponsorise />} />
           <Route path="/oneprojet" element={<OneProjet />} />
+          <Route path="/contact" element={<Contact />} />
 
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />

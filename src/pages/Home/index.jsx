@@ -1,7 +1,7 @@
 
 // import './App.css'
 import HeaderTop from "../../components/HeaderTop"
-import Header from "../../components/Header"
+// import Header from "../../components/Header"
 import Banner from "../../components/Banner"
 import AboutArea from "../../components/AboutArea"
 import Activity from "../../components/Activity"
@@ -25,18 +25,18 @@ function Home() {
     return (
         <>
             {/* <!-- Preloader Start --> */}
-            <div className="se-pre-con"></div>
+            {/* <div className="se-pre-con"></div> */}
             {/* <!-- Preloader Ends --> */}
 
             <HeaderTop />
-            {/* // <!-- Header 
+            {/* // <!-- Header
     // ============================================= -->  */}
         <NavBar />
             {/* <Header /> */}
 
             {/* <!-- End Header -->
 
-      <!-- Start Banner 
+      <!-- Start Banner
     ============================================= --> */}
             <Banner />
             {/* <!-- End Banner -->
@@ -46,54 +46,54 @@ function Home() {
             <AboutArea />
             {/* <!-- End About Area -->
 
-      <!-- Start Causes 
+      <!-- Start Causes
     ============================================= --> */}
             <Causes />
             {/* <!-- End Causes -->
 
-            
-      <!-- Start What We Do 
+
+      <!-- Start What We Do
     ============================================= --> */}
             <Activity />
             {/* <!-- End What We Do -->
 
-      <!-- Start Our Mission 
+      <!-- Start Our Mission
     ============================================= --> */}
             <OurMission />
             {/* <!-- End Our Mission -->
 
 
-      <!-- Start Volunteer 
+      <!-- Start Volunteer
     ============================================= --> */}
             <Volunteer />
             {/* <!-- End Volunteer -->
 
-      <!-- Start Event Area 
+      <!-- Start Event Area
     ============================================= --> */}
             <EventArea />
             {/* <!-- End Event Area --> */}
-            {/* 
-      <!-- Start Donation 
+            {/*
+      <!-- Start Donation
     ============================================= --> */}
             <Donnation />
             {/* <!-- End Donation Area -->
 
-      <!-- Start Testimonials 
+      <!-- Start Testimonials
     ============================================= --> */}
             <Testimonials />
             {/* <!-- End Testimonials Area -->
 
-      <!-- Start Gallery 
+      <!-- Start Gallery
     ============================================= --> */}
             <GalleryArea />
             {/* <!-- End Gallery Area -->
 
-      <!-- Start Blog 
+      <!-- Start Blog
     ============================================= --> */}
             <Blog />
             {/* <!-- End Blog Area -->
 
-      <!-- Start Footer 
+      <!-- Start Footer
     ============================================= --> */}
             <Footer />
             {/* <!-- End Footer --> */}

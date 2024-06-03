@@ -6,12 +6,26 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
 
+  const userConnect = localStorage.getItem("user")
+
   const toggleDropdown = (index) => {
     setDropdownOpen(dropdownOpen === index ? null : index);
   };
 
   const toggleMobileDropdown = (index) => {
     setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
+  };
+
+
+  const logout = () => {
+    // Remove the token from localStorage or sessionStorage
+    localStorage.removeItem('token');
+
+    // Optionally, you can clear other user-related data
+    localStorage.removeItem('user');
+
+    // Redirect to the login page
+    window.location.href = '/login';
   };
 
   const navItems = [
@@ -110,15 +124,36 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="hidden md:block">
-          <Link to="/login">
-            <button
-              className="bg-primary hover:bg-white hover:text-primary text-white border-primary border-2 flex flex-row items-center ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
-              type="button"
-            >
-              <span>Connexion</span>
-            </button>
-          </Link>
+        <div className="flex gap-6">
+
+          {userConnect && <div className="hidden md:block">
+            <Link to="/">
+              <button
+                className="bg-white border-green-700 hover:bg-white hover:text-primary text-black  border-2  flex-row ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
+                type="button"
+              >
+                <span>Mes Projets</span>
+              </button>
+            </Link>
+          </div>}
+          
+          <div className="hidden md:block">
+            <Link to="/login">
+              {!userConnect ? (<button
+                className="bg-primary hover:bg-white hover:text-primary text-white border-primary border-2  flex-row ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
+                type="button"
+              >
+                <span>Connexion</span> 
+              </button> ): (
+              <button onClick={logout}
+                className="bg-primary hover:bg-white hover:text-primary text-white border-primary border-2  flex-row ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
+                type="button"
+              >
+                <span>Deconnexion</span> </button>)}
+            </Link>
+          </div>
+
+         
         </div>
 
         <div className="flex flex-row justify-between items-center xl:hidden">
@@ -189,10 +224,18 @@ const Navbar = () => {
               </div>
             ))}
             <div className="py-2">
+
+              <Link to="/">
+                <button className="w-full bg-white hover:bg-white hover:text-primary text-black border-primary border-2 flex justify-center items-center px-4 py-2 rounded-md transition duration-200 ease-in-out">
+                  Mes projets
+                </button>
+              </Link>
+
               <Link to="/login">
                 <button className="w-full bg-primary hover:bg-white hover:text-primary text-white border-primary border-2 flex justify-center items-center px-4 py-2 rounded-md transition duration-200 ease-in-out">
                   Connexion
                 </button>
+
               </Link>
             </div>
           </div>

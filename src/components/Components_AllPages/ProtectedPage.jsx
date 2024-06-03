@@ -1,16 +1,17 @@
 // import React from 'react'
 import { message } from "antd";
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Navigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import axios from "axios";
+
 
 
 export default function ProtectedPage({ children }) {
     const [user, setUser] = useState(null)
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-
+    const [isTokenExist, SetIsTokenExist] = useState(false)
     
     useEffect(() => {
 
@@ -20,20 +21,18 @@ export default function ProtectedPage({ children }) {
             },
         };
 
-
         const validateToken = async () => {
             try {
                 const apiUrl = import.meta.env.VITE_API_URL;
                 const response = await axios.get(`${apiUrl}/currentuser`, config);
                 console.log("Reussite totale", response.data.message )
-
+                SetIsTokenExist(true)
                 if (response.data.message) {
                     setUser(response.data)
                     console.log("Reussite totale")
                     // navigate('/')
 
                 } else {
-                    navigate('/login')
                     message.error(response.data.message)
                 }
             } catch (error) {
@@ -43,13 +42,17 @@ export default function ProtectedPage({ children }) {
 
         if (localStorage.getItem("token")) {
             validateToken();
-            // navigate('/')
+          
 
         } else {
-            navigate('/login')
             message.error("please login to continue")
         }
     }, [navigate, token]);
+
+    if (isTokenExist) {
+        SetIsTokenExist(false)
+        return <Navigate to="/home" />;
+    }
 
   return (
     <div>

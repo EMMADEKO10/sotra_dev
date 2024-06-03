@@ -2,13 +2,10 @@ import { Form, Input, Button } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Divider from '../../components/Divider';
 import axios from 'axios';
-import { useState } from 'react';
 import Navbar from '../../components/Navbars/NavBar';
 
 
 function Register() {
-  const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   const onFinish = async (value) => {
@@ -21,8 +18,6 @@ function Register() {
       
 
       if (response.status === 201) {
-        setIsRegistrationSuccessful(true);
-        setSuccessMessage('Inscription réussie !');
 
         setTimeout(() => {
           navigate('/Login');

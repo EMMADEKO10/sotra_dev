@@ -5,10 +5,15 @@ import Navbar from '../../components/Navbars/NavBar';
 import { useState, useEffect } from 'react';
 import { Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import axios from 'axios'
+import { useParams } from 'react-router-dom';
+
 
 const OneProjet = () => {
-    const collectedAmount = 500; // Montant collecté
-    const targetAmount = 1000; // Objectif
+    const collectedAmount = 23000; // Montant collecté
+    const targetAmount = 230000; // Objectif
+    const [project, setProjects] = useState([]);
+    const { project_id } = useParams();
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedImageURL, setSelectedImageURL] = useState(null);
@@ -29,13 +34,48 @@ const OneProjet = () => {
         }
     }, [selectedImage]);
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const apiUrl = import.meta.env.VITE_API_URL;
+                const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
+                console.log("Voci l'api des images : ", ApiUrlImage)
+                console.log("Voci l'api des EndPoints : ", apiUrl)
+
+                const response = await axios.get(`${apiUrl}/projects/${project_id}`);
+                console.log("voici la reponse", response.data)
+                setProjects(response.data)
+                // Ajoutez ici la logique pour gérer la réponse de votre backend
+                if (response.status === 201) { // Check for successful registration response
+                    console.log('Connexion réussie ! :')
+
+                } else {
+                    // Handle unsuccessful registration (e.g., display error message)
+                }
+            } catch (error) {
+                if (error.response) {
+                    // Erreur avec réponse du serveur
+                    console.error('Erreur de réponse du serveur:', error.response);
+
+                } else {
+                    // Erreur de configuration ou autre
+                    console.error('Erreur lors de la requête:', error.message);
+                }
+            }
+
+        };
+        fetchData(); // Call the function to fetch data
+    }, [project_id, project]); // Empty dependency array ensures the effect runs only once
+
+
     return (
         <div>
             <Navbar />
             <div className="container mx-auto p-4 lg:flex lg:gap-5 lg:ml-24 lg:mr-24">
                 <div className="lg:w-3/5 p-4 shadow-lg mb-8 lg:mb-0">
                     <div className="relative mb-10">
-                        <img src="assets/img/media/2-students-in-World-Bank-ACEESD.jpg" alt="Project" className="w-full h-auto rounded-lg shadow-md" />
+                        <img src={`${import.meta.env.VITE_URL_IMAGE}${project.background}`} alt="Project" className="w-full h-auto rounded-lg shadow-md" />
                         <Upload accept=".jpg,.jpeg,.png" onChange={handleImageUpload} className="absolute top-2 right-2">
                             <Button icon={<UploadOutlined />}>Edit Background</Button>
                         </Upload>

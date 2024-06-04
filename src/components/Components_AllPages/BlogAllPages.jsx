@@ -5,40 +5,26 @@ import axios from 'axios'
 // import { ConnectingAirportsOutlined } from '@mui/icons-material';
 
 export default function Blog() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [currentProject, setCurrentProject] = useState(null);
+    // const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [currentProject, setCurrentProject] = useState(null);
     const [project, setProjects] = useState([]);
 
 
-    useEffect(() => {
-        if (isModalOpen) {
-            // Désactiver le défilement
-            document.body.style.overflow = 'hidden';
-        } else {
-            // Réactiver le défilement
-            document.body.style.overflow = 'auto';
-        }
+    
+    // const openModal = (project) => {
+    //     setCurrentProject(project);
+    //     setIsModalOpen(true);
+    // };
 
-        // Nettoyage à la fermeture du composant
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [isModalOpen]);
+    // const closeModal = () => {
+    //     setIsModalOpen(false);
+    //     setCurrentProject(null);
+    // };
 
-    const openModal = (project) => {
-        setCurrentProject(project);
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setCurrentProject(null);
-    };
-
-    const handleFinanceClick = () => {
-        closeModal();
-        // navigate(`/project/${currentProject.id}`);
-    };
+    // const handleFinanceClick = () => {
+    //     closeModal();
+    //     // navigate(`/project/${currentProject.id}`);
+    // };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,26 +64,7 @@ export default function Blog() {
     if (!project) {
         return <div>Loading...</div>;
     }
-   
-    // const projects = [
-    //     {
-    //         id: 1,
-    //         title: 'Lasting out end article express fortune demands own charmed',
-    //         imgSrc: 'assets/img/media/Photo _ Neil Palmer (CIAT) Flickr CC.jpeg',
-    //         tags: ['Poor', 'Health'],
-    //         date: '05 Dec, 2020',
-    //         author: 'Park Lee'
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'Surprise steepest recurred landlord mr wandered',
-    //         imgSrc: 'assets/img/media/medium-shot-woman-posing-outdoors.jpg',
-    //         tags: ['Education', 'Donate'],
-    //         date: '26 Sep, 2020',
-    //         author: 'Park Lee'
-    //     },
-    //     // Ajoutez plus de projets ici si nécessaire
-    // ];
+
 
     return (
         <div className="container">
@@ -107,11 +74,11 @@ export default function Blog() {
                         <div className="row">
                             {project.map((project) => (
                                 <div key={project._id} className="col-lg-4 col-md-6 single-item">
-                                    <NavLink to = '/oneprojet'>
+                                    <NavLink to={`/oneprojet/${project._id}`}>
                                         <div>
                                             <div className="item wow fadeInUp" data-wow-delay="500ms">
                                                 <div className="thumb">
-                                                    <a href="#" onClick={() => openModal(project)}>
+                                                    <a >
                                                         <img src={`${import.meta.env.VITE_URL_IMAGE}${project.background}`} alt={`${project.background}`} />
                                                     </a>
                                                 </div>
@@ -128,10 +95,10 @@ export default function Blog() {
                                                         </ul>
                                                     </div>
                                                     <h4>
-                                                        <a href="#" onClick={() => openModal(project)}>{project.description}</a>
+                                                        <a>{project.description}</a>
                                                     </h4>
                                                     <div className='flex flex-col'>
-                                                        <a className="btn circle btn-theme border btn-sm" href="#" onClick={() => openModal(project)}>Read More <i className="fas fa-long-arrow-alt-right"></i></a>
+                                                        <a className="btn circle btn-theme border btn-sm">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -144,44 +111,75 @@ export default function Blog() {
             </div>
         </div>
 
-            {
-        isModalOpen && currentProject && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4 sm:mx-auto sm:w-3/4 md:w-1/2 max-h-screen overflow-y-auto">
-                    <h2 className="text-2xl font-bold mb-4">{currentProject.title}</h2>
-                    <img src={currentProject.imgSrc} alt="Project" className="w-full mb-4" />
-                    <form>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
-                                Montant à payer
-                            </label>
-                            <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="amount"
-                                type="number"
-                                placeholder="Entrez le montant"
-                            />
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <NavLink to={`/project/${currentProject.id}`}><button onClick={handleFinanceClick}
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="button"
-                            >
-                                Financer
-                            </button></NavLink>
-                            <button
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="button"
-                                onClick={closeModal}
-                            >
-                                Fermer
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        )
-    }
+      
         </div >
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+//     isModalOpen && currentProject && (
+//         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+//             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4 sm:mx-auto sm:w-3/4 md:w-1/2 max-h-screen overflow-y-auto">
+//                 <h2 className="text-2xl font-bold mb-4">{currentProject.title}</h2>
+//                 <img src={currentProject.imgSrc} alt="Project" className="w-full mb-4" />
+//                 <form>
+//                     <div className="mb-4">
+//                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+//                             Montant à payer
+//                         </label>
+//                         <input
+//                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+//                             id="amount"
+//                             type="number"
+//                             placeholder="Entrez le montant"
+//                         />
+//                     </div>
+//                     <div className="flex items-center justify-between">
+//                         <NavLink to={`/project/${currentProject.id}`}><button onClick={handleFinanceClick}
+//                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+//                             type="button"
+//                         >
+//                             Financer
+//                         </button></NavLink>
+//                         <button
+//                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+//                             type="button"
+//                             onClick={closeModal}
+//                         >
+//                             Fermer
+//                         </button>
+//                     </div>
+//                 </form>
+//             </div>
+//         </div>
+//     )
+// }
+
+
+
+
+
+
+
+
+
+
+

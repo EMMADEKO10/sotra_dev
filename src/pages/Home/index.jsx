@@ -22,85 +22,85 @@ import NavBar from "../../components/Navbars/NavBar"
 function Home() {
 
 
-    return (
-        <>
-            {/* <!-- Preloader Start --> */}
-            {/* <div className="se-pre-con"></div> */}
-            {/* <!-- Preloader Ends --> */}
+      return (
+            <>
+                  {/* <!-- Preloader Start --> */}
+                  {/* <div className="se-pre-con"></div> */}
+                  {/* <!-- Preloader Ends --> */}
 
-            <HeaderTop />
-            {/* // <!-- Header
+                  <HeaderTop />
+                  {/* // <!-- Header
     // ============================================= -->  */}
-        <NavBar />
-            {/* <Header /> */}
+                  <NavBar />
+                  {/* <Header /> */}
 
-            {/* <!-- End Header -->
+                  {/* <!-- End Header -->
 
       <!-- Start Banner
     ============================================= --> */}
-            <Banner />
-            {/* <!-- End Banner -->
+                  <Banner />
+                  {/* <!-- End Banner -->
 
       <!-- Star About Area
     ============================================= --> */}
-            <AboutArea />
-            {/* <!-- End About Area -->
+                  <AboutArea />
+                  {/* <!-- End About Area -->
 
       <!-- Start Causes
     ============================================= --> */}
 
-            <Causes />
-            {/* <!-- End Causes -->
+                  <Causes />
+                  {/* <!-- End Causes -->
 
 
       <!-- Start What We Do
     ============================================= --> */}
-            <Activity />
-            {/* <!-- End What We Do -->
+                  <Activity />
+                  {/* <!-- End What We Do -->
 
       <!-- Start Our Mission
     ============================================= --> */}
-            <OurMission />
-            {/* <!-- End Our Mission -->
+                  <OurMission />
+                  {/* <!-- End Our Mission -->
 
 
       <!-- Start Volunteer
     ============================================= --> */}
-            <Volunteer />
-            {/* <!-- End Volunteer -->
+                  <Volunteer />
+                  {/* <!-- End Volunteer -->
 
       <!-- Start Event Area
     ============================================= --> */}
-            <EventArea />
-            {/* <!-- End Event Area --> */}
-            {/*
+                  <EventArea />
+                  {/* <!-- End Event Area --> */}
+                  {/*
       <!-- Start Donation
     ============================================= --> */}
-            <Donnation />
-            {/* <!-- End Donation Area -->
+                  <Donnation />
+                  {/* <!-- End Donation Area -->
 
       <!-- Start Testimonials
     ============================================= --> */}
-            <Testimonials />
-            {/* <!-- End Testimonials Area -->
+                  <Testimonials />
+                  {/* <!-- End Testimonials Area -->
 
       <!-- Start Gallery
     ============================================= --> */}
-            <GalleryArea />
-            {/* <!-- End Gallery Area -->
+                  <GalleryArea />
+                  {/* <!-- End Gallery Area -->
 
       <!-- Start Blog
     ============================================= --> */}
-            <Blog />
-            {/* <!-- End Blog Area -->
+                  <Blog />
+                  {/* <!-- End Blog Area -->
 
       <!-- Start Footer
     ============================================= --> */}
-            <Footer />
-            {/* <!-- End Footer --> */}
+                  <Footer />
+                  {/* <!-- End Footer --> */}
 
-        </>
-    )
+            </>
+      )
 }
 export default Home
 

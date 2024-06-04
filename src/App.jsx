@@ -28,7 +28,7 @@ function App() {
           <Route path="/projet" element={<AllProjets />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/project/:id" element={<Sponsorise />} />
-          <Route path="/oneprojet" element={<OneProjet />} />
+          <Route path="/oneprojet/:project_id" element={<OneProjet />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/nossponsorts" element={<NosSponsorts />} />

@@ -54,7 +54,7 @@ function Register() {
         <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              S'inscrire
+              S inscrire
             </h2>
             <Divider />
           </div>
@@ -116,7 +116,7 @@ function Register() {
 
             <Form.Item>
               <Button type="primary" htmlType="submit" block className="rounded-md bg-[#3bcf93] hover:bg-[#34b684] text-white">
-                S'inscrire
+                S inscrire
               </Button>
             </Form.Item>
 

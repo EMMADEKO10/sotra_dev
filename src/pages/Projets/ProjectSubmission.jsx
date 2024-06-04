@@ -138,17 +138,17 @@ const ProjectSubmission = () => {
                   {/* Documents à télécharger */}
                   <Title level={4} className="text-xl font-bold mb-4">Documents à télécharger</Title>
                   <Form.Item name="projectProposal" label="Proposition de projet complète" valuePropName="fileList" getValueFromEvent={(e) => e.fileList}>
-                    <Upload name="proposal" action="/upload.do" listType="pdf" maxCount={1}>
+                    <Upload name="proposal" action="/upload.do" listType="pdf" maxCount={1} accept=".pdf">
                       <Button icon={<UploadOutlined />}>Télécharger la proposition de projet</Button>
                     </Upload>
                   </Form.Item>
                   <Form.Item name="projectBudgetDetails" label="Budget détaillé" valuePropName="fileList" getValueFromEvent={(e) => e.fileList}>
-                    <Upload name="budget" action="/upload.do" listType="pdf" maxCount={1}>
+                    <Upload name="budget" action="/upload.do" listType="pdf" maxCount={1} accept=".pdf">
                       <Button icon={<UploadOutlined />}>Télécharger le budget détaillé</Button>
                     </Upload>
                   </Form.Item>
                   <Form.Item name="supportingDocuments" label="Documents justificatifs" valuePropName="fileList" getValueFromEvent={(e) => e.fileList}>
-                    <Upload name="documents" action="/upload.do" listType="pdf" multiple>
+                    <Upload name="documents" action="/upload.do" listType="pdf" multiple accept=".pdf">
                       <Button icon={<UploadOutlined />}>Télécharger les documents justificatifs</Button>
                     </Upload>
                   </Form.Item>

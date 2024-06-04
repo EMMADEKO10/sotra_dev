@@ -12,6 +12,11 @@ node_modules
 dist
 dist-ssr
 *.local
+views
+AdminNavbar.jsx
+DemoNavbar.jsx
+LoginNavbar.jsx
+Siedbar.jsx
 
 # Editor directories and files
 .vscode/*

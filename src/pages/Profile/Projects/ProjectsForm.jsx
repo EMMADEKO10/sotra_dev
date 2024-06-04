@@ -140,14 +140,6 @@ function ProjectsForm({ showProjectForm, setShowProjectForm }) {
               <Input.TextArea />
             </Form.Item>
 
-            <Row gutter={16}>
-              <Col span={8}>
-                <Form.Item label="Montant Recherché" name="montant" rules={[{ required: true, message: 'Veuillez entrer le montant recherché' }]}>
-                  <Input type="number" prefix="$" suffix="USD" />
-                </Form.Item>
-              </Col>
-
-              <Col span={8}>
                 <Form.Item label="Type de Projet" name="type_projet" rules={[{ required: true, message: 'Veuillez sélectionner le type de projet' }]}>
                   <Select>
                     <Option value="education_formation">Éducation et formation</Option>
@@ -172,7 +164,14 @@ function ProjectsForm({ showProjectForm, setShowProjectForm }) {
                     <Option value="sensibilisation_education_environnementale">Sensibilisation et éducation environnementale</Option>
                   </Select>
                 </Form.Item>
+
+            <Row gutter={16}>
+              <Col span={8}>
+                <Form.Item label="Montant Recherché" name="montant" rules={[{ required: true, message: 'Veuillez entrer le montant recherché' }]}>
+                  <Input type="number" prefix="$" suffix="USD" />
+                </Form.Item>
               </Col>
+
               <Col span={8}>
                 <Form.Item label="Durée" name="duration" rules={[{ required: true, message: 'Veuillez sélectionner la durée du projet' }]}>
                   <DatePicker picker="month" onChange={handleDateChange} />

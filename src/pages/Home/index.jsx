@@ -48,6 +48,7 @@ function Home() {
 
       <!-- Start Causes
     ============================================= --> */}
+
             <Causes />
             {/* <!-- End Causes -->
 

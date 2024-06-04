@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Input, Row, Col, Card, Typography, DatePicker, Upload } from 'antd';
 import { UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
@@ -71,18 +71,22 @@ const ProjectSubmission = () => {
                     <TextArea rows={4} placeholder="Description du projet" />
                   </Form.Item>
 
-                  {/* Upload des images */}
-                  <Title level={4} className="text-xl font-bold mb-4">Images du projet</Title>
-                  <Form.Item label="Téléchargez jusqu'à 3 images">
+                  {/* Upload de l'image */}
+                  <Title level={4} className="text-xl font-bold mb-4">Image du projet</Title>
+                  <Form.Item 
+                    name="projectImage" 
+                    label="Téléchargez une image"
+                    rules={[{ required: true, message: 'Veuillez télécharger une image du projet' }]}
+                  >
                     <Upload
                       action="/upload.do"
                       listType="picture-card"
                       fileList={imageList}
                       onChange={handleImageChange}
                       beforeUpload={() => false} // Prevent auto upload
-                      multiple
+                      maxCount={1}
                     >
-                      {imageList.length >= 3 ? null : uploadButton}
+                      {imageList.length >= 1 ? null : uploadButton}
                     </Upload>
                   </Form.Item>
 

@@ -12,6 +12,7 @@ import NosSponsorts from "./pages/Info/NosSponsorts";
 import Blogs from "./pages/Blog/blogs";
 import InfoPrestataire from "./pages/prestataire/InfoPrestataire";
 import ProjectSubmission from "./pages/Projets/ProjectSubmission";
+import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
 
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -38,6 +39,7 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/infoprestataire" element={<InfoPrestataire />} />
           <Route path="/projectsubmission" element={<ProjectSubmission />} />
+          <Route path="/sponsorregistration" element={<SponsorRegistration />} />
 
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />

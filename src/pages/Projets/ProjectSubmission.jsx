@@ -130,7 +130,8 @@ const ProjectSubmission = () => {
                   </Form.Item>
                   <Form.Item 
                     name="projectTimeline" 
-                    label="Calendrier">
+                    label="Calendrier"
+                    rules={[{ required: true, message: 'Veuillez indiquer la date' }]}>
                     <DatePicker.RangePicker style={{ width: '100%' }} />
                   </Form.Item>
                   <Form.Item 

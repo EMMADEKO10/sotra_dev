@@ -48,16 +48,16 @@ const Navbar = () => {
     {
       title: "Sponsor",
       subItems: [
-        { name: "Nos sponsors", link: "#" },
+        { name: "Nos sponsors", link: "/nossponsorts" },
         { name: "Devenir sponsor", link: "#" }
       ],
     },
     {
-      title: "Sotradons",
+      title: "À propos",
       subItems: [
-        { name: "À propos", link: "#" },
-        { name: "Vision et Mission", link: "#" },
-        { name: "Contact", link: "#" }
+        // { name: "À propos", link: "#" },
+        { name: "Vision et Mission", link: "/about" },
+        { name: "Contact", link: "/contact" }
       ],
     },
   ];

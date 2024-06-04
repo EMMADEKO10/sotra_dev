@@ -25,10 +25,10 @@ const Navbar = () => {
     {
       title: "Info",
       subItems: [
-        { name: "Devenir prestataire", link: "#" },
+        { name: "Devenir prestataire", link: "/infoprestataire" },
         { name: "Social bonds", link: "#" },
         { name: "Charte", link: "#" },
-        { name: "Blog", link: "#" }
+        { name: "Blog", link: "/blogs" }
       ],
     },
     {

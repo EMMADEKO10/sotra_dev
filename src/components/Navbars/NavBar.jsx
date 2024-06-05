@@ -33,23 +33,23 @@ const Navbar = () => {
       title: "Projets",
       subItems: [
         { name: "Découvrer les projets", link: "/projet" },
-        { name: "Démarrer un projet", link: "#" }
+        { name: "Démarrer un projet", link: "/projectsubmission" }
       ],
     },
     {
       title: "Info",
       subItems: [
-        { name: "Devenir prestataire", link: "/infoprestataire" },
         { name: "Social bonds", link: "#" },
         { name: "Charte", link: "#" },
-        { name: "Blog", link: "/blogs" }
+        { name: "Blog", link: "/blogs" },
+        { name: "Devenir prestataire", link: "/infoprestataire" }
       ],
     },
     {
       title: "Sponsor",
       subItems: [
         { name: "Nos sponsors", link: "/nossponsorts" },
-        { name: "Devenir sponsor", link: "#" }
+        { name: "Devenir sponsor", link: "/sponsorregistration" }
       ],
     },
     {

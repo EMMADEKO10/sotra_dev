@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Form, Input, Select, Row, Col, Card, Typography } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input, Select, Row, Col, Card, Typography, Checkbox } from 'antd';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import 'tailwindcss/tailwind.css';
@@ -8,7 +8,57 @@ const { TextArea } = Input;
 const { Option } = Select;
 const { Title, Paragraph, Text } = Typography;
 
+const provincesRDC = [
+  'Bas-Uele', 'Équateur', 'Haut-Katanga', 'Haut-Lomami', 'Haut-Uele', 'Ituri', 'Kasaï', 'Kasaï-Central', 'Kasaï-Oriental',
+  'Kinshasa', 'Kongo-Central', 'Kwango', 'Kwilu', 'Lomami', 'Lualaba', 'Mai-Ndombe', 'Maniema', 'Mongala', 'Nord-Kivu',
+  'Nord-Ubangi', 'Sankuru', 'Sud-Kivu', 'Sud-Ubangi', 'Tanganyika', 'Tshopo', 'Tshuapa'
+].sort();
+
 const InfoPrestataire = () => {
+  const [form] = Form.useForm();
+  const [submitting, setSubmitting] = useState(false);
+  const [otherOrganizationType, setOtherOrganizationType] = useState(false);
+
+  const handleSubmit = (values) => {
+    setSubmitting(true);
+
+    // Assurez-vous d'assainir les entrées côté client
+    const sanitizedValues = {
+      ...values,
+      organizationName: values.organizationName.trim(),
+      address: values.address.trim(),
+      website: values.website.trim(),
+      representativeName: values.representativeName.trim(),
+      email: values.email.trim(),
+      phone: values.phone.trim(),
+      services: values.services.trim(),
+      geographicAreas: values.geographicAreas,
+      projects: values.projects.trim(),
+      specificOrganizationType: values.specificOrganizationType?.trim(),
+    };
+
+    // Envoyer les données au serveur (assurez-vous d'utiliser HTTPS)
+    fetch('/api/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'CSRF-Token': 'votre_token_csrf'  // Ajoutez un jeton CSRF ici
+      },
+      body: JSON.stringify(sanitizedValues),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Form submitted successfully:', data);
+      setSubmitting(false);
+      form.resetFields();
+      setOtherOrganizationType(false);
+    })
+    .catch(error => {
+      console.error('Error submitting form:', error);
+      setSubmitting(false);
+    });
+  };
+
   return (
     <div>
       <Navbar />
@@ -47,7 +97,7 @@ const InfoPrestataire = () => {
           <Row justify="center">
             <Col lg={16}>
               <Card className="shadow-lg rounded-lg p-8">
-                <Form layout="vertical">
+                <Form form={form} layout="vertical" onFinish={handleSubmit}>
                   {/* Informations de l'organisation */}
                   <Title level={4} className="text-xl font-bold mb-4">Informations de l'organisation</Title>
                   <Form.Item name="organizationName" label="Nom de l'organisation" rules={[{ required: true, message: 'Veuillez entrer le nom de l\'organisation' }]}>
@@ -56,16 +106,26 @@ const InfoPrestataire = () => {
                   <Form.Item name="address" label="Adresse" rules={[{ required: true, message: 'Veuillez entrer l\'adresse' }]}>
                     <Input placeholder="Adresse" />
                   </Form.Item>
-                  <Form.Item name="website" label="Site web" rules={[{ required: true, message: 'Veuillez entrer le site web' }]}>
+                  <Form.Item name="website" label="Site web" rules={[{ required: false, message: 'Veuillez entrer le site web' }]}>
                     <Input placeholder="https://example.com" />
                   </Form.Item>
-                  <Form.Item name="organizationType" label="Type d'organisation" rules={[{ required: true, message: 'Veuillez sélectionner le type d\'organisation' }]}>
-                    <Select placeholder="Sélectionnez le type d'organisation">
+                  <Form.Item name="organizationType" label="Type d'organisation" rules={[{ required: !otherOrganizationType, message: 'Veuillez sélectionner le type d\'organisation' }]}>
+                    <Select placeholder="Sélectionnez le type d'organisation" disabled={otherOrganizationType}>
                       <Option value="association">Association</Option>
                       <Option value="ngo">ONG</Option>
                       <Option value="socialEnterprise">Entreprise sociale</Option>
                     </Select>
                   </Form.Item>
+                  <Form.Item>
+                    <Checkbox checked={otherOrganizationType} onChange={(e) => setOtherOrganizationType(e.target.checked)}>
+                      Autre type d'organisation
+                    </Checkbox>
+                  </Form.Item>
+                  {otherOrganizationType && (
+                    <Form.Item name="specificOrganizationType" label="Type d'organisation spécifique" rules={[{ required: true, message: 'Veuillez indiquer le type d\'organisation spécifique' }]}>
+                      <Input placeholder="Type d'organisation spécifique" />
+                    </Form.Item>
+                  )}
 
                   {/* Informations de contact */}
                   <Title level={4} className="text-xl font-bold mb-4">Informations de contact</Title>
@@ -85,13 +145,17 @@ const InfoPrestataire = () => {
                     <TextArea rows={4} placeholder="Description des services offerts" />
                   </Form.Item>
                   <Form.Item name="geographicAreas" label="Zones géographiques d'intervention" rules={[{ required: true, message: 'Veuillez indiquer les zones géographiques d\'intervention' }]}>
-                    <TextArea rows={4} placeholder="Zones géographiques d'intervention" />
+                    <Select mode="multiple" placeholder="Sélectionnez les zones géographiques d'intervention">
+                      {provincesRDC.map(province => (
+                        <Option key={province} value={province}>{province}</Option>
+                      ))}
+                    </Select>
                   </Form.Item>
                   <Form.Item name="projects" label="Projets en cours ou précédents" rules={[{ required: true, message: 'Veuillez décrire les projets en cours ou précédents' }]}>
                     <TextArea rows={4} placeholder="Projets en cours ou précédents" />
                   </Form.Item>
 
-                  <Button type="primary" shape="round" className="bg-[#3bcf93] border-none mt-4" htmlType="submit">
+                  <Button type="primary" shape="round" className="bg-[#3bcf93] border-none mt-4" htmlType="submit" loading={submitting}>
                     Soumettre
                   </Button>
                 </Form>

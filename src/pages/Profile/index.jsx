@@ -1,9 +1,12 @@
 import { Tabs } from 'antd'
 import Projects from './Projects'
+import Navbar from '../../components/Navbars/NavBar';
+import Footer from '../../components/Footer';
 
 function Profile() {
   return (
     <div>
+        <Navbar />
         <Tabs defaultActiveKey="1">
             <Tabs.TabPane tab="Projects" key="1">
                 <Projects/>
@@ -18,6 +21,7 @@ function Profile() {
             </Tabs.TabPane>
 
         </Tabs>
+        <Footer />
     </div>
   )
 }

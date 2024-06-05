@@ -12,6 +12,7 @@ import ProjectSubmission from "./pages/Projets/ProjectSubmission";
 import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
 import AllProjets from "./pages/Projets/AllProjets";
 import OneProjet from "./pages/Projets/OneProjet";
+import Charte from "./pages/Info/Charte";
 
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -38,6 +39,7 @@ function App() {
           <Route path="/sponsorregistration" element={<SponsorRegistration />} />
           <Route path="/allprojets" element={<AllProjets />} />
           <Route path="/oneprojet" element={<OneProjet />} />
+          <Route path="/chart" element={<Charte />} />
 
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />

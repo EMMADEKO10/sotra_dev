@@ -18,7 +18,7 @@ export default function Causes() {
                               <p>
                               Tout est mélancolique, rarement, mais la sollicitude habite la projection. La connexion stimule l’estimation de l’excellence et de l’impression.
                               </p>
-                              <NavLink to ='/projet'><a className="btn circle btn-md btn-gradient wow fadeInUp" >Voir plus<i className="fas fa-angle-right"></i></a>
+                              <NavLink to ='/allprojets'><a className="btn circle btn-md btn-gradient wow fadeInUp" >Voir plus<i className="fas fa-angle-right"></i></a>
                               </NavLink>
                           </div>
                       </div>

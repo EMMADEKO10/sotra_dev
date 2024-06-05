@@ -32,7 +32,7 @@ const Navbar = () => {
     {
       title: "Projets",
       subItems: [
-        { name: "Découvrer les projets", link: "/projet" },
+        { name: "Découvrer les projets", link: "/allprojets" },
         { name: "Démarrer un projet", link: "/projectsubmission" }
       ],
     },
@@ -40,7 +40,7 @@ const Navbar = () => {
       title: "Info",
       subItems: [
         { name: "Social bonds", link: "#" },
-        { name: "Charte", link: "#" },
+        { name: "Charte", link: "/chart" },
         { name: "Blog", link: "/blogs" },
         { name: "Devenir prestataire", link: "/infoprestataire" }
       ],
@@ -66,7 +66,10 @@ const Navbar = () => {
     <nav className="sticky top-0 font-bold bg-white z-50 shadow-lg">
       <div className="flex flex-row justify-between items-center container mx-auto px-4 py-2 md:px-0 border-b-4 border-[#3bcf94]">
         <div className="lg:mr-5">
-          <Link to="/">
+          <Link
+            to="/"
+            className="sotradons-container"
+          >
             <div className="sotradons">
               <img
                 src="assets/img/sotradon logo.png"
@@ -74,15 +77,20 @@ const Navbar = () => {
                 style={{ width: "60px", height: "60px" }}
                 className="pr-1"
               />
-              <span className="s">S</span>
-              <span className="o">o</span>
-              <span className="t">t</span>
-              <span className="r">r</span>
-              <span className="a">a</span>
-              <span className="d">d</span>
-              <span className="o">o</span>
-              <span className="n">n</span>
-              <span className="s">s</span>
+              <div className="sotradons-text">
+                <div className="ttext">
+                  <span className="s">S</span>
+                  <span className="o">o</span>
+                  <span className="t">t</span>
+                  <span className="r">r</span>
+                  <span className="a">a</span>
+                  <span className="d">d</span>
+                  <span className="o">o</span>
+                  <span className="n">n</span>
+                  <span className="s">s</span>
+                </div>
+                <span className="by">BY GOUVERNIX</span>
+              </div>
             </div>
           </Link>
         </div>

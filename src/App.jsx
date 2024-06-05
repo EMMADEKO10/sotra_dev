@@ -2,10 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import AllProjets from "./pages/Projets/AllProjets";
 import Profile from "./pages/Profile";
-import Sponsorise from "./pages/Add_projet/Sponsorise";
-import OneProjet from "./pages/Projets/OneProjet";
 import Contact from "./pages/Info/Contact";
 import About from "./pages/Info/About";
 import NosSponsorts from "./pages/Info/NosSponsorts";
@@ -13,6 +10,9 @@ import Blogs from "./pages/Blog/blogs";
 import InfoPrestataire from "./pages/prestataire/InfoPrestataire";
 import ProjectSubmission from "./pages/Projets/ProjectSubmission";
 import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
+import AllProjets from "./pages/Projets/AllProjets";
+import OneProjet from "./pages/Projets/OneProjet";
+import Charte from "./pages/Info/Charte";
 
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -29,10 +29,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/projet" element={<AllProjets />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/project/:id" element={<Sponsorise />} />
-          <Route path="/oneprojet/:project_id" element={<OneProjet />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/nossponsorts" element={<NosSponsorts />} />
@@ -40,6 +37,9 @@ function App() {
           <Route path="/infoprestataire" element={<InfoPrestataire />} />
           <Route path="/projectsubmission" element={<ProjectSubmission />} />
           <Route path="/sponsorregistration" element={<SponsorRegistration />} />
+          <Route path="/allprojets" element={<AllProjets />} />
+          <Route path="/oneprojet" element={<OneProjet />} />
+          <Route path="/chart" element={<Charte />} />
 
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />

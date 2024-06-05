@@ -1,10 +1,12 @@
 /* CSS */
 .sotradons {
-    font-size: 2rem; /* Utilisation de vw (viewport width) pour la taille de police */
+    font-size: 1.3rem; /* Utilisation de vw (viewport width) pour la taille de police */
     font-weight: bold;
     letter-spacing: 0.1rem; 
-    /* text-transform: uppercase; */
-    /* font-family: 'Arial', sans-serif; */
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: row;
 }
 
 /* Couleurs pour chaque lettre avec animation */
@@ -17,9 +19,34 @@
 .n { color: #9E9E9E; animation: colorChange 2s infinite alternate; }
 .s { color: #FF9800; animation: colorChange 2s infinite alternate; }
 
+
+.by { 
+    /* color: #FF9800; 
+        animation: colorChange 2s infinite alternate; */
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        font-family: 'Arial', sans-serif;
+}
+
+.ttext {
+    margin-bottom: -1rem;
+    margin-top: 0.5rem;
+}
+
 /* Animation de changement de couleur */
 @keyframes colorChange {
     0% { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
 }
 
+/* CSS */
+/* .sotradons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  } */
+  
+  .sotradons-text {
+    text-align: center;
+  }
+  

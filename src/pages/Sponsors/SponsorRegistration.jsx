@@ -24,7 +24,7 @@ const SponsorRegistration = () => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
       setAmount(value);
-      setSocialBonds((value * 1.2).toFixed(2));
+      setSocialBonds((value * 0.001).toFixed(2));
     } else {
       setAmount('');
       setSocialBonds(0);

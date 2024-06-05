@@ -48,7 +48,7 @@ const ProjectSubmission = () => {
   const handleAmountChange = (e) => {
     const value = e.target.value;
     setAmount(value);
-    const convertedValue = value * 1.2; // Exemple de conversion : 1 dollar = 1.2 social bonds
+    const convertedValue = value * 0.001; // Exemple de conversion : 1 dollar = 1.2 social bonds
     setSocialBonds(convertedValue.toFixed(2));
   };
 

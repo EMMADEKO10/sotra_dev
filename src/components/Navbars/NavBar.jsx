@@ -18,7 +18,7 @@ const Navbar = () => {
     {
       title: "Projets",
       subItems: [
-        { name: "Découvrer les projets", link: "/projet" },
+        { name: "Découvrer les projets", link: "/donationpage" },
         { name: "Démarrer un projet", link: "/projectsubmission" }
       ],
     },

@@ -1,116 +1,98 @@
+import React from 'react';
+import { Input } from 'antd';
+import 'tailwindcss/tailwind.css';
 
+const { Search } = Input;
 
 export default function Footer() {
   return (
-    <>
-          <footer className="bg-dark text-light">
-              {/* <!-- Fixed Shape --> */}
-              <div className="fixed-shape">
-                  <img src="assets/img/footer-bg.png" alt="Shape" />
+    <footer className="bg-[#1C2942] text-white pt-12 relative overflow-hidden">
+      {/* Forme Fixe */}
+      <div className="absolute inset-0">
+        <img src="assets/img/footer-bg.png" alt="Forme" className="w-full h-full object-cover opacity-5" />
+        <div className="bg-black opacity-40 absolute inset-0"></div>
+      </div>
+      {/* Conteneur Principal */}
+      <div className="container mx-auto relative z-10">
+        <div className="flex flex-wrap -mx-4">
+          {/* À propos de nous */}
+          <div className="w-full lg:w-1/4 px-4 mb-8 lg:mb-0">
+            <div className="about text-center lg:text-left">
+              <img src="assets/img/Sotradons.png" alt="Logo" className="w-32 h-32 mx-auto lg:mx-0 mb-4" />
+              <p className="text-[#F0F0F0]" style={{ opacity: 0.85 }}>
+                Activité du comté. La timidité du matin est évidente. Les mansardes parce que les manières nouvelles des personnes âgées pourtant un village qu'elle.
+              </p>
+              <Search
+                placeholder="Votre Email"
+                enterButton="S'abonner"
+                size="large"
+                className="mt-4"
+                style={{ maxWidth: '300px' }}
+              />
+            </div>
+          </div>
+          {/* Liens */}
+          <div className="w-full lg:w-1/6 px-4 mb-8 lg:mb-0">
+            <div className="link">
+              <h4 className="widget-title text-lg font-semibold mb-4 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Explorer</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Nos Causes</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Nouvelle Campagne</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Plan du Site</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Faire un Don</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Conditions</a></li>
+              </ul>
+            </div>
+          </div>
+          {/* Informations de Contact */}
+          <div className="w-full lg:w-1/4 px-4 mb-8 lg:mb-0">
+            <div className="contact-info">
+              <h4 className="widget-title text-lg font-semibold mb-4 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Infos de Contact</h4>
+              <ul className="space-y-2 text-[#F0F0F0]" style={{ opacity: 0.85 }}>
+                <li>
+                  <strong>Adresse:</strong>
+                  <p>5919 Trussville Crossings Pkwy, Birmingham AL 35235</p>
+                </li>
+                <li>
+                  <strong>Email:</strong>
+                  <a href="mailto:info@validtheme.com" className="hover:text-green-400">info@validtheme.com</a>
+                </li>
+                <li>
+                  <strong>Téléphone:</strong>
+                  <a href="tel:+12334598768" className="hover:text-green-400">+123 34598768</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {/* Dernières Nouvelles */}
+          <div className="w-full lg:w-1/4 px-4">
+            <div className="recent-post">
+              <h4 className="widget-title text-lg font-semibold mb-4 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Dernières Nouvelles</h4>
+              <div className="space-y-4 text-[#F0F0F0]" style={{ opacity: 0.85 }}>
+                <div className="item">
+                  <a href="#" className="hover:text-green-400 text-[#7E7E7E]">Délice soutenu a trop non reste perpétuel.</a>
+                  <span className="block text-sm text-gray-400"><i className="fas fa-calendar-alt mr-1"></i> 22 Août, 2020 - <a href="#" className="hover:text-green-400 text-[#F0F0F0]">Admin</a></span>
+                </div>
+                <div className="item">
+                  <a href="#" className="hover:text-green-400 text-[#7E7E7E]">Parler insignifiant à déballé débat modéré apprenant gestion.</a>
+                  <span className="block text-sm text-[#F0F0F0]"><i className="fas fa-calendar-alt mr-1"></i> 15 Nov, 2020 - <a href="#" className="hover:text-green-400 text-[#F0F0F0]">Utilisateur</a></span>
+                </div>
               </div>
-              {/* <!-- Fixed Shape --> */}
-              <div className="container">
-                  <div className="f-items default-padding">
-                      <div className="row">
-                          <div className="col-lg-4 col-md-6 item">
-                              <div className="f-item about">
-                                  <img src="assets\img\Sotradons.png" alt="Logo" className="w-32 h-32 mx-auto" />
-                                  <p>
-                                      Happen active county. Winding morning am shyness evident to. Garrets because elderly new manners however one village she.
-                                  </p>
-                                  <form action="#">
-                                      <input type="email" placeholder="Your Email" className="form-control" name="email" />
-                                      <button type="submit"> Subscribe</button>
-                                  </form>
-                              </div>
-                          </div>
-                          <div className="col-lg-2 col-md-6 item">
-                              <div className="f-item link">
-                                  <h4 className="widget-title">Explore</h4>
-                                  <ul>
-                                      <li>
-                                          <a href="#">Our Causes</a>
-                                      </li>
-                                      <li>
-                                          <a href="#">New Campaign</a>
-                                      </li>
-                                      <li>
-                                          <a href="#">Site Map</a>
-                                      </li>
-                                      <li>
-                                          <a href="#">Donate</a>
-                                      </li>
-                                      <li>
-                                          <a href="#">Terms</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-
-                          <div className="col-lg-3 col-md-6 item">
-                              <div className="f-item">
-                                  <h4 className="widget-title">Contact Info</h4>
-                                  <div className="address">
-                                      <ul>
-                                          <li>
-                                              <strong>Address:</strong>
-                                              5919 Trussville Crossings Pkwy, Birmingham AL 35235
-                                          </li>
-                                          <li>
-                                              <strong>Email:</strong>
-                                              <a href="mailto:info@validtheme.com">info@validtheme.com</a>
-                                          </li>
-                                          <li>
-                                              <strong>Phone:</strong>
-                                              <a href="tel:2151234567">+123 34598768</a>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div className="col-lg-3 col-md-6 item">
-                              <div className="f-item recent-post">
-                                  <h4 className="widget-title">Latest News</h4>
-                                  <div className="item">
-                                      <a href="#">Delighted prevailed supported too not remainder perpetual.</a>
-                                      <span><i className="fas fa-calendar-alt"></i> 22 Aug, 2020 -  <a href="#">Admin</a></span>
-                                  </div>
-                                  <div className="item">
-                                      <a href="#">Speaking trifling an to unpacked moderate debating learnin management. </a>
-                                      <span><i className="fas fa-calendar-alt"></i> 15 Nov, 2020 -  <a href="#">User</a></span>
-                                  </div>
-                              </div>
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-              {/* <!-- Start Footer Bottom --> */}
-              <div className="footer-bottom">
-                  <div className="container">
-                      <div className="row">
-                          <div className="col-md-6">
-                              <p>Copyright &copy;  2020. Designed by <a href="#">validtemplatess</a></p>
-                          </div>
-                          <div className="col-md-6 text-right link">
-                              <ul>
-                                  <li>
-                                      <a href="#">Terms</a>
-                                  </li>
-                                  <li>
-                                      <a href="#">Privacy</a>
-                                  </li>
-                                  <li>
-                                      <a href="#">Support</a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              {/* <!-- End Footer Bottom --> */}
-          </footer>
-    </>
-  )
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Bas de page */}
+      <div className="footer-bottom bg-gray-800 py-4">
+        <div className="container mx-auto flex flex-wrap items-center justify-between">
+          <p className="text-sm text-[#F0F0F0]">&copy; 2020. Conçu par <a href="#" className="hover:text-green-400">validtemplates</a></p>
+          <ul className="flex space-x-4 text-sm text-gray-400">
+            <li><a href="#" className="hover:text-green-400">Conditions</a></li>
+            <li><a href="#" className="hover:text-green-400">Confidentialité</a></li>
+            <li><a href="#" className="hover:text-green-400">Support</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Breadcrumb, Card, Col, Progress, Row, Pagination, Select, Input, Checkbox } from 'antd';
 import { HomeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
@@ -19,7 +19,7 @@ const projects = [
   // Répétez ou ajoutez d'autres projets pour atteindre 20 éléments ou plus
 ];
 
-const DonationPage = () => {
+const AllProjets = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -143,4 +143,4 @@ const DonationPage = () => {
   );
 };
 
-export default DonationPage;
+export default AllProjets;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form, Input, Select, Row, Col, Card, Typography, message } from "antd";
 import Navbar from "../../components/Navbars/NavBar";
 import Footer from "../../components/Footer";
@@ -24,7 +24,7 @@ const SponsorRegistration = () => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
       setAmount(value);
-      setSocialBonds((value * 1.2).toFixed(2));
+      setSocialBonds((value * 0.001).toFixed(2));
     } else {
       setAmount('');
       setSocialBonds(0);

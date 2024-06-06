@@ -53,6 +53,10 @@ const AllProjets = () => {
   });
 
   const paginatedProjects = filteredProjects.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  console.log("paginatedProjects :", paginatedProjects)
+  console.log("filteredProjects :", filteredProjects)
+  console.log("projects :", projects)
+
 
   return (
     <div>

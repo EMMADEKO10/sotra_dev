@@ -5,7 +5,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Contact from "./pages/Info/Contact";
 import About from "./pages/Info/About";
-import NosSponsorts from "./pages/Info/NosSponsorts";
+import NosSponsorts from "./pages/Sponsors/NosSponsorts";
 import Blogs from "./pages/Blog/blogs";
 import InfoPrestataire from "./pages/prestataire/InfoPrestataire";
 import ProjectSubmission from "./pages/Projets/ProjectSubmission";

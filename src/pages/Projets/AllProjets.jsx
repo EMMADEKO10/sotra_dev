@@ -152,7 +152,9 @@ const AllProjets = () => {
           
           <div className="container mx-auto">
             <Row gutter={[16, 16]}>
-              {project.map((project, index) => (
+              {project.map((project, index) => {
+                const percent = project.socialBonds ? (project.socialBondsCollect / project.socialBonds) * 100 : 0;
+                return (
                 <Col key={index} lg={6} md={12} className="transform hover:scale-105 transition-transform duration-300">
                   <NavLink to={`/oneprojet/${project._id}`}>
                   <Card
@@ -166,13 +168,14 @@ const AllProjets = () => {
                       description={<p className="text-sm text-gray-700">{project.projectDescription}</p>}
                     />
                     <div className="mt-4">
-                      <Progress percent={project.socialBonds} status="active" strokeColor={primaryColor} />
-                      <p className="mt-2 text-sm">Collecté : ${project.socialBonds} <span className="text-gray-600">Objectif : ${project.socialBonds}</span></p>
+                      <Progress percent={percent} status="active" strokeColor={primaryColor} />
+                        <p className="mt-2 text-sm">Collecté : ${project.socialBondsCollect} <span className="text-gray-600">Objectif : ${project.socialBonds}</span></p>
                     </div>
                   </Card>
                   </NavLink>
                 </Col>
-              ))}
+                );
+              })}
             </Row>
 
             {/* Pagination */}

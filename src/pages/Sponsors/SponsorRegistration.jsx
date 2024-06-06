@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbars/NavBar";
 import Footer from "../../components/Footer";
 import "tailwindcss/tailwind.css";
 import { NavLink } from "react-router-dom";
+import axios from "axios"
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -18,11 +19,12 @@ const SponsorRegistration = () => {
   const [socialBonds, setSocialBonds] = useState(0)
   const [logoFile, setLogoFile] = useState(null)
   const [notification, setNotification] = useState(null)
-
+  
   const handleSectorChange = (value) => {
     setShowOtherSector(value === "other")
   }
 
+  // ----------------------------------------------------------------------
   const handleAmountChange = (e) => {
     const value = parseFloat(e.target.value)
     if (!isNaN(value)) {
@@ -33,6 +35,10 @@ const SponsorRegistration = () => {
       setSocialBonds(0)
     }
   }
+
+  // -----------------------------------------------------------------
+
+  // ----------------------------------------------------------------------handleLogoUpload
 
   const handleLogoUpload = (file) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png"
@@ -57,8 +63,81 @@ const SponsorRegistration = () => {
     setLogoFile(file)
     return false // Empêche l'upload automatique
   }
-
+  // --------------------------------------------------------------------------------------------LOGO
+  // ---------------------------------------------------------------------------ONFINISH
   const onFinish = async (values) => {
+
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    console.log("values: ", values);
+
+    const {
+      sponsorshipGoals,
+      address,
+      phone,
+      budget,
+      industry,
+      email,
+      website,
+      companyName,
+      representativeName,
+      otherSector
+    } = values;
+
+    const formData = new FormData();
+    formData.append('sponsorshipGoals', sponsorshipGoals);
+    formData.append('address', address);
+    formData.append('budget', budget); // Ce code assume que projectImage est un objet fichier
+    formData.append('phone', phone);
+    formData.append('industry', industry);
+    formData.append('email', email);
+    formData.append('logo', logoFile);
+    formData.append('website', website);
+    formData.append('companyName', companyName);
+    formData.append('representativeName', representativeName);
+    formData.append('otherSector', otherSector);
+
+
+    // Gestion des changements dans les fichiers d'image
+    // const handleImageChange = ({ fileList }) => setImageFile(fileList);
+
+    // console.log(formData.get("sponsorshipGoals"));
+
+// const object = {
+//   sponsorshipGoals, address,
+//     phone,
+//     budget,
+//     industry,
+//     email,
+//     website,
+//     companyName,
+//     representativeName,
+//     otherSector,
+//     formData
+// }
+//console.log("objetc", object)
+
+    try {
+      //Envoyer les données à l'API
+      const response = await axios.post(`${apiUrl}/sponsors`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
+        },
+      });
+
+      console.log(response.data)
+
+      // Afficher une notification de succès
+      
+    } catch (error) {
+      console.error('Error submitting the form', error);
+
+      // Afficher une notification d'erreur
+      // openNotificationWithIcon('error', 'Erreur de soumission', 'Une erreur est survenue lors de la soumission de votre projet. Veuillez réessayer.');
+    } 
+
     if (!isSubmitting) {
       setIsSubmitting(true)
       try {
@@ -74,26 +153,27 @@ const SponsorRegistration = () => {
         }
 
         // Simuler une soumission asynchrone
-        await new Promise((resolve) => setTimeout(resolve, 2000))
+        // await new Promise((resolve) => setTimeout(resolve, 2000))
 
-        setNotification({
-          type: "success",
-          message: "Formulaire soumis avec succès !",
-        })
-        form.resetFields()
-        setLogoFile(null) // Réinitialiser le logoFile après la soumission
+        // setNotification({
+        //   type: "success",
+        //   message: "Formulaire soumis avec succès !",
+        // })
+        // form.resetFields()
+        // setLogoFile(null) // Réinitialiser le logoFile après la soumission
       } catch (error) {
         console.error("Erreur lors de la soumission :", error)
-        setNotification({
-          type: "error",
-          message: "Erreur lors de la soumission du formulaire.",
-        })
+        // setNotification({
+        //   type: "error",
+        //   message: "Erreur lors de la soumission du formulaire.",
+        // })
       } finally {
-        setIsSubmitting(false)
+        // setIsSubmitting(false)
       }
     }
+    // ----------------------------------------------------------------ONFINISH
   }
-
+  // -----------------------------------------------------------REGISTRATION
   return (
     <div>
       <Navbar />
@@ -347,9 +427,10 @@ const SponsorRegistration = () => {
                     shape="round"
                     className="bg-[#3bcf93] border-none mt-4"
                     htmlType="submit"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Soumission..." : "Soumettre"}
+                    {/* {isSubmitting ? "Soumission..." : "Soumettre"} */}
+                    Soumettre
                   </Button>
                 </Form>
 

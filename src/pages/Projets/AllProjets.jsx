@@ -5,6 +5,8 @@ import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import axios from 'axios'
+import { NavLink } from 'react-router-dom';
+
 
 const { Option } = Select;
 const { Search } = Input;
@@ -147,25 +149,28 @@ const AllProjets = () => {
 
         {/* Section Causes */}
         <div className="bg-gray-100 py-12">
+          
           <div className="container mx-auto">
             <Row gutter={[16, 16]}>
-              {paginatedProjects.map((project, index) => (
+              {project.map((project, index) => (
                 <Col key={index} lg={6} md={12} className="transform hover:scale-105 transition-transform duration-300">
+                  <NavLink to={`/oneprojet/${project._id}`}>
                   <Card
                     hoverable
-                    cover={<img alt="Thumb" src={project.image} className="w-full h-64 object-cover" />}
+                    cover={<img alt="Thumb" src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`} className="w-full h-64 object-cover" />}
                     className="overflow-hidden rounded-lg shadow-md"
                   >
                     {project.trend && <div className="absolute top-0 right-0 m-2 text-yellow-500"><ThunderboltOutlined /> Tendance</div>}
                     <Card.Meta
-                      title={<a href="#" className="text-lg font-semibold text-gray-900 hover:text-primary">{project.title}</a>}
-                      description={<p className="text-sm text-gray-700">{project.description}</p>}
+                      title={<a href="#" className="text-lg font-semibold text-gray-900 hover:text-primary">{project.projectTitle}</a>}
+                      description={<p className="text-sm text-gray-700">{project.projectDescription}</p>}
                     />
                     <div className="mt-4">
-                      <Progress percent={project.percent} status="active" strokeColor={primaryColor} />
-                      <p className="mt-2 text-sm">Collecté : ${project.collected} <span className="text-gray-600">Objectif : ${project.goal}</span></p>
+                      <Progress percent={project.socialBonds} status="active" strokeColor={primaryColor} />
+                      <p className="mt-2 text-sm">Collecté : ${project.socialBonds} <span className="text-gray-600">Objectif : ${project.socialBonds}</span></p>
                     </div>
                   </Card>
+                  </NavLink>
                 </Col>
               ))}
             </Row>

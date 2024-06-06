@@ -38,7 +38,7 @@ function App() {
           <Route path="/projectsubmission" element={<ProjectSubmission />} />
           <Route path="/sponsorregistration" element={<SponsorRegistration />} />
           <Route path="/allprojets" element={<AllProjets />} />
-          <Route path="/oneprojet" element={<OneProjet />} />
+          <Route path="/oneprojet/:id" element={<OneProjet />} />
           <Route path="/chart" element={<Charte />} />
 
           

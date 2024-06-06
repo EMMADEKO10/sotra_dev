@@ -4,6 +4,7 @@ import { HomeOutlined, ClockCircleOutlined, EnvironmentOutlined } from '@ant-des
 import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
+// import {useParams} from "react-router-dom"
 
 const DonationPage = () => {
   const comments = [

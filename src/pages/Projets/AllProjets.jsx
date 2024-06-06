@@ -1,9 +1,10 @@
-import  { useState } from 'react';
+import  { useState,useEffect } from 'react';
 import { Breadcrumb, Card, Col, Progress, Row, Pagination, Select, Input, Checkbox } from 'antd';
 import { HomeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
+import axios from 'axios'
 
 const { Option } = Select;
 const { Search } = Input;
@@ -24,6 +25,7 @@ const AllProjets = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [onlyTrending, setOnlyTrending] = useState(false);
+  const [project, setProjects] = useState([]);
   const pageSize = 20;
 
   const handleChangePage = (page) => {
@@ -56,6 +58,45 @@ const AllProjets = () => {
   console.log("paginatedProjects :", paginatedProjects)
   console.log("filteredProjects :", filteredProjects)
   console.log("projects :", projects)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
+        console.log("Voci l'api des images : ", ApiUrlImage)
+        console.log("Voci l'api des EndPoints : ", apiUrl)
+
+        const response = await axios.get(`${apiUrl}/projects`);
+        console.log("voici la reponse", response.data)
+        setProjects(response.data)
+        // Ajoutez ici la logique pour gérer la réponse de votre backend
+        if (response.status === 201) { // Check for successful registration response
+          console.log('Connexion réussie ! :')
+
+        } else {
+          // Handle unsuccessful registration (e.g., display error message)
+        }
+      } catch (error) {
+        if (error.response) {
+          // Erreur avec réponse du serveur
+          console.error('Erreur de réponse du serveur:', error.response);
+
+        } else {
+          // Erreur de configuration ou autre
+          console.error('Erreur lors de la requête:', error.message);
+        }
+      }
+
+    };
+    fetchData(); // Call the function to fetch data
+  }, []); // Empty dependency array ensures the effect runs only once
+
+  // -----------------------------------------------------------------------------------
+
+  if (!project) {
+    return <div>Loading...</div>;
+  }
 
 
   return (

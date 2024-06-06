@@ -3,7 +3,7 @@ import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 
-const IntegrityPerformanceCharter = () => {
+const Charte = () => {
   return (
     <div>
       <Navbar />
@@ -60,4 +60,4 @@ const IntegrityPerformanceCharter = () => {
   );
 };
 
-export default IntegrityPerformanceCharter;
+export default Charte;

@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { Button, Form, Input, Row, Col, Card, Typography, DatePicker, Upload, } from 'antd';
+import { Button, Form, Input, Row, Col, Card, Typography, DatePicker, Upload, message, notification } from 'antd';
 import { UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
-import axios from 'axios'
+import axios from 'axios';
+
 const { TextArea } = Input;
 const { Title, Paragraph, Text } = Typography;
 
 const ProjectSubmission = () => {
-  const [imageFile, setProjectFile] = useState([]);
+  const [imageFile, setImageFile] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [amount, setAmount] = useState('');
   const [socialBonds, setSocialBonds] = useState(0);
@@ -17,52 +18,77 @@ const ProjectSubmission = () => {
   const [proposalFile, setProposalFile] = useState(null);
   const [budgetFile, setBudgetFile] = useState(null);
 
-
-
-  const handleDocumentChange = ({ fileList }) => {
-    setFileList(fileList);
+  // Notification de succès
+  const openNotificationWithIcon = (type, messageText, description) => {
+    notification[type]({
+      message: messageText,
+      description: description,
+      duration: 5,
+    });
   };
 
-  const handleImageChange = ({ fileList }) => setProjectFile(fileList);
+  // Gestion des changements dans les fichiers d'image
+  const handleImageChange = ({ fileList }) => setImageFile(fileList);
 
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
+  // Gestion des changements dans les fichiers de proposition
   const handleFileChange = (setFileFunc) => ({ fileList }) => {
     setFileFunc(fileList);
   };
 
-  const onFinish = async (values) => {
+  // Validation des fichiers
+  const beforeUploadFileValidation = (file, acceptedTypes, maxSizeMB) => {
+    const isValidType = acceptedTypes.includes(file.type);
+    if (!isValidType) {
+      message.error(`Vous ne pouvez télécharger que des fichiers de type ${acceptedTypes.join(", ")} !`);
+      return false;
+    }
+    const isValidSize = file.size / 1024 / 1024 < maxSizeMB;
+    if (!isValidSize) {
+      message.error(`Le fichier doit être inférieur à ${maxSizeMB} Mo !`);
+      return false;
+    }
+    return isValidType && isValidSize;
+  };
 
+  // Calcul des Social Bonds en fonction du montant
+  const handleAmountChange = (e) => {
+    const value = e.target.value;
+    setAmount(value);
+    const convertedValue = value * 0.001;
+    setSocialBonds(convertedValue.toFixed(2));
+  };
+
+  const onFinish = async (values) => {
     setSubmitting(true);
 
+    // Préparer les données du formulaire pour l'envoi
     const projectImage = imageFile[0]?.originFileObj;
 
     const apiUrl = import.meta.env.VITE_API_URL;
-    const { projectTitle, projectDescription, projectGoals, projectTimeline,
-      projectAmount, projectPartners, projectIndicators } = values;
-
+    const {
+      projectTitle,
+      projectDescription,
+      projectGoals,
+      projectTimeline,
+      projectAmount,
+      projectPartners,
+      projectIndicators
+    } = values;
 
     const formData = new FormData();
     formData.append('projectTitle', projectTitle);
     formData.append('projectDescription', projectDescription);
-    formData.append('projectImage', projectImage); // This assumes projectImage is a file object
+    formData.append('projectImage', projectImage); // Ce code assume que projectImage est un objet fichier
     formData.append('projectGoals', projectGoals);
-    formData.append('projectTimeline', JSON.stringify(projectTimeline)); // Convert array to JSON string
+    formData.append('projectTimeline', JSON.stringify(projectTimeline));
     formData.append('projectAmount', projectAmount);
     formData.append('socialBonds', socialBonds);
     formData.append('projectPartners', projectPartners);
     formData.append('projectIndicators', projectIndicators);
 
-
     if (fileList.length > 0) {
       formData.append('supportingDocument', fileList[0].originFileObj);
     }
-
     if (proposalFile && proposalFile.length > 0) {
       formData.append('projectProposal', proposalFile[0].originFileObj);
     }
@@ -71,17 +97,22 @@ const ProjectSubmission = () => {
     }
 
     try {
-
-      console.log('Received values of formData : ', formData);
-
+      // Envoyer les données à l'API
       const response = await axios.post(`${apiUrl}/projects`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
         },
       });
+
+      // Afficher une notification de succès
+      openNotificationWithIcon('success', 'Soumission réussie', 'Votre projet a été soumis avec succès.');
       console.log("Response: ", response.data);
     } catch (error) {
       console.error('Error submitting the form', error);
+
+      // Afficher une notification d'erreur
+      openNotificationWithIcon('error', 'Erreur de soumission', 'Une erreur est survenue lors de la soumission de votre projet. Veuillez réessayer.');
     } finally {
       setSubmitting(false);
     }
@@ -98,12 +129,13 @@ const ProjectSubmission = () => {
     },
   };
 
-  const handleAmountChange = (e) => {
-    const value = e.target.value;
-    setAmount(value);
-    const convertedValue = value * 0.001; // Exemple de conversion : 1 dollar = 1.2 social bonds
-    setSocialBonds(convertedValue.toFixed(2));
-  };
+  // Définition du uploadButton
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Télécharger</div>
+    </div>
+  );
 
   return (
     <div>
@@ -127,7 +159,7 @@ const ProjectSubmission = () => {
             <Col lg={16} className="text-center space-y-4">
               <Title level={3} className="text-3xl font-bold">Soumettez Votre Projet</Title>
               <Paragraph>
-                Soumettez votre projet pour contribuer au développement durable, à l `&apos;` éducation, à la santé, et à d `&apos;` autres causes sociales.
+                Soumettez votre projet pour contribuer au développement durable, à l'éducation, à la santé, et à d'autres causes sociales.
                 Les projets soumis doivent répondre aux critères suivants : pertinence, impact social et environnemental, faisabilité, et durabilité.
               </Paragraph>
               <div className="heading-divider mx-auto w-20 h-1 bg-[#3bcf93]"></div>
@@ -146,13 +178,15 @@ const ProjectSubmission = () => {
                   <Form.Item
                     name="projectTitle"
                     label="Titre du projet"
-                    rules={[{ required: true, message: 'Veuillez entrer le titre du projet' }]}>
+                    rules={[{ required: true, message: 'Veuillez entrer le titre du projet' }]}
+                  >
                     <Input placeholder="Titre du projet" />
                   </Form.Item>
                   <Form.Item
                     name="projectDescription"
                     label="Description du projet"
-                    rules={[{ required: true, message: 'Veuillez décrire le projet' }]}>
+                    rules={[{ required: true, message: 'Veuillez décrire le projet' }]}
+                  >
                     <TextArea rows={4} placeholder="Description du projet" />
                   </Form.Item>
 
@@ -160,13 +194,13 @@ const ProjectSubmission = () => {
                   <Form.Item
                     name="imageFile"
                     label="Téléchargez une image"
-                    rules={[{ required: true, message: 'Veuillez télécharger une image du projet' }]}>
+                    rules={[{ required: true, message: 'Veuillez télécharger une image du projet' }]}
+                  >
                     <Upload
-                      action="/upload.do"
                       listType="picture-card"
                       fileList={imageFile}
                       onChange={handleImageChange}
-                      beforeUpload={() => false}
+                      beforeUpload={(file) => beforeUploadFileValidation(file, ['image/jpeg', 'image/png'], 2)}
                       maxCount={1}
                       accept=".jpg,.jpeg,.png"
                     >
@@ -178,19 +212,22 @@ const ProjectSubmission = () => {
                   <Form.Item
                     name="projectGoals"
                     label="Objectifs et résultats attendus"
-                    rules={[{ required: true, message: 'Veuillez décrire les objectifs du projet' }]}>
+                    rules={[{ required: true, message: 'Veuillez décrire les objectifs du projet' }]}
+                  >
                     <TextArea rows={4} placeholder="Objectifs et résultats attendus" />
                   </Form.Item>
                   <Form.Item
                     name="projectTimeline"
                     label="Calendrier"
-                    rules={[{ required: true, message: 'Veuillez indiquer la date' }]}>
+                    rules={[{ required: true, message: 'Veuillez indiquer la date' }]}
+                  >
                     <DatePicker.RangePicker style={{ width: '100%' }} />
                   </Form.Item>
                   <Form.Item
                     name="projectAmount"
                     label="Montant en dollars"
-                    rules={[{ required: true, message: 'Veuillez entrer le montant en dollars' }]}>
+                    rules={[{ required: true, message: 'Veuillez entrer le montant en dollars' }]}
+                  >
                     <Input
                       type="number"
                       placeholder="Montant en dollars"
@@ -199,22 +236,20 @@ const ProjectSubmission = () => {
                     />
                   </Form.Item>
                   <Form.Item label="Social Bonds">
-                    <Input
-                      placeholder="Social Bonds"
-                      value={socialBonds}
-                      readOnly
-                    />
+                    <Input placeholder="Social Bonds" value={socialBonds} readOnly />
                   </Form.Item>
                   <Form.Item
                     name="projectPartners"
                     label="Partenaires"
-                    rules={[{ required: false, message: 'Veuillez indiquer les partenaires potentiels ou existants' }]}>
+                    rules={[{ required: false, message: 'Veuillez indiquer les partenaires potentiels ou existants' }]}
+                  >
                     <TextArea rows={4} placeholder="Noms et rôles des partenaires" />
                   </Form.Item>
                   <Form.Item
                     name="projectIndicators"
                     label="Indicateurs de performance"
-                    rules={[{ required: true, message: 'Veuillez indiquer comment le succès du projet sera mesuré' }]}>
+                    rules={[{ required: true, message: 'Veuillez indiquer comment le succès du projet sera mesuré' }]}
+                  >
                     <TextArea rows={4} placeholder="Indicateurs de performance" />
                   </Form.Item>
 
@@ -230,9 +265,9 @@ const ProjectSubmission = () => {
                       accept=".pdf"
                       onChange={handleFileChange(setProposalFile)}
                       maxCount={1}
-                      beforeUpload={() => false}
+                      beforeUpload={(file) => beforeUploadFileValidation(file, ['application/pdf'], 5)}
                     >
-                      <Button icon={<UploadOutlined />}>Upload Proposal</Button>
+                      <Button icon={<UploadOutlined />}>Télécharger la Proposition</Button>
                     </Upload>
                   </Form.Item>
                   <Form.Item
@@ -246,12 +281,11 @@ const ProjectSubmission = () => {
                       accept=".pdf"
                       onChange={handleFileChange(setBudgetFile)}
                       maxCount={1}
-                      beforeUpload={() => false}
+                      beforeUpload={(file) => beforeUploadFileValidation(file, ['application/pdf'], 5)}
                     >
-                      <Button icon={<UploadOutlined />}>Upload Budget</Button>
+                      <Button icon={<UploadOutlined />}>Télécharger le Budget</Button>
                     </Upload>
                   </Form.Item>
-          
                   <Form.Item
                     name="supportingDocument"
                     label="Document justificatif"
@@ -261,11 +295,11 @@ const ProjectSubmission = () => {
                     <Upload
                       name="document"
                       accept=".pdf"
-                      onChange={handleDocumentChange}
+                      onChange={handleFileChange(setFileList)}
                       maxCount={1}
-                      beforeUpload={() => false} // Prevent auto upload
+                      beforeUpload={(file) => beforeUploadFileValidation(file, ['application/pdf'], 5)}
                     >
-                      <Button icon={<UploadOutlined />}>Upload Document</Button>
+                      <Button icon={<UploadOutlined />}>Télécharger le Document</Button>
                     </Upload>
                   </Form.Item>
 
@@ -274,9 +308,9 @@ const ProjectSubmission = () => {
                     shape="round"
                     className="bg-[#3bcf93] border-none mt-4"
                     htmlType="submit"
-                    disabled={submitting}>
-                    {/* {submitting ? 'Soumission en cours...' : 'Soumettre le projet'} */}
-                    Soumettre le projet
+                    disabled={submitting}
+                  >
+                    {submitting ? 'Soumission en cours...' : 'Soumettre le projet'}
                   </Button>
                 </Form>
 

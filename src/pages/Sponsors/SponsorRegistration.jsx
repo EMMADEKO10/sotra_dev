@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button, Form, Input, Select, Row, Col, Card, Typography, message } from "antd";
+import { Button, Form, Input, Select, Row, Col, Card, Typography, Upload, message } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
 import Navbar from "../../components/Navbars/NavBar";
 import Footer from "../../components/Footer";
 import "tailwindcss/tailwind.css";
@@ -10,48 +11,88 @@ const { Option } = Select;
 const { Title, Paragraph, Text } = Typography;
 
 const SponsorRegistration = () => {
-  const [form] = Form.useForm();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showOtherSector, setShowOtherSector] = useState(false);
-  const [amount, setAmount] = useState('');
-  const [socialBonds, setSocialBonds] = useState(0);
+  const [form] = Form.useForm()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showOtherSector, setShowOtherSector] = useState(false)
+  const [amount, setAmount] = useState("")
+  const [socialBonds, setSocialBonds] = useState(0)
+  const [logoFile, setLogoFile] = useState(null)
+  const [notification, setNotification] = useState(null)
 
   const handleSectorChange = (value) => {
-    setShowOtherSector(value === "other");
-  };
+    setShowOtherSector(value === "other")
+  }
 
   const handleAmountChange = (e) => {
-    const value = parseFloat(e.target.value);
+    const value = parseFloat(e.target.value)
     if (!isNaN(value)) {
-      setAmount(value);
-      setSocialBonds((value * 0.001).toFixed(2));
+      setAmount(value)
+      setSocialBonds((value * 0.001).toFixed(2))
     } else {
-      setAmount('');
-      setSocialBonds(0);
+      setAmount("")
+      setSocialBonds(0)
     }
-  };
+  }
+
+  const handleLogoUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png"
+    const isLt2M = file.size / 1024 / 1024 < 2
+
+    if (!isJpgOrPng) {
+      setNotification({
+        type: "error",
+        message: "Vous ne pouvez télécharger que des fichiers JPG/PNG!",
+      })
+      return Upload.LIST_IGNORE
+    }
+
+    if (!isLt2M) {
+      setNotification({
+        type: "error",
+        message: "L'image doit être inférieure à 2 Mo!",
+      })
+      return Upload.LIST_IGNORE
+    }
+
+    setLogoFile(file)
+    return false // Empêche l'upload automatique
+  }
 
   const onFinish = async (values) => {
     if (!isSubmitting) {
-      setIsSubmitting(true);
+      setIsSubmitting(true)
       try {
-        // Ajoutez votre logique de soumission ici
+        // Ajouter votre logique de soumission ici
         // Par exemple, envoyer les données à une API
-        console.log("Form data: ", values);
+        console.log("Form data: ", values)
+
+        if (logoFile) {
+          // Logique de téléchargement du logo
+          const formData = new FormData()
+          formData.append("logo", logoFile)
+          // Envoyer formData à votre API ou service de stockage
+        }
 
         // Simuler une soumission asynchrone
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000))
 
-        message.success("Formulaire soumis avec succès !");
-        form.resetFields();
+        setNotification({
+          type: "success",
+          message: "Formulaire soumis avec succès !",
+        })
+        form.resetFields()
+        setLogoFile(null) // Réinitialiser le logoFile après la soumission
       } catch (error) {
-        console.error("Erreur lors de la soumission :", error);
-        message.error("Erreur lors de la soumission du formulaire.");
+        console.error("Erreur lors de la soumission :", error)
+        setNotification({
+          type: "error",
+          message: "Erreur lors de la soumission du formulaire.",
+        })
       } finally {
-        setIsSubmitting(false);
+        setIsSubmitting(false)
       }
     }
-  };
+  }
 
   return (
     <div>
@@ -77,8 +118,14 @@ const SponsorRegistration = () => {
       <div className="about-area py-12">
         <div className="container mx-auto">
           <Row justify="center">
-            <Col lg={16} className="text-center space-y-4">
-              <Title level={3} className="text-3xl font-bold">
+            <Col
+              lg={16}
+              className="text-center space-y-4"
+            >
+              <Title
+                level={3}
+                className="text-3xl font-bold"
+              >
                 Devenez un Sponsor
               </Title>
               <Paragraph>
@@ -99,21 +146,40 @@ const SponsorRegistration = () => {
           <Row justify="center">
             <Col lg={16}>
               <Card className="shadow-lg rounded-lg p-8">
-                <Form layout="vertical" form={form} onFinish={onFinish}>
-                  <Title level={4} className="text-xl font-bold mb-4">
+                {notification && (
+                  <div className={`mb-4 alert alert-${notification.type}`}>
+                    {notification.message}
+                  </div>
+                )}
+                <Form
+                  layout="vertical"
+                  form={form}
+                  onFinish={onFinish}
+                >
+                  <Title
+                    level={4}
+                    className="text-xl font-bold mb-4"
+                  >
                     Informations de l'entreprise
                   </Title>
                   <Form.Item
                     name="companyName"
                     label="Nom de l'entreprise"
-                    rules={[{ required: true, message: "Veuillez entrer le nom de l'entreprise" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le nom de l'entreprise",
+                      },
+                    ]}
                   >
                     <Input placeholder="Nom de l'entreprise" />
                   </Form.Item>
                   <Form.Item
                     name="address"
                     label="Adresse"
-                    rules={[{ required: true, message: "Veuillez entrer l'adresse" }]}
+                    rules={[
+                      { required: true, message: "Veuillez entrer l'adresse" },
+                    ]}
                   >
                     <Input placeholder="Adresse" />
                   </Form.Item>
@@ -126,9 +192,17 @@ const SponsorRegistration = () => {
                   <Form.Item
                     name="industry"
                     label="Secteur d'activité"
-                    rules={[{ required: true, message: "Veuillez sélectionner le secteur d'activité" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez sélectionner le secteur d'activité",
+                      },
+                    ]}
                   >
-                    <Select placeholder="Sélectionnez le secteur d'activité" onChange={handleSectorChange}>
+                    <Select
+                      placeholder="Sélectionnez le secteur d'activité"
+                      onChange={handleSectorChange}
+                    >
                       <Option value="technology">Technologie</Option>
                       <Option value="finance">Finance</Option>
                       <Option value="healthcare">Santé</Option>
@@ -140,51 +214,118 @@ const SponsorRegistration = () => {
                     <Form.Item
                       name="otherSector"
                       label="Secteur d'activité spécifique"
-                      rules={[{ required: true, message: "Veuillez entrer le secteur d'activité spécifique" }]}
+                      rules={[
+                        {
+                          required: true,
+                          message:
+                            "Veuillez entrer le secteur d'activité spécifique",
+                        },
+                      ]}
                     >
                       <Input placeholder="Secteur d'activité spécifique" />
                     </Form.Item>
                   )}
 
-                  <Title level={4} className="text-xl font-bold mb-4">
+                  <Form.Item
+                    name="logo"
+                    label="Logo de l'entreprise"
+                    valuePropName="fileList"
+                    getValueFromEvent={(e) =>
+                      Array.isArray(e) ? e : e && e.fileList
+                    }
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez télécharger le logo de l'entreprise",
+                      },
+                    ]}
+                  >
+                    <Upload
+                      beforeUpload={handleLogoUpload}
+                      maxCount={1}
+                      listType="picture"
+                      accept="image/jpeg,image/png"
+                    >
+                      <Button icon={<UploadOutlined />}>
+                        Cliquez pour télécharger le logo
+                      </Button>
+                    </Upload>
+                  </Form.Item>
+
+                  <Title
+                    level={4}
+                    className="text-xl font-bold mb-4"
+                  >
                     Informations de contact
                   </Title>
                   <Form.Item
                     name="representativeName"
                     label="Nom du représentant"
-                    rules={[{ required: true, message: "Veuillez entrer le nom du représentant" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le nom du représentant",
+                      },
+                    ]}
                   >
                     <Input placeholder="Nom du représentant" />
                   </Form.Item>
                   <Form.Item
                     name="email"
                     label="Adresse e-mail"
-                    rules={[{ required: true, message: "Veuillez entrer l'adresse e-mail", type: "email" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer l'adresse e-mail",
+                        type: "email",
+                      },
+                    ]}
                   >
                     <Input placeholder="email@example.com" />
                   </Form.Item>
                   <Form.Item
                     name="phone"
                     label="Numéro de téléphone"
-                    rules={[{ required: true, message: "Veuillez entrer le numéro de téléphone" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le numéro de téléphone",
+                      },
+                    ]}
                   >
                     <Input placeholder="Numéro de téléphone" />
                   </Form.Item>
 
-                  <Title level={4} className="text-xl font-bold mb-4">
+                  <Title
+                    level={4}
+                    className="text-xl font-bold mb-4"
+                  >
                     Détails spécifiques
                   </Title>
                   <Form.Item
                     name="sponsorshipGoals"
                     label="Objectifs de sponsoring"
-                    rules={[{ required: true, message: "Veuillez décrire vos objectifs de sponsoring" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez décrire vos objectifs de sponsoring",
+                      },
+                    ]}
                   >
-                    <TextArea rows={4} placeholder="Type de projets à soutenir" />
+                    <TextArea
+                      rows={4}
+                      placeholder="Type de projets à soutenir"
+                    />
                   </Form.Item>
                   <Form.Item
                     name="budget"
                     label="Montant en dollars"
-                    rules={[{ required: true, message: "Veuillez entrer le montant en dollars" }]}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le montant en dollars",
+                      },
+                    ]}
                   >
                     <Input
                       type="number"
@@ -194,7 +335,11 @@ const SponsorRegistration = () => {
                     />
                   </Form.Item>
                   <Form.Item label="Social Bonds">
-                    <Input placeholder="Social Bonds" value={socialBonds} readOnly />
+                    <Input
+                      placeholder="Social Bonds"
+                      value={socialBonds}
+                      readOnly
+                    />
                   </Form.Item>
 
                   <Button
@@ -204,20 +349,38 @@ const SponsorRegistration = () => {
                     htmlType="submit"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Soumission...' : 'Soumettre'}
+                    {isSubmitting ? "Soumission..." : "Soumettre"}
                   </Button>
                 </Form>
 
                 <div className="mt-8">
                   <Text>
                     En soumettant ce formulaire, vous acceptez notre{" "}
-                    <a href="#" className="text-[#3bcf93]">politique de confidentialité</a>{" "}
+                    <a
+                      href="#"
+                      className="text-[#3bcf93]"
+                    >
+                      politique de confidentialité
+                    </a>{" "}
                     et nos{" "}
-                    <a href="#" className="text-[#3bcf93]">conditions générales</a>.
+                    <a
+                      href="#"
+                      className="text-[#3bcf93]"
+                    >
+                      conditions générales
+                    </a>
+                    .
                   </Text>
                   <Text>
-                    Pour plus d'informations sur les avantages spécifiques des sponsors, cliquez{" "}
-                    <a href="#" className="text-[#3bcf93]">ici</a>.
+                    Pour plus d'informations sur les avantages spécifiques des
+                    sponsors, cliquez{" "}
+                    <a
+                      href="#"
+                      className="text-[#3bcf93]"
+                    >
+                      ici
+                    </a>
+                    .
                   </Text>
                 </div>
                 <div className="mt-4">
@@ -237,21 +400,35 @@ const SponsorRegistration = () => {
 
       <div className="support-area py-12">
         <div className="container mx-auto text-center">
-          <Title level={3} className="text-2xl font-bold">
+          <Title
+            level={3}
+            className="text-2xl font-bold"
+          >
             Besoin d'aide ?
           </Title>
           <Paragraph>
             Pour toute assistance avec l'inscription, veuillez nous contacter à{" "}
-            <a href="mailto:support@example.com" className="text-[#3bcf93]">support@example.com</a>{" "}
+            <a
+              href="mailto:support@example.com"
+              className="text-[#3bcf93]"
+            >
+              support@example.com
+            </a>{" "}
             ou appeler le{" "}
-            <a href="tel:+1234567890" className="text-[#3bcf93]">+1 234 567 890</a>.
+            <a
+              href="tel:+1234567890"
+              className="text-[#3bcf93]"
+            >
+              +1 234 567 890
+            </a>
+            .
           </Paragraph>
         </div>
       </div>
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default SponsorRegistration;
+export default SponsorRegistration

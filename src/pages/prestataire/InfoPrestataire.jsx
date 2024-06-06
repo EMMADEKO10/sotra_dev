@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Select, Row, Col, Card, Typography, Checkbox } from 'antd';
+import { Button, Form, Input, Select, Row, Col, Card, Typography, Checkbox, message } from 'antd';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import 'tailwindcss/tailwind.css';
@@ -19,15 +19,15 @@ const InfoPrestataire = () => {
   const [submitting, setSubmitting] = useState(false);
   const [otherOrganizationType, setOtherOrganizationType] = useState(false);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     setSubmitting(true);
 
-    // Assurez-vous d'assainir les entrées côté client
+    // Assainir les entrées côté client
     const sanitizedValues = {
       ...values,
       organizationName: values.organizationName.trim(),
       address: values.address.trim(),
-      website: values.website.trim(),
+      website: values.website?.trim(),
       representativeName: values.representativeName.trim(),
       email: values.email.trim(),
       phone: values.phone.trim(),
@@ -37,26 +37,34 @@ const InfoPrestataire = () => {
       specificOrganizationType: values.specificOrganizationType?.trim(),
     };
 
-    // Envoyer les données au serveur (assurez-vous d'utiliser HTTPS)
-    fetch('/api/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'CSRF-Token': 'votre_token_csrf'  // Ajoutez un jeton CSRF ici
-      },
-      body: JSON.stringify(sanitizedValues),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Form submitted successfully:', data);
-      setSubmitting(false);
-      form.resetFields();
-      setOtherOrganizationType(false);
-    })
-    .catch(error => {
+    try {
+      const response = await fetch('/api/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'CSRF-Token': 'votre_token_csrf'  // Ajoutez un jeton CSRF ici
+        },
+        body: JSON.stringify(sanitizedValues),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        message.success('Formulaire soumis avec succès !');
+        console.log('Form submitted successfully:', data);
+        form.resetFields();
+        setOtherOrganizationType(false);
+      } else {
+        // Gérer les erreurs de l'API (par exemple, validation serveur)
+        const errorData = await response.json();
+        message.error(`Erreur lors de la soumission du formulaire: ${errorData.message}`);
+        console.error('Error submitting form:', errorData);
+      }
+    } catch (error) {
+      message.error('Erreur de soumission : Veuillez réessayer plus tard.');
       console.error('Error submitting form:', error);
+    } finally {
       setSubmitting(false);
-    });
+    }
   };
 
   return (
@@ -106,7 +114,7 @@ const InfoPrestataire = () => {
                   <Form.Item name="address" label="Adresse" rules={[{ required: true, message: 'Veuillez entrer l\'adresse' }]}>
                     <Input placeholder="Adresse" />
                   </Form.Item>
-                  <Form.Item name="website" label="Site web" rules={[{ required: false, message: 'Veuillez entrer le site web' }]}>
+                  <Form.Item name="website" label="Site web" rules={[{ type: 'url', message: 'Veuillez entrer une URL valide' }]}>
                     <Input placeholder="https://example.com" />
                   </Form.Item>
                   <Form.Item name="organizationType" label="Type d'organisation" rules={[{ required: !otherOrganizationType, message: 'Veuillez sélectionner le type d\'organisation' }]}>

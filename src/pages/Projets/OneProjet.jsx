@@ -15,6 +15,40 @@ const DonationPage =  () => {
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
+        console.log("Voci l'api des images : ", ApiUrlImage)
+        console.log("Voci l'api des EndPoints : ", apiUrl)
+
+        const response = await axios.get(`${apiUrl}/projects/${id}`);
+        console.log("voici la reponse", response.data)
+        setProjects(response.data)
+        // Ajoutez ici la logique pour gérer la réponse de votre backend
+        if (response.status === 201) { // Check for successful registration response
+          console.log('Connexion réussie ! :')
+
+        } else {
+          // Handle unsuccessful registration (e.g., display error message)
+        }
+      } catch (error) {
+        if (error.response) {
+          // Erreur avec réponse du serveur
+          console.error('Erreur de réponse du serveur:', error.response);
+
+        } else {
+          // Erreur de configuration ou autre
+          console.error('Erreur lors de la requête:', error.message);
+        }
+      }
+
+    };
+    fetchData(); // Call the function to fetch data
+  }, [id]); // Empty dependency array ensures the effect runs only once
+
   const handleCustomAmountChange = (e) => {
     const value = parseInt(e.target.value, 10); // Convertit la valeur en entier
     if (!isNaN(value)) {
@@ -56,39 +90,6 @@ const DonationPage =  () => {
   };
 
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
-        console.log("Voci l'api des images : ", ApiUrlImage)
-        console.log("Voci l'api des EndPoints : ", apiUrl)
-
-        const response = await axios.get(`${apiUrl}/projects/${id}`);
-        console.log("voici la reponse", response.data)
-        setProjects(response.data)
-        // Ajoutez ici la logique pour gérer la réponse de votre backend
-        if (response.status === 201) { // Check for successful registration response
-          console.log('Connexion réussie ! :')
-
-        } else {
-          // Handle unsuccessful registration (e.g., display error message)
-        }
-      } catch (error) {
-        if (error.response) {
-          // Erreur avec réponse du serveur
-          console.error('Erreur de réponse du serveur:', error.response);
-
-        } else {
-          // Erreur de configuration ou autre
-          console.error('Erreur lors de la requête:', error.message);
-        }
-      }
-
-    };
-    fetchData(); // Call the function to fetch data
-  }, [id]); // Empty dependency array ensures the effect runs only once
 
   // -----------------------------------------------------------------------------------
 
@@ -209,9 +210,9 @@ const DonationPage =  () => {
             <div className="w-full lg:w-1/3 px-4">
               <aside>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <Progress percent={87} strokeColor="#3bcf93" />
-                  <p className="mt-4">Collecté : $6,230 <span className="float-right">Objectif : $8,400</span></p>
-                  <span className="text-gray-600">Fonds collectés : 87%</span>
+                  <Progress percent={percent} strokeColor="#3bcf93" />
+                  <p className="mt-4">{`Collecté : ${project.socialBondsCollect}`} <span className="float-right">{`Objectif : ${project.socialBonds}`}</span></p>
+                  <span className="text-gray-600">{`Fonds collectés à : ${percent} %`}</span>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
                   <h4 className="text-lg font-semibold mb-4">
@@ -243,8 +244,8 @@ const DonationPage =  () => {
                       $100
                     </Button>
                   </div>
-                  <Input placeholder="Montant personnalisé" className="mt-4" />
-                  <Button type="primary" className="mt-4 w-full" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
+                  <Input onChange={handleCustomAmountChange} value={customAmount} placeholder="Montant personnalisé" className="mt-4" />
+                  <Button onClick={handleDonation} type="primary" className="mt-4 w-full" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
                   <h4 className="text-lg font-semibold mb-4">Dons récents</h4>

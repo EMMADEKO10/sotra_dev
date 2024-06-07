@@ -36,10 +36,10 @@ export default function Footer() {
             <div className="link">
               <h4 className="widget-title text-lg font-semibold mb-4 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Explorer</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Nos Causes</a></li>
-                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Nouvelle Campagne</a></li>
-                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Plan du Site</a></li>
-                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Faire un Don</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Social Bonds</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Charte</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Blog</a></li>
+                <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Devenir Sponsor</a></li>
                 <li><a href="#" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Conditions</a></li>
               </ul>
             </div>
@@ -51,15 +51,16 @@ export default function Footer() {
               <ul className="space-y-2 text-[#F0F0F0]" style={{ opacity: 0.85 }}>
                 <li>
                   <strong>Adresse:</strong>
-                  <p>5919 Trussville Crossings Pkwy, Birmingham AL 35235</p>
+                  <p> 76 Av. de la Justice, Kinshasa, Congo-Kinshasa</p>
                 </li>
                 <li>
                   <strong>Email:</strong>
-                  <a href="mailto:info@validtheme.com" className="hover:text-green-400">info@validtheme.com</a>
+                  <a href="mailto:info@validtheme.com" className="hover:text-green-400"> fondationentreprendrerdc@gmail.com
+</a>
                 </li>
                 <li>
                   <strong>Téléphone:</strong>
-                  <a href="tel:+12334598768" className="hover:text-green-400">+123 34598768</a>
+                  <a href="tel:+12334598768" className="hover:text-green-400"> +243 820 294 352 </a>
                 </li>
               </ul>
             </div>
@@ -85,7 +86,7 @@ export default function Footer() {
       {/* Bas de page */}
       <div className="footer-bottom bg-gray-800 py-4">
         <div className="container mx-auto flex flex-wrap items-center justify-between">
-          <p className="text-sm text-[#F0F0F0]">&copy; 2020. Conçu par <a href="#" className="hover:text-green-400">validtemplates</a></p>
+          <p className="text-sm text-white">&copy; 2020. Conçu par Sotradon <a href="#" className="hover:text-green-400">Sotradons</a></p>
           <ul className="flex space-x-4 text-sm text-gray-400">
             <li><a href="#" className="hover:text-green-400">Conditions</a></li>
             <li><a href="#" className="hover:text-green-400">Confidentialité</a></li>

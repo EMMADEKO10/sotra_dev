@@ -12,7 +12,7 @@ const DonationPage =  () => {
   const [project, setProjects] = useState([]);
   const { id } = useParams();
   const [customAmount, setCustomAmount] = useState("");
-
+  const [reload, setReload] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
 
 
@@ -47,7 +47,7 @@ const DonationPage =  () => {
 
     };
     fetchData(); // Call the function to fetch data
-  }, [id]); // Empty dependency array ensures the effect runs only once
+  }, [id, reload]); // Empty dependency array ensures the effect runs only once
 
   const handleCustomAmountChange = (e) => {
     const value = parseInt(e.target.value, 10); // Convertit la valeur en entier
@@ -83,6 +83,7 @@ const DonationPage =  () => {
       });
       console.log(response.data)
       // Afficher une notification de succès
+      setReload(!reload);
 
     } catch (error) {
       console.error('Error submitting the form', error);

@@ -7,10 +7,53 @@ import Footer from '../../components/Footer';
 import axios from "axios"
 import {useParams} from "react-router-dom"
 
-const DonationPage = () => {
+const DonationPage =  () => {
 
   const [project, setProjects] = useState([]);
   const { id } = useParams();
+  const [customAmount, setCustomAmount] = useState("");
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  const handleCustomAmountChange = (e) => {
+    const value = parseInt(e.target.value, 10); // Convertit la valeur en entier
+    if (!isNaN(value)) {
+      setCustomAmount(value);
+    } else {
+      setCustomAmount(0); // Définit 0 si la valeur n'est pas un nombre valide
+    }
+  };
+  const percent = project.socialBonds ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2) : 0;
+
+
+  const handleDonation = async () => {
+    console.log("Montant personnalisé: ", customAmount);
+    // Ajoutez ici votre logique pour traiter le don avec le montant personnalisé
+
+    const formData = new FormData();
+    formData.append('Sponsor', "6661ec3d6149744df1e68f30");
+    formData.append('projet', id);
+    formData.append('montant_reduit', customAmount); 
+
+    console.log(" Sponsor ", formData.get('Sponsor'))
+
+    try {
+      //Envoyer les données à l'API
+      const response = await axios.post(`${apiUrl}/bon`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
+        },
+      });
+      console.log(response.data)
+      // Afficher une notification de succès
+
+    } catch (error) {
+      console.error('Error submitting the form', error);
+    } 
+  };
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,10 +90,10 @@ const DonationPage = () => {
 
   // -----------------------------------------------------------------------------------
 
+
   if (!project) {
     return <div>Loading...</div>;
   }
-
 
   const comments = [
     {
@@ -111,15 +154,7 @@ const DonationPage = () => {
                   Ma résolution est arrivée nous chambre être suppression. */}
                   {project.projectDescription}
                 </p>
-                <Button
-                  type="primary"
-                  shape="round"
-                  size="large"
-                  className="mt-4"
-                  style={{ backgroundColor: "#3bcf93", borderColor: "#3bcf93" }}
-                >
-                  Faire un don maintenant
-                </Button>
+                <Button  type="primary" shape="round" size="large" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
               </div>
 
               {/* Section des Commentaires */}
@@ -158,20 +193,11 @@ const DonationPage = () => {
                     <Input placeholder="Email *" />
                   </Form.Item>
                   <Form.Item name="comment">
-                    <Input.TextArea placeholder="Commentaire" />
+                    <Input.TextArea 
+                       placeholder="Commentaire" />
                   </Form.Item>
                   <Form.Item>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="mt-4"
-                      style={{
-                        backgroundColor: "#3bcf93",
-                        borderColor: "#3bcf93",
-                      }}
-                    >
-                      Publier le commentaire
-                    </Button>
+                    <Button type="primary" htmlType="submit" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Publier le commentaire</Button>
                   </Form.Item>
                 </Form>
               </div>
@@ -181,14 +207,8 @@ const DonationPage = () => {
             <div className="w-full lg:w-1/3 px-4">
               <aside>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <Progress
-                    percent={87}
-                    strokeColor="#3bcf93"
-                  />
-                  <p className="mt-4">
-                    Collecté : $6,230{" "}
-                    <span className="float-right">Objectif : $8,400</span>
-                  </p>
+                  <Progress percent={87} strokeColor="#3bcf93" />
+                  <p className="mt-4">Collecté : $6,230 <span className="float-right">Objectif : $8,400</span></p>
                   <span className="text-gray-600">Fonds collectés : 87%</span>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
@@ -221,20 +241,8 @@ const DonationPage = () => {
                       $100
                     </Button>
                   </div>
-                  <Input
-                    placeholder="Montant personnalisé"
-                    className="mt-4"
-                  />
-                  <Button
-                    type="primary"
-                    className="mt-4 w-full"
-                    style={{
-                      backgroundColor: "#3bcf93",
-                      borderColor: "#3bcf93",
-                    }}
-                  >
-                    Faire un don maintenant
-                  </Button>
+                  <Input placeholder="Montant personnalisé" className="mt-4" />
+                  <Button type="primary" className="mt-4 w-full" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
                   <h4 className="text-lg font-semibold mb-4">Dons récents</h4>

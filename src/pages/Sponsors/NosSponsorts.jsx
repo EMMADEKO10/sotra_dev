@@ -71,55 +71,10 @@ const NosSponsorts = () => {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Single Item */}
-<<<<<<< HEAD
-            {[
-              {
-                name: "Jones Park",
-                role: "Bénévole",
-                img: "assets/img/800x800.png",
-              },
-              {
-                name: "Monal Spoa",
-                role: "Bénévole",
-                img: "assets/img/800x800.png",
-              },
-              {
-                name: "Devid Blue",
-                role: "Bénévole",
-                img: "assets/img/800x800.png",
-              },
-              {
-                name: "Jones Park",
-                role: "Bénévole",
-                img: "assets/img/800x800.png",
-              },
-              {
-                name: "Monal Spoa",
-                role: "Bénévole",
-                img: "assets/img/800x800.png",
-              },
-              {
-                name: "Devid Blue",
-                role: "Bénévole",
-                img: "assets/img/800x800.png",
-              },
-            ].map((volunteer, index) => (
-              <div
-                key={index}
-                className="bg-white shadow-lg rounded-lg overflow-hidden"
-              >
-                <div className="relative">
-                  <img
-                    src={volunteer.img}
-                    alt="Thumb"
-                    className="w-full h-64 object-cover"
-                  />
-=======
             {sponsors.map((sponsor, index) => (
               <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="relative">
                   <img src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`} alt="Thumb" className="w-full h-64 object-cover" />
->>>>>>> 07837776f9a7e0a44c06efdf3a1adcfc56426c09
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                     <ul className="flex space-x-4 text-white">
                       <li>

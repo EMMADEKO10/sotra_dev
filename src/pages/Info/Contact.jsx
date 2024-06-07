@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div>
         <Navbar/>
-        <div className="breadcrumb-area text-center shadow dark bg-fixed padding-xl text-light" style={{backgroundImage: "url(assets/img/2440x1578.png)"}}>
+        <div className="breadcrumb-area text-center shadow dark bg-fixed padding-xl text-light" style={{backgroundImage: "url(src/assets/sotradonsImage/35.jpg)"}}>
         <div className="container">
             <div className="breadcrumb-items">
             <div className="row">

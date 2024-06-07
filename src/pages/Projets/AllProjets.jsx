@@ -104,9 +104,9 @@ const AllProjets = () => {
   return (
     <div>
       <Navbar />
-      <div className="text-center bg-fixed text-white" style={{ backgroundImage: 'url(assets/img/2440x1578.png)' }}>
+      <div className="text-center bg-fixed text-white" style={{ backgroundImage: 'url(src/assets/sotradonsImage/22.jpg)' }}>
         {/* Section Breadcrumb */}
-        <div className="breadcrumb-area text-center shadow dark bg-fixed padding-xl text-light" style={{ backgroundImage: "url('assets/img/blogs/side-view-people-chatting-work.jpg')" }}>
+        <div className="breadcrumb-area text-center shadow dark bg-fixed padding-xl text-light" style={{ backgroundImage: "url('src/assets/sotradonsImage/22.jpg')" }}>
               <div className="container">
                   <div className="breadcrumb-items">
                       <div className="row">

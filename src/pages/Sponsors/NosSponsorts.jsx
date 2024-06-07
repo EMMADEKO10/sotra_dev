@@ -9,7 +9,7 @@ const NosSponsorts = () => {
       {/* Début Fil d'Ariane */}
       <div
         className="text-center shadow-lg text-white bg-cover py-8"
-        style={{ backgroundImage: 'url(assets/img/2440x1578.png)', backgroundColor: '#3bcf93' }}
+        style={{ backgroundImage: 'url(src/assets/sotradonsImage/10.jpg)', backgroundColor: '#3bcf93' }}
       >
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold">Rencontrez nos bénévoles</h2>

@@ -104,19 +104,28 @@ const AllProjets = () => {
   return (
     <div>
       <Navbar />
-      <div className="text-center bg-fixed text-white" style={{ backgroundImage: 'url(src/assets/sotradonsImage/22.jpg)' }}>
+      <div
+        className="text-center bg-fixed text-white"
+      >
         {/* Section Breadcrumb */}
-        <div className="breadcrumb-area text-center shadow dark bg-fixed padding-xl text-light" style={{ backgroundImage: "url('src/assets/sotradonsImage/22.jpg')" }}>
-              <div className="container">
-                  <div className="breadcrumb-items">
-                      <div className="row">
-                          <div className="col-lg-12">
-                              <h2> Projets </h2>
-                          </div>
-                      </div>
-                  </div>
+        <div
+          className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
+          style={{ backgroundImage: "url('src/assets/sotradonsImage/22.jpg')" }}
+        >
+          {/* Overlay sombre */}
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+          <div className="relative container mx-auto z-10">
+            <div className="breadcrumb-items">
+              <div className="row">
+                <div className="col-lg-12">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white">
+                    Projets
+                  </h2>
+                </div>
               </div>
+            </div>
           </div>
+        </div>
 
         {/* Section de recherche et tri */}
         <div className="bg-gray-200 py-4">
@@ -149,32 +158,70 @@ const AllProjets = () => {
 
         {/* Section Causes */}
         <div className="bg-gray-100 py-12">
-          
           <div className="container mx-auto">
             <Row gutter={[16, 16]}>
               {project.map((project, index) => {
-                const percent = project.socialBonds ? (project.socialBondsCollect / project.socialBonds) * 100 : 0;
+                const percent = project.socialBonds
+                  ? (project.socialBondsCollect / project.socialBonds) * 100
+                  : 0
                 return (
-                <Col key={index} lg={6} md={12} className="transform hover:scale-105 transition-transform duration-300">
-                  <NavLink to={`/oneprojet/${project._id}`}>
-                  <Card
-                    hoverable
-                    cover={<img alt="Thumb" src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`} className="w-full h-64 object-cover" />}
-                    className="overflow-hidden rounded-lg shadow-md"
+                  <Col
+                    key={index}
+                    lg={6}
+                    md={12}
+                    className="transform hover:scale-105 transition-transform duration-300"
                   >
-                    {project.trend && <div className="absolute top-0 right-0 m-2 text-yellow-500"><ThunderboltOutlined /> Tendance</div>}
-                    <Card.Meta
-                      title={<a href="#" className="text-lg font-semibold text-gray-900 hover:text-primary">{project.projectTitle}</a>}
-                      description={<p className="text-sm text-gray-700">{project.projectDescription}</p>}
-                    />
-                    <div className="mt-4">
-                      <Progress percent={percent} status="active" strokeColor={primaryColor} />
-                        <p className="mt-2 text-sm">Collecté : ${project.socialBondsCollect} <span className="text-gray-600">Objectif : ${project.socialBonds}</span></p>
-                    </div>
-                  </Card>
-                  </NavLink>
-                </Col>
-                );
+                    <NavLink to={`/oneprojet/${project._id}`}>
+                      <Card
+                        hoverable
+                        cover={
+                          <img
+                            alt="Thumb"
+                            src={`${import.meta.env.VITE_URL_IMAGE}${
+                              project.projectImage
+                            }`}
+                            className="w-full h-64 object-cover"
+                          />
+                        }
+                        className="overflow-hidden rounded-lg shadow-md"
+                      >
+                        {project.trend && (
+                          <div className="absolute top-0 right-0 m-2 text-yellow-500">
+                            <ThunderboltOutlined /> Tendance
+                          </div>
+                        )}
+                        <Card.Meta
+                          title={
+                            <a
+                              href="#"
+                              className="text-lg font-semibold text-gray-900 hover:text-primary"
+                            >
+                              {project.projectTitle}
+                            </a>
+                          }
+                          description={
+                            <p className="text-sm text-gray-700">
+                              {project.projectDescription}
+                            </p>
+                          }
+                        />
+                        <div className="mt-4">
+                          <Progress
+                            percent={percent}
+                            status="active"
+                            strokeColor={primaryColor}
+                          />
+                          <p className="mt-2 text-sm">
+                            Collecté : ${project.socialBondsCollect}{" "}
+                            <span className="text-gray-600">
+                              Objectif : ${project.socialBonds}
+                            </span>
+                          </p>
+                        </div>
+                      </Card>
+                    </NavLink>
+                  </Col>
+                )
               })}
             </Row>
 
@@ -193,7 +240,7 @@ const AllProjets = () => {
       </div>
       <Footer />
     </div>
-  );
+  )
 };
 
 export default AllProjets;

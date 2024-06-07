@@ -179,15 +179,17 @@ const SponsorRegistration = () => {
       <Navbar />
 
       <div
-        className="breadcrumb-area text-center shadow-lg bg-fixed p-12 text-white"
+        className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
         style={{ backgroundImage: "url('src/assets/sotradonsImage/3.jpg')" }}
       >
-        <div className="container mx-auto">
+        {/* Overlay sombre */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="relative container mx-auto z-10">
           <div className="breadcrumb-items">
             <Row>
               <Col span={24}>
-                <h2 className="text-4xl font-bold">
-                  Enregistrement pour Sponsors
+                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                  Enregistrement pour sponsors
                 </h2>
               </Col>
             </Row>

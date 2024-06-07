@@ -75,21 +75,7 @@ const DonationPage = () => {
 
   return (
     <div>
-    <Navbar />
-      {/* Début Fil d'Ariane */}
-      <div className="breadcrumb-area text-center shadow dark bg-fixed padding-xl text-light" style={{ backgroundImage: `url(${import.meta.env.VITE_URL_IMAGE}${project.projectImage})` }}>
-              <div className="container">
-                  <div className="breadcrumb-items">
-                      <div className="row">
-                          <div className="col-lg-12">
-                              <h2> Projets </h2>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      {/* Fin Fil d'Ariane */}
-
+      <Navbar />
       {/* Début Cause Unique */}
       <div className="py-16 bg-gray-100">
         <div className="container mx-auto">
@@ -97,12 +83,26 @@ const DonationPage = () => {
             {/* Contenu Principal */}
             <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
               <div className="bg-white shadow-lg rounded-lg p-8">
-                <img src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`} alt="Vignette" className="mb-6 rounded-lg" />
+                <img
+                  src={`${import.meta.env.VITE_URL_IMAGE}${
+                    project.projectImage
+                  }`}
+                  alt="Vignette"
+                  className="mb-6 rounded-lg"
+                />
                 <div className="flex justify-between mb-4 text-gray-600">
-                  <div><ClockCircleOutlined /> <strong>Créé le :</strong> 15 Juil, 2020</div>
-                  <div><EnvironmentOutlined /> <strong>Lieu :</strong> Mombasa, Afrique</div>
+                  <div>
+                    <ClockCircleOutlined /> <strong>Créé le :</strong> 15 Juil,
+                    2020
+                  </div>
+                  <div>
+                    <EnvironmentOutlined /> <strong>Lieu :</strong> Mombasa,
+                    Afrique
+                  </div>
                 </div>
-                <h4 className="text-2xl font-semibold mb-4">{project.projectTitle}</h4>
+                <h4 className="text-2xl font-semibold mb-4">
+                  {project.projectTitle}
+                </h4>
                 <p className="text-gray-700 leading-relaxed mb-6">
                   {/* Les plus petites familles honorées directement surprise sont un. Répondant maîtresse lui nombreux elle a retourné les sentiments peuvent jour. 
                   Soirée chanceusement exposé fils obtenir grandement général. Zélieusement prévalu être en train d'organiser faire. 
@@ -111,7 +111,15 @@ const DonationPage = () => {
                   Ma résolution est arrivée nous chambre être suppression. */}
                   {project.projectDescription}
                 </p>
-                <Button type="primary" shape="round" size="large" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
+                <Button
+                  type="primary"
+                  shape="round"
+                  size="large"
+                  className="mt-4"
+                  style={{ backgroundColor: "#3bcf93", borderColor: "#3bcf93" }}
+                >
+                  Faire un don maintenant
+                </Button>
               </div>
 
               {/* Section des Commentaires */}
@@ -120,12 +128,16 @@ const DonationPage = () => {
                 <List
                   itemLayout="horizontal"
                   dataSource={comments}
-                  renderItem={comment => (
+                  renderItem={(comment) => (
                     <List.Item>
                       <List.Item.Meta
                         avatar={<Avatar src={comment.avatar} />}
                         title={<a href="#">{comment.author}</a>}
-                        description={<span><ClockCircleOutlined /> {comment.datetime}</span>}
+                        description={
+                          <span>
+                            <ClockCircleOutlined /> {comment.datetime}
+                          </span>
+                        }
                       />
                       <div>{comment.content}</div>
                     </List.Item>
@@ -135,7 +147,9 @@ const DonationPage = () => {
 
               {/* Formulaire de Commentaire */}
               <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
-                <h4 className="text-xl font-semibold mb-6">Laisser un commentaire</h4>
+                <h4 className="text-xl font-semibold mb-6">
+                  Laisser un commentaire
+                </h4>
                 <Form className="contact-comments">
                   <Form.Item name="name">
                     <Input placeholder="Nom *" />
@@ -147,7 +161,17 @@ const DonationPage = () => {
                     <Input.TextArea placeholder="Commentaire" />
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Publier le commentaire</Button>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="mt-4"
+                      style={{
+                        backgroundColor: "#3bcf93",
+                        borderColor: "#3bcf93",
+                      }}
+                    >
+                      Publier le commentaire
+                    </Button>
                   </Form.Item>
                 </Form>
               </div>
@@ -157,54 +181,114 @@ const DonationPage = () => {
             <div className="w-full lg:w-1/3 px-4">
               <aside>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <Progress percent={87} strokeColor="#3bcf93" />
-                  <p className="mt-4">Collecté : $6,230 <span className="float-right">Objectif : $8,400</span></p>
+                  <Progress
+                    percent={87}
+                    strokeColor="#3bcf93"
+                  />
+                  <p className="mt-4">
+                    Collecté : $6,230{" "}
+                    <span className="float-right">Objectif : $8,400</span>
+                  </p>
                   <span className="text-gray-600">Fonds collectés : 87%</span>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <h4 className="text-lg font-semibold mb-4">Sélectionner le montant</h4>
+                  <h4 className="text-lg font-semibold mb-4">
+                    Sélectionner le montant
+                  </h4>
                   <div className="grid grid-cols-2 gap-4">
-                    <Button type="default" className="form-btn active">$10</Button>
-                    <Button type="default" className="form-btn">$25</Button>
-                    <Button type="default" className="form-btn">$50</Button>
-                    <Button type="default" className="form-btn">$100</Button>
+                    <Button
+                      type="default"
+                      className="form-btn active"
+                    >
+                      $10
+                    </Button>
+                    <Button
+                      type="default"
+                      className="form-btn"
+                    >
+                      $25
+                    </Button>
+                    <Button
+                      type="default"
+                      className="form-btn"
+                    >
+                      $50
+                    </Button>
+                    <Button
+                      type="default"
+                      className="form-btn"
+                    >
+                      $100
+                    </Button>
                   </div>
-                  <Input placeholder="Montant personnalisé" className="mt-4" />
-                  <Button type="primary" className="mt-4 w-full" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
+                  <Input
+                    placeholder="Montant personnalisé"
+                    className="mt-4"
+                  />
+                  <Button
+                    type="primary"
+                    className="mt-4 w-full"
+                    style={{
+                      backgroundColor: "#3bcf93",
+                      borderColor: "#3bcf93",
+                    }}
+                  >
+                    Faire un don maintenant
+                  </Button>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
                   <h4 className="text-lg font-semibold mb-4">Dons récents</h4>
                   <div className="flex items-center mb-6">
-                    <Avatar src="assets/img/100x100.png" alt="Jonathom Doe" />
+                    <Avatar
+                      src="assets/img/100x100.png"
+                      alt="Jonathom Doe"
+                    />
                     <div className="ml-4">
                       <h5 className="text-lg font-semibold">$17</h5>
                       <ul className="text-gray-600">
-                        <li><strong>Jonathom Doe</strong></li>
+                        <li>
+                          <strong>Jonathom Doe</strong>
+                        </li>
                         <li>Il y a 12 minutes</li>
                       </ul>
                     </div>
                   </div>
                   <div className="flex items-center mb-6">
-                    <Avatar src="assets/img/100x100.png" alt="Mohit Chuan" />
+                    <Avatar
+                      src="assets/img/100x100.png"
+                      alt="Mohit Chuan"
+                    />
                     <div className="ml-4">
                       <h5 className="text-lg font-semibold">$33</h5>
                       <ul className="text-gray-600">
-                        <li><strong>Mohit Chuan</strong></li>
+                        <li>
+                          <strong>Mohit Chuan</strong>
+                        </li>
                         <li>Il y a 45 minutes</li>
                       </ul>
                     </div>
                   </div>
                   <div className="flex items-center mb-6">
-                    <Avatar src="assets/img/100x100.png" alt="Devid Mark" />
+                    <Avatar
+                      src="assets/img/100x100.png"
+                      alt="Devid Mark"
+                    />
                     <div className="ml-4">
                       <h5 className="text-lg font-semibold">$100</h5>
                       <ul className="text-gray-600">
-                        <li><strong>Devid Mark</strong></li>
+                        <li>
+                          <strong>Devid Mark</strong>
+                        </li>
                         <li>Il y a 1 heure</li>
                       </ul>
                     </div>
                   </div>
-                  <a href="#" className="text-primary hover:underline">Voir tout <i className="fas fa-angle-right"></i></a>
+                  <a
+                    href="#"
+                    className="text-primary hover:underline"
+                  >
+                    Voir tout <i className="fas fa-angle-right"></i>
+                  </a>
                 </div>
               </aside>
             </div>
@@ -214,7 +298,7 @@ const DonationPage = () => {
       {/* Fin Cause Unique */}
       <Footer />
     </div>
-  );
+  )
 };
 
 export default DonationPage;

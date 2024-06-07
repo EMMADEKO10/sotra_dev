@@ -37,7 +37,7 @@ export default function Banner() {
                                                     <h4 data-animation="animated slideInDown">Votre innovation mérite d'être vue</h4>
                                                     <h2 data-animation="animated slideInRight">Transformez vos idées<strong>en réalisations concrètes</strong></h2>
 
-                                                    <a onClick={() => setShowProjectForm(!showProjectForm)} data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" >Démarrer un projets</a>
+                                                    <a onClick={() => setShowProjectForm(!showProjectForm)} data-animation="animated fadeInUp" className="btn circle btn-theme border btn-md" >Démarrer un projet</a>
                                                 </div>
                                             </div>
                                             {showProjectForm && <ProjectsForm showProjectForm={showProjectForm} setShowProjectForm={setShowProjectForm} />}

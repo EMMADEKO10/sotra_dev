@@ -8,10 +8,10 @@ export default function OurMission() {
                         <div className="col-lg-6 thumb-box">
                             <div className="thumb">
                                 <div className="thumb-1">
-                                    <img src="assets/img/Sotradons.jpg" alt="Thumb" />
+                                    <img src="src/assets/sotradonsImage/38.png" alt="Thumb" />
                                 </div>
                                 <div className="thumb-2">
-                                    <img src="assets\img\media\Photo _ Neil Palmer (CIAT) Flickr CC.jpeg" alt="Thumb" />
+                                    <img src="src/assets/sotradonsImage/30.jpg" alt="Thumb" />
                                     <a href="https://youtu.be/KgMJ3-RByMA?t=1434" className="popup-youtube light video-play-button item-center">
                                         <i className="fa fa-play"></i>
                                     </a>

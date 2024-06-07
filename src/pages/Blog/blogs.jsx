@@ -8,14 +8,18 @@ const Blogs = () => {
         <Navbar />
         {/* Début Breadcrumb */}
         <div
-          className="breadcrumb-area text-center shadow dark bg-fixed padding-xl text-light"
-          style={{ backgroundImage: "url(assets/img/2440x1578.png)" }}
+          className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
+          style={{ backgroundImage: "url('assets/img/2440x1578.png')" }}
         >
-          <div className="container">
+          {/* Overlay sombre */}
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+          <div className="relative container mx-auto z-10">
             <div className="breadcrumb-items">
               <div className="row">
                 <div className="col-lg-12">
-                  <h2>Blogs</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold text-white">
+                    Blogs
+                  </h2>
                 </div>
               </div>
             </div>

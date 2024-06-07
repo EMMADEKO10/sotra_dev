@@ -162,7 +162,7 @@ const AllProjets = () => {
             <Row gutter={[16, 16]}>
               {project.map((project, index) => {
                 const percent = project.socialBonds
-                  ? (project.socialBondsCollect / project.socialBonds) * 100
+                  ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2) 
                   : 0
                 return (
                   <Col

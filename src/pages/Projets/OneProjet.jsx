@@ -129,7 +129,7 @@ const DonationPage =  () => {
             {/* Contenu Principal */}
             <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
               <div className="bg-white shadow-lg rounded-lg p-8 items-center ">
-                <img width={550} height={400}
+                <img 
                   src={`${import.meta.env.VITE_URL_IMAGE}${
                     project.projectImage
                   }`}

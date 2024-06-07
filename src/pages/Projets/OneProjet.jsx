@@ -36,6 +36,8 @@ const DonationPage =  () => {
     formData.append('montant_reduit', customAmount); 
 
     console.log(" Sponsor ", formData.get('Sponsor'))
+    console.log(" projet ", formData.get('projet'))
+    console.log(" montant_reduit ", formData.get('montant_reduit'))
 
     try {
       //Envoyer les données à l'API
@@ -86,7 +88,7 @@ const DonationPage =  () => {
 
     };
     fetchData(); // Call the function to fetch data
-  }, []); // Empty dependency array ensures the effect runs only once
+  }, [id]); // Empty dependency array ensures the effect runs only once
 
   // -----------------------------------------------------------------------------------
 

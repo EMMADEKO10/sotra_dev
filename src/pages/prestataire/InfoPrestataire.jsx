@@ -72,7 +72,7 @@ const InfoPrestataire = () => {
       <Navbar />
 
       {/* Début de la section d'en-tête */}
-      <div className="breadcrumb-area text-center shadow-lg bg-fixed p-12 text-white" style={{ backgroundImage: "url('/assets/img/2440x1578.png')" }}>
+      <div className="breadcrumb-area text-center shadow-lg bg-fixed p-12 text-white" style={{ backgroundImage: "url('src/assets/sotradonsImage/5.jpg')" }}>
         <div className="container mx-auto">
           <div className="breadcrumb-items">
             <Row>

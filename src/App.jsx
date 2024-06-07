@@ -13,7 +13,7 @@ import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
 import AllProjets from "./pages/Projets/AllProjets";
 import OneProjet from "./pages/Projets/OneProjet";
 import Charte from "./pages/Info/Charte";
-import SocialBonds from "./pages/Info/SocialBonds";
+// import SocialBonds from "./pages/Info/SocialBonds";
 
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -41,7 +41,7 @@ function App() {
           <Route path="/allprojets" element={<AllProjets />} />
           <Route path="/oneprojet/:id" element={<OneProjet />} />
           <Route path="/chart" element={<Charte />} />
-          <Route path="/socialbonds" element={<SocialBonds />} />
+          {/* <Route path="/socialbonds" element={<SocialBonds />} /> */}
 
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />

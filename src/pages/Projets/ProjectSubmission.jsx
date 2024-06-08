@@ -18,6 +18,8 @@ const ProjectSubmission = () => {
   const [proposalFile, setProposalFile] = useState(null);
   const [budgetFile, setBudgetFile] = useState(null);
 
+  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
+
   // Notification de succès
   const openNotificationWithIcon = (type, messageText, description) => {
     notification[type]({
@@ -101,6 +103,7 @@ const ProjectSubmission = () => {
       const response = await axios.post(`${apiUrl}/projects`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`,
           'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
         },
       });

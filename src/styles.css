@@ -1,1 +1,44 @@
 @tailwind base;@tailwind components;@tailwind utilities
+
+
+/* styles.css */
+
+/* Style pour la modal de félicitations */
+.congratulations-modal .modal-content {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Animation pour la modal */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Appliquer l'animation à la modal */
+.congratulations-modal.ant-modal {
+    animation: slideInUp 0.5s ease-out;
+}
+
+/* Couleurs de base pour le style de la modal */
+.congratulations-modal.ant-modal-content {
+    background-color: #f0f0f0;
+    /* Couleur de fond */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    /* Ombre */
+}
+
+.congratulations-modal h2 {
+    color: #1890ff;
+    /* Couleur bleue */
+}
+
+.congratulations-modal p {
+    color: #f5222d;
+    /* Couleur rouge */
+}

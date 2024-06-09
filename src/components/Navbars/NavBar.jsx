@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -7,6 +7,9 @@ const Navbar = () => {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
 
   const userConnect = localStorage.getItem("user")
+  const roleUserConnect = localStorage.getItem("role")
+  const user = localStorage.getItem("user")
+
 
   const toggleDropdown = (index) => {
     setDropdownOpen(dropdownOpen === index ? null : index);
@@ -16,14 +19,13 @@ const Navbar = () => {
     setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
   };
 
-
   const logout = () => {
     // Remove the token from localStorage or sessionStorage
     localStorage.removeItem('token');
-
+    localStorage.removeItem("user")
+    localStorage.removeItem("role")
     // Optionally, you can clear other user-related data
     localStorage.removeItem('user');
-
     // Redirect to the login page
     window.location.href = '/login';
   };
@@ -32,24 +34,24 @@ const Navbar = () => {
     {
       title: "Projets",
       subItems: [
-        { name: "Découvrer les projets", link: "/allprojets" },
-        { name: "Démarrer un projet", link: "/projectsubmission" }
+        { name: "Découvrer les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"]},
+        { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user" ]}
       ],
     },
     {
       title: "Info",
       subItems: [
-        { name: "Social bonds", link: "#" },
-        { name: "Charte", link: "/chart" },
-        { name: "Blog", link: "/blogs" },
-        { name: "Devenir prestataire", link: "/infoprestataire" }
+        { name: "Social bonds", link: "#", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        { name: "Charte", link: "/chart", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        { name: "Blog", link: "/blogs", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
       ],
     },
     {
       title: "Sponsor",
       subItems: [
-        { name: "Nos sponsors", link: "/nossponsorts" },
-        { name: "Devenir sponsor", link: "/sponsorregistration" }
+        { name: "Nos sponsors", link: "/nossponsorts", restrictedTo: ["admin", "user", "sponsor", "prestataire"] },
+        { name: "Devenir sponsor", link: "/sponsorregistration",  restrictedTo: ["admin","user"] }
       ],
     },
     {
@@ -60,6 +62,12 @@ const Navbar = () => {
         { name: "Contact", link: "/contact" }
       ],
     },
+    // {
+    //   title: "Utilisateurs",
+    //   subItems: [
+    //     { name: "Voir les utilisateurs", link: "/allusers", restrictedTo: ["admin"] },
+    //   ],
+    // },
   ];
 
   return (
@@ -111,7 +119,9 @@ const Navbar = () => {
                 {dropdownOpen === index && (
                   <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
                     <ul className="py-2">
-                      {item.subItems.map((subItem, subIndex) => (
+                   
+                        { item.subItems.map((subItem, subIndex) => (
+                            !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
                         <li
                           key={subIndex}
                           className="hover:text-primary normal-case"
@@ -123,7 +133,8 @@ const Navbar = () => {
                             {subItem.name}
                           </Link>
                         </li>
-                      ))}
+                          ) : null
+                        ))}
                     </ul>
                   </div>
                 )}
@@ -135,14 +146,15 @@ const Navbar = () => {
         <div className="flex gap-6">
 
           {userConnect && <div className="hidden md:block">
-            <Link to="/">
+            <NavLink to={`/sponsor/${user}`}>
               <button
                 className="bg-white border-green-700 hover:bg-white hover:text-primary text-black  border-2  flex-row ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
                 type="button"
               >
                 <span>Mes Projets</span>
               </button>
-            </Link>
+            </NavLink>
+
           </div>}
           
           <div className="hidden md:block">

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Button, Form, Input, Select, Row, Col, Card, Typography, Checkbox, message } from 'antd';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import 'tailwindcss/tailwind.css';
+import axios from "axios"
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -16,13 +17,14 @@ const provincesRDC = [
 
 const InfoPrestataire = () => {
   const [form] = Form.useForm();
-  const [submitting, setSubmitting] = useState(false);
+  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'token'
+  const user = localStorage.getItem("user")
+   const [submitting, setSubmitting] = useState(false);
   const [otherOrganizationType, setOtherOrganizationType] = useState(false);
 
   const handleSubmit = async (values) => {
-    setSubmitting(true);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
-    // Assainir les entrées côté client
     const sanitizedValues = {
       ...values,
       organizationName: values.organizationName.trim(),
@@ -38,35 +40,37 @@ const InfoPrestataire = () => {
     };
 
     try {
-      const response = await fetch('/api/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'CSRF-Token': 'votre_token_csrf'  // Ajoutez un jeton CSRF ici
-        },
-        body: JSON.stringify(sanitizedValues),
-      });
+      const formData = new FormData();
 
-      if (response.ok) {
-        const data = await response.json();
-        message.success('Formulaire soumis avec succès !');
-        console.log('Form submitted successfully:', data);
-        form.resetFields();
-        setOtherOrganizationType(false);
-      } else {
-        // Gérer les erreurs de l'API (par exemple, validation serveur)
-        const errorData = await response.json();
-        message.error(`Erreur lors de la soumission du formulaire: ${errorData.message}`);
-        console.error('Error submitting form:', errorData);
+      for (const key in sanitizedValues) {
+        if (Array.isArray(sanitizedValues[key])) {
+          sanitizedValues[key].forEach((value, index) => {
+            formData.append(`${key}[${index}]`, value);
+          });
+        } else {
+          formData.append(key, sanitizedValues[key]);
+        }
       }
+      formData.append('iduser', user)
+
+
+      console.log("sanitizedValues : ", sanitizedValues);
+
+      const response = await axios.post(`${apiUrl}/prestataire`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`,
+          'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
+        },
+      });
+      console.log(response.data);
     } catch (error) {
-      message.error('Erreur de soumission : Veuillez réessayer plus tard.');
       console.error('Error submitting form:', error);
+      message.error('Erreur de soumission : Veuillez réessayer plus tard.');
     } finally {
       setSubmitting(false);
     }
   };
-
   return (
     <div>
       <Navbar />

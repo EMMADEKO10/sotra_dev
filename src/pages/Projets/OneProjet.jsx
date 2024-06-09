@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import axios from "axios"
 import {useParams} from "react-router-dom"
+import { motion, AnimatePresence } from 'framer-motion';
+// import { Modal } from 'antd';
 
 const DonationPage =  () => {
 
@@ -14,6 +16,9 @@ const DonationPage =  () => {
   const [customAmount, setCustomAmount] = useState("");
   const [reload, setReload] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
+  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
+  const [modalVisible, setModalVisible] = useState(false);
+
 
 
   useEffect(() => {
@@ -28,8 +33,13 @@ const DonationPage =  () => {
         console.log("voici la reponse", response.data)
         setProjects(response.data)
         // Ajoutez ici la logique pour gérer la réponse de votre backend
-        if (response.status === 201) { // Check for successful registration response
+        if (response.status === 201 || response.status === 200) { // Check for successful registration response
           console.log('Connexion réussie ! :')
+          // ---------------------------------------------------------------------------------------
+        
+          // -----------------------------------------------------------------------------------
+
+
 
         } else {
           // Handle unsuccessful registration (e.g., display error message)
@@ -78,9 +88,16 @@ const DonationPage =  () => {
       const response = await axios.post(`${apiUrl}/bon`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`,
           'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
         },
       });
+
+      // Simulons une attente de réponse réussie pendant 3 secondes
+      // setTimeout(() => {
+        setModalVisible(true);
+      // },);
+
       console.log(response.data)
       // Afficher une notification de succès
       setReload(!reload);
@@ -89,10 +106,6 @@ const DonationPage =  () => {
       console.error('Error submitting the form', error);
     } 
   };
-
-
-
-  // -----------------------------------------------------------------------------------
 
 
   if (!project) {
@@ -307,6 +320,10 @@ const DonationPage =  () => {
           </div>
         </div>
       </div>
+
+
+
+      <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} />
       {/* Fin Cause Unique */}
       <Footer />
     </div>
@@ -314,3 +331,79 @@ const DonationPage =  () => {
 };
 
 export default DonationPage;
+
+
+
+
+
+
+
+
+
+const Modal = ({ isOpen, onClose }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="relative bg-white rounded-lg shadow-lg p-6 z-10"
+          >
+            <h2 className="text-2xl font-bold mb-4">Félicitations !</h2>
+            <p className="text-lg mb-6">Vous avez fait un don avec succès.</p>
+            <button
+              onClick={onClose}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Fermer
+            </button>
+          </motion.div>
+
+          {/* Boules qui tombent */}
+          <motion.div className="absolute inset-0 overflow-hidden">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-4 h-4 bg-yellow-500 rounded-full"
+                initial={{ y: -50, x: Math.random() * 100 + '%' }}
+                animate={{ y: '100vh' }}
+                transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
+              />
+            ))}
+            {Array.from({ length: 10 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-4 h-4 bg-red-500 rounded-full"
+                initial={{ y: -50, x: Math.random() * 100 + '%' }}
+                animate={{ y: '100vh' }}
+                transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
+              />
+            ))}
+            {Array.from({ length: 10 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-4 h-4 bg-blue-500 rounded-full"
+                initial={{ y: -50, x: Math.random() * 100 + '%' }}
+                animate={{ y: '100vh' }}
+                transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
+              />
+            ))}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+
+
+

@@ -14,13 +14,18 @@ function Login() {
     try {
       const { email, password } = value
       const apiUrl = import.meta.env.VITE_API_URL;
-      console.log('Received values of form: ', password, email);
+      // console.log('Received values of form: ', password, email);
 
       const response = await axios.post(`${apiUrl}/login`, { password, email });
       console.log("voici la reponse", response.data.token)
 
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user",response.data.user)
+      localStorage.setItem("user", response.data.user._id)
+      localStorage.setItem("role", response.data.user.role)
+
+
+      console.log("voici la reponse", response.data.user._id)
+
 
       if (response.status === 200 || response.status === 201) {
        

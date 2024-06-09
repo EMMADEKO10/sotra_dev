@@ -19,6 +19,9 @@ const SponsorRegistration = () => {
   const [socialBonds, setSocialBonds] = useState(0)
   const [logoFile, setLogoFile] = useState(null)
   const [notification, setNotification] = useState(null)
+
+  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
+  const user = localStorage.getItem("user")
   
   const handleSectorChange = (value) => {
     setShowOtherSector(value === "other")
@@ -96,33 +99,21 @@ const SponsorRegistration = () => {
     formData.append('website', website);
     formData.append('companyName', companyName);
     formData.append('representativeName', representativeName);
-    formData.append('otherSector', otherSector);
+    formData.append('otherSector', otherSector); 
+    formData.append('iduser', user)
 
 
-    // Gestion des changements dans les fichiers d'image
-    // const handleImageChange = ({ fileList }) => setImageFile(fileList);
-
-    // console.log(formData.get("sponsorshipGoals"));
-
-// const object = {
-//   sponsorshipGoals, address,
-//     phone,
-//     budget,
-//     industry,
-//     email,
-//     website,
-//     companyName,
-//     representativeName,
-//     otherSector,
-//     formData
-// }
-//console.log("objetc", object)
 
     try {
+      
+      console.log("formData.get :", formData.get("iduser"))
+      console.log(" user._id :", user)
+
       //Envoyer les données à l'API
       const response = await axios.post(`${apiUrl}/sponsors`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`,
           'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
         },
       });
@@ -153,22 +144,22 @@ const SponsorRegistration = () => {
         }
 
         // Simuler une soumission asynchrone
-        // await new Promise((resolve) => setTimeout(resolve, 2000))
+        await new Promise((resolve) => setTimeout(resolve, 2000))
 
-        // setNotification({
-        //   type: "success",
-        //   message: "Formulaire soumis avec succès !",
-        // })
-        // form.resetFields()
-        // setLogoFile(null) // Réinitialiser le logoFile après la soumission
+        setNotification({
+          type: "success",
+          message: "Formulaire soumis avec succès !",
+        })
+        form.resetFields()
+        setLogoFile(null) // Réinitialiser le logoFile après la soumission
       } catch (error) {
         console.error("Erreur lors de la soumission :", error)
-        // setNotification({
-        //   type: "error",
-        //   message: "Erreur lors de la soumission du formulaire.",
-        // })
+        setNotification({
+          type: "error",
+          message: "Erreur lors de la soumission du formulaire.",
+        })
       } finally {
-        // setIsSubmitting(false)
+         setIsSubmitting(false)
       }
     }
     // ----------------------------------------------------------------ONFINISH
@@ -179,17 +170,15 @@ const SponsorRegistration = () => {
       <Navbar />
 
       <div
-        className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
-        style={{ backgroundImage: "url('src/assets/sotradonsImage/3.jpg')" }}
+        className="breadcrumb-area text-center shadow-lg bg-fixed p-12 text-white"
+        style={{ backgroundImage: "url('/assets/img/2440x1578.png')" }}
       >
-        {/* Overlay sombre */}
-        <div className="absolute inset-0 bg-black opacity-40"></div>
-        <div className="relative container mx-auto z-10">
+        <div className="container mx-auto">
           <div className="breadcrumb-items">
             <Row>
               <Col span={24}>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
-                  Enregistrement pour sponsors
+                <h2 className="text-4xl font-bold">
+                  Enregistrement pour Sponsors
                 </h2>
               </Col>
             </Row>
@@ -429,7 +418,7 @@ const SponsorRegistration = () => {
                     shape="round"
                     className="bg-[#3bcf93] border-none mt-4"
                     htmlType="submit"
-                    // disabled={isSubmitting}
+                    disabled={isSubmitting}
                   >
                     {/* {isSubmitting ? "Soumission..." : "Soumettre"} */}
                     Soumettre

@@ -18,7 +18,7 @@ const ProjectSubmission = () => {
   const [proposalFile, setProposalFile] = useState(null);
   const [budgetFile, setBudgetFile] = useState(null);
 
-  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
+const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
 
   // Notification de succès
   const openNotificationWithIcon = (type, messageText, description) => {

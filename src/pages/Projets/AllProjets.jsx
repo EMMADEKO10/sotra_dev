@@ -69,7 +69,7 @@ const AllProjets = () => {
         console.log("Voci l'api des images : ", ApiUrlImage)
         console.log("Voci l'api des EndPoints : ", apiUrl)
 
-        const response = await axios.get(`${apiUrl}/projects`);
+        const response = await axios.get(`${apiUrl}/projects/validated`);
         console.log("voici la reponse", response.data)
         setProjects(response.data)
         // Ajoutez ici la logique pour gérer la réponse de votre backend

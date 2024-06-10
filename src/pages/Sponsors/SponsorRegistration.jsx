@@ -20,7 +20,7 @@ const SponsorRegistration = () => {
   const [logoFile, setLogoFile] = useState(null)
   const [notification, setNotification] = useState(null)
 
-  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
+  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'token'
   const user = localStorage.getItem("user")
   
   const handleSectorChange = (value) => {

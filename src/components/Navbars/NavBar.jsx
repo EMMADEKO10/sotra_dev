@@ -156,6 +156,18 @@ const Navbar = () => {
             </NavLink>
 
           </div>}
+
+          {userConnect && <div className="hidden md:block">
+            {/* <NavLink to={`/sponsor/${user}`}> */}
+              <button
+                className="bg-white border-green-700 hover:bg-white hover:text-primary text-black  border-2  flex-row ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
+                type="button"
+              >
+              <span>{roleUserConnect}</span>
+              </button>
+            {/* </NavLink> */}
+
+          </div>}
           
           <div className="hidden md:block">
             <Link to="/login">

@@ -7,9 +7,12 @@ const Navbar = () => {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
 
   const userConnect = localStorage.getItem("user")
-  const roleUserConnect = localStorage.getItem("role")
+  let roleUserConnect = localStorage.getItem("role")
   const user = localStorage.getItem("user")
 
+  if (!roleUserConnect){
+    roleUserConnect= "user"
+  }
 
   const toggleDropdown = (index) => {
     setDropdownOpen(dropdownOpen === index ? null : index);

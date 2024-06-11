@@ -1,12 +1,13 @@
 // import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import AdminNavbar from '../../../notifications/headerNotificationAdmin'
 
 export default function AdminDashboardProjet() {
     const [projects, setProjects] = useState([]);
     const [reload, setReload] = useState(false);
     const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'token'
-
+    
 // -------------------------------------------------------------------------------------------
 
     useEffect(() => {
@@ -80,6 +81,7 @@ export default function AdminDashboardProjet() {
 
     return (
         <div className="p-4">
+            <AdminNavbar reload={reload} />
             <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
             <div className="overflow-x-auto shadow-lg rounded-lg">
                 <table className="w-full bg-white">
@@ -178,8 +180,8 @@ export default function AdminDashboardProjet() {
                     </tbody>
                 </table>
             </div>
-            <AdminDashboard />
-            <AdminSponsorDashboard />
+            <AdminDashboard  />
+            <AdminSponsorDashboard  />
         </div>
 
 
@@ -254,7 +256,6 @@ const AdminDashboard = () => {
             console.error('Erreur lors de la modification du statut du prestataire:', error);
         }
     };
-
 
     return (
         <div className=" mx-auto p-4">

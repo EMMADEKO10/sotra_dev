@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import axios from 'axios';
 
+
 const { TextArea } = Input;
 const { Title, Paragraph, Text } = Typography;
 
@@ -19,7 +20,7 @@ const ProjectSubmission = () => {
   const [budgetFile, setBudgetFile] = useState(null);
 
 const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
-
+  const user = localStorage.getItem('user');
   // Notification de succès
   const openNotificationWithIcon = (type, messageText, description) => {
     notification[type]({
@@ -87,6 +88,7 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
     formData.append('socialBonds', socialBonds);
     formData.append('projectPartners', projectPartners);
     formData.append('projectIndicators', projectIndicators);
+    formData.append('prestataire', user);
 
     if (fileList.length > 0) {
       formData.append('supportingDocument', fileList[0].originFileObj);

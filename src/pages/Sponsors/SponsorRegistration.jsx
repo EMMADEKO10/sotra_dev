@@ -83,6 +83,7 @@ const SponsorRegistration = () => {
       industry,
       email,
       website,
+      password,
       companyName,
       representativeName,
       otherSector
@@ -95,12 +96,12 @@ const SponsorRegistration = () => {
     formData.append('phone', phone);
     formData.append('industry', industry);
     formData.append('email', email);
+    formData.append('password', password);
     formData.append('logo', logoFile);
     formData.append('website', website);
     formData.append('companyName', companyName);
     formData.append('representativeName', representativeName);
     formData.append('otherSector', otherSector); 
-    formData.append('iduser', user)
 
 
 
@@ -113,7 +114,7 @@ const SponsorRegistration = () => {
       const response = await axios.post(`${apiUrl}/sponsors`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`,
+          // 'Authorization': `Bearer ${token}`,
           'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
         },
       });
@@ -366,6 +367,37 @@ const SponsorRegistration = () => {
                   >
                     <Input placeholder="Numéro de téléphone" />
                   </Form.Item>
+
+                  <Form.Item
+                    label="Mot de passe"
+                    name="password"
+                    rules={[
+                      { required: true, message: 'Veuillez entrer votre mot de passe!' },
+                      { min: 6, message: 'Le mot de passe doit contenir au moins 6 caractères' }
+                    ]}
+                  >
+                    <Input type='password' placeholder="Mot de passe" className="rounded-md" />
+                  </Form.Item>
+
+
+                  <Form.Item
+                    label="Confirmer le mot de passe"
+                    name="password2"
+                    rules={[
+                      { required: true, message: 'Veuillez confirmer votre mot de passe!' },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue('password') === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(new Error('Les mots de passe ne correspondent pas!'));
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input placeholder="Mot de passe" />
+                  </Form.Item>
+
 
                   <Title
                     level={4}

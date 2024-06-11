@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, Input, Select, Row, Col, Card, Typography, Checkbox, message } from 'antd';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
@@ -19,7 +19,7 @@ const InfoPrestataire = () => {
   const [form] = Form.useForm();
   const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'token'
   const user = localStorage.getItem("user")
-   const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [otherOrganizationType, setOtherOrganizationType] = useState(false);
 
   const handleSubmit = async (values) => {
@@ -31,16 +31,34 @@ const InfoPrestataire = () => {
       address: values.address.trim(),
       website: values.website?.trim(),
       representativeName: values.representativeName.trim(),
-      email: values.email.trim(),
       phone: values.phone.trim(),
+      email: values.email.trim(),
+      password: values.password.trim(),
       services: values.services.trim(),
       geographicAreas: values.geographicAreas,
       projects: values.projects.trim(),
       specificOrganizationType: values.specificOrganizationType?.trim(),
     };
 
+    // phone2,emailRepresant
+
+
+
+
+
     try {
       const formData = new FormData();
+      // const formDataLogin = new FormData(); 
+      // ----------------------------------------------------------Récuperation des données de connexion
+      // for (const key in loginValues) {
+      //   if (Array.isArray(loginValues[key])) {
+      //     loginValues[key].forEach((value, index) => {
+      //       formDataLogin.append(`${key}[${index}]`, value);
+      //     });
+      //   } else {
+      //     formDataLogin.append(key, loginValues[key]);
+      //   }
+      // }
 
       for (const key in sanitizedValues) {
         if (Array.isArray(sanitizedValues[key])) {
@@ -51,8 +69,8 @@ const InfoPrestataire = () => {
           formData.append(key, sanitizedValues[key]);
         }
       }
-      formData.append('iduser', user)
 
+      formData.append('iduser', user)
 
       console.log("sanitizedValues : ", sanitizedValues);
 
@@ -70,7 +88,14 @@ const InfoPrestataire = () => {
     } finally {
       setSubmitting(false);
     }
+
+    // ------------------------------------------------------------------------------------------------
+
+
+
   };
+
+
   return (
     <div>
       <Navbar />
@@ -174,6 +199,21 @@ const InfoPrestataire = () => {
                   >
                     <Input placeholder="https://example.com" />
                   </Form.Item>
+                  {/* ------------------------------------------------------------------ */}
+                  <Form.Item
+                    name="email"
+                    label="Adresse e-mail"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer l'adresse e-mail",
+                        type: "email",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="email@example.com" />
+                  </Form.Item>
+                  {/* ------------------------------------------------------------------------------------------ */}
                   <Form.Item
                     name="organizationType"
                     label="Type d'organisation"
@@ -241,7 +281,7 @@ const InfoPrestataire = () => {
                     <Input placeholder="Nom du représentant" />
                   </Form.Item>
                   <Form.Item
-                    name="email"
+                    name="emailRepresant"
                     label="Adresse e-mail"
                     rules={[
                       {
@@ -253,7 +293,9 @@ const InfoPrestataire = () => {
                   >
                     <Input placeholder="email@example.com" />
                   </Form.Item>
+
                   <Form.Item
+
                     name="phone"
                     label="Numéro de téléphone"
                     rules={[
@@ -265,6 +307,53 @@ const InfoPrestataire = () => {
                   >
                     <Input placeholder="Numéro de téléphone" />
                   </Form.Item>
+
+                  <Form.Item
+
+                    name="phone2"
+                    label="Deuxième Numéro de téléphone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le deuxième numéro de téléphone",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Numéro de téléphone" />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Mot de passe"
+                    name="password"
+                    rules={[
+                      { required: true, message: 'Veuillez entrer votre mot de passe!' },
+                      { min: 6, message: 'Le mot de passe doit contenir au moins 6 caractères' }
+                    ]}
+                  >
+                    <Input type='password' placeholder="Mot de passe" className="rounded-md" />
+                  </Form.Item>
+
+
+                  <Form.Item
+                    label="Confirmer le mot de passe"
+                    name="password2"
+                    rules={[
+                      { required: true, message: 'Veuillez confirmer votre mot de passe!' },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue('password') === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(new Error('Les mots de passe ne correspondent pas!'));
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input placeholder="Mot de passe" />
+                  </Form.Item>
+
+
+
 
                   {/* Champs spécifiques */}
                   <Title

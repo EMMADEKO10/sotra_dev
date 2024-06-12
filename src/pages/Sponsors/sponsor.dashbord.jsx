@@ -1,11 +1,8 @@
-// import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom"
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import axios from "axios"
-
-
 
 const SponsorDashboard = () => {
 
@@ -13,7 +10,6 @@ const SponsorDashboard = () => {
     const { id } = useParams();
     const [sponsorName, setSponsorName] = useState('');
     const [sponsorSocialBond, setSponsorSocialBond] = useState(0);
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,9 +26,7 @@ const SponsorDashboard = () => {
                 if (response.status === 201 || response.status === 200) { // Check for successful registration response
                     console.log('Connexion réussie ! :')
                     // ---------------------------------------------------------------------------------------
-
                     // -----------------------------------------------------------------------------------
-
                 } else {
                     // Handle unsuccessful registration (e.g., display error message)
                 }
@@ -46,7 +40,6 @@ const SponsorDashboard = () => {
                     console.error('Erreur lors de la requête:', error.message);
                 }
             }
-
         };
         fetchData(); // Call the function to fetch data
     }, [id]); // Empty dependency array ensures the effect runs only once
@@ -58,18 +51,15 @@ const SponsorDashboard = () => {
         }
     }, [projects]);
 
-
     return (
         <div>
             <Navbar />
             <div className="container mx-auto px-4 py-8">
                 {/* <h1 className="text-3xl font-bold mb-6">Dashboard</h1> */}
-
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold">{sponsorName}</h2>
                     <p className="text-lg">Sponsor Social Bond: {sponsorSocialBond}</p>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {projects.map((project, index) => (
                         <div key={index} className="bg-white rounded-lg shadow-md p-6">

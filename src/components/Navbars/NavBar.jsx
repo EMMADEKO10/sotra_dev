@@ -65,13 +65,17 @@ const Navbar = () => {
         { name: "Contact", link: "/contact" }
       ],
     },
-    // {
-    //   title: "Utilisateurs",
-    //   subItems: [
-    //     { name: "Voir les utilisateurs", link: "/allusers", restrictedTo: ["admin"] },
-    //   ],
-    // },
+
   ];
+
+  let dashboardUrl;
+  if (roleUserConnect === 'prestataire') {
+    dashboardUrl = `/prestataire/${userConnect}`;
+  } else if (roleUserConnect === 'sponsor') {
+    dashboardUrl = `/sponsor/${userConnect}`;
+  } else {
+    return null; // Si le rôle n'est pas reconnu, ne rien afficher
+  }
 
   return (
     <nav className="sticky top-0 font-bold bg-white z-50 shadow-lg">
@@ -149,7 +153,7 @@ const Navbar = () => {
         <div className="flex gap-6">
 
           {userConnect && <div className="hidden md:block">
-            <NavLink to={`/sponsor/${user}`}>
+            <NavLink to={dashboardUrl}>
               <button
                 className="bg-white border-green-700 hover:bg-white hover:text-primary text-black  border-2  flex-row ease-linear duration-200 px-3 text-lg flex items-center gap-x-2 font-normal py-1.5 rounded-md"
                 type="button"

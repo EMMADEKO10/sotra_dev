@@ -19,6 +19,7 @@ import Main from "./pages/dashboard/admin/layouts/Main"
 import { Dashboard, Map, NotFound } from "./pages/dashboard/admin/pages"
 import DashPrestataire from "./pages/dashboard/admin/pages/DashPrestataire";
 import DashSponsor from "./pages/dashboard/admin/pages/DashSponsor";
+import PrestataireDashboard from "./pages/prestataire/prestataire.dashbord"
 // import SocialBonds from "./pages/Info/SocialBonds";
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -83,6 +84,10 @@ function App() {
           <Route
             path="/oneprojet/:id"
             element={<OneProjet />}
+          />
+          <Route
+            path="/prestataire/:id"
+            element={<PrestataireDashboard />}
           />
           <Route
             path="/chart"

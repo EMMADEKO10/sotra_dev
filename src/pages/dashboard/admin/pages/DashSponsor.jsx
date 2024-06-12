@@ -81,6 +81,9 @@ function DashSponsor() {
                 Téléphone
               </th>
               <th className="py-3 px-4 font-bold uppercase text-left">
+                budgets
+              </th>
+              <th className="py-3 px-4 font-bold uppercase text-left">
                 Adresse
               </th>
               <th className="py-3 px-4 font-bold uppercase text-left">
@@ -99,14 +102,16 @@ function DashSponsor() {
               >
                 <td className="py-3 px-4">
                   <img
-                    src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.image}`}
+                    src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`}
                     alt={sponsor.name}
                     className="h-16 w-16 object-cover rounded"
                   />
                 </td>
-                <td className="py-3 px-4 whitespace-nowrap">{sponsor.name}</td>
+                <td className="py-3 px-4 whitespace-nowrap">{sponsor.companyName}</td>
                 <td className="py-3 px-4 whitespace-nowrap">{sponsor.email}</td>
                 <td className="py-3 px-4 whitespace-nowrap">{sponsor.phone}</td>
+                <td className="py-3 px-4 whitespace-nowrap">{sponsor.budget}</td>
+                
                 <td className="py-3 px-4 whitespace-nowrap">
                   {sponsor.address}
                 </td>

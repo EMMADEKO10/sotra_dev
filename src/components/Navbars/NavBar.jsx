@@ -73,7 +73,7 @@ const Navbar = () => {
     dashboardUrl = `/prestataire/${userConnect}`;
   } else if (roleUserConnect === 'sponsor') {
     dashboardUrl = `/sponsor/${userConnect}`;
-  }
+  } 
 
   return (
     <nav className="sticky top-0 font-bold bg-white z-50 shadow-lg">

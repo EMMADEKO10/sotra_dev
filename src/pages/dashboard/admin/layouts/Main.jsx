@@ -3,14 +3,15 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
+  DownOutlined,
   PoweroffOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
-import { Layout, Button, Dropdown } from "antd";
+import { Layout, Button, Dropdown, message } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
-
 import { Route, Routes } from "react-router-dom";
-import { Dashboard, Map,  } from "../pages";
+import { Dashboard } from "../pages";
 import Sidebar from "./Sidebar";
 import AdminDashboardProjet from "../pages/AdminDashboardProjet";
 import DashPrestataire from "../pages/DashPrestataire";
@@ -29,27 +30,19 @@ const Main = () => {
     }
   }, []);
 
-  // Navigation Menu Options
-  const items = [
-    {
-      label: "Logout",
-      key: "1",
-      icon: <PoweroffOutlined />,
-    },
-  ];
+  const handleLogout = () => {
+    // Clear tokens or session storage
+    localStorage.clear();
+    sessionStorage.clear();
 
-  const handleMenuClick = (e) => {
-    if (e.key === "1") {
-      //Logout
-      // openSuccessNotification("Logged Out!", "Logout Success!");
-      localStorage.clear();
-      window.location.replace("/login");
-    }
-  };
+    // Optionally, clear cookies
+    // document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
+    // Provide feedback to the user
+    message.info('Déconnexion réussie');
+
+    // Redirect to the login page
+    window.location.replace("/login");
   };
 
   return (
@@ -70,15 +63,12 @@ const Main = () => {
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: "#EBEBEB" }}>
-        
           <div className="flex flex-row justify-between">
             <div>
               <Button
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                onClick={() => {
-                  setCollapsed(!collapsed);
-                }}
+                onClick={() => setCollapsed(!collapsed)}
                 style={{
                   fontSize: "16px",
                   width: 64,
@@ -87,17 +77,17 @@ const Main = () => {
                 }}
               />
             </div>
-            <div className="flex flex-row ">
+            <div className="flex flex-row items-center">
               <DashNotification />
-              <Dropdown.Button
-                menu={menuProps}
-                icon={<UserOutlined />}
-                className="flex justify-end m-2"
+              <Button
+                type="primary"
+                icon={<LogoutOutlined />}
+                onClick={handleLogout}
+                className="flex items-center px-4 py-2 m-2 text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md"
               >
-                Hello, User!
-              </Dropdown.Button>
+                Déconnexion
+              </Button>
             </div>
-            
           </div>
         </Header>
 
@@ -113,7 +103,11 @@ const Main = () => {
         </Content>
         <Footer className="text-center pt-0">
           Copyright 2023 © ALL RIGHTS RESERVED. Design by{" "}
-          <a href="https://aventureit.com" target="_blank" rel="noreferrer">
+          <a
+            href="https://aventureit.com"
+            target="_blank"
+            rel="noreferrer"
+          >
             Aventure It Solution
           </a>
         </Footer>

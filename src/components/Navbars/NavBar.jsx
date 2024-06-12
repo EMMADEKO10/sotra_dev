@@ -73,8 +73,6 @@ const Navbar = () => {
     dashboardUrl = `/prestataire/${userConnect}`;
   } else if (roleUserConnect === 'sponsor') {
     dashboardUrl = `/sponsor/${userConnect}`;
-  } else {
-    return null; // Si le rôle n'est pas reconnu, ne rien afficher
   }
 
   return (

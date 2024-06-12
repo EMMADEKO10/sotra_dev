@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Modal, Button } from 'antd';
 // import 'antd/dist/antd.css';
 
-const AdminNavbar = ({ reload }) => {
+const DashNotification = ({ reload }) => {
     const [notifications, setNotifications] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -75,9 +75,7 @@ const AdminNavbar = ({ reload }) => {
 
 
     return (
-        <nav className="bg-gray-800 p-4 text-white">
-            <div className="container mx-auto flex justify-between items-center">
-                <div className="text-lg font-bold">Admin Navbar</div>
+
                 <div className="relative">
                     <Button type="primary" onClick={showModal}>
                         Notifications
@@ -109,13 +107,11 @@ const AdminNavbar = ({ reload }) => {
                         </div>
                     </Modal>
                 </div>
-            </div>
-        </nav>
     );
 };
 
-AdminNavbar.propTypes = {
+DashNotification.propTypes = {
     reload: PropTypes.bool.isRequired,
 }
 
-export default AdminNavbar;
+export default DashNotification;

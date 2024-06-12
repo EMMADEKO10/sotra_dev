@@ -10,8 +10,12 @@ import { Content, Footer, Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 
 import { Route, Routes } from "react-router-dom";
-import { Dashboard, Map } from "../pages";
+import { Dashboard, Map,  } from "../pages";
 import Sidebar from "./Sidebar";
+import AdminDashboardProjet from "../pages/AdminDashboardProjet";
+import DashPrestataire from "../pages/DashPrestataire";
+import DashSponsor from "../pages/DashSponsor";
+import DashNotification from "./notifications/DashNotification";
 // import { useContentContext } from "../providers/ContentContext";
 
 const Main = () => {
@@ -65,28 +69,35 @@ const Main = () => {
         <Sidebar />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: "white" }}>
-          <div className="flex flex-row ">
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => {
-                setCollapsed(!collapsed);
-              }}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-                zIndex: 999,
-              }}
-            />
-            <Dropdown.Button
-              menu={menuProps}
-              icon={<UserOutlined />}
-              className="flex justify-end m-4"
-            >
-              Hello, User!
-            </Dropdown.Button>
+        <Header style={{ padding: 0, background: "#EBEBEB" }}>
+        
+          <div className="flex flex-row justify-between">
+            <div>
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => {
+                  setCollapsed(!collapsed);
+                }}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                  zIndex: 999,
+                }}
+              />
+            </div>
+            <div className="flex flex-row ">
+              <DashNotification />
+              <Dropdown.Button
+                menu={menuProps}
+                icon={<UserOutlined />}
+                className="flex justify-end m-2"
+              >
+                Hello, User!
+              </Dropdown.Button>
+            </div>
+            
           </div>
         </Header>
 
@@ -94,7 +105,10 @@ const Main = () => {
           <Routes>
             <Route exact path="/" element={<Dashboard />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route exact path="/map" element={<Map />} />
+            <Route exact path="/admindashboardprojet" element={<AdminDashboardProjet />} />
+            <Route exact path="/dashprestataire" element={<DashPrestataire />} />
+            <Route exact path="/dashsponsor" element={<DashSponsor />} />
+            {/* <Route exact path="/map" element={<Map />} /> */}
           </Routes>
         </Content>
         <Footer className="text-center pt-0">

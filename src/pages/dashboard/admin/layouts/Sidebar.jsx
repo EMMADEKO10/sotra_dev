@@ -2,7 +2,15 @@ import React, { useEffect } from "react";
 import { Menu } from "antd";
 import {
   AppstoreOutlined,
-  UserOutlined
+  UserOutlined,
+  ProjectOutlined,
+  FolderOpenOutlined,
+  TeamOutlined,
+  UserSwitchOutlined,
+  DashboardOutlined,
+  ProfileOutlined,
+  BarsOutlined,
+  BookOutlined
 } from "@ant-design/icons";
 import { LogoL } from "../assets";
 import { Link } from "react-router-dom";
@@ -39,9 +47,24 @@ const Sidebar = () => {
           },
           {
             key: "2",
-            icon: <UserOutlined />,
-            label: <Link to="/map">Map</Link>,
+            icon: <FolderOpenOutlined />,
+            label: <Link to="/admindashboardprojet">Projets</Link>,
           },
+          {
+            key: "3",
+            icon: <TeamOutlined />,
+            label: <Link to="/dashprestataire">Prestataires</Link>,
+          },
+          {
+            key: "4",
+            icon: <UserSwitchOutlined />,
+            label: <Link to="/dashsponsor">Sponsors</Link>,
+          },
+          // {
+          //   key: "2",
+          //   icon: <UserOutlined />,
+          //   label: <Link to="/map">Map</Link>,
+          // },
         ]}
       />
     </>

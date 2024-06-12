@@ -15,6 +15,8 @@ import OneProjet from "./pages/Projets/OneProjet";
 import Charte from "./pages/Info/Charte";
 import SponsorDashboard from "./pages/Sponsors/sponsor.dashbord"
 import AdminDashboardProjet from "./pages/admin/AdminDashboardProjet"
+import Main from "./pages/dashboard/admin/layouts/Main";
+import { Dashboard, Map, NotFound } from "./pages/dashboard/admin/pages";
 // import SocialBonds from "./pages/Info/SocialBonds";
 
 
@@ -24,6 +26,8 @@ import AdminDashboardProjet from "./pages/admin/AdminDashboardProjet"
 
 
 function App() {
+
+  const token = localStorage.getItem('token');
 
   return (
     <div>
@@ -48,12 +52,25 @@ function App() {
           <Route path="/projet/admin" element={<AdminDashboardProjet />} /> 
 
 
+          <Route path="/login" element={<Login />} />
+            {token !== null ? (
+          <Route path="/" element={<Main />}>
+            <Route exact path="/" element={<Dashboard />} />
+            <Route exact path="/dashboard" element={<Dashboard />} />
+            <Route exact path="/map" element={<Map />} />
+          </Route>
+        ) : (
+              <>
+                <Route exact path="*" element={<NotFound />} />
+              </>
+            )}
+        <Route path="*" element={<NotFound />} />
+
+
           
           {/* <Route path="/admin" element={<DashBoardAdmin />} />
           <Route path="/sponsor" element={<DashBoardSponsor />} />
           <Route path="/admin" element={<DashBoardPrestataire />} /> */}
-
-
 
 
         </Routes>

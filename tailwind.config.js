@@ -11,8 +11,12 @@ export default {
     },
     },
   },
-  plugins: [],
+
     corePlugins: {
       preflight: false,
     },
+
+  plugins: [
+      async () => (await import('daisyui')).default,
+    ],
 }

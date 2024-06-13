@@ -103,8 +103,7 @@ function App() {
             element={<AdminDashboardProjet />}
           />
 
-          {/* <Route path="/login" element={<Login />} /> */}
-          {/* {token !== null ? ( */}
+         
           <Route
             path="/"
             element={<Main />}

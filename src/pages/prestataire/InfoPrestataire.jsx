@@ -32,6 +32,7 @@ const InfoPrestataire = () => {
       website: values.website?.trim(),
       representativeName: values.representativeName.trim(),
       phone: values.phone.trim(),
+      phoneSecond:values.phoneSecond.trim(),
       email: values.email.trim(),
       password: values.password.trim(),
       services: values.services.trim(),
@@ -41,11 +42,6 @@ const InfoPrestataire = () => {
     };
 
     // phone2,emailRepresant
-
-
-
-
-
     try {
       const formData = new FormData();
       // const formDataLogin = new FormData(); 
@@ -336,7 +332,7 @@ const InfoPrestataire = () => {
 
                   <Form.Item
                     label="Confirmer le mot de passe"
-                    name="password2"
+                    name="phoneSecond"
                     rules={[
                       { required: true, message: 'Veuillez confirmer votre mot de passe!' },
                       ({ getFieldValue }) => ({

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, Badge, Dropdown, Menu, Space, Button, Image } from "antd";
+import { Table, Badge, Space, Button, Image, Input } from "antd";
 import { DownOutlined } from '@ant-design/icons';
 
 export default function AdminDashboardProjet() {
   const [projects, setProjects] = useState([]);
   const [reload, setReload] = useState(false);
+  const [editField, setEditField] = useState({ id: null, field: null, value: "" });
   const token = localStorage.getItem("token");
 
-  // -------------------------------------------------------------------------------------------
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,7 +30,30 @@ export default function AdminDashboardProjet() {
     fetchData();
   }, [reload, token]);
 
-  // ---------------------------------------------------------------------------------------
+  const handleEditClick = (id, field, value) => {
+    setEditField({ id, field, value });
+  };
+
+  const handleInputChange = (e) => {
+    setEditField({ ...editField, value: e.target.value });
+  };
+
+  const handleSaveClick = async () => {
+    const { id, field, value } = editField;
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      await axios.put(`${apiUrl}/projects/${id}`, { [field]: value }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setReload(!reload);
+      setEditField({ id: null, field: null, value: "" });
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour:", error.message);
+    }
+  };
 
   const validateProject = async (projectId) => {
     try {
@@ -75,32 +98,24 @@ export default function AdminDashboardProjet() {
           style={{ objectFit: 'cover', borderRadius: '8px' }}
         />
       ),
-      },
-        {
-          title: 'Titre',
-          dataIndex: 'projectTitle',
-          key: 'projectTitle',
-        },
-    // {
-    //   title: 'Description',
-    //   dataIndex: 'projectDescription',
-    //   key: 'projectDescription',
-    //   render: (text) => (
-    //     <span>
-    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
-    //     </span>
-    //   ),
-    //   },
-    //   {
-    //   title: 'Objectif',
-    //   dataIndex: 'projectGoals',
-    //   key: 'projectGoals',
-    //   render: (text) => (
-    //     <span>
-    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
-    //     </span>
-    //   ),
-    // },
+    },
+    {
+      title: 'Titre',
+      dataIndex: 'projectTitle',
+      key: 'projectTitle',
+      onCell: (record) => ({
+        onClick: () => handleEditClick(record._id, "projectTitle", record.projectTitle),
+      }),
+      render: (_, record) => (
+        <span>
+          {editField.id === record._id && editField.field === "projectTitle" ? (
+            <Input value={editField.value} onChange={handleInputChange} onBlur={handleSaveClick} />
+          ) : (
+            record.projectTitle
+          )}
+        </span>
+      ),
+    },
     {
       title: 'Calendrier',
       dataIndex: 'projectTimeline',
@@ -111,56 +126,40 @@ export default function AdminDashboardProjet() {
         </span>
       ),
     },
-    // {
-    //   title: 'Montant',
-    //   dataIndex: 'projectAmount',
-    //   key: 'projectAmount',
-    // },
     {
       title: 'Bonds Objectif',
       dataIndex: 'socialBonds',
       key: 'socialBonds',
+      onCell: (record) => ({
+        onClick: () => handleEditClick(record._id, "socialBonds", record.socialBonds),
+      }),
+      render: (_, record) => (
+        <span>
+          {editField.id === record._id && editField.field === "socialBonds" ? (
+            <Input value={editField.value} onChange={handleInputChange} onBlur={handleSaveClick} />
+          ) : (
+            record.socialBonds
+          )}
+        </span>
+      ),
     },
     {
       title: 'Bonds collecté',
       dataIndex: 'socialBondsCollect',
       key: 'socialBondsCollect',
+      onCell: (record) => ({
+        onClick: () => handleEditClick(record._id, "socialBondsCollect", record.socialBondsCollect),
+      }),
+      render: (_, record) => (
+        <span>
+          {editField.id === record._id && editField.field === "socialBondsCollect" ? (
+            <Input value={editField.value} onChange={handleInputChange} onBlur={handleSaveClick} />
+          ) : (
+            record.socialBondsCollect
+          )}
+        </span>
+      ),
     },
-    // {
-    //   title: 'Partenaires',
-    //   dataIndex: 'projectPartners',
-    //   key: 'projectPartners',
-    //   render: (text) => (
-    //     <span>
-    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
-    //     </span>
-    //   ),
-    // },
-    // {
-    //   title: 'Indicateurs',
-    //   dataIndex: 'projectIndicators',
-    //   key: 'projectIndicators',
-    //   render: (text) => (
-    //     <span>
-    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
-    //     </span>
-    //   ),
-    // },
-    // {
-    //   title: 'Proposition complète',
-    //   dataIndex: 'projectProposal',
-    //   key: 'projectProposal',
-    // },
-    // {
-    //   title: 'Budget détaillé',
-    //   dataIndex: 'projectBudgetDetails',
-    //   key: 'projectBudgetDetails',
-    // },
-    // {
-    //   title: 'Document justificatif',
-    //   dataIndex: 'supportingDocuments',
-    //   key: 'supportingDocuments',
-    // },
     {
       title: 'Validé',
       dataIndex: 'projectValidated',
@@ -217,9 +216,9 @@ export default function AdminDashboardProjet() {
               <br />
               <h5>Documents PDF</h5>
               <strong>Proposition de projet complète:</strong> {record.projectProposal}
-              <br/>
+              <br />
               <strong>Budget détaillé:</strong> {record.projectBudgetDetails}
-              <br/>
+              <br />
               <strong>Document justificatif:</strong> {record.supportingDocuments}
             </p>
           ),

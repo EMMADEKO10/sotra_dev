@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Table, Badge, Dropdown, Menu, Space, Button, Image } from "antd";
+import { DownOutlined } from '@ant-design/icons';
 
 export default function AdminDashboardProjet() {
   const [projects, setProjects] = useState([]);
@@ -10,12 +12,7 @@ export default function AdminDashboardProjet() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
         const apiUrl = import.meta.env.VITE_API_URL;
-
-        console.log("API des images:", ApiUrlImage);
-        console.log("API des EndPoints:", apiUrl);
-
         const response = await axios.get(`${apiUrl}/projects`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,17 +35,12 @@ export default function AdminDashboardProjet() {
   const validateProject = async (projectId) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-
-      await axios.put(
-        `${apiUrl}/pjts/validate/${projectId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await axios.put(`${apiUrl}/pjts/validate/${projectId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       setReload(!reload);
     } catch (error) {
       console.error("Erreur lors de la validation du projet:", error);
@@ -69,127 +61,171 @@ export default function AdminDashboardProjet() {
     }
   };
 
+  const columns = [
+    {
+      title: 'Image',
+      dataIndex: 'projectImage',
+      key: 'projectImage',
+      render: (text) => (
+        <Image
+          src={`${import.meta.env.VITE_URL_IMAGE}${text}`}
+          alt="project image"
+          width={64}
+          height={64}
+          style={{ objectFit: 'cover', borderRadius: '8px' }}
+        />
+      ),
+      },
+        {
+          title: 'Titre',
+          dataIndex: 'projectTitle',
+          key: 'projectTitle',
+        },
+    // {
+    //   title: 'Description',
+    //   dataIndex: 'projectDescription',
+    //   key: 'projectDescription',
+    //   render: (text) => (
+    //     <span>
+    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+    //     </span>
+    //   ),
+    //   },
+    //   {
+    //   title: 'Objectif',
+    //   dataIndex: 'projectGoals',
+    //   key: 'projectGoals',
+    //   render: (text) => (
+    //     <span>
+    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+    //     </span>
+    //   ),
+    // },
+    {
+      title: 'Calendrier',
+      dataIndex: 'projectTimeline',
+      key: 'projectTimeline',
+      render: (dates) => (
+        <span>
+          {dates.map(date => new Date(date).toLocaleDateString()).join(', ')}
+        </span>
+      ),
+    },
+    // {
+    //   title: 'Montant',
+    //   dataIndex: 'projectAmount',
+    //   key: 'projectAmount',
+    // },
+    {
+      title: 'Bonds Objectif',
+      dataIndex: 'socialBonds',
+      key: 'socialBonds',
+    },
+    {
+      title: 'Bonds collecté',
+      dataIndex: 'socialBondsCollect',
+      key: 'socialBondsCollect',
+    },
+    // {
+    //   title: 'Partenaires',
+    //   dataIndex: 'projectPartners',
+    //   key: 'projectPartners',
+    //   render: (text) => (
+    //     <span>
+    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+    //     </span>
+    //   ),
+    // },
+    // {
+    //   title: 'Indicateurs',
+    //   dataIndex: 'projectIndicators',
+    //   key: 'projectIndicators',
+    //   render: (text) => (
+    //     <span>
+    //       {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+    //     </span>
+    //   ),
+    // },
+    // {
+    //   title: 'Proposition complète',
+    //   dataIndex: 'projectProposal',
+    //   key: 'projectProposal',
+    // },
+    // {
+    //   title: 'Budget détaillé',
+    //   dataIndex: 'projectBudgetDetails',
+    //   key: 'projectBudgetDetails',
+    // },
+    // {
+    //   title: 'Document justificatif',
+    //   dataIndex: 'supportingDocuments',
+    //   key: 'supportingDocuments',
+    // },
+    {
+      title: 'Validé',
+      dataIndex: 'projectValidated',
+      key: 'projectValidated',
+      render: (validated) => (
+        <Badge status={validated ? 'success' : 'error'} text={validated ? 'Oui' : 'Non'} />
+      ),
+    },
+    {
+      title: 'Terminé',
+      dataIndex: 'projectFinished',
+      key: 'projectFinished',
+      render: (finished) => (
+        <Badge status={finished ? 'success' : 'error'} text={finished ? 'Oui' : 'Non'} />
+      ),
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_, record) => (
+        <Space size="middle">
+          <Button type="primary" onClick={() => validateProject(record._id)}>
+            Valider
+          </Button>
+          <Button type="default">
+            Terminer
+          </Button>
+          <Button type="danger" onClick={() => deleteProject(record._id)}>
+            Supprimer
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
-      <div className="overflow-x-auto shadow-lg rounded-lg">
-        <table className="w-full bg-white">
-          <thead>
-            <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
-              <th className="py-3 px-4 font-bold uppercase text-left">Image</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Titre</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Description</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Objectif</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Calendrier</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Montant</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Social Bonds</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Bonds collecté</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Partenaires</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Indicateurs</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Proposition complète</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Budget détaillé</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Document justificatif</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Validé</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Terminé</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-600 text-sm font-light">
-            {projects.map((project) => (
-              <tr key={project._id} className="border-b border-gray-200 hover:bg-gray-100 transition duration-200">
-                <td className="py-3 px-4">
-                  <img
-                    src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
-                    alt={project.projectTitle}
-                    className="h-16 w-16 object-cover rounded"
-                  />
-                </td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.projectTitle}</td>
-                <td className="py-3 px-4 whitespace-nowrap">
-                  {project.projectDescription.length > 50 ? (
-                    <span>
-                      {project.projectDescription.slice(0, 50)}...
-                      <span className="text-blue-500 cursor-pointer" onClick={() => alert(project.projectDescription)}>
-                        {" "}voir plus
-                      </span>
-                    </span>
-                  ) : (
-                    project.projectDescription
-                  )}
-                </td>
-                <td className="py-3 px-4 whitespace-nowrap">
-                  {project.projectGoals.length > 50 ? (
-                    <span>
-                      {project.projectGoals.slice(0, 50)}...
-                      <span className="text-blue-500 cursor-pointer" onClick={() => alert(project.projectGoals)}>
-                        {" "}voir plus
-                      </span>
-                    </span>
-                  ) : (
-                    project.projectGoals
-                  )}
-                </td>
-                <td className="py-3 px-4 whitespace-nowrap">
-                  <div className="flex flex-col">
-                    {project.projectTimeline.map((date, index) => (
-                      <span key={index}>{new Date(date).toLocaleDateString()}</span>
-                    ))}
-                  </div>
-                </td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.projectAmount}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.socialBonds}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.socialBondsCollect}</td>
-                <td className="py-3 px-4 whitespace-nowrap">
-                  {project.projectPartners.length > 50 ? (
-                    <span>
-                      {project.projectPartners.slice(0, 50)}...
-                      <span className="text-blue-500 cursor-pointer" onClick={() => alert(project.projectPartners)}>
-                        {" "}voir plus
-                      </span>
-                    </span>
-                  ) : (
-                    project.projectPartners
-                  )}
-                </td>
-                <td className="py-3 px-4 whitespace-nowrap">
-                  {project.projectIndicators.length > 50 ? (
-                    <span>
-                      {project.projectIndicators.slice(0, 50)}...
-                      <span className="text-blue-500 cursor-pointer" onClick={() => alert(project.projectIndicators)}>
-                        {" "}voir plus
-                      </span>
-                    </span>
-                  ) : (
-                    project.projectIndicators
-                  )}
-                </td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.projectProposal}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.projectBudgetDetails}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.supportingDocuments}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.projectValidated ? "Yes" : "No"}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{project.projectFinished ? "Yes" : "No"}</td>
-                <td className="py-3 px-4 flex space-x-2">
-                  <button
-                    onClick={() => validateProject(project._id)}
-                    className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 transition duration-200"
-                  >
-                    Validate
-                  </button>
-                  <button className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 transition duration-200">
-                    Finish
-                  </button>
-                  <button
-                    onClick={() => deleteProject(project._id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition duration-200"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table
+        columns={columns}
+        dataSource={projects}
+        rowKey={(record) => record._id}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p style={{ margin: 0 }}>
+              <strong>Description complète:</strong> {record.projectDescription}
+              <br />
+              <strong>Objectifs détaillés:</strong> {record.projectGoals}
+              <br />
+              <strong>Partenaires:</strong> {record.projectPartners}
+              <br />
+              <strong>Indicateurs:</strong> {record.projectIndicators}
+              <br />
+              <br />
+              <h5>Documents PDF</h5>
+              <strong>Proposition de projet complète:</strong> {record.projectProposal}
+              <br/>
+              <strong>Budget détaillé:</strong> {record.projectBudgetDetails}
+              <br/>
+              <strong>Document justificatif:</strong> {record.supportingDocuments}
+            </p>
+          ),
+        }}
+        pagination={false}
+      />
     </div>
   );
 }

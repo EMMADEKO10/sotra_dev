@@ -65,7 +65,6 @@ const Navbar = () => {
         { name: "Contact", link: "/contact" }
       ],
     },
-
   ];
 
   let dashboardUrl;

@@ -26,7 +26,7 @@ export default function Banner() {
                     {/* <!-- Wrapper for slides --> */}
                     <div className="carousel-inner carousel-zoom">
                         <div className="carousel-item active">
-                            <div className="slider-thumb bg-cover" style={{ backgroundImage: "url('src/assets/hero section/group-diverse-teens-young-people-doing-activities-together-celebrating-world-youth-skills-day (1).jpg')" }}></div>
+                            <div className="slider-thumb bg-cover" style={{ backgroundImage: "url('/img11.jpg')" }}></div>
 
                             <div className="box-table">
                                 <div className="box-cell shadow dark">

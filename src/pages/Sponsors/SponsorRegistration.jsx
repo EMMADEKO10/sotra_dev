@@ -299,6 +299,7 @@ const SponsorRegistration = () => {
                     >
                       <Input placeholder="Secteur d'activité spécifique" />
                     </Form.Item>
+                    
                   )}
 
                   <Form.Item
@@ -326,25 +327,6 @@ const SponsorRegistration = () => {
                       </Button>
                     </Upload>
                   </Form.Item>
-
-                  <Title
-                    level={4}
-                    className="text-xl font-bold mb-4"
-                  >
-                    Informations de contact
-                  </Title>
-                  <Form.Item
-                    name="representativeName"
-                    label="Nom du représentant"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le nom du représentant",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Nom du représentant" />
-                  </Form.Item>
                   <Form.Item
                     name="email"
                     label="Adresse e-mail"
@@ -358,19 +340,6 @@ const SponsorRegistration = () => {
                   >
                     <Input placeholder="email@example.com" />
                   </Form.Item>
-                  <Form.Item
-                    name="phone"
-                    label="Numéro de téléphone"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le numéro de téléphone",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Numéro de téléphone" />
-                  </Form.Item>
-
                   <Form.Item
                     label="Mot de passe"
                     name="password"
@@ -400,8 +369,50 @@ const SponsorRegistration = () => {
                   >
                     <Input placeholder="Mot de passe" />
                   </Form.Item>
+                  <Title
+                    level={4}
+                    className="text-xl font-bold mb-4"
+                  >
+                    Informations de contact
+                  </Title>
+                  <Form.Item
+                    name="representativeName"
+                    label="Nom du représentant"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le nom du représentant",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Nom du représentant" />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="phone"
+                    label="Numéro de téléphone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le numéro de téléphone",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Numéro de téléphone" />
+                  </Form.Item>
+                  <Form.Item
 
-
+                    name="phone2"
+                    label="Deuxième Numéro de téléphone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer le deuxième numéro de téléphone",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Numéro de téléphone" />
+                  </Form.Item>
                   <Title
                     level={4}
                     className="text-xl font-bold mb-4"
@@ -423,6 +434,13 @@ const SponsorRegistration = () => {
                       placeholder="Type de projets à soutenir"
                     />
                   </Form.Item>
+
+                  <Title
+                    level={4}
+                    className="text-xl font-bold mb-4"
+                  >
+                    Budget annuel prévu pour le sponsoring
+                  </Title>
                   <Form.Item
                     name="budget"
                     label="Montant en dollars"

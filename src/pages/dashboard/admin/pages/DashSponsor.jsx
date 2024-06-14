@@ -1,9 +1,9 @@
-// import React from 'react'
-import { useState, useEffect } from "react"
-import axios from "axios"
-import { Modal, Button, Input } from "antd";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Modal, Button, Input, Table, Space, Dropdown, Menu } from "antd";
+import { DownOutlined } from '@ant-design/icons';
 
-function DashSponsor() {
+export default function DashSponsor() {
   const [sponsors, setSponsors] = useState([]);
   const [reload, setReload] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -15,7 +15,11 @@ function DashSponsor() {
     const fetchData = async () => {
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await axios.get(`${apiUrl}/sponsors`);
+        const response = await axios.get(`${apiUrl}/sponsors`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setSponsors(response.data);
       } catch (error) {
         if (error.response) {
@@ -26,7 +30,7 @@ function DashSponsor() {
       }
     };
     fetchData();
-  }, [reload]);
+  }, [reload, token]);
 
   const toggleSponsorStatus = async (sponsor) => {
     try {
@@ -76,63 +80,84 @@ function DashSponsor() {
     setBudgetValue("");
   };
 
+  const columns = [
+    {
+      title: 'Image',
+      dataIndex: 'logo',
+      key: 'logo',
+      render: (logo) => <img src={`${import.meta.env.VITE_URL_IMAGE}${logo}`} alt="logo" className="h-16 w-16 object-cover rounded" />,
+    },
+    {
+      title: 'Nom',
+      dataIndex: 'companyName',
+      key: 'companyName',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Téléphone',
+      dataIndex: 'phone',
+      key: 'phone',
+    },
+    {
+      title: 'Budgets',
+      dataIndex: 'budget',
+      key: 'budget',
+    },
+    {
+      title: 'Adresse',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: 'Validé',
+      dataIndex: 'sponsorValidated',
+      key: 'sponsorValidated',
+      render: (sponsorValidated) => sponsorValidated ? "Oui" : "Non",
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      render: (_, sponsor) => (
+        <Space size="middle">
+          <Button
+            type="primary"
+            danger={sponsor.sponsorValidated}
+            onClick={() => toggleSponsorStatus(sponsor)}
+          >
+            {sponsor.sponsorValidated ? "Désactiver" : "Valider"}
+          </Button>
+          <Button
+            type="primary"
+            onClick={() => showModal(sponsor)}
+          >
+            Update Budget
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <div className="mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
-      <div className="overflow-x-auto shadow-lg rounded-lg">
-        <table className="min-w-full bg-white">
-          <thead>
-            <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
-              <th className="py-3 px-4 font-bold uppercase text-left">Image</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Nom</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Email</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Téléphone</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Budgets</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Adresse</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Validé</th>
-              <th className="py-3 px-4 font-bold uppercase text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-600 text-sm font-light">
-            {sponsors.map((sponsor) => (
-              <tr key={sponsor._id} className="border-b border-gray-200 hover:bg-gray-100 transition duration-200">
-                <td className="py-3 px-4">
-                  <img
-                    src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`}
-                    alt={sponsor.name}
-                    className="h-16 w-16 object-cover rounded"
-                  />
-                </td>
-                <td className="py-3 px-4 whitespace-nowrap">{sponsor.companyName}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{sponsor.email}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{sponsor.phone}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{sponsor.budget}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{sponsor.address}</td>
-                <td className="py-3 px-4 whitespace-nowrap">{sponsor.sponsorValidated ? "Oui" : "Non"}</td>
-                <td className="py-3 px-4 flex space-x-2">
-                  <button
-                    onClick={() => toggleSponsorStatus(sponsor)}
-                    className={`px-2 py-1 rounded ${sponsor.sponsorValidated ? "bg-red-500" : "bg-green-500"} text-white`}
-                  >
-                    {sponsor.sponsorValidated ? "Désactiver" : "Valider"}
-                  </button>
-                  <button
-                    onClick={() => showModal(sponsor)}
-                    className="px-2 py-1 rounded bg-blue-500 text-white"
-                  >
-                    Update Budget
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table
+        columns={columns}
+        dataSource={sponsors}
+        rowKey="_id"
+        pagination={{ pageSize: 5 }}
+        className="shadow-lg rounded-lg"
+      />
       <Modal
         title="Update Budget"
-        open={isModalVisible}
+        visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        okText="Save"
+        cancelText="Cancel"
       >
         <p>
           Ajouter le budget pour le sponsor {currentSponsor && currentSponsor.companyName}.
@@ -147,6 +172,3 @@ function DashSponsor() {
     </div>
   );
 }
-
-export default DashSponsor;
-

@@ -21,7 +21,28 @@ const InfoPrestataire = () => {
   const user = localStorage.getItem("user")
   const [submitting, setSubmitting] = useState(false);
   const [otherOrganizationType, setOtherOrganizationType] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
+
+  const handleStartProjectClick = () => {
+    if (!token) {
+      setIsModalVisible(true);
+    } else {
+      // Logique pour démarrer un projet
+    }
+  };
+// ------------------------------------------------------------
+  const handleModalOk = () => {
+    form.validateFields().then(values => {
+      if (values.agree) {
+        setIsModalVisible(false);
+        history.push('/devenir-prestataire');
+      }
+    }).catch(info => {
+      console.log('Validation Failed:', info);
+    });
+  };
+  // ---------------------------------------------------------------
   const handleSubmit = async (values) => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -40,25 +61,8 @@ const InfoPrestataire = () => {
       specificOrganizationType: values.specificOrganizationType?.trim(),
     };
 
-    // phone2,emailRepresant
-
-
-
-
-
     try {
       const formData = new FormData();
-      // const formDataLogin = new FormData(); 
-      // ----------------------------------------------------------Récuperation des données de connexion
-      // for (const key in loginValues) {
-      //   if (Array.isArray(loginValues[key])) {
-      //     loginValues[key].forEach((value, index) => {
-      //       formDataLogin.append(`${key}[${index}]`, value);
-      //     });
-      //   } else {
-      //     formDataLogin.append(key, loginValues[key]);
-      //   }
-      // }
 
       for (const key in sanitizedValues) {
         if (Array.isArray(sanitizedValues[key])) {
@@ -90,8 +94,6 @@ const InfoPrestataire = () => {
     }
 
     // ------------------------------------------------------------------------------------------------
-
-
 
   };
 

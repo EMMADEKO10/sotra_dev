@@ -6,6 +6,8 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
   const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
 
   const userConnect = localStorage.getItem("user");
   let roleUserConnect = localStorage.getItem("role") || "user";
@@ -17,6 +19,7 @@ const Navbar = () => {
   const toggleMobileDropdown = (index) => {
     setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
   };
+
 
   const logout = () => {
     if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
@@ -66,6 +69,33 @@ const Navbar = () => {
   } else if (roleUserConnect === 'sponsor') {
     dashboardUrl = `/sponsor/${userConnect}`;
   }
+
+  // ---------------------------------------------------------------
+  // const handleStartProjectClick = () => {
+  //   if (!token) {
+  //     setIsModalVisible(true);
+  //   } else {
+  //     // Logique pour démarrer un projet
+  //   }
+  // };
+  // // ------------------------------------------------------------
+  // const handleModalOk = () => {
+  //   form.validateFields().then(values => {
+  //     if (values.agree) {
+  //       setIsModalVisible(false);
+  //       history.push('/devenir-prestataire');
+  //     }
+  //   }).catch(info => {
+  //     console.log('Validation Failed:', info);
+  //   });
+  // };
+  // // ---------------------------------------------------------------
+
+  // const handleModalCancel = () => {
+  //   setIsModalVisible(false);
+  // };
+  // // ---------------------------------------------------------------
+
 
   return (
     <nav className="sticky top-0 bg-white z-50 shadow-md">

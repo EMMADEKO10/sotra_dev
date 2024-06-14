@@ -170,19 +170,22 @@ const SponsorRegistration = () => {
     <div>
       <Navbar />
 
-      <div
-        className="breadcrumb-area text-center shadow-lg bg-fixed p-12 text-white"
-        style={{ backgroundImage: "url('/assets/img/2440x1578.png')" }}
+      {/* Section Breadcrumb */}
+     <div
+        className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
+        style={{ backgroundImage: "url(src/assets/sotradonsImage/10.jpg)" }}
       >
-        <div className="container mx-auto">
+        {/* Overlay sombre */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="relative container mx-auto z-10">
           <div className="breadcrumb-items">
-            <Row>
-              <Col span={24}>
-                <h2 className="text-4xl font-bold">
-                  Enregistrement pour Sponsors
+            <div className="row">
+              <div className="col-lg-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Enregistrement pour Sponsors
                 </h2>
-              </Col>
-            </Row>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -493,7 +496,7 @@ const SponsorRegistration = () => {
                     shape="round"
                     className="border-[#3bcf93] text-[#3bcf93]"
                   >
-                    <NavLink to="/projet">Voir les projets</NavLink>
+                    <NavLink to="/AllProjets">Voir les projets</NavLink>
                   </Button>
                 </div>
               </Card>

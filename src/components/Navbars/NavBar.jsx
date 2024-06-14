@@ -63,12 +63,28 @@ const Navbar = () => {
     },
   ];
 
-  let dashboardUrl;
-  if (roleUserConnect === 'prestataire') {
-    dashboardUrl = `/prestataire/${userConnect}`;
+  // let dashboardUrl;
+  // if (roleUserConnect === 'prestataire') {
+  //   dashboardUrl = `/prestataire/${userConnect}`;
+  // } else if (roleUserConnect === 'sponsor') {
+  //   dashboardUrl = `/sponsor/${userConnect}`;
+  // }
+
+
+let dashboardUrl;
+  let dashboardText;
+
+  if (roleUserConnect === 'admin') {
+    dashboardUrl = `/admin/dashboard`;
+    dashboardText = "Dashboard";
   } else if (roleUserConnect === 'sponsor') {
     dashboardUrl = `/sponsor/${userConnect}`;
+    dashboardText = "Mes Projets Sponsorisé";
+  } else {
+    dashboardUrl = `/prestataire/${userConnect}`;
+    dashboardText = "Mes Projets";
   }
+
 
   // ---------------------------------------------------------------
   // const handleStartProjectClick = () => {
@@ -166,7 +182,7 @@ const Navbar = () => {
                 className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
                 onClick={() => navigate(dashboardUrl)}
               >
-                Mes projets
+                {dashboardText}
               </button>
               <button
                 className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"

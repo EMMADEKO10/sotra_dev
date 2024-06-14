@@ -86,7 +86,8 @@ const SponsorRegistration = () => {
       password,
       companyName,
       representativeName,
-      otherSector
+      otherSector,
+      AutherPhone,
     } = values;
 
     const formData = new FormData();
@@ -94,6 +95,7 @@ const SponsorRegistration = () => {
     formData.append('address', address);
     formData.append('budget', budget); // Ce code assume que projectImage est un objet fichier
     formData.append('phone', phone);
+    formData.append('AutherPhone', AutherPhone);
     formData.append('industry', industry);
     formData.append('email', email);
     formData.append('password', password);
@@ -403,7 +405,7 @@ const SponsorRegistration = () => {
                   </Form.Item>
                   <Form.Item
 
-                    name="phone2"
+                    name="AutherPhone"
                     label="Deuxième Numéro de téléphone"
                     rules={[
                       {
@@ -459,13 +461,7 @@ const SponsorRegistration = () => {
                       onChange={handleAmountChange}
                     />
                   </Form.Item>
-                  <Form.Item label="Social Bonds">
-                    <Input
-                      placeholder="Social Bonds"
-                      value={socialBonds}
-                      readOnly
-                    />
-                  </Form.Item>
+                
 
                   <Button
                     type="primary"

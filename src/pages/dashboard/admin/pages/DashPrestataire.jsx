@@ -143,7 +143,7 @@ export default function DashPrestataire() {
 
   return (
     <div className="mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Prestataires</h1>
       <div className="overflow-x-auto shadow-lg rounded-lg">
         <Table
           columns={columns}
@@ -160,16 +160,17 @@ export default function DashPrestataire() {
               <br />
               <strong>Adresse:</strong> {record.email}
               <br />
-              <strong>Site web:</strong> {record.website}
+              <strong>Site web:</strong>{" "}<a href={record.website} target="_blank" rel="noopener noreferrer " className="text-blue-600 underline hover:text-red-500"> {record.website}</a>
               <br />
-              <strong>Adresse e-mail:</strong> {record.projectIndicators}
+              <strong>Adresse e-mail:</strong>{" "}<a href={`mailto:${record.email}`} className="text-blue-600 hover:text-blue-800">{record.email}</a>
+              <br />
               <strong>Type d'organisation:</strong> {record.specificOrganizationType}
               <br />
               <br />
               <h5>Informations de contact</h5>
               <strong>Nom du représentant:</strong> {record.representativeName}
               <br/>
-              <strong>Numéro de téléphone:</strong> {record.phone}
+              <strong>Numéro de téléphone:</strong>{" "}<a href={`tel:${record.phone}`} className="text-blue-600 hover:text-blue-800">{record.phone}</a>
               <br/>
               <strong>Deuxième Numéro de téléphone:</strong> {record.phoneSecond}
               <br />

@@ -93,14 +93,14 @@ export default function DashSponsor() {
       key: 'companyName',
     },
     {
+      title: 'Secteur',
+      dataIndex: 'industry',
+      key: 'industry',
+    },
+    {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-    },
-    {
-      title: 'Téléphone',
-      dataIndex: 'phone',
-      key: 'phone',
     },
     {
       title: 'Budgets',
@@ -108,10 +108,20 @@ export default function DashSponsor() {
       key: 'budget',
     },
     {
-      title: 'Adresse',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Nom du représentant',
+      dataIndex: 'representativeName',
+      key: 'representativeName',
     },
+    // {
+    //   title: 'Téléphone',
+    //   dataIndex: 'phone',
+    //   key: 'phone',
+    // },
+    // {
+    //   title: 'Adresse',
+    //   dataIndex: 'address',
+    //   key: 'address',
+    // },
     {
       title: 'Validé',
       dataIndex: 'sponsorValidated',
@@ -143,13 +153,46 @@ export default function DashSponsor() {
 
   return (
     <div className="mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Sponsors</h1>
       <Table
         columns={columns}
         dataSource={sponsors}
-        rowKey="_id"
-        pagination={{ pageSize: 5 }}
+        rowKey={(record) => record._id}
+        // pagination={{ pageSize: 5 }}
         className="shadow-lg rounded-lg"
+        expandable={{
+          expandedRowRender: (record) => (
+            <p style={{ margin: 0 }}>
+              <h5>Informations de l'entreprise</h5>
+              
+              <strong>Nom de l'entreprise:</strong> {record.companyName}
+              <br />
+              <strong>Adresse:</strong> {record.address}
+              <br />
+              <strong>Site web:</strong>{" "}<a href={record.website} target="_blank" rel="noopener noreferrer " className="text-blue-600 underline hover:text-red-500"> {record.website}</a>
+              <br />
+              <strong>Adresse e-mail:</strong>{" "}<a href={`mailto:${record.email}`} className="text-blue-600 hover:text-blue-800">{record.email}</a>
+              <br />
+              <strong>Type d'organisation:</strong> {record.industry}
+              <br />
+              <br />
+              <h5>Informations de contact</h5>
+              <strong>Nom du représentant:</strong> {record.representativeName}
+              <br/>
+              <strong>Numéro de téléphone:</strong>{" "}<a href={`tel:${record.phone}`} className="text-blue-600 hover:text-blue-800">{record.phone}</a>
+
+              <br/>
+              <strong>Deuxième Numéro de téléphone:</strong> {record.AutherPhone}
+              <br />
+              <br />
+              <h5>Détails spécifiques</h5>
+              <strong>Objectifs de sponsoring:</strong> {record.sponsorshipGoals}
+              {/* <br/>
+              <strong>Budget annuel prévu pour le sponsoring:</strong> {record.geographicAreas} */}
+            </p>
+          ),
+        }}
+        pagination={false}
       />
       <Modal
         title="Update Budget"

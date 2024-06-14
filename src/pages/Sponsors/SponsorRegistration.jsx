@@ -302,6 +302,7 @@ const SponsorRegistration = () => {
                     
                   )}
 
+
                   <Form.Item
                     name="logo"
                     label="Logo de l'entreprise"

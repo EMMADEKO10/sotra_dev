@@ -202,20 +202,7 @@ const InfoPrestataire = () => {
                     <Input placeholder="https://example.com" />
                   </Form.Item>
                   {/* ------------------------------------------------------------------ */}
-                  <Form.Item
-                    name="email"
-                    label="Adresse e-mail"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer l'adresse e-mail",
-                        type: "email",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="email@example.com" />
-                  </Form.Item>
-                  {/* ------------------------------------------------------------------------------------------ */}
+
                   <Form.Item
                     name="organizationType"
                     label="Type d'organisation"
@@ -262,6 +249,51 @@ const InfoPrestataire = () => {
                       <Input placeholder="Type d'organisation spécifique" />
                     </Form.Item>
                   )}
+                  {/* ------------------------------------------------------------------------------------------ */}
+                  <Form.Item
+                    name="email"
+                    label="Adresse e-mail"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Veuillez entrer l'adresse e-mail",
+                        type: "email",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="email@example.com" />
+                  </Form.Item>
+                  {/* ------------------------------------------------------------------------------------------ */}
+
+                  <Form.Item
+                    label="Mot de passe"
+                    name="password"
+                    rules={[
+                      { required: true, message: 'Veuillez entrer votre mot de passe!' },
+                      { min: 6, message: 'Le mot de passe doit contenir au moins 6 caractères' }
+                    ]}
+                  >
+                    <Input type='password' placeholder="Mot de passe" className="rounded-md" />
+                  </Form.Item>
+
+
+                  <Form.Item
+                    label="Confirmer le mot de passe"
+                    name="password2"
+                    rules={[
+                      { required: true, message: 'Veuillez confirmer votre mot de passe!' },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue('password') === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(new Error('Les mots de passe ne correspondent pas!'));
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input placeholder="Mot de passe" />
+                  </Form.Item>
 
                   {/* Informations de contact */}
                   <Title
@@ -324,35 +356,7 @@ const InfoPrestataire = () => {
                     <Input placeholder="Numéro de téléphone" />
                   </Form.Item>
 
-                  <Form.Item
-                    label="Mot de passe"
-                    name="password"
-                    rules={[
-                      { required: true, message: 'Veuillez entrer votre mot de passe!' },
-                      { min: 6, message: 'Le mot de passe doit contenir au moins 6 caractères' }
-                    ]}
-                  >
-                    <Input type='password' placeholder="Mot de passe" className="rounded-md" />
-                  </Form.Item>
 
-
-                  <Form.Item
-                    label="Confirmer le mot de passe"
-                    name="password2"
-                    rules={[
-                      { required: true, message: 'Veuillez confirmer votre mot de passe!' },
-                      ({ getFieldValue }) => ({
-                        validator(_, value) {
-                          if (!value || getFieldValue('password') === value) {
-                            return Promise.resolve();
-                          }
-                          return Promise.reject(new Error('Les mots de passe ne correspondent pas!'));
-                        },
-                      }),
-                    ]}
-                  >
-                    <Input placeholder="Mot de passe" />
-                  </Form.Item>
 
 
 

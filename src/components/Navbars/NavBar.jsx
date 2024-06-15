@@ -175,7 +175,7 @@ let dashboardUrl;
         </div>
 
         {/* User Actions */}
-        <div className="hidden lg:flex items-center space-x-4">
+        <div className=" hidden lg:flex items-center space-x-4">
           {userConnect ? (
             <>
               <button
@@ -249,22 +249,7 @@ let dashboardUrl;
         <div className="bg-white w-full shadow-lg z-40 xl:hidden">
           <div className="p-4 space-y-4">
             <div className="space-y-3 flex flex-col items-center w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto">
-              {userConnect ? (
-                <Link
-                  to={dashboardUrl}
-                  className="w-full flex justify-center"
-                >
-                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors">
-                    Mes projets
-                  </button>
-                </Link>
-              ) : (
-                <Link to="/login" className="w-full flex justify-center">
-                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
-                    Connexion
-                  </button>
-                </Link>
-              )}
+             
             </div>
 
             <div className="space-y-3">
@@ -305,8 +290,36 @@ let dashboardUrl;
                       ))}
                     </ul>
                   )}
+
+                  
                 </div>
               ))}
+
+              {userConnect ? (
+                <div className="flex flex-col gap-2 w-full items-center">
+                  <Link
+                    to={dashboardUrl}
+                    className="w-full max-w-lg flex  justify-center"
+                  >
+                    <button className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                      {dashboardText}
+                    </button>
+                  </Link>
+
+                  <Link to="/login" className="w-full max-w-lg flex  justify-center">
+                    <button className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                      Deconnexion
+                    </button>
+                  </Link>
+                </div>
+
+              ) : (
+                <Link to="/login" className="w-full max-w-lg flex justify-center">
+                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                    Connexion
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

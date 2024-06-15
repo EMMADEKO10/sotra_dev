@@ -75,7 +75,7 @@ let dashboardUrl;
   let dashboardText;
 
   if (roleUserConnect === 'admin') {
-    dashboardUrl = `/admin/dashboard`;
+    dashboardUrl = `/dashboard`;
     dashboardText = "Dashboard";
   } else if (roleUserConnect === 'sponsor') {
     dashboardUrl = `/sponsor/${userConnect}`;

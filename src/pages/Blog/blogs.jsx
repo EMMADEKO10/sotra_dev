@@ -145,7 +145,7 @@ const Blogs = () => {
                           <div className="thumb">
                             <a href="#">
                               <img
-                                src="assets/img/800x800.png"
+                                src="/img/800x800.png"
                                 alt="Thumb"
                               />
                             </a>

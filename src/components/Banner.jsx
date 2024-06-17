@@ -48,7 +48,7 @@ export default function Banner() {
                             </div>
                         </div>
                         <div className="carousel-item">
-                            <div className="slider-thumb bg-cover" style={{ backgroundImage: "url('src/assets/hero section/Sans titre-1.jpg')" }}></div>
+                            <div className="slider-thumb bg-cover" style={{ backgroundImage: "url('/hero section/Sans titre-1.jpg')" }}></div>
                             <div className="box-table">
                                 <div className="box-cell shadow dark">
                                     <div className="container">

@@ -32,7 +32,7 @@ export default function Causes() {
                               <div className="item">
                                   <div className="thumb">
                                       <a href="#">
-                                          <img src="assets\img\media\l’éducation.jpg" alt="Thumb" />
+                                          <img src="/media/l’éducation.jpg" alt="Thumb" />
                                           <span className="overlay">
                                               <strong>Créé : </strong> Nov 7, 2020
                                           </span>
@@ -62,7 +62,7 @@ export default function Causes() {
                               <div className="item">
                                   <div className="thumb">
                                       <a href="#">
-                                          <img src="assets\img\media\l’eau pour tous.jpg" alt="Thumb" />
+                                          <img src="/media/l’eau pour tous.jpg" alt="Thumb" />
                                           <div className="trend">
                                               <i className="fas fa-bolt"></i> Tendance
                                           </div>
@@ -95,7 +95,7 @@ export default function Causes() {
                               <div className="item">
                                   <div className="thumb">
                                       <a href="#">
-                                          <img src="assets\img\media\african-kid-marketplace (2).jpg" alt="Thumb" />
+                                          <img src="/media/african-kid-marketplace (2).jpg" alt="Thumb" />
                                           <span className="overlay">
                                               <strong>Créé : </strong> Dec 26, 2020
                                           </span>

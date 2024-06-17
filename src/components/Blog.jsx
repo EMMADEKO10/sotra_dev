@@ -25,7 +25,7 @@ export default function Blog() {
                                 <div className="item">
                                     <div className="thumb">
                                         <a href="#">
-                                            <img src="assets/img/blogs/side-view-people-chatting-work.jpg" alt="Thumb" />
+                                            <img src="/blogs/side-view-people-chatting-work.jpg" alt="Thumb" />
                                             <span className="date">
                                                 24 <strong>Août</strong>
                                             </span>
@@ -54,7 +54,7 @@ export default function Blog() {
                                 <div className="item">
                                     <div className="thumb">
                                         <a href="#">
-                                            <img src="assets\img\blogs\medium-shot-photographer-groom.jpg" alt="Thumb" />
+                                            <img src="/blogs/medium-shot-photographer-groom.jpg" alt="Thumb" />
                                             <span className="date">
                                                 18 <strong>Sep</strong>
                                             </span>
@@ -83,7 +83,7 @@ export default function Blog() {
                                 <div className="item">
                                     <div className="thumb">
                                         <a href="#">
-                                            <img src="assets\img\blogs\photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg" alt="Thumb" />
+                                            <img src="/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg" alt="Thumb" />
                                             <span className="date">
                                                 05 <strong>Jul</strong>
                                             </span>

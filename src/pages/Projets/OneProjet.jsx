@@ -20,7 +20,6 @@ const DonationPage =  () => {
   const [modalVisible, setModalVisible] = useState(false);
 
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,8 +37,6 @@ const DonationPage =  () => {
           // ---------------------------------------------------------------------------------------
         
           // -----------------------------------------------------------------------------------
-
-
 
         } else {
           // Handle unsuccessful registration (e.g., display error message)
@@ -106,7 +103,6 @@ const DonationPage =  () => {
       console.error('Error submitting the form', error);
     } 
   };
-
 
   if (!project) {
     return <div>Loading...</div>;

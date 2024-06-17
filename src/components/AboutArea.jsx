@@ -11,7 +11,7 @@ export default function AboutArea() {
                               <h4> <i className="fas fa-bolt"></i> Causes populaires</h4>
                               <div className="item">
                                   <div className="thumb">
-                                      <img src="assets\img\Mission\l’éducation (2).jpg" alt="Thumb" />
+                                      <img src="/Mission/l’éducation (2).jpg" alt="Thumb" />
                                   </div>
                                   <div className="info">
                                       <span className="cats">
@@ -31,7 +31,7 @@ export default function AboutArea() {
                               </div>
                               <div className="item">
                                   <div className="thumb">
-                                      <img src="assets\img\Mission\l’eau pour tous (2).jpg" alt="Thumb" />
+                                      <img src="/Mission/l’eau pour tous (2).jpg" alt="Thumb" />
                                   </div>
                                   <div className="info">
                                       <span className="cats">
@@ -51,7 +51,7 @@ export default function AboutArea() {
                               </div>
                               <div className="item">
                                   <div className="thumb">
-                                      <img src="assets\img\Mission\Nourriture saine (2).jpg" alt="Thumb" />
+                                      <img src="/Mission/Nourriture saine (2).jpg" alt="Thumb" />
                                   </div>
                                   <div className="info">
                                       <span className="cats">

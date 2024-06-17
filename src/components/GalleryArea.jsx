@@ -32,13 +32,13 @@ export default function GalleryArea() {
                                       <div id="portfolio-grid" className="gallery-items colums-3">
                                           <div className="pf-item">
                                               <div className="item-inner">
-                                              <img src="assets/img/media/african-kid-marketplace.jpg" alt="Thumb" />
+                                              <img src="/media/african-kid-marketplace.jpg" alt="Thumb" />
                                                   <div className="overlay">
                                                       <h4><a href="#">Nourriture servie</a></h4>
                                                       <span className="cats">Pauvre</span>
                                                   </div>
                                                   <div className="view">
-                                                  <a href="assets/img/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
+                                                  <a href="/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg" className="item popup-link"><i className="fa fa-plus"></i></a>
                                                   </div>
                                               </div>
                                           </div>

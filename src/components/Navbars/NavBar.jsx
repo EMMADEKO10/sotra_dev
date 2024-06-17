@@ -121,7 +121,7 @@ let dashboardUrl;
           className="flex items-center space-x-2"
         >
           <img
-            src="assets/img/sotradon logo.png"
+            src="/sotradon logo.png"
             alt="Sotradons Logo"
             className="w-10 h-10"
           />

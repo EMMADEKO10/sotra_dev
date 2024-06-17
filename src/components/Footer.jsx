@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="bg-[#1C2942] text-white pt-12 relative overflow-hidden">
       {/* Forme Fixe */}
       <div className="absolute inset-0">
-        <img src="assets/img/footer-bg.png" alt="Forme" className="w-full h-full object-cover opacity-5" />
+        <img src="/footer-bg.png" alt="Forme" className="w-full h-full object-cover opacity-5" />
         <div className="bg-black opacity-40 absolute inset-0"></div>
       </div>
       {/* Conteneur Principal */}
@@ -18,7 +18,7 @@ export default function Footer() {
           {/* À propos de nous */}
           <div className="w-full lg:w-1/4 px-4 mb-8 lg:mb-0">
             <div className="about text-center lg:text-left">
-              <img src="assets/img/Sotradons.png" alt="Logo" className="w-32 h-32 mx-auto lg:mx-0 mb-4" />
+              <img src="/Sotradons.png" alt="Logo" className="w-32 h-32 mx-auto lg:mx-0 mb-4" />
               <p className="text-[#F0F0F0]" style={{ opacity: 0.85 }}>
                 Activité du comté. La timidité du matin est évidente. Les mansardes parce que les manières nouvelles des personnes âgées pourtant un village qu'elle.
               </p>

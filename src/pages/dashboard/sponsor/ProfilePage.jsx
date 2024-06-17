@@ -1,4 +1,3 @@
-import React from "react"
 import {
   Layout,
   Menu,
@@ -15,273 +14,374 @@ import {
   Table,
   Tooltip,
   Button,
-} from "antd"
+} from "antd";
 import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
-  LikeOutlined,
-  MessageOutlined,
   DollarCircleOutlined,
-  ProjectOutlined
-} from "@ant-design/icons"
+  ProjectOutlined,
+  PieChartOutlined,
+  LineChartOutlined,
+  GlobalOutlined,
+  TwitterOutlined,
+  FacebookOutlined,
+  LinkedinOutlined,
+  YoutubeOutlined,
+  InstagramOutlined,
+} from "@ant-design/icons";
 import { Pie, Line } from "@ant-design/charts";
 import "tailwindcss/tailwind.css";
-// Assuming you have Tailwind CSS setup
+import Navbar from "../../../components/Navbars/NavBar";
+import Footer2 from "../../../components/Footer"
+import Footer from "../../../components/Footer";
 
-const { Header, Content, Footer, Sider } = Layout
-const { SubMenu } = Menu
-const { Title, Paragraph } = Typography
+const { Title, Paragraph } = Typography;
+const {Content } = Layout;
 
+const mockProjects = [
+  {
+    id: 1,
+    name: "Projet Alpha",
+    description: "Soutien à la communauté locale pour le développement durable.",
+    amount: "$1000",
+    status: "En cours",
+    link: "#",
+  },
+  {
+    id: 2,
+    name: "Projet Beta",
+    description: "Amélioration des infrastructures éducatives.",
+    amount: "$2000",
+    status: "Terminé",
+    link: "#",
+  },
+];
 
+const pieConfig = {
+  appendPadding: 10,
+  data: [
+    { type: "Projets Terminés", value: 30 },
+    { type: "Projets En Cours", value: 70 },
+  ],
+  angleField: "value",
+  colorField: "type",
+  radius: 1,
+  label: {
+    type: "outer",
+    content: "{name} {percentage}",
+  },
+  interactions: [{ type: "element-active" }],
+  color: ["#4caf50", "#2196f3"],
+};
 
+const lineConfig = {
+  data: [
+    { date: "Jan", value: 1200 },
+    { date: "Feb", value: 1500 },
+    { date: "Mar", value: 1700 },
+    { date: "Apr", value: 2100 },
+    { date: "May", value: 2300 },
+    { date: "Jun", value: 2500 },
+  ],
+  xField: "date",
+  yField: "value",
+  point: {
+    size: 5,
+    shape: "diamond",
+  },
+  color: "#4caf50",
+};
 
+const columns = [
+  {
+    title: "Projet",
+    dataIndex: "name",
+    key: "name",
+    render: (text, record) => (
+      <a href={record.link} className="text-[#4caf50] hover:underline">
+        {text}
+      </a>
+    ),
+  },
+  {
+    title: "Description",
+    dataIndex: "description",
+    key: "description",
+    render: (text) => <Tooltip title={text}>{text}</Tooltip>,
+  },
+  {
+    title: "Montant",
+    dataIndex: "amount",
+    key: "amount",
+    align: "right",
+  },
+  {
+    title: "Statut",
+    dataIndex: "status",
+    key: "status",
+    render: (status) => {
+      let color = status === "En cours" ? "#2196f3" : "#4caf50";
+      return (
+        <Tag color={color} key={status}>
+          {status.toUpperCase()}
+        </Tag>
+      );
+    },
+  },
+];
 
-
-const ProfilePage = () => {
-
-    
+const ProfilePageSponsort = () => {
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Header className="header">
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-        >
-          <Menu.Item key="1">Developers</Menu.Item>
-          <Menu.Item key="2">Register</Menu.Item>
-          <Menu.Item key="3">Login</Menu.Item>
-        </Menu>
-      </Header>
-      <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
+    <div>
+      <Navbar/>
+      <Content style={{ padding: "0 50px", margin: "16px 0" }}>
+        {/* <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>Profiles</Breadcrumb.Item>
-        </Breadcrumb>
-        <div className="site-layout-content">
-          <div className="container mx-auto p-8">
-            <div className="grid grid-cols-3 gap-4">
+          <Breadcrumb.Item>Profile</Breadcrumb.Item>
+        </Breadcrumb> */}
+        <div className="site-layout-content m">
+          <div className="container mx-auto p-8 bg-white shadow-lg rounded-lg">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Profile Top */}
-              <div className="bg-primary p-4 rounded-lg text-center">
+              <div className="bg-white p-4 rounded-lg shadow-md text-center">
                 <Avatar
                   size={150}
                   src="https://avatars.githubusercontent.com/u/101941972?v=4"
                 />
-                <Title
-                  level={2}
-                  className="text-white"
-                >
+                <Title level={2} className="text-gray-800">
                   Criho James
                 </Title>
-                <Paragraph className="text-white">
+                <Paragraph className="text-gray-600">
                   Developer web at Kadea
                 </Paragraph>
-                <Paragraph className="text-white">Seattle, WA</Paragraph>
-                <div className="flex justify-center mt-4">
+                <Paragraph className="text-gray-600">Seattle, WA</Paragraph>
+                <div className="flex justify-center mt-4 space-x-4">
                   <a href="#">
-                    <i className="fab fa-globe fa-2x text-white mx-2"></i>
+                    <GlobalOutlined className="text-gray-600 text-2xl" />
                   </a>
                   <a href="#">
-                    <i className="fab fa-twitter fa-2x text-white mx-2"></i>
+                    <TwitterOutlined className="text-gray-600 text-2xl" />
                   </a>
                   <a href="#">
-                    <i className="fab fa-facebook fa-2x text-white mx-2"></i>
+                    <FacebookOutlined className="text-gray-600 text-2xl" />
                   </a>
                   <a href="#">
-                    <i className="fab fa-linkedin fa-2x text-white mx-2"></i>
+                    <LinkedinOutlined className="text-gray-600 text-2xl" />
                   </a>
                   <a href="#">
-                    <i className="fab fa-youtube fa-2x text-white mx-2"></i>
+                    <YoutubeOutlined className="text-gray-600 text-2xl" />
                   </a>
                   <a href="#">
-                    <i className="fab fa-instagram fa-2x text-white mx-2"></i>
+                    <InstagramOutlined className="text-gray-600 text-2xl" />
                   </a>
                 </div>
               </div>
 
               {/* About */}
-              <div className="bg-light p-4 rounded-lg">
-                <Title
-                  level={3}
-                  className="text-primary"
-                >
-                  James's Bio
+              <div className="bg-white p-4 rounded-lg shadow-md">
+                <Title level={3} className="text-gray-800">
+                  Mission et Impact Social
                 </Title>
-                <Paragraph>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed
-                  doloremque nesciunt, repellendus nostrum deleniti recusandae
-                  nobis neque modi perspiciatis similique?
+                <Paragraph className="text-gray-600">
+                  Notre mission est de soutenir des projets qui favorisent le
+                  développement durable et le bien-être social. Nous investissons
+                  dans des initiatives qui apportent des solutions tangibles aux
+                  problèmes environnementaux et sociaux.
                 </Paragraph>
                 <Divider />
-                <Title
-                  level={3}
-                  className="text-primary"
-                >
-                  Skill Set
+                <Title level={3} className="text-gray-800">
+                  Exemples d'Impact
                 </Title>
-                <div className="flex flex-wrap">
-                  <Tag className="m-1">HTML</Tag>
-                  <Tag className="m-1">CSS</Tag>
-                  <Tag className="m-1">JavaScript</Tag>
-                  <Tag className="m-1">Python</Tag>
-                  <Tag className="m-1">C#</Tag>
-                </div>
+                <Paragraph className="text-gray-600">
+                  <ul className="list-disc list-inside">
+                    <li>3000 arbres plantés dans les zones rurales</li>
+                    <li>2000 enfants bénéficiant de meilleures infrastructures éducatives</li>
+                    <li>Amélioration des conditions de vie pour 500 familles</li>
+                  </ul>
+                </Paragraph>
               </div>
 
-              {/* Experience */}
-              <div className="bg-white p-4 rounded-lg">
-                <Title
-                  level={3}
-                  className="text-primary"
-                >
-                  Experience
+              {/* Sponsoring */}
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <Title level={3} className="text-gray-800 mb-4">
+                  Sponsoring
                 </Title>
-                <div>
-                  <Title
-                    level={4}
-                    className="text-dark"
+                <div className="flex flex-wrap justify-center gap-4">
+                  {/* Cards d'aperçu */}
+                  <Card
+                    className="w-full md:w-1/3 text-center hover:shadow-lg transition-all transform hover:scale-105"
+                    bordered={false}
+                    style={{ backgroundColor: "#f9fafb" }}
                   >
-                    Kadea
-                  </Title>
-                  <Paragraph>Oct 2011 - Current</Paragraph>
-                  <Paragraph>
-                    <strong>Position: </strong>Junior Developer
-                  </Paragraph>
-                  <Paragraph>
-                    <strong>Description: </strong>Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Dignissimos placeat, dolorum
-                    ullam ipsam, sapiente suscipit dicta eius velit amet
-                    aspernatur asperiores modi quidem expedita fugit.
-                  </Paragraph>
-                </div>
-                <div className="mt-4">
-                  <Title
-                    level={4}
-                    className="text-dark"
+                    <Tooltip title="Capital Social disponible">
+                      <Statistic
+                        title={
+                          <span className="text-gray-600 font-semibold">
+                            Capital Social
+                          </span>
+                        }
+                        value={500}
+                        prefix={
+                          <DollarCircleOutlined
+                            style={{ color: "#3bcf93", fontSize: "24px" }}
+                          />
+                        }
+                        valueStyle={{
+                          color: "#3bcf93",
+                          fontSize: "32px",
+                          fontWeight: "bold",
+                        }}
+                      />
+                    </Tooltip>
+                  </Card>
+
+                  <Card
+                    className="w-full md:w-1/3 text-center hover:shadow-lg transition-all transform hover:scale-105"
+                    bordered={false}
+                    style={{ backgroundColor: "#f9fafb" }}
                   >
-                    Developpement web
-                  </Title>
-                  <Paragraph>Mai 2023 - Mai 2024</Paragraph>
-                  <Paragraph>
-                    <strong>Position: </strong>Fullstack developer
-                  </Paragraph>
-                  <Paragraph>
-                    <strong>Description: </strong>Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Dignissimos placeat, dolorum
-                    ullam ipsam, sapiente suscipit dicta eius velit amet
-                    aspernatur asperiores modi quidem expedita fugit.
-                  </Paragraph>
-                </div>
-              </div>
+                    <Tooltip title="Total des fonds distribués">
+                      <Statistic
+                        title={
+                          <span className="text-gray-600 font-semibold">
+                            Fonds Distribués
+                          </span>
+                        }
+                        value={200}
+                        prefix={
+                          <DollarCircleOutlined
+                            style={{ color: "#3b83cf", fontSize: "24px" }}
+                          />
+                        }
+                        valueStyle={{
+                          color: "#3b83cf",
+                          fontSize: "32px",
+                          fontWeight: "bold",
+                        }}
+                      />
+                    </Tooltip>
+                  </Card>
 
-              {/* Education */}
-              <div className="bg-white p-4 rounded-lg">
-                <Title
-                  level={3}
-                  className="text-primary"
-                >
-                  Education
-                </Title>
-                <div>
-                  <Title level={4}>
-                    INSTITUT SUPERIEUR D'INFORMATIQUE PROGRAMMATION ET ANALYSE
-                  </Title>
-                  <Paragraph>Sep 2017 - June 2022</Paragraph>
-                  <Paragraph>
-                    <strong>Degree: </strong>Masters
-                  </Paragraph>
-                  <Paragraph>
-                    <strong>Field Of Study: </strong>Computer Science
-                  </Paragraph>
-                  <Paragraph>
-                    <strong>Description: </strong>Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Dignissimos placeat, dolorum
-                    ullam ipsam, sapiente suscipit dicta eius velit amet
-                    aspernatur asperiores modi quidem expedita fugit.
-                  </Paragraph>
+                  <Card
+                    className="w-full md:w-1/3 text-center hover:shadow-lg transition-all transform hover:scale-105"
+                    bordered={false}
+                    style={{ backgroundColor: "#f9fafb" }}
+                  >
+                    <Tooltip title="Nombre de projets sponsorisés">
+                      <Statistic
+                        title={
+                          <span className="text-gray-600 font-semibold">
+                            Projets Sponsorisés
+                          </span>
+                        }
+                        value={10}
+                        prefix={
+                          <ProjectOutlined
+                            style={{ color: "#3b83cf", fontSize: "24px" }}
+                          />
+                        }
+                        valueStyle={{
+                          color: "#3b83cf",
+                          fontSize: "32px",
+                          fontWeight: "bold",
+                        }}
+                      />
+                    </Tooltip>
+                  </Card>
                 </div>
-              </div>
 
-              {/* Github Repos */}
-              <div className="bg-white p-4 rounded-lg">
-                <Title
-                  level={3}
-                  className="text-primary"
-                >
-                  <i className="fab fa-github"></i> Github Repos
-                </Title>
-                <div className="repo my-4">
-                  <div>
-                    <Title level={4}>
-                      <a href="#">Repo One</a>
-                    </Title>
-                    <Paragraph>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Repellat, laborum!
-                    </Paragraph>
-                  </div>
-                  <div className="flex">
-                    <Tag className="m-1 bg-primary">Stars: 44</Tag>
-                    <Tag className="m-1 bg-dark">Watchers: 21</Tag>
-                    <Tag className="m-1 bg-light">Forks: 25</Tag>
-                  </div>
-                </div>
-                <div className="repo my-4">
-                  <div>
-                    <Title level={4}>
-                      <a href="#">Repo Two</a>
-                    </Title>
-                    <Paragraph>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Repellat, laborum!
-                    </Paragraph>
-                  </div>
-                  <div className="flex">
-                    <Tag className="m-1 bg-primary">Stars: 44</Tag>
-                    <Tag className="m-1 bg-dark">Watchers: 21</Tag>
-                    <Tag className="m-1 bg-light">Forks: 25</Tag>
-                  </div>
-                </div>
-              </div>
-
-              {/* Education */}
-              <div className="bg-white p-4 rounded-lg">
-                <Title
-                  level={3}
-                  className="text-primary"
-                >
-                  Education
-                </Title>
-                <div>
-                  <Title level={4}>
-                    INSTITUT SUPERIEUR D'INFORMATIQUE PROGRAMMATION ET ANALYSE
-                  </Title>
-                  <Paragraph>Sep 2017 - June 2022</Paragraph>
-                  <Paragraph>
-                    <strong>Degree: </strong>Masters
-                  </Paragraph>
-                  <Paragraph>
-                    <strong>Field Of Study: </strong>Computer Science
-                  </Paragraph>
-                  <Paragraph>
-                    <strong>Description: </strong>Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Dignissimos placeat, dolorum
-                    ullam ipsam, sapiente suscipit dicta eius velit amet
-                    aspernatur asperiores modi quidem expedita fugit.
-                  </Paragraph>
-                </div>
               </div>
             </div>
+
+            {/* Section de projets */}
+            <Divider orientation="left">
+              <Title level={3} className="text-primary">
+                Projets Récents
+              </Title>
+            </Divider>
+            <Row gutter={16}>
+              {mockProjects.map((project) => (
+                <Col span={24} md={12} lg={8} key={project.id}>
+                  <Card
+                    title={project.name}
+                    bordered={false}
+                    className="mb-4 hover:shadow-lg transition-shadow duration-300"
+                    actions={[
+                      <Button
+                        // type="primary"
+                        key="link"
+                        href={project.link}
+                        // className="bg-[#4caf50] border-none hover:bg-[#388e3c]"
+                      >
+                        Voir plus
+                      </Button>,
+                    ]}
+                  >
+                    <p>{project.description}</p>
+                    <p>
+                      <strong>Montant :</strong> {project.amount}
+                    </p>
+                    <p>
+                      <strong>Statut :</strong>{" "}
+                      <Tag
+                        color={
+                          project.status === "En cours" ? "#2196f3" : "#4caf50"
+                        }
+                      >
+                        {project.status}
+                      </Tag>
+                    </p>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+
+            {/* Section des graphiques */}
+            <Divider orientation="left">
+              <Title level={3} className="text-primary">
+                Visualisation des Données
+              </Title>
+            </Divider>
+            <Row gutter={16}>
+              <Col span={24} lg={12}>
+                <Card
+                  title="Répartition des Projets"
+                  bordered={false}
+                  className="mb-4 hover:shadow-lg transition-shadow duration-300"
+                >
+                  <Pie {...pieConfig} />
+                </Card>
+              </Col>
+              <Col span={24} lg={12}>
+                <Card
+                  title="Évolution des Fonds Distribués"
+                  bordered={false}
+                  className="mb-4 hover:shadow-lg transition-shadow duration-300"
+                >
+                  <Line {...lineConfig} />
+                </Card>
+              </Col>
+            </Row>
+
+            {/* Tableau de projets */}
+            <Divider orientation="left">
+              <Title level={3} className="text-primary">
+                Détails des Projets
+              </Title>
+            </Divider>
+            <Table
+              columns={columns}
+              dataSource={mockProjects}
+              rowKey="id"
+              className="bg-white shadow-md rounded-lg"
+            />
           </div>
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design & Tailwind CSS Demo
-      </Footer>
-    </Layout>
-  )
-}
+      <Footer/>
+      </div>
+  );
+};
 
-export default ProfilePage
+export default ProfilePageSponsort;

@@ -1,24 +1,21 @@
 import { useState } from 'react';
-import { Form, Input, Button, Select, Typography } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { Form, Input, Button, Typography } from 'antd';
 import {
   TwitterOutlined,
   FacebookOutlined,
   YoutubeOutlined,
   LinkedinOutlined,
   InstagramOutlined,
-  CodeOutlined,
   UserOutlined,
-  LogoutOutlined,
 } from '@ant-design/icons';
 import 'antd/dist/reset.css'; // Include Ant Design styles
 import 'tailwindcss/tailwind.css'; // Include Tailwind CSS styles
-
+import Navbar from '../../../components/Navbars/NavBar';
+import Footer from '../../../components/Footer';
 
 const { Title, Paragraph } = Typography;
-const { Option } = Select;
 
-const CreateProfileSponsort = () => {
+const CreateProfileSponsor = () => {
   const [showSocialLinks, setShowSocialLinks] = useState(false);
 
   const onFinish = (values) => {
@@ -26,62 +23,63 @@ const CreateProfileSponsort = () => {
   };
 
   return (
-    <div className="">
-
-      <section className="container mx-auto p-6 mt-12 bg-white shadow-md rounded-md">
-        <Title level={2} className="text-red-600">Create Your Profile</Title>
-        <Paragraph className="text-lg">
+    <div>
+    <Navbar />
+    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+      <section className="container mx-auto p-6 my-8 bg-white shadow-md rounded-md w-full max-w-lg">
+        <Title level={2} className="text-center text-2xl text-red-600 mb-4">Créer votre Profil</Title>
+        <Paragraph className="text-lg text-center mb-4">
           <UserOutlined className="mr-2" />
-          Let's get some information to make your profile stand out
+          Renseignons vos informations pour personnaliser votre profil
         </Paragraph>
-        <small className="block mb-6">* = required field</small>
+        <small className="block mb-6 text-center text-gray-600">* = champ obligatoire</small>
         <Form layout="vertical" onFinish={onFinish} className="space-y-4">
           <Form.Item
-            label="Professional Status"
-            name="status"
-            rules={[{ required: true, message: 'Please select your status' }]}
+            label="* Nom"
+            name="name"
+            rules={[{ required: true, message: 'Veuillez entrer votre nom' }]}
           >
-            <Select placeholder="* Select Professional Status">
-              <Option value="Developer">Developer</Option>
-              <Option value="Junior Developer">Junior Developer</Option>
-              <Option value="Senior Developer">Senior Developer</Option>
-              <Option value="Manager">Manager</Option>
-              <Option value="Student or Learning">Student or Learning</Option>
-              <Option value="Instructor">Instructor or Teacher</Option>
-              <Option value="Intern">Intern</Option>
-              <Option value="Other">Other</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Company" name="company">
-            <Input placeholder="Company" />
-          </Form.Item>
-          <Form.Item label="Website" name="website">
-            <Input placeholder="Website" />
-          </Form.Item>
-          <Form.Item label="Location" name="location">
-            <Input placeholder="Location" />
+            <Input placeholder="Nom" />
           </Form.Item>
           <Form.Item
-            label="* Skills"
-            name="skills"
-            rules={[{ required: true, message: 'Please enter your skills' }]}
+            label="* Titre Professionnel"
+            name="title"
+            rules={[{ required: true, message: 'Veuillez entrer votre titre professionnel' }]}
           >
-            <Input placeholder="Skills (comma separated)" />
+            <Input placeholder="Titre Professionnel" />
           </Form.Item>
-          <Form.Item label="Github Username" name="githubusername">
-            <Input placeholder="Github Username" />
+          <Form.Item label="Localisation" name="location">
+            <Input placeholder="Localisation" />
           </Form.Item>
-          <Form.Item label="Bio" name="bio">
-            <Input.TextArea placeholder="A short bio of yourself" />
+          <Form.Item
+            label="* Mission et Impact Social"
+            name="mission"
+            rules={[{ required: true, message: 'Veuillez entrer votre mission et impact social' }]}
+          >
+            <Input.TextArea rows={4} placeholder="Décrivez la mission de votre organisation et son impact social" />
+          </Form.Item>
+          <Form.Item
+            label="Exemples d'Impact"
+            name="impactExamples"
+          >
+            <Input.TextArea rows={4} placeholder="Fournissez des exemples concrets de l'impact de votre organisation" />
           </Form.Item>
           <div className="my-2 flex items-center">
             <Button
               type="dashed"
               onClick={() => setShowSocialLinks(!showSocialLinks)}
+              style={{
+                borderColor: '#3bcf93',
+                color: '#3bcf93',
+                fontWeight: 'bold',
+                borderRadius: '5px',
+                transition: 'all 0.3s ease',
+              }}
+              className="hover:bg-[#3bcf93] hover:text-white"
             >
-              Add Social Network Links
+              Ajouter des liens vers les réseaux sociaux
             </Button>
-            <span className="ml-4">Optional</span>
+            <span className="ml-4 text-gray-600">Optionnel</span>
           </div>
           {showSocialLinks && (
             <>
@@ -102,18 +100,22 @@ const CreateProfileSponsort = () => {
               </Form.Item>
             </>
           )}
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className="mr-4">
-              Submit
+          <Form.Item className="text-center">
+            <Button type="primary" htmlType="submit" className="w-full">
+              Soumettre
             </Button>
-            <Button type="default" href="dashboard.html">
-              Go Back
+          </Form.Item>
+          <Form.Item className="text-center">
+            <Button type="default" href="/dashboardpagesponsor">
+              Retour
             </Button>
           </Form.Item>
         </Form>
       </section>
     </div>
+    <Footer/>
+    </div>
   );
 };
 
-export default CreateProfileSponsort;
+export default CreateProfileSponsor;

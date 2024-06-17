@@ -12,8 +12,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     theme={{
       components: {
         Button : {
-          colorPrimary : '#405138',
-          colorPrimaryBgHover : '#405138',
+          colorPrimary : '#3bcf93',
+          colorPrimaryBgHover : '#3bcf93',
           borderRadius : '2px',
         }
       },

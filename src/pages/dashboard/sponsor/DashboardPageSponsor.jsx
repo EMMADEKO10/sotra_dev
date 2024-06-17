@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
   Layout,
@@ -31,6 +32,8 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import 'antd/dist/reset.css';
 import 'tailwindcss/tailwind.css';
+import Navbar from '../../../components/Navbars/NavBar';
+import Footer from '../../../components/Footer';
 
 const { Header, Content } = Layout;
 const { TextArea } = Input;
@@ -254,20 +257,8 @@ const DashboardPageSponsor = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
+    <Navbar />
       <Layout style={{ minHeight: '100vh', background: '#f0f2f5' }}>
-        <Header className="header bg-white shadow-md">
-          <div className="flex justify-between items-center px-4">
-            <div className="logo flex items-center">
-              <UserOutlined style={{ fontSize: '24px', marginRight: '8px' }} />
-              <h1 className="text-xl font-bold mb-0">Social Bonds</h1>
-            </div>
-            <Menu mode="horizontal" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1">Home</Menu.Item>
-              <Menu.Item key="2">Profile</Menu.Item>
-              <Menu.Item key="3">Logout</Menu.Item>
-            </Menu>
-          </div>
-        </Header>
         <Content style={{ padding: '20px' }}>
           <div className="container mx-auto p-4 bg-white shadow-lg rounded-lg">
             {/* Profile Section */}
@@ -279,21 +270,23 @@ const DashboardPageSponsor = () => {
               <div>
                 <h2 className="text-2xl font-semibold">Criho James</h2>
                 <p>Developer web at Kadea</p>
-                <Button
-                  type="default"
-                  icon={<EditOutlined />}
-                  className="mt-2"
-                  href="#"
-                >
-                  Edit Profile
-                </Button>
+                <NavLink to="/createprofilesponsort">
+                  <Button
+                    type="default"
+                    icon={<EditOutlined />}
+                    className="mt-2"
+                    href="#"
+                  >
+                    Modifier le profil
+                  </Button>
+                </NavLink>
                 <Button
                   type="primary"
                   icon={<PlusOutlined />}
                   className="mt-2 ml-2"
                   onClick={handleShowCreditModal}
                 >
-                  Request Credit
+                  Demander un crédit
                 </Button>
                 <Button
                   type="default"
@@ -301,7 +294,7 @@ const DashboardPageSponsor = () => {
                   className="mt-2 ml-2"
                   onClick={handleShowModal}
                 >
-                  View Transactions
+                  Voir les transactions
                 </Button>
               </div>
             </div>
@@ -445,6 +438,7 @@ const DashboardPageSponsor = () => {
           </div>
         </Content>
       </Layout>
+      <Footer />
     </DndProvider>
   );
 };

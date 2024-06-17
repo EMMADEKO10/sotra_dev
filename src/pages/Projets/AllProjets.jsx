@@ -20,7 +20,7 @@ const AllProjets = () => {
   const [onlyTrending, setOnlyTrending] = useState(false);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const pageSize = 20;
+  const pageSize = 10;
 
   const handleChangePage = (page) => {
     setCurrentPage(page);

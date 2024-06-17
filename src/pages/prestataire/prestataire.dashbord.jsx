@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
+import { Skeleton } from 'antd';
 
 const PrestataireDashboard = () => {
     const [projects, setProjects] = useState([]);
     const { id } = useParams();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,6 +18,7 @@ const PrestataireDashboard = () => {
                 const response = await axios.get(`${apiUrl}/validProjectPrestataire/${id}`);
                 if (response.status === 201 || response.status === 200) {
                     setProjects(response.data.projects);
+                    setLoading(false);
                 } else {
                     console.error('Failed to fetch projects');
                 }
@@ -25,17 +28,18 @@ const PrestataireDashboard = () => {
                 } else {
                     console.error('Erreur lors de la requête:', error.message);
                 }
+                setLoading(false);
             }
         };
         fetchData();
     }, [id]);
 
-    if (!projects.length) {
+    if (loading) {
         return (
             <div>
                 <Navbar />
                 <div className="container mx-auto px-4 py-8">
-                    <p className="text-center text-gray-600">Loading projects...</p>
+                    <Skeleton active />
                 </div>
                 <Footer />
             </div>
@@ -81,7 +85,6 @@ const PrestataireDashboard = () => {
                                     </div>
                                 </NavLink>
                             </div>
-
                         );
                     })}
                 </div>

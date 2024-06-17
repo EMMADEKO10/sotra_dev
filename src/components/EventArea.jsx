@@ -5,7 +5,7 @@ export default function EventArea() {
             <div className="event-area carousel-shadow default-padding bg-gray">
                 {/* <!-- Fixed Shape --> */}
                 <div className="shape-bottom-left">
-                    <img src="assets/img/shape/8.png" alt="Shape" />
+                    <img src="/shape/8.png" alt="Shape" />
                 </div>
                 {/* <!-- Fixed Shape --> */}
                 <div className="container">
@@ -31,7 +31,7 @@ export default function EventArea() {
                         {/* <!-- Single Item  --> */}
                         <div className="item">
                             <div className="thumb">
-                                <img src="assets/img/2440x1578.png" alt="Thumb" />
+                                <img src="/img/2440x1578.png" alt="Thumb" />
                                 <div className="date">
                                     12 <strong>Août</strong>
                                 </div>
@@ -51,7 +51,7 @@ export default function EventArea() {
             <!-- Single Item  --> */}
                         <div className="item">
                             <div className="thumb">
-                                <img src="assets/img/2440x1578.png" alt="Thumb" />
+                                <img src="/img/2440x1578.png" alt="Thumb" />
                                 <div className="date">
                                     25 <strong>Dec</strong>
                                 </div>
@@ -71,7 +71,7 @@ export default function EventArea() {
             <!-- Single Item  --> */}
                         <div className="item">
                             <div className="thumb">
-                                <img src="assets/img/2440x1578.png" alt="Thumb" />
+                                <img src="/img/2440x1578.png" alt="Thumb" />
                                 <div className="date">
                                     18 <strong>Juil</strong>
                                 </div>

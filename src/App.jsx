@@ -20,7 +20,9 @@ import { Dashboard, Map, NotFound } from "./pages/dashboard/admin/pages"
 import DashPrestataire from "./pages/dashboard/admin/pages/DashPrestataire";
 import DashSponsor from "./pages/dashboard/admin/pages/DashSponsor";
 import PrestataireDashboard from "./pages/prestataire/prestataire.dashbord"
-import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePage";
+import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort";
+import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
+import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
 // import SocialBonds from "./pages/Info/SocialBonds";
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -101,13 +103,22 @@ function App() {
           />
 
           <Route
-            path="ProfilePageSponsort"
+            path="/ProfilePageSponsort"
             element={<ProfilePageSponsort />}
+          />
+          <Route
+            path="/dashboardpagesponsor"
+            element={<DashboardPageSponsor />}
+          />
+
+          <Route
+            path="/createprofilesponsort"
+            element={<CreateProfileSponsort />}
           />
 
 
 
-           {/* ---------------------------------------------------------------------------------------------------------- */}
+          {/* ---------------------------------------------------------------------------------------------------------- */}
           <Route
             path="/projet/admin"
             element={<AdminDashboardProjet />}

@@ -12,7 +12,7 @@ function Login() {
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [errorMessage, setErrorMessage] = useState(''); // Add error message state
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onFinish = async (value) => {
     console.log('Received values of form: ', value);
@@ -48,10 +48,10 @@ function Login() {
 
       if (error.response) {
         console.error('Erreur de réponse du serveur:', error.response);
-        setErrorMessage('Mot de passe incorrect ou utilisateur non trouvé.'); // Set error message
+        setErrorMessage('Mot de passe incorrect ou utilisateur non trouvé.');
       } else {
         console.error('Erreur lors de la requête:', error.message);
-        setErrorMessage('Une erreur est survenue lors de la connexion.'); // Set error message
+        setErrorMessage('Une erreur est survenue lors de la connexion.');
       }
     }
   };
@@ -67,6 +67,10 @@ function Login() {
     pattern: {
       mismatch: '${label} n\'est pas valide',
     },
+  };
+
+  const handleInputChange = () => {
+    setErrorMessage('');
   };
 
   return (
@@ -105,7 +109,7 @@ function Login() {
                 { type: 'email', message: 'Veuillez entrer un email valide!' }
               ]}
             >
-              <Input placeholder="Email" className="rounded-md" />
+              <Input placeholder="Email" className="rounded-md" onChange={handleInputChange} />
             </Form.Item>
 
             <Form.Item
@@ -116,7 +120,7 @@ function Login() {
                 { min: 6, message: 'Le mot de passe doit contenir au moins 6 caractères' }
               ]}
             >
-              <Input type='password' placeholder="Mot de passe" className="rounded-md" />
+              <Input type='password' placeholder="Mot de passe" className="rounded-md" onChange={handleInputChange} />
             </Form.Item>
             <Form.Item>
               <Button
@@ -134,7 +138,7 @@ function Login() {
             <p className="text-red-500 text-center mt-4">{errorMessage}</p>
           )}
           {isRegistrationSuccessful && (
-            <div className="bg-green-100 p-5 w-[100%] sm:w-1/2 rounded mb-10 items-center">
+            <div className="bg-green-100 p-5 w-[100%] sm:w-[100%] rounded mb-10 items-center">
               <div className="flex justify-between">
                 <div className="flex space-x-3">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="flex-none fill-current text-green-500 h-4 w-4">

@@ -5,7 +5,7 @@ export default function Donnation() {
     <>
           <div className="donation-area text-light bg-gray default-padding">
               {/* <!-- Fixed BG--> */}
-              <div className="fixed-bg" style={{ backgroundImage: "url('assets/img/blogs/side-view-people-chatting-work.jpg')" }}></div> 
+              <div className="fixed-bg" style={{ backgroundImage: "url('/blogs/side-view-people-chatting-work.jpg')" }}></div> 
 
               {/* <!-- End Fixed BG--> */}
               <div className="container">

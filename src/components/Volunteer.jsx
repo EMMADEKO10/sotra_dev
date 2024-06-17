@@ -6,7 +6,7 @@ export default function Volonteer() {
           <div className="volunteer-area text-center default-padding">
               {/* <!-- Fixed Shape --> */}
               <div className="shape-bottom">
-                  <img src="assets/img/shape/7.png" alt="Shape" />
+                  <img src="/shape/7.png" alt="Shape" />
               </div>
               {/* <!-- Fixed Shape --> */}
               <div className="container">

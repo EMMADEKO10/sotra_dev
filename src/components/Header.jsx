@@ -30,7 +30,7 @@ export default function Header() {
                                 <i className="fa fa-bars"></i>
                             </button>
                             <NavLink to='/'>
-                                <img width={90} height={90} src="assets/img/Sotradons (2).png" className="logo mt-1" alt="Logo" />
+                                <img width={90} height={90} src="/Sotradons (2).png" className="logo mt-1" alt="Logo" />
                             </NavLink>
                         </div>
                         {/* <!-- End Header Navigation -->

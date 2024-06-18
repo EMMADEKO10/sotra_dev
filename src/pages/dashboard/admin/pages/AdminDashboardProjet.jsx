@@ -126,6 +126,12 @@ export default function AdminDashboardProjet() {
       dataIndex: 'socialBondsCollect',
       key: 'socialBondsCollect',
     },
+
+    {
+      title: 'Nom de l\'Organisation',
+      dataIndex:['prestataire', 'organizationName'],
+      key: 'organizationName',
+    },
     // {
     //   title: 'Partenaires',
     //   dataIndex: 'projectPartners',

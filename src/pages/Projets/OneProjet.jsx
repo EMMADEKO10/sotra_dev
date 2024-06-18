@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Breadcrumb, Button, Form, Input, Progress, Avatar, List } from 'antd';
+import { Breadcrumb, Button, Form, Input, Progress, Avatar, List, Modal,message } from 'antd';
 import { HomeOutlined, ClockCircleOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
@@ -18,7 +18,7 @@ const DonationPage =  () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [unauthorizedModalVisible, setUnauthorizedModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +37,8 @@ const DonationPage =  () => {
           // ---------------------------------------------------------------------------------------
         
           // -----------------------------------------------------------------------------------
+
+
 
         } else {
           // Handle unsuccessful registration (e.g., display error message)
@@ -65,12 +67,15 @@ const DonationPage =  () => {
     }
   };
   const percent = project.socialBonds ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2) : 0;
-
+  let role = localStorage.getItem("role")
 
   const handleDonation = async () => {
     console.log("Montant personnalisé: ", customAmount);
     // Ajoutez ici votre logique pour traiter le don avec le montant personnalisé
-
+    if (role !== 'sponsor') {
+      setUnauthorizedModalVisible(true);
+      return;
+    }
     const formData = new FormData();
     formData.append('Sponsor', "6661ec3d6149744df1e68f30");
     formData.append('projet', id);
@@ -103,6 +108,7 @@ const DonationPage =  () => {
       console.error('Error submitting the form', error);
     } 
   };
+
 
   if (!project) {
     return <div>Loading...</div>;
@@ -317,9 +323,14 @@ const DonationPage =  () => {
         </div>
       </div>
 
+      <Modal visible={modalVisible} onCancel={() => setModalVisible(false)} footer={null}>
+        <p>Donation successful!</p>
+      </Modal>
+      <Modal visible={unauthorizedModalVisible} onCancel={() => setUnauthorizedModalVisible(false)} footer={null}>
+        <p>Vous n'êtes pas autorisé. Vous devez être sponsor pour sponsoriser le projet.</p>
+      </Modal>
 
-
-      <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} />
+      <Modals isOpen={modalVisible} onClose={() => setModalVisible(false)} />
       {/* Fin Cause Unique */}
       <Footer />
     </div>
@@ -336,7 +347,7 @@ export default DonationPage;
 
 
 
-const Modal = ({ isOpen, onClose }) => {
+const Modals = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (

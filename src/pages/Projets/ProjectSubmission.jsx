@@ -88,7 +88,7 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
     formData.append('socialBonds', socialBonds);
     formData.append('projectPartners', projectPartners);
     formData.append('projectIndicators', projectIndicators);
-    formData.append('prestataire', user);
+    formData.append('user', user);
 
     if (fileList.length > 0) {
       formData.append('supportingDocument', fileList[0].originFileObj);

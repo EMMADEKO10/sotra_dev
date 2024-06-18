@@ -1,11 +1,44 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { NavLink, useParams } from "react-router-dom";
-import { Skeleton } from "antd";
+import { Skeleton, Layout,
+  Menu,
+  Avatar,
+  Button,
+  Table,
+  Input,
+  Card,
+  Statistic,
+  Tag,
+  Tooltip,
+  Modal,
+  Form,
+  InputNumber,
+  message, } from "antd";
 import Navbar from "../../components/Navbars/NavBar";
 import Footer from "../../components/Footer";
+import {
+  UserOutlined,
+  EditOutlined,
+  PlusOutlined,
+  DollarCircleOutlined,
+  ProjectOutlined,
+  EyeInvisibleOutlined,
+  SearchOutlined,
+  DeleteOutlined,
+  TransactionOutlined,
+  PhoneOutlined,
+} from '@ant-design/icons';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import 'antd/dist/reset.css';
+import 'tailwindcss/tailwind.css';
 
-const SponsorDashboard = () => {
+const { Content } = Layout;
+const { TextArea } = Input;
+const type = 'DraggableRow';
+
+const SponsorDashboard = ({ index, moveRow, className, style, ...restProps }) => {
   const [projects, setProjects] = useState([]);
   const { id } = useParams();
   const [sponsorName, setSponsorName] = useState("");
@@ -28,9 +61,16 @@ const SponsorDashboard = () => {
       } catch (error) {
         console.error("Erreur lors de la requête:", error.message);
       }
+      
     };
     fetchData();
+
+    
   }, [id]);
+  
+  // ----------------------------------------------------------------------------------------
+
+  
 
   return (
     <div>

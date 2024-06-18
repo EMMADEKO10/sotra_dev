@@ -35,7 +35,7 @@ import 'tailwindcss/tailwind.css';
 import Navbar from '../../../components/Navbars/NavBar';
 import Footer from '../../../components/Footer';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 const { TextArea } = Input;
 const type = 'DraggableRow';
 

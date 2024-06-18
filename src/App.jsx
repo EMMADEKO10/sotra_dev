@@ -15,7 +15,7 @@ import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
 import AllProjets from "./pages/Projets/AllProjets";
 import OneProjet from "./pages/Projets/OneProjet";
 import Charte from "./pages/Info/Charte";
-import SponsorDashboard from "./pages/Sponsors/sponsor.dashbord"
+import SponsorDashboard from "./pages/dashboard/sponsor/sponsor.dashbord"
 import AdminDashboardProjet from "./pages/dashboard/admin/pages/AdminDashboardProjet"
 import Main from "./pages/dashboard/admin/layouts/Main"
 import { Dashboard, Map, NotFound } from "./pages/dashboard/admin/pages"

@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+
+
 import Contact from "./pages/Info/Contact";
 import About from "./pages/Info/About";
 import NosSponsorts from "./pages/Sponsors/NosSponsorts";

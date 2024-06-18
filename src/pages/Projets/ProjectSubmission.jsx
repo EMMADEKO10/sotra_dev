@@ -150,7 +150,7 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
       <div
         className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
         style={{
-          backgroundImage: "url('src/assets/sotradonsImage/formulair.jpg')",
+          backgroundImage: "url('/sotradonsImage/formulair.jpg')",
         }}
       >
         {/* Overlay sombre */}

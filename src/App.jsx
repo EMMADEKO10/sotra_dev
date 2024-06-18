@@ -104,7 +104,7 @@ function App() {
           />
 
           <Route
-            path="/ProfilePageSponsort"
+            path="/profilepagesponsort"
             element={<ProfilePageSponsort />}
           />
           <Route

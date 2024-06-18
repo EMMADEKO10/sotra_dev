@@ -20,6 +20,10 @@ import { Dashboard, Map, NotFound } from "./pages/dashboard/admin/pages"
 import DashPrestataire from "./pages/dashboard/admin/pages/DashPrestataire";
 import DashSponsor from "./pages/dashboard/admin/pages/DashSponsor";
 import PrestataireDashboard from "./pages/prestataire/prestataire.dashbord"
+import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort";
+import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
+import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
+import DashboardPagePrestataire from "./pages/dashboard/prestataire/DashboardPagePrestataire";
 // import SocialBonds from "./pages/Info/SocialBonds";
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -98,31 +102,63 @@ function App() {
             path="/sponsor/:id"
             element={<SponsorDashboard />}
           />
+
+          <Route
+            path="/ProfilePageSponsort"
+            element={<ProfilePageSponsort />}
+          />
+          <Route
+            path="/dashboardpagesponsor"
+            element={<DashboardPageSponsor />}
+          />
+
+          <Route
+            path="/createprofilesponsort"
+            element={<CreateProfileSponsort />}
+          />
+
+          <Route
+            path="/dashboardpageprestataire"
+            element={<DashboardPagePrestataire />}
+          />
+
+          {/* ---------------------------------------------------------------------------------------------------------- */}
           <Route
             path="/projet/admin"
             element={<AdminDashboardProjet />}
           />
 
-         
           <Route
             path="/"
             element={<Main />}
           >
-              <Route
-                exact
-                path="/"
-                element={<Dashboard />}
-              />
-              <Route
-                exact
-                path="/dashboard"
-                element={<Dashboard />}
-              />
+            <Route
+              exact
+              path="/"
+              element={<Dashboard />}
+            />
+            <Route
+              exact
+              path="/dashboard"
+              element={<Dashboard />}
+            />
 
-              <Route exact path="/admindashboardprojet" element={<AdminDashboardProjet />} />
-              <Route exact path="/dashprestataire" element={<DashPrestataire />} />
-              <Route exact path="/dashsponsor" element={<DashSponsor />} />
-              {/* <Route exact path="/map" element={<Map />} /> */}
+            <Route
+              exact
+              path="/admindashboardprojet"
+              element={<AdminDashboardProjet />}
+            />
+            <Route
+              exact
+              path="/dashprestataire"
+              element={<DashPrestataire />}
+            />
+            <Route
+              exact
+              path="/dashsponsor"
+              element={<DashSponsor />}
+            />
+            {/* <Route exact path="/map" element={<Map />} /> */}
           </Route>
           {/* ) : (
               <>

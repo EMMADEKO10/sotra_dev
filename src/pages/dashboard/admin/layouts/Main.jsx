@@ -102,7 +102,7 @@ const Main = () => {
           </Routes>
         </Content>
         <Footer className="text-center pt-0">
-          Copyright 2023 © ALL RIGHTS RESERVED. Design by{" "}
+          Copyright 2024 © ALL RIGHTS RESERVED. Design by{" Sotradon "}
           <a
             href="https://aventureit.com"
             target="_blank"

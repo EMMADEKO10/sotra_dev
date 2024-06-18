@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import axios from "axios"
 import {useParams} from "react-router-dom"
+import AddCommentaire from "../Projets/addCommentaireOnProject" 
+import CommentairesProjet from "../Projets/getCommentaire" 
 import { motion, AnimatePresence } from 'framer-motion';
 // import { Modal } from 'antd';
 
@@ -179,7 +181,7 @@ const DonationPage =  () => {
               {/* Section des Commentaires */}
               <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
                 <h4 className="text-xl font-semibold mb-6">5 commentaires</h4>
-                <List
+                {/* <List
                   itemLayout="horizontal"
                   dataSource={comments}
                   renderItem={(comment) => (
@@ -196,11 +198,13 @@ const DonationPage =  () => {
                       <div>{comment.content}</div>
                     </List.Item>
                   )}
-                />
+                /> */}
+
+              <CommentairesProjet />
               </div>
 
               {/* Formulaire de Commentaire */}
-              <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
+              {/* <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
                 <h4 className="text-xl font-semibold mb-6">
                   Laisser un commentaire
                 </h4>
@@ -219,7 +223,8 @@ const DonationPage =  () => {
                     <Button type="primary" htmlType="submit" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Publier le commentaire</Button>
                   </Form.Item>
                 </Form>
-              </div>
+              </div> */}
+              <AddCommentaire />
             </div>
 
             {/* Barre Latérale */}
@@ -265,51 +270,8 @@ const DonationPage =  () => {
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
                   <h4 className="text-lg font-semibold mb-4">Dons récents</h4>
-                  <div className="flex items-center mb-6">
-                    <Avatar
-                      src="assets/img/100x100.png"
-                      alt="Jonathom Doe"
-                    />
-                    <div className="ml-4">
-                      <h5 className="text-lg font-semibold">$17</h5>
-                      <ul className="text-gray-600">
-                        <li>
-                          <strong>Jonathom Doe</strong>
-                        </li>
-                        <li>Il y a 12 minutes</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="flex items-center mb-6">
-                    <Avatar
-                      src="assets/img/100x100.png"
-                      alt="Mohit Chuan"
-                    />
-                    <div className="ml-4">
-                      <h5 className="text-lg font-semibold">$33</h5>
-                      <ul className="text-gray-600">
-                        <li>
-                          <strong>Mohit Chuan</strong>
-                        </li>
-                        <li>Il y a 45 minutes</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="flex items-center mb-6">
-                    <Avatar
-                      src="assets/img/100x100.png"
-                      alt="Devid Mark"
-                    />
-                    <div className="ml-4">
-                      <h5 className="text-lg font-semibold">$100</h5>
-                      <ul className="text-gray-600">
-                        <li>
-                          <strong>Devid Mark</strong>
-                        </li>
-                        <li>Il y a 1 heure</li>
-                      </ul>
-                    </div>
-                  </div>
+
+                  <DonRecent />        
                   <a
                     href="#"
                     className="text-primary hover:underline"
@@ -336,12 +298,66 @@ const DonationPage =  () => {
     </div>
   )
 };
-
 export default DonationPage;
 
 
 
+const DonRecent = () =>{
+  const { id } = useParams();
+  const [dons, setDons] = useState([]);
+  const [reload, setReload] = useState(false);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        // const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
+        const response = await axios.get(`${apiUrl}/bon/${id}`);
+        console.log("voici la reponse", response.data)
+        setDons(response.data)
+        // Ajoutez ici la logique pour gérer la réponse de votre backend
+        if (response.status === 201 || response.status === 200) { // Check for successful registration response
+          console.log('Connexion réussie ! :')
+          // ---------------------------------------------------------------------------------------      
+          // -----------------------------------------------------------------------------------
+        } else {
+          // Handle unsuccessful registration (e.g., display error message)
+        }
+      } catch (error) {
+        if (error.response) {
+          // Erreur avec réponse du serveur
+          console.error('Erreur de réponse du serveur:', error.response);
+        } else {
+          // Erreur de configuration ou autre
+          console.error('Erreur lors de la requête:', error.message);
+        }
+      }
 
+    };
+    fetchData(); // Call the function to fetch data
+  }, [id, reload]); // Empty dependency array ensures the effect runs only once
+  return(
+    <div>
+    {dons.map(don => (
+      <div key={don._id} className="flex items-center mb-6">
+        <Avatar
+          src="assets/img/100x100.png"
+          alt={don.Sponsor.companyName}
+        />
+        <div className="ml-4">
+          <h5 className="text-lg font-semibold">${don.montant_reduit}</h5>
+          <ul className="text-gray-600">
+            <li>
+              <strong>{don.Sponsor.companyName}</strong>
+            </li>
+            <li>{don.createdAtFormatted}</li>
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+  )
+}
 
 
 

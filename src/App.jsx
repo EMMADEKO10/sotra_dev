@@ -23,6 +23,7 @@ import PrestataireDashboard from "./pages/prestataire/prestataire.dashbord"
 import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort";
 import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
+import DashboardPagePrestataire from "./pages/dashboard/prestataire/DashboardPagePrestataire";
 // import SocialBonds from "./pages/Info/SocialBonds";
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
@@ -116,7 +117,10 @@ function App() {
             element={<CreateProfileSponsort />}
           />
 
-
+          <Route
+            path="/dashboardpageprestataire"
+            element={<DashboardPagePrestataire />}
+          />
 
           {/* ---------------------------------------------------------------------------------------------------------- */}
           <Route

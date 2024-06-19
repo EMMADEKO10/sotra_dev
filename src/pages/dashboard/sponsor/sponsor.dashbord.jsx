@@ -16,7 +16,7 @@ import {
   Modal,
   Form,
   InputNumber,
-  message,
+  message,notification
 } from "antd"
 import Navbar from "../../../components/Navbars/NavBar"
 import Footer from "../../../components/Footer"
@@ -47,7 +47,9 @@ const DashboardPageSponsor = () => {
   const [projects, setProjects] = useState([])
   const { id } = useParams()
   const [sponsorName, setSponsorName] = useState("")
+  const [sponsorImage, setSponsorImage] = useState("")
   const [sponsorSocialBond, setSponsorSocialBond] = useState(0)
+  const [totalSocialBondsInvested, setTotalSocialBondsInvested] = useState(0)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -63,7 +65,10 @@ const DashboardPageSponsor = () => {
         setProjects(fetchedProjects)
         if (response.status === 200 || response.status === 201) {
           setSponsorName(response.data[0]?.sponsorName || "")
+          setSponsorImage(response.data[0]?.sponsorImage || "")
           setSponsorSocialBond(response.data[0]?.sponsorSocialBond || 0)
+          setTotalSocialBondsInvested(response.data[0]?.totalSocialBondsInvested || 0)
+          // console.log("Voici tous pour spons : ",response.data)
         } else {
           message.error(`Erreur lors de la requête: ${response.status}`)
         }
@@ -89,19 +94,32 @@ const DashboardPageSponsor = () => {
     creditForm.resetFields()
   }
 
-  const handleCreditRequest = () => {
-    creditForm
-      .validateFields()
-      .then((values) => {
-        console.log("Credit Request:", values)
-        message.success("Demande de crédit envoyée avec succès")
-        setIsCreditModalVisible(false)
-        creditForm.resetFields()
-      })
-      .catch((info) => {
-        console.log("Validation Failed:", info)
-      })
-  }
+  const handleCreditRequest = async () => {
+    try {
+      const values = await creditForm.validateFields();
+      const message = `Demande de crédit pour un montant de €${values.amount}`;
+
+      const apiUrl = import.meta.env.VITE_API_URL;
+      await axios.post(`${apiUrl}/notifications/credit`, {
+        message,
+        sponsorName,
+      });
+
+      notification.success({
+        message: 'Demande de crédit envoyée',
+        description: 'Votre demande de crédit a été envoyée avec succès.',
+      });
+
+      setIsCreditModalVisible(false);
+      creditForm.resetFields();
+    } catch (error) {
+      console.error("Erreur lors de l'envoi de la demande de crédit:", error);
+      notification.error({
+        message: 'Erreur',
+        description: 'Une erreur est survenue lors de l\'envoi de la demande de crédit.',
+      });
+    }
+  };
 
   const handleMaskProject = (record) => {
     console.log("Masking project:", record)
@@ -110,6 +128,11 @@ const DashboardPageSponsor = () => {
   const handleDeleteProject = (record) => {
     console.log("Deleting project:", record)
   }
+
+  // -------------------------------------------------------------------------
+
+  
+  // -------------------------------------------------------------------------
 
   const columns = [
     {
@@ -204,7 +227,7 @@ const DashboardPageSponsor = () => {
             <div className="flex items-center space-x-4 mb-4">
               <Avatar
                 size={100}
-                src="https://avatars.githubusercontent.com/u/101941972?v=4"
+                src={`${import.meta.env.VITE_URL_IMAGE}${sponsorImage}`}
               />
               <div>
                 <h2 className="text-2xl font-semibold">{sponsorName}</h2>
@@ -267,7 +290,7 @@ const DashboardPageSponsor = () => {
               >
                 <Statistic
                   title="Totalité des Social Bonds Distribués"
-                  value={10000}
+                  value={totalSocialBondsInvested}
                   prefix={
                     <DollarCircleOutlined
                       style={{ color: "#ff9800", fontSize: "24px" }}
@@ -287,7 +310,7 @@ const DashboardPageSponsor = () => {
               >
                 <Statistic
                   title="Nombre de Projets Sponsorisés"
-                  value={10}
+                  value={projects.length}
                   prefix={
                     <ProjectOutlined
                       style={{ color: "#2196f3", fontSize: "24px" }}

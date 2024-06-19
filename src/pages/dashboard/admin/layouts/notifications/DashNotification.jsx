@@ -96,6 +96,25 @@ const DashNotification = ({ reload }) => {
           </span>
         </Button>
 
+        <Button
+          type=""
+          onClick={showModal}
+          className=" bg-[#EBEBEB]"
+        >
+          <span className="mr-2">
+            <BellOutlined style={{ fontSize: "1.2rem", color: "black" }} />
+          </span>
+          <span
+            className={`absolute top-0 right-0 bg-green-500 text-white rounded-full px-2 py-1 text-xs ml-2 ${
+              notifications.some((notification) => !notification.read)
+                ? "animate-pulse"
+                : ""
+            }`}
+          >
+            {notifications.filter((notification) => !notification.read).length}
+          </span>
+        </Button>
+
         <Modal
     title="Notifications"
     visible={isModalVisible}

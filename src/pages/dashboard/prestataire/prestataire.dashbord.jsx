@@ -15,6 +15,7 @@ const PrestataireDashboard = () => {
   });
 
   const [projects, setProjects] = useState([]);
+  const [prestaireName, setPrestaireName] = useState("");
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +26,8 @@ const PrestataireDashboard = () => {
         const response = await axios.get(`${apiUrl}/validProjectPrestataire/${id}`);
         if (response.status === 200) {
           setProjects(response.data.projects);
+          setPrestaireName(response.data.prestataireName)
+          console.log("Voici tous les prestataires : ",response.data)
         } else {
           console.error("Failed to fetch projects");
         }
@@ -57,7 +60,7 @@ const PrestataireDashboard = () => {
           <div className="flex flex-col md:flex-row items-center mb-6 p-4 bg-gray-50 shadow-sm rounded-md">
             <Avatar size={80} icon={<UserOutlined />} className="mr-4 mb-4 md:mb-0" />
             <div className="flex-1 text-center md:text-left">
-              <Title level={2} className="text-2xl text-blue-600 m-0">{profileData.organizationName}</Title>
+              <Title level={2} className="text-2xl text-blue-600 m-0">{prestaireName}</Title>
               <Paragraph className="text-lg text-gray-500">Bienvenue sur votre tableau de bord</Paragraph>
             </div>
             <Button type="primary" icon={<EditOutlined />} className="bg-blue-500 border-none hover:bg-blue-600 focus:bg-blue-700">

@@ -1,52 +1,40 @@
-/* CSS */
+/* Styles de base */
 .sotradons {
-    font-size: 1.3rem; /* Utilisation de vw (viewport width) pour la taille de police */
+    font-size: 1.3rem;
     font-weight: bold;
-    letter-spacing: 0.1rem; 
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
     font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: row;
+    color: black; /* Couleur par défaut */
 }
 
-/* Couleurs pour chaque lettre avec animation */
-.s { color: #FFC107; animation: colorChange 2s infinite alternate; }
-.o { color: #4CAF50; animation: colorChange 2s infinite alternate; }
-.t { color: #9C27B0; animation: colorChange 2s infinite alternate; }
-.r { color: #F44336; animation: colorChange 2s infinite alternate; }
-.a { color: #8BC34A; animation: colorChange 2s infinite alternate; }
-.d { color: #2196F3; animation: colorChange 2s infinite alternate; }
-.n { color: #9E9E9E; animation: colorChange 2s infinite alternate; }
-.s { color: #FF9800; animation: colorChange 2s infinite alternate; }
+/* Animation de changement de couleur */
+.s, .o, .t, .r, .a, .d, .n, .s {
+    animation: colorCycle 9s infinite;
+    animation-delay: calc(var(--order) * 0.1s);
+}
 
+/* @keyframes pour circuler les couleurs */
+@keyframes colorCycle {
+    0%, 15% { color: #004D7F; } /* Début en noir */
+    16%, 33% { color: black; } /* Bleu assombri */
+    34%, 48% { color: #B3A300; }
+    49%, 66% { color: black; } /* Jaune assombri */
+    67%, 81% { color: #B30000; } /* Rouge assombri */
+    82%, 100% { color: black; } /* Retour à noir */
+}
 
-.by { 
-    /* color: #FF9800; 
-        animation: colorChange 2s infinite alternate; */
-        font-size: 0.6rem;
-        text-transform: uppercase;
-        font-family: 'Arial', sans-serif;
+.by {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
 }
 
 .ttext {
     margin-bottom: -1rem;
     margin-top: 0.5rem;
-}
-
-/* Animation de changement de couleur */
-@keyframes colorChange {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-}
-
-/* CSS */
-/* .sotradons-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  } */
-  
-  .sotradons-text {
     text-align: center;
-  }
-  
+}

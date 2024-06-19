@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LogoutOutlined, UserOutlined, DollarCircleOutlined, ToolOutlined, StarOutlined, ProfileOutlined, DashboardOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -7,7 +9,6 @@ const Navbar = () => {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
-
 
   const userConnect = localStorage.getItem("user");
   let roleUserConnect = localStorage.getItem("role") || "user";
@@ -19,7 +20,6 @@ const Navbar = () => {
   const toggleMobileDropdown = (index) => {
     setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
   };
-
 
   const logout = () => {
     if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
@@ -34,7 +34,7 @@ const Navbar = () => {
     {
       title: "Projets",
       subItems: [
-        { name: "Découvrer les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        { name: "Découvrir les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] }
       ],
     },
@@ -63,79 +63,45 @@ const Navbar = () => {
     },
   ];
 
-  // let dashboardUrl;
-  // if (roleUserConnect === 'prestataire') {
-  //   dashboardUrl = `/prestataire/${userConnect}`;
-  // } else if (roleUserConnect === 'sponsor') {
-  //   dashboardUrl = `/sponsor/${userConnect}`;
-  // }
-
-
-let dashboardUrl;
+  let dashboardUrl;
+  let dashboardIcon;
   let dashboardText;
 
   if (roleUserConnect === 'admin') {
     dashboardUrl = `/dashboard`;
     dashboardText = "Dashboard";
+    dashboardIcon = <DashboardOutlined />;
   } else if (roleUserConnect === 'sponsor') {
     dashboardUrl = `/sponsor/${userConnect}`;
-    dashboardText = "Mes Projets Sponsorisé";
+    dashboardText = "Mes Projets Sponsorisés";
+    dashboardIcon = <StarOutlined />;
   } else {
     dashboardUrl = `/prestataire/${userConnect}`;
     dashboardText = "Mes Projets";
+    dashboardIcon = <ProfileOutlined />;
   }
-
-
-  // ---------------------------------------------------------------
-  // const handleStartProjectClick = () => {
-  //   if (!token) {
-  //     setIsModalVisible(true);
-  //   } else {
-  //     // Logique pour démarrer un projet
-  //   }
-  // };
-  // // ------------------------------------------------------------
-  // const handleModalOk = () => {
-  //   form.validateFields().then(values => {
-  //     if (values.agree) {
-  //       setIsModalVisible(false);
-  //       history.push('/devenir-prestataire');
-  //     }
-  //   }).catch(info => {
-  //     console.log('Validation Failed:', info);
-  //   });
-  // };
-  // // ---------------------------------------------------------------
-
-  // const handleModalCancel = () => {
-  //   setIsModalVisible(false);
-  // };
-  // // ---------------------------------------------------------------
-
 
   return (
     <nav className="sticky top-0 bg-white z-50 shadow-md">
       <div className="flex flex-row justify-between items-center container mx-auto px-4 py-3">
-        <Link
-          to="/"
-          className="flex items-center space-x-2"
-        >
+        <Link to="/" className="flex items-center space-x-2">
           <img
             src="/sotradon logo.png"
-            alt="Sotradons Logo"
+            alt="Logo de Sotradons - RSE Market Place by Gouvernix"
             className="w-10 h-10"
           />
+
           <div className="sotradons-text">
             <div className="ttext">
-              <span className="s">S</span>
-              <span className="o">O</span>
-              <span className="t">T</span>
-              <span className="r">R</span>
-              <span className="a">A</span>
-              <span className="d">D</span>
-              <span className="o">O</span>
-              <span className="n">N</span>
-              <span className="s">S</span>
+              <span className="s" style={{ '--order': 0 }}>S</span>
+              <span className="o" style={{ '--order': 1 }}>O</span>
+              <span className="t" style={{ '--order': 2 }}>T</span>
+              <span className="r" style={{ '--order': 3 }}>R</span>
+              <span className="a" style={{ '--order': 4 }}>A</span>
+              <span className="d" style={{ '--order': 5 }}>D</span>
+              <span className="o" style={{ '--order': 6 }}>O</span>
+              <span className="n" style={{ '--order': 7 }}>N</span>
+              <span className="s" style={{ '--order': 8 }}>S</span>
             </div>
             <span className="by">BY GOUVERNIX</span>
           </div>
@@ -182,19 +148,27 @@ let dashboardUrl;
                 className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
                 onClick={() => navigate(dashboardUrl)}
               >
+                {dashboardIcon}
                 {dashboardText}
               </button>
               <button
                 className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
               >
+                {roleUserConnect === 'prestataire' ? <UserOutlined /> :
+                  roleUserConnect === 'sponsor' ? <DollarCircleOutlined /> :
+                  roleUserConnect === 'admin' ? <ToolOutlined /> :
+                  <UserOutlined style={{ color: 'gray' }} />
+                }
                 {roleUserConnect}
               </button>
-              <button
+              <Button
+                type="primary"
+                danger
                 onClick={logout}
-                className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors"
+                icon={<LogoutOutlined />}
               >
                 Déconnexion
-              </button>
+              </Button>
             </>
           ) : (
             <Link to="/login">
@@ -290,8 +264,6 @@ let dashboardUrl;
                       ))}
                     </ul>
                   )}
-
-                  
                 </div>
               ))}
 
@@ -302,15 +274,20 @@ let dashboardUrl;
                     className="w-full max-w-lg flex  justify-center"
                   >
                     <button className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                      {dashboardIcon}
                       {dashboardText}
                     </button>
                   </Link>
 
-                  <Link to="/login" className="w-full max-w-lg flex  justify-center">
-                    <button className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
-                      Deconnexion
-                    </button>
-                  </Link>
+                    <Button 
+                    className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors"
+                    type="primary"
+                    danger
+                    onClick={logout}
+                    icon={<LogoutOutlined />}
+                    >
+                      Déconnexion
+                    </Button>
                 </div>
 
               ) : (

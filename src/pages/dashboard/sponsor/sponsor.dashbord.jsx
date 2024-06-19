@@ -68,6 +68,7 @@ const DashboardPageSponsor = () => {
           setSponsorImage(response.data[0]?.sponsorImage || "")
           setSponsorSocialBond(response.data[0]?.sponsorSocialBond || 0)
           setTotalSocialBondsInvested(response.data[0]?.totalSocialBondsInvested || 0)
+          
           // console.log("Voici tous pour spons : ",response.data)
         } else {
           message.error(`Erreur lors de la requête: ${response.status}`)

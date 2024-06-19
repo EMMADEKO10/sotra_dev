@@ -76,7 +76,7 @@ function Home() {
                   {/*
       <!-- Start Donation
     ============================================= --> */}
-                  <Donnation />
+                  {/* <Donnation /> */}
                   {/* <!-- End Donation Area -->
 
       <!-- Start Testimonials

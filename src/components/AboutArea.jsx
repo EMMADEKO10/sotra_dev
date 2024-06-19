@@ -1,107 +1,108 @@
+import { Progress, Button } from 'antd';
+import 'animate.css';
 
 export default function AboutArea() {
   return (
-    <>
-          <div className="about-area default-padding">
-              <div className="container">
-                  <div className="row align-center">
-
-                      <div className="col-lg-6 popular-causes">
-                          <div className="causes-box">
-                              <h4> <i className="fas fa-bolt"></i> Causes populaires</h4>
-                              <div className="item">
-                                  <div className="thumb">
-                                      <img src="/Mission/l’éducation (2).jpg" alt="Thumb" />
-                                  </div>
-                                  <div className="info">
-                                      <span className="cats">
-                                          Education
-                                      </span>
-                                      <h4>
-                                          <a href="#">Donner l’éducation en République Démocratique du Congo</a>
-                                      </h4>
-                                      <div className="progress-box">
-                                          <p>Recueilli : $6,230 <span className="float-right">Objectif : $8,400</span></p>
-                                          <div className="progress">
-                                              <div className="progress-bar" role="progressbar" data-width="87"></div>
-                                          </div>
-                                          <span>Collecte de fonds : 87%</span>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="item">
-                                  <div className="thumb">
-                                      <img src="/Mission/l’eau pour tous (2).jpg" alt="Thumb" />
-                                  </div>
-                                  <div className="info">
-                                      <span className="cats">
-                                          Water
-                                      </span>
-                                      <h4>
-                                          <a href="#">De l’eau pour tous les enfants</a>
-                                      </h4>
-                                      <div className="progress-box">
-                                          <p>Recueilli : $970 <span className="float-right">Objectif : $1,800</span></p>
-                                          <div className="progress">
-                                              <div className="progress-bar" role="progressbar" data-width="55"></div>
-                                          </div>
-                                          <span>Fund collect : 55%</span>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="item">
-                                  <div className="thumb">
-                                      <img src="/Mission/Nourriture saine (2).jpg" alt="Thumb" />
-                                  </div>
-                                  <div className="info">
-                                      <span className="cats">
-                                          Food
-                                      </span>
-                                      <h4>
-                                          <a href="#">Nourriture saine</a>
-                                      </h4>
-                                      <div className="progress-box">
-                                          <p>Recueilli : $2,400 <span className="float-right">Objectif : $4,300</span></p>
-                                          <div className="progress">
-                                              <div className="progress-bar" role="progressbar" data-width="77"></div>
-                                          </div>
-                                          <span>Fund collect : 77%</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div className="col-lg-6 info">
-                          <h5>Qui sommes-nous</h5>
-                          <h2 className="text-blur">à propos</h2>
-                          <h2 className="area-title">La RSE Market Place by Gouvernix</h2>
-                          <p>
-                          est conçue comme un marché où les prestataires sociaux soumettent leurs projets à la fondation Sara pour évaluation.
-                          </p>
-                          <p>
-                          Notre plateforme vise à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en offrant un site web dédié au soutien de ces initiatives essentielles.
-                          </p>
-                          <ul>
-                              <li>
-                                  <h5>168K</h5>
-                                  <span>Plantes protégées</span>
-                              </li>
-                              <li>
-                                  <h5>5M Ton </h5>
-                                  <span>Eau économisés</span>
-                              </li>
-                              <li>
-                                  <h5>37K Sqmi.</h5>
-                                  <span>Ocean Proteced</span>
-                              </li>
-                          </ul>
-                          <a className="btn circle btn-theme border btn-md" href="#">Devenir sponsor</a>
-                      </div>
-
-                  </div>
-              </div>
+    <div className="about-area bg-gray-100 py-20">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          {/* Section des causes populaires */}
+          <div className="popular-causes">
+            <h4 className="text-2xl font-bold mb-6">
+              <i className="fas fa-bolt mr-2"></i> Causes populaires
+            </h4>
+            <div className="flex flex-col space-y-8">
+              <CauseItem
+                image="/Mission/l’éducation (2).jpg"
+                category="Education"
+                title="Donner l’éducation en République Démocratique du Congo"
+                raised={6230}
+                goal={8400}
+                percent={87}
+              />
+              <CauseItem
+                image="/Mission/l’eau pour tous (2).jpg"
+                category="Water"
+                title="De l’eau pour tous les enfants"
+                raised={970}
+                goal={1800}
+                percent={55}
+              />
+              <CauseItem
+                image="/Mission/Nourriture saine (2).jpg"
+                category="Food"
+                title="Nourriture saine"
+                raised={2400}
+                goal={4300}
+                percent={77}
+              />
+            </div>
           </div>
-    </>
-  )
+
+          {/* Contenu de la section d'informations */}
+          <div className="info lg:pl-8">
+            <h5 className="text-lg font-bold mb-4">Qui sommes-nous</h5>
+            <h2 className="text-4xl font-bold text-blur mb-4">À propos</h2>
+            <h2 className="text-4xl font-bold area-title mb-8">
+              La RSE Market Place by Gouvernix
+            </h2>
+            <p className="mb-4 leading-relaxed">
+              Notre plateforme est conçue comme un marché où les prestataires sociaux soumettent leurs projets à la fondation Sara pour évaluation.
+            </p>
+            <p className="mb-8 leading-relaxed">
+              Nous visons à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en offrant un site web dédié au soutien de ces initiatives essentielles.
+            </p>
+            <ul className="flex space-x-8 mb-8">
+              <InfoItem count="168K" label="Plantes protégées" />
+              <InfoItem count="5M Ton" label="Eau économisés" />
+              <InfoItem count="37K Sqmi." label="Ocean Protégé" />
+            </ul>
+            <Button
+              type="primary"
+              size="large"
+              className="btn-theme inline-block animate__animated animate__fadeInUp animate__delay-1s"
+            >
+              Devenir sponsor
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Composant pour les items de cause
+function CauseItem({ image, category, title, raised, goal, percent }) {
+  return (
+    <div className="flex space-x-6 animate__animated animate__fadeIn">
+      <div className="w-1/3">
+        <img src={image} alt="Thumb" className="rounded-lg" />
+      </div>
+      <div className="w-2/3">
+        <span className="block text-sm text-gray-500">{category}</span>
+        <h4 className="text-lg font-bold mb-2">
+          <a href="#" className="hover:text-blue-600">
+            {title}
+          </a>
+        </h4>
+        <div className="progress-box">
+          <p>
+            Recueilli : ${raised} <span className="float-right">Objectif : ${goal}</span>
+          </p>
+          <Progress percent={percent} showInfo={false} />
+          <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Composant pour les items d'informations
+function InfoItem({ count, label }) {
+  return (
+    <li className="text-center animate__animated animate__fadeInUp">
+      <h5 className="text-2xl font-bold">{count}</h5>
+      <span>{label}</span>
+    </li>
+  );
 }

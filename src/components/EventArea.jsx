@@ -1,4 +1,5 @@
 import { Carousel } from 'antd';
+import { Button } from 'antd';
 // import 'antd/dist/antd.css'; // Importer le CSS d'Ant Design
 import React from 'react';
 import 'animate.css'; // Importer animate.css pour les animations
@@ -26,12 +27,13 @@ export default function EventArea() {
               Tout est mélancolique, rarement, mais la sollicitude habite la projection. La connexion stimule
               l’estimation de l’excellence et de l’impression.
             </p>
-            <a
-              className="btn btn-md btn-gradient hover:underline inline-block animate__animated animate__fadeInUp lg:animate__delay-2s"
-              href="#"
+            <Button
+              type="primary"
+              size="large"
+              className="btn-theme inline-block animate__animated animate__fadeInUp animate__delay-1s"
             >
               Voir tous les événements <i className="fas fa-angle-right ml-2"></i>
-            </a>
+            </Button>
           </div>
         </div>
       </div>

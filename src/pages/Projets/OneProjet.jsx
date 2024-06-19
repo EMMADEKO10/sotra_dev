@@ -17,10 +17,12 @@ const DonationPage =  () => {
   const { id } = useParams();
   const [customAmount, setCustomAmount] = useState("");
   const [reload, setReload] = useState(false);
+  const [reloadComment, setReloadComment] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
   const [modalVisible, setModalVisible] = useState(false);
   const [unauthorizedModalVisible, setUnauthorizedModalVisible] = useState(false);
+  const [totalCommentaires, setTotalCommentaires] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +40,7 @@ const DonationPage =  () => {
           console.log('Connexion réussie ! :')
           // ---------------------------------------------------------------------------------------
         
-          // -----------------------------------------------------------------------------------
-
-
+          // ----------------------------------------------------------------------------------
 
         } else {
           // Handle unsuccessful registration (e.g., display error message)
@@ -168,11 +168,7 @@ const DonationPage =  () => {
                   {project.projectTitle}
                 </h4>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  {/* Les plus petites familles honorées directement surprise sont un. Répondant maîtresse lui nombreux elle a retourné les sentiments peuvent jour. 
-                  Soirée chanceusement exposé fils obtenir grandement général. Zélieusement prévalu être en train d'organiser faire. 
-                  Ensemble organiser trop de déjection bonheur septembre. Instrument compris ou faire connexion aucune apparition faire invitation. 
-                  Séché rapide tour ou ordre. Ajouter voir ouest passé ressenti a-t-il tout. Dire hors bruit vous goûter joyeusement assiette vous partager. 
-                  Ma résolution est arrivée nous chambre être suppression. */}
+                 
                   {project.projectDescription}
                 </p>
                 <Button  type="primary" shape="round" size="large" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
@@ -180,51 +176,11 @@ const DonationPage =  () => {
 
               {/* Section des Commentaires */}
               <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
-                <h4 className="text-xl font-semibold mb-6">5 commentaires</h4>
-                {/* <List
-                  itemLayout="horizontal"
-                  dataSource={comments}
-                  renderItem={(comment) => (
-                    <List.Item>
-                      <List.Item.Meta
-                        avatar={<Avatar src={comment.avatar} />}
-                        title={<a href="#">{comment.author}</a>}
-                        description={
-                          <span>
-                            <ClockCircleOutlined /> {comment.datetime}
-                          </span>
-                        }
-                      />
-                      <div>{comment.content}</div>
-                    </List.Item>
-                  )}
-                /> */}
-
-              <CommentairesProjet />
+                <h4 className="text-xl font-semibold mb-6">{totalCommentaires} commentaires</h4>
+               
+              <CommentairesProjet reloadComment={reloadComment}  setTotalCommentaires={setTotalCommentaires} />
               </div>
-
-              {/* Formulaire de Commentaire */}
-              {/* <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
-                <h4 className="text-xl font-semibold mb-6">
-                  Laisser un commentaire
-                </h4>
-                <Form className="contact-comments">
-                  <Form.Item name="name">
-                    <Input placeholder="Nom *" />
-                  </Form.Item>
-                  <Form.Item name="email">
-                    <Input placeholder="Email *" />
-                  </Form.Item>
-                  <Form.Item name="comment">
-                    <Input.TextArea 
-                       placeholder="Commentaire" />
-                  </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Publier le commentaire</Button>
-                  </Form.Item>
-                </Form>
-              </div> */}
-              <AddCommentaire />
+              <AddCommentaire setReloadComment = {setReloadComment} reloadComment={reloadComment} />
             </div>
 
             {/* Barre Latérale */}
@@ -300,7 +256,7 @@ const DonationPage =  () => {
 };
 export default DonationPage;
 
-
+// --------------------------------------------------------------------------------------------------------------
 
 const DonRecent = () =>{
   const { id } = useParams();
@@ -359,9 +315,7 @@ const DonRecent = () =>{
   )
 }
 
-
-
-
+// ---------------------------------------------------------------------------------------------------------------
 
 const Modals = ({ isOpen, onClose }) => {
   return (

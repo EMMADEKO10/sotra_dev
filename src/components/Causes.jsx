@@ -9,19 +9,18 @@ export default function Causes() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="animate__animated animate__fadeInLeft">
-              <h5 className="text-lg text-gray-600 font-semibold mb-2">Causes récentes</h5>
+              <h5 className="text-lg text-gray-600 font-semibold mb-2">Nos Initiatives Sociales</h5>
               <h2 className="text-3xl font-bold mb-4">
-                Faites un don à des causes caritatives dans le monde entier.
+                Soutenez des projets caritatifs à travers le monde.
               </h2>
             </div>
             <div className="animate__animated animate__fadeInRight">
               <p className="text-gray-700 mb-4">
-                Tout est mélancolique, rarement, mais la sollicitude habite la projection. La
-                connexion stimule l’estimation de l’excellence et de l’impression.
+                Ensemble, nous créons un impact positif en soutenant des causes humanitaires essentielles.
               </p>
               <NavLink to="/allprojets">
                 <Button type="primary" className=" py-3 px-6 text-base animate__animated animate__fadeInUp">
-                  Voir plus <i className="fas fa-angle-right ml-2"></i>
+                  Découvrir plus <i className="fas fa-angle-right ml-2"></i>
                 </Button>
               </NavLink>
             </div>
@@ -44,16 +43,16 @@ export default function Causes() {
                 </div>
                 <div className="p-6">
                   <h4 className="text-lg font-semibold mb-2">
-                    <a href="#">Donner l’éducation à l’Afrique</a>
+                    <a href="#">Éducation pour l'Afrique</a>
                   </h4>
                   <p className="text-gray-700 mb-4">
-                    Surtout en possession d’une manière insensible sympathiser avec elle.
+                    Soutenez notre initiative visant à fournir une éducation de qualité en Afrique.
                   </p>
                   <div className="flex items-center mb-4">
                     <Progress percent={50} className="w-full" />
                   </div>
                   <p className="text-gray-700">
-                    Recueilli : $4200 <span className="ml-2">Objectif : $8400</span>
+                    Collecté : $4200 <span className="ml-2">Objectif : $8400</span>
                   </p>
                 </div>
               </div>
@@ -69,7 +68,7 @@ export default function Causes() {
                     className="w-full h-56 object-cover object-center"
                   />
                   <div className="absolute bg-green-500 text-white py-1 px-3 rounded-full top-0 left-0 m-4 text-xs">
-                    Tendance
+                    En Tendance
                   </div>
                   <span className="absolute bg-gray-800 text-white py-1 px-3 rounded-full bottom-0 right-0 m-4 text-xs">
                     Créé : Jul 15, 2020
@@ -77,16 +76,16 @@ export default function Causes() {
                 </div>
                 <div className="p-6">
                   <h4 className="text-lg font-semibold mb-2">
-                    <a href="#">De l’eau pour tous les enfants</a>
+                    <a href="#">Accès à l'eau potable pour tous</a>
                   </h4>
                   <p className="text-gray-700 mb-4">
-                    Surtout en possession d’une manière insensible sympathiser avec elle.
+                    Contribuez à notre effort pour fournir de l'eau potable à des communautés défavorisées.
                   </p>
                   <div className="flex items-center mb-4">
                     <Progress percent={69} className="w-full" />
                   </div>
                   <p className="text-gray-700">
-                    Recueilli : $6230 <span className="ml-2">Objectif : $8400</span>
+                    Collecté : $6230 <span className="ml-2">Objectif : $8400</span>
                   </p>
                 </div>
               </div>
@@ -107,16 +106,16 @@ export default function Causes() {
                 </div>
                 <div className="p-6">
                   <h4 className="text-lg font-semibold mb-2">
-                    <a href="#">Nourriture pour les Syriens</a>
+                    <a href="#">Aide alimentaire pour les Syriens</a>
                   </h4>
                   <p className="text-gray-700 mb-4">
-                    Surtout en possession d’une manière insensible sympathiser avec elle.
+                    Soutenez notre initiative pour fournir une aide alimentaire essentielle aux enfants syriens.
                   </p>
                   <div className="flex items-center mb-4">
                     <Progress percent={45} className="w-full" />
                   </div>
                   <p className="text-gray-700">
-                    Recueilli : $4230 <span className="ml-2">Objectif : $8400</span>
+                    Collecté : $4230 <span className="ml-2">Objectif : $8400</span>
                   </p>
                 </div>
               </div>

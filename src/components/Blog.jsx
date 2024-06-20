@@ -1,10 +1,40 @@
-import { Row, Col, Typography, Card, Avatar, Tag } from 'antd';
-// import 'antd/dist/antd.css'; // Import Ant Design styles
-import Meta from 'antd/lib/card/Meta'; // Import Meta separately
+import { Row, Col, Typography, Card, Avatar } from 'antd';
+import Meta from 'antd/lib/card/Meta';
 
 const { Title, Paragraph } = Typography;
 
 export default function Blog() {
+    // Exemple de données fictives pour les articles de blog
+    const articles = [
+        {
+            title: "RSE Market Place : Nouvelle initiative révolutionnaire",
+            author: "John Doe",
+            avatar: "/avatars/john_doe.jpg",
+            comments: 12,
+            image: "/blogs/RSE au cœur de la stratégie.jpg",
+            content: "Découvrez comment la RSE Market Place transforme l'investissement social avec transparence et impact durable.",
+            link: "#"
+        },
+        {
+            title: "Entretien avec la Fondation SARA : Promouvoir la solidarité",
+            author: "Jane Smith",
+            avatar: "/avatars/jane_smith.jpg",
+            comments: 26,
+            image: "/blogs/Sara A.png",
+            content: "Explorez les efforts de la Fondation SARA pour promouvoir la solidarité à travers ses initiatives sociales innovantes.",
+            link: "#"
+        },
+        {
+            title: "Impact environnemental : Initiatives durables de la Fondation Entreprendre",
+            author: "Michael Johnson",
+            avatar: "/avatars/michael_johnson.jpg",
+            comments: 8,
+            image: "/blogs/7.jpg",
+            content: "Découvrez comment la Fondation Entreprendre contribue à la durabilité environnementale à travers ses projets novateurs.",
+            link: "#"
+        }
+    ];
+
     return (
         <>
             <div className="blog-area bg-gray py-12">
@@ -19,86 +49,31 @@ export default function Blog() {
                 </div>
                 <div className="container mx-auto">
                     <Row gutter={[16, 16]}>
-                        {/* First Post */}
-                        <Col xs={24} sm={24} md={12} lg={8}>
-                            <Card
-                                hoverable
-                                cover={<img alt="Thumb" src="/blogs/side-view-people-chatting-work.jpg" />}
-                            >
-                                <Meta
-                                    title={<a href="#">Avantage franchise à conclu peu disposé.</a>}
-                                    description={
-                                        <>
-                                            <div className="flex items-center">
-                                                <Avatar src="/avatar.jpg" size="small" className="mr-2" />
-                                                <a href="#">Jones</a>
-                                            </div>
-                                            <div className="mt-2">
-                                                <a href="#"><i className="fas fa-comments"></i> 12 Commentaires</a>
-                                            </div>
-                                            <Paragraph ellipsis={{ rows: 3 }}>
-                                                Le tribunal est de nouveau en congé comme je le suis. Plus de 16 ans pour former le colonel no on be. Donc un conseil à peine barton processus.
-                                            </Paragraph>
-                                            <a className="btn-more" href="#">Read More</a>
-                                        </>
-                                    }
-                                />
-                            </Card>
-                        </Col>
-
-                        {/* Second Post */}
-                        <Col xs={24} sm={24} md={12} lg={8}>
-                            <Card
-                                hoverable
-                                cover={<img alt="Thumb" src="/blogs/medium-shot-photographer-groom.jpg" />}
-                            >
-                                <Meta
-                                    title={<a href="#">Extrêmement dépendant il gentleman s’améliorant.</a>}
-                                    description={
-                                        <>
-                                            <div className="flex items-center">
-                                                <Avatar src="/avatar.jpg" size="small" className="mr-2" />
-                                                <a href="#">Spark</a>
-                                            </div>
-                                            <div className="mt-2">
-                                                <a href="#"><i className="fas fa-comments"></i> 26 Commentaires</a>
-                                            </div>
-                                            <Paragraph ellipsis={{ rows: 3 }}>
-                                                Le tribunal est de nouveau en congé comme je le suis. Plus de 16 ans pour former le colonel no on be. Donc un conseil à peine barton processus.
-                                            </Paragraph>
-                                            <a className="btn-more" href="#">Read More</a>
-                                        </>
-                                    }
-                                />
-                            </Card>
-                        </Col>
-
-                        {/* Third Post */}
-                        <Col xs={24} sm={24} md={12} lg={8}>
-                            <Card
-                                hoverable
-                                cover={<img alt="Thumb" src="/blogs/photo-serious-black-man-holds-chin-carries-yellow-mug-drink-looks-directly-camera-wears-red-hat-shirt.jpg" />}
-                            >
-                                <Meta
-                                    title={<a href="#">Il a écrit comme un bruit connu.</a>}
-                                    description={
-                                        <>
-                                            <div className="flex items-center">
-                                                <Avatar src="/avatar.jpg" size="small" className="mr-2" />
-                                                <a href="#">Mohin</a>
-                                            </div>
-                                            <div className="mt-2">
-                                                <a href="#"><i className="fas fa-comments"></i> 00 Commentaires</a>
-                                            </div>
-                                            <Paragraph ellipsis={{ rows: 3 }}>
-                                                Le tribunal est de nouveau en congé comme je le suis. Plus de 16 ans pour former le colonel no on be. Donc un conseil à peine barton processus.
-                                            </Paragraph>
-                                            <a className="btn-more" href="#">Read More</a>
-                                        </>
-                                    }
-                                />
-                            </Card>
-                        </Col>
+                        {articles.map((article, index) => (
+                            <Col key={index} xs={24} sm={24} md={12} lg={8}>
+                                <Card
+                                    hoverable
+                                    cover={<img alt="Thumb" src={article.image} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />}
+                                >
+                                    <Meta
+                                        title={<a href={article.link}>{article.title}</a>}
+                                        description={
+                                            <>
+                                                <div className="flex items-center">
+                                                    <Avatar src={article.avatar} size="small" className="mr-2" />
+                                                    <a href="#">{article.author}</a>
+                                                </div>
+                                                <div className="mt-2">
+                                                    <a href="#"><i className="fas fa-comments"></i> {article.comments} Commentaires</a>
+                                                </div>
+                                                <Paragraph ellipsis={{ rows: 3 }}>{article.content}</Paragraph>
+                                                <a className="btn-more" href={article.link}>Lire plus</a>
+                                            </>
+                                        }
+                                    />
+                                </Card>
+                            </Col>
+                        ))}
                     </Row>
                 </div>
             </div>

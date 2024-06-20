@@ -43,7 +43,7 @@ const Navbar = () => {
       subItems: [
         // { name: "Social bonds", link: "#", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         { name: "Charte", link: "/chart", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        { name: "Blog", link: "/blogs", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        // { name: "Blog", link: "/blogs", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
       ],
     },

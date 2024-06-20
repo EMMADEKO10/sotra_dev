@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Simulate user authentication status
 const isAuthenticated = () => {
@@ -22,7 +22,7 @@ export default function HeaderTop() {
                 <div className="flex space-x-6">
                     <div className="flex items-center space-x-2">
                         <i className="fas fa-envelope-open text-[#3bcf93]"></i>
-                        <span>info@sotradons.com</span>
+                        <span>contact@sotradons.com</span>
                     </div>
                     <div className="flex items-center space-x-2">
                         <i className="fas fa-phone text-[#3bcf93]"></i>
@@ -31,22 +31,22 @@ export default function HeaderTop() {
                 </div>
                 <div className="flex space-x-6">
                     <div className="flex items-center space-x-4">
-                        <Link to="/login" className="hover:text-[#3bcf93] text-[#fff]">Connexion</Link>
-                        <Link to="/register" className="hover:text-[#3bcf93] text-[#fff]">S'inscrire</Link>
+                        <Link to="/login" className="hover:text-[#3bcf93] text-[#fff]">Se connecter</Link>
+                        <Link to="/register" className="hover:text-[#3bcf93] text-[#fff]">Inscription</Link>
                     </div>
                     <div className="flex items-center space-x-4">
-                        <a href="#" className="hover:text-[#3bcf93] text-[#fff]">
+                        <a href="https://www.facebook.com/sotradons" className="hover:text-[#3bcf93] text-[#fff]">
                             <i className="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" className="hover:text-[#3bcf93] text-[#fff]">
+                        <a href="https://twitter.com/sotradons" className="hover:text-[#3bcf93] text-[#fff]">
                             <i className="fab fa-twitter"></i>
                         </a>
-                        <a href="#" className="hover:text-[#3bcf93] text-[#fff]">
+                        <a href="https://www.linkedin.com/company/sotradons" className="hover:text-[#3bcf93] text-[#fff]">
                             <i className="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }

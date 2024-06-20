@@ -1,5 +1,6 @@
 import { Row, Col, Input, Button } from 'antd';
 import 'animate.css';
+import { NavLink } from 'react-router-dom';
 
 export default function Volonteer() {
   return (
@@ -17,25 +18,22 @@ export default function Volonteer() {
         <Row justify="center" gutter={[16, 16]}>
           <Col xs={22} sm={20} md={18} lg={14} xl={12} className="text-center">
             <h5 className="text-3xl text-gray-700">Devenir sponsors</h5>
-            {/* <h2 className="text-4xl font-bold text-blur animate__animated animate__fadeInDown opacity-5">
-              Sponsors
-            </h2> */}
             <h2 className="text-2xl font-semibold area-title animate__animated animate__fadeInUp">
-              Nous avons financé 120000 projets caritatifs pour 20 millions de personnes dans le monde.
+              Soutenez des projets d'impact social avec la RSE Market Place
             </h2>
             <p className="text-lg text-gray-800 animate__animated animate__fadeIn">
-              Répondit visiteur de l’âge de la joie rien de cottage. Mme la porte payée menait fort sûr facile à lire.
-              Hâtez-vous peut-être comme ni l’un ni l’autre ou vous êtes un visiteur ennuyeux fertile. Utiliser un
-              beau lit que personne n’appelle occupé à s’ennuyer quand. Le calme devrait correspondre à mon droit par
-              des moyens de table. Les principes élevés font en moi un affront favorable. Vingt mères ont refusé
-              l’effet que nous devions faire.
+              Bienvenue chez RSE Market Place, où chaque sponsor fait une différence significative. Avec notre
+              plateforme, nous avons facilité le financement de plus de 120 000 projets caritatifs, touchant plus de
+              2 millions de personnes à travers la republique.
             </p>
             <form action="#" className="mt-8 animate__animated animate__fadeIn">
               <Row gutter={[16, 16]} justify="center">
                 <Col xs={24} sm={18} md={16} lg={14} xl={12}>
-                  <Button type="primary" size="large" block className="text-[#3bcf94]">
-                    Rejoignez-nous maintenant
-                  </Button>
+                  <NavLink to="/sponsorregistration">
+                    <Button type="primary" size="large" block className="text-[#3bcf94]">
+                      Rejoignez-nous maintenant
+                    </Button>
+                  </NavLink>
                 </Col>
               </Row>
             </form>

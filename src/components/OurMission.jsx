@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 // import 'antd/dist/antd.css'; // Import des styles Ant Design
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function OurMission() {
   return (
@@ -31,24 +32,29 @@ export default function OurMission() {
 
           {/* Section Texte */}
           <div className="info animate__animated animate__fadeInRight">
-            <h5 className="text-lg text-gray-600 font-medium mb-2">Our Mission</h5>
-            <h2 className="text-3xl font-bold mb-4">Faciliter le lien entre les grandes entreprises et les initiatives sociales innovantes</h2>
+            <h5 className="text-lg text-gray-600 font-medium mb-2">Notre Mission</h5>
+            <h2 className="text-3xl font-bold mb-4">Faciliter la connexion entre grandes entreprises et initiatives sociales innovantes</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Leur fin toute entière la fit commencer. Se comporta le réconfort une autre quinzaine de manger. La partialité fit découvrir sa propre demande pianoforte croissante. Donc, mr retard à puisque lieu entier au-dessus des miles.
+              Notre mission est de créer un pont entre les grandes entreprises et les initiatives sociales innovantes, favorisant un impact positif et durable dans notre société. Nous nous engageons à promouvoir des pratiques responsables et éthiques, tout en soutenant des projets qui contribuent au bien-être social et environnemental.
             </p>
-            <h4 className="text-lg font-medium text-gray-600 mb-2">Nos priorités stratégiques jusqu’en 2020 sont les suivantes :</h4>
+            <h4 className="text-lg font-medium text-gray-600 mb-2">Nos Priorités Stratégiques</h4>
             <ul className="list-disc pl-5 mb-4">
-              <li className="text-gray-700">Protéger les organismes de bienfaisance contre les abus ou la mauvaise gestion</li>
-              <li className="text-gray-700">Permettre aux fiduciaires de gérer efficacement leurs organismes de bienfaisance</li>
-              <li className="text-gray-700">Encourager une plus grande transparence et responsabilisation</li>
+              <li className="text-gray-700">Promouvoir la protection des organismes de bienfaisance contre les abus et la mauvaise gestion.</li>
+              <li className="text-gray-700">Aider les fiduciaires à gérer efficacement leurs organisations caritatives.</li>
+              <li className="text-gray-700">Encourager la transparence et la responsabilisation au sein de notre réseau.</li>
             </ul>
-            <Button type="primary"
-              size="large"
-              className="btn-theme inline-block animate__animated animate__fadeInUp animate__delay-1s">
-            Se joindre à nous</Button>
-          </div>
+            <NavLink to="/contact">
+              <Button
+                type="primary"
+                size="large"
+                className="btn-theme inline-block animate__animated animate__fadeInUp animate__delay-1s"
+              >
+                Rejoignez-nous
+              </Button>
+            </NavLink>
           </div>
         </div>
       </div>
+    </div>
   );
 }

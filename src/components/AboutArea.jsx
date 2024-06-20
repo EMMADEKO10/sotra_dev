@@ -1,5 +1,6 @@
 import { Progress, Button } from 'antd';
 import 'animate.css';
+import { NavLink } from 'react-router-dom';
 
 export default function AboutArea() {
   return (
@@ -47,23 +48,25 @@ export default function AboutArea() {
               La RSE Market Place by Gouvernix
             </h2>
             <p className="mb-4 leading-relaxed">
-              Notre plateforme est conçue comme un marché où les prestataires sociaux soumettent leurs projets à la fondation Sara pour évaluation.
+              Notre plateforme est conçue comme un marché innovant où les grandes entreprises peuvent investir dans des projets socialement viables, favorisant le développement durable et la transformation sociale.
             </p>
             <p className="mb-8 leading-relaxed">
-              Nous visons à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en offrant un site web dédié au soutien de ces initiatives essentielles.
+              Nous visons à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en facilitant les collaborations entre les sponsors et les prestataires sociaux via notre plateforme dédiée.
             </p>
             <ul className="flex space-x-8 mb-8">
               <InfoItem count="168K" label="Plantes protégées" />
               <InfoItem count="5M Ton" label="Eau économisés" />
               <InfoItem count="37K Sqmi." label="Ocean Protégé" />
             </ul>
-            <Button
-              type="primary"
-              size="large"
-              className="btn-theme inline-block animate__animated animate__fadeInUp animate__delay-1s"
-            >
-              Devenir sponsor
-            </Button>
+            <NavLink to="/about">
+              <Button
+                type="primary"
+                size="large"
+                className="btn-theme inline-block animate__animated animate__fadeInUp animate__delay-1s"
+              >
+                En savoir plus
+              </Button>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -74,26 +77,28 @@ export default function AboutArea() {
 // Composant pour les items de cause
 function CauseItem({ image, category, title, raised, goal, percent }) {
   return (
-    <div className="flex space-x-6 animate__animated animate__fadeIn">
-      <div className="w-1/3">
-        <img src={image} alt="Thumb" className="rounded-lg" />
-      </div>
-      <div className="w-2/3">
-        <span className="block text-sm text-gray-500">{category}</span>
-        <h4 className="text-lg font-bold mb-2">
-          <a href="#" className="hover:text-blue-600">
-            {title}
-          </a>
-        </h4>
-        <div className="progress-box">
-          <p>
-            Recueilli : ${raised} <span className="float-right">Objectif : ${goal}</span>
-          </p>
-          <Progress percent={percent} showInfo={false} />
-          <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>
+    <NavLink to="/allprojets">
+      <div className="flex space-x-6 animate__animated animate__fadeIn">
+        <div className="w-1/3">
+          <img src={image} alt="Thumb" className="rounded-lg" />
+        </div>
+        <div className="w-2/3">
+          <span className="block text-sm text-gray-500">{category}</span>
+          <h4 className="text-lg font-bold mb-2">
+            <a href="#" className="hover:text-blue-600">
+              {title}
+            </a>
+          </h4>
+          <div className="progress-box">
+            <p>
+              Recueilli : ${raised} <span className="float-right">Objectif : ${goal}</span>
+            </p>
+            <Progress percent={percent} showInfo={false} />
+            <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>
+          </div>
         </div>
       </div>
-    </div>
+    </NavLink>
   );
 }
 

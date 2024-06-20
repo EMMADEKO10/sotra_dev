@@ -4,6 +4,7 @@ import ProjectsForm from "../pages/Profile/Projects/ProjectsForm";
 import 'antd/dist/reset.css'; // Import Ant Design styles
 import 'animate.css'; // Import Animate.css
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
+import { NavLink } from "react-router-dom";
 
 export default function Banner() {
     const [showProjectForm, setShowProjectForm] = React.useState(false);
@@ -19,14 +20,16 @@ export default function Banner() {
                         <div className="container mx-auto h-full flex items-center justify-center relative z-20 px-6">
                             <div className="text-center max-w-3xl p-6 bg-black bg-opacity-60 rounded-lg shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-1">
                                 <h4 className="text-2xl md:text-3xl font-semibold animate__animated animate__slideInDown text-white opacity-60">
-                                    Votre innovation mérite d'être vue
+                                    Transformez vos idées en actions concrètes
                                 </h4>
                                 <h2 className="text-4xl md:text-6xl font-extrabold my-4 animate__animated animate__slideInRight text-white opacity-80">
-                                    Transformez vos idées<strong> en réalisations concrètes</strong>
+                                    Découvrez comment votre innovation peut être mise en avant
                                 </h2>
-                                <Button type="primary" shape="round" size="large" className="animate__animated animate__fadeInUp mt-6 shadow-lg hover:bg-[#1e8159] hover:shadow-2xl transition duration-300 ease-in-out">
-                                    Démarrer un projet
-                                </Button>
+                                <NavLink to="/projectsubmission">
+                                    <Button type="primary" shape="round" size="large" className="animate__animated animate__fadeInUp mt-6 shadow-lg hover:bg-[#1e8159] hover:shadow-2xl transition duration-300 ease-in-out">
+                                        Démarrer un projet
+                                    </Button>
+                                </NavLink>
                             </div>
                         </div>
                     </div>
@@ -38,14 +41,16 @@ export default function Banner() {
                         <div className="container mx-auto h-full flex items-center justify-center relative z-20 px-6">
                             <div className="text-center max-w-3xl p-6 bg-black bg-opacity-60 rounded-lg shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-1">
                                 <h4 className="text-2xl md:text-3xl font-semibold animate__animated animate__slideInDown text-white opacity-60">
-                                    Investissez dans l'avenir
+                                    Investissez dans l'avenir durable
                                 </h4>
                                 <h2 className="text-4xl md:text-6xl font-extrabold my-4 animate__animated animate__slideInRight text-white opacity-80">
-                                    Transformez votre portefeuille avec<strong> des investissements durables</strong>
+                                    Explorez des opportunités d'investissement responsables
                                 </h2>
-                                <Button type="primary" shape="round" size="large" className="animate__animated animate__fadeInUp mt-6 shadow-lg hover:shadow-2xl transition duration-300 ease-in-out">
-                                    Démarrer un projet
-                                </Button>
+                                <NavLink to="/allprojets">
+                                    <Button type="primary" shape="round" size="large" className="animate__animated animate__fadeInUp mt-6 shadow-lg hover:shadow-2xl transition duration-300 ease-in-out">
+                                        sponsoriser un projet
+                                    </Button>
+                                </NavLink>
                             </div>
                         </div>
                     </div>

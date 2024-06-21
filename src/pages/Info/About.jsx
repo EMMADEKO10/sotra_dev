@@ -8,8 +8,8 @@ import { NavLink } from 'react-router-dom';
 const About = () => {
   // Définitions des images des partenaires
   const partners = [
-    { name: "Fondation SARA", img: "public/sara logo.jpg" },
-    { name: "Fondation Entreprendre", img: "public/sotradonsImage/7.jpg" },
+    { name: "Fondation SARA", img: "/sara logo.jpg" },
+    { name: "Fondation Entreprendre", img: "/sotradonsImage/7.jpg" },
   ];
 
   return (
@@ -42,7 +42,7 @@ const About = () => {
             <Col lg={12} xs={24}>
               <div className="relative">
                 <img
-                  src="public/Sotradons A.svg"
+                  src="/Sotradons A.svg"
                   alt="À propos de nous"
                   className="w-full rounded-lg shadow-lg"
                 />
@@ -147,7 +147,7 @@ const About = () => {
             <Col lg={12} xs={24}>
               <div className="relative">
                 <img
-                  src="public/sotradonsImage/6.jpg"
+                  src="/sotradonsImage/6.jpg"
                   alt="Notre mission"
                   className="w-full rounded-lg shadow-lg"
                 />

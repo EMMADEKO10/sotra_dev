@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbars/NavBar';
 import 'tailwindcss/tailwind.css';
 import { Input, Button, Row, Col } from 'antd';
 import { MailOutlined, PhoneOutlined, HomeOutlined } from '@ant-design/icons';
+import Footer from '../../components/Footer';
 
 const NosSponsorts = () => {
   const [sponsors, setSponsors] = useState([]);
@@ -82,67 +83,7 @@ const NosSponsorts = () => {
       </div>
 
       {/* Nouveau Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto">
-          <Row gutter={[16, 16]}>
-            <Col xs={24} sm={12} md={6}>
-              <div className="about">
-                <img src="assets/img/logo-light.png" alt="Logo" className="mb-4" />
-                <p>
-                  Happen active county. Winding morning am shyness evident to. Garrets because elderly new manners however one village she.
-                </p>
-                <form action="#">
-                  <Input
-                    placeholder="Your Email"
-                    prefix={<MailOutlined />}
-                    className="my-2"
-                    type="email"
-                    name="email"
-                  />
-                  <Button type="primary" htmlType="submit" className="w-full">
-                    Subscribe
-                  </Button>
-                </form>
-              </div>
-            </Col>
-            <Col xs={24} sm={12} md={4}>
-              <div className="link">
-                <h4 className="widget-title text-xl font-bold">Explore</h4>
-                <ul className="mt-4">
-                  <li><a href="#" className="text-gray-400 hover:text-white">Our Causes</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">New Campaign</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Site Map</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Donate</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Terms</a></li>
-                </ul>
-              </div>
-            </Col>
-            <Col xs={24} sm={12} md={7}>
-              <div className="contact">
-                <h4 className="widget-title text-xl font-bold">Contact Info</h4>
-                <div className="address mt-4">
-                  <p><HomeOutlined className="mr-2" />5919 Trussville Crossings Pkwy, Birmingham AL 35235</p>
-                  <p><MailOutlined className="mr-2" /><a href="mailto:info@validtheme.com" className="text-gray-400 hover:text-white">info@validtheme.com</a></p>
-                  <p><PhoneOutlined className="mr-2" /><a href="tel:2151234567" className="text-gray-400 hover:text-white">+123 34598768</a></p>
-                </div>
-              </div>
-            </Col>
-            <Col xs={24} sm={12} md={7}>
-              <div className="recent-post">
-                <h4 className="widget-title text-xl font-bold">Latest News</h4>
-                <div className="mt-4">
-                  <a href="#" className="block text-gray-400 hover:text-white mb-2">Delighted prevailed supported too not remainder perpetual.</a>
-                  <span className="block text-sm text-gray-500"><i className="fas fa-calendar-alt mr-2"></i>22 Aug, 2020 - <a href="#" className="hover:text-white">Admin</a></span>
-                </div>
-                <div className="mt-4">
-                  <a href="#" className="block text-gray-400 hover:text-white mb-2">Speaking trifling an to unpacked moderate debating learning management.</a>
-                  <span className="block text-sm text-gray-500"><i className="fas fa-calendar-alt mr-2"></i>15 Nov, 2020 - <a href="#" className="hover:text-white">User</a></span>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

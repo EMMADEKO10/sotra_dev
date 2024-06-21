@@ -36,7 +36,7 @@ export default function GalleryArea() {
             {/* Gallery Item 1 */}
             <div className="pf-item relative overflow-hidden animate__animated animate__fadeIn">
               <img
-                src="/public/media/Photo _ Neil Palmer (CIAT) Flickr CC.jpeg"
+                src="/media/Photo _ Neil Palmer (CIAT) Flickr CC.jpeg"
                 alt="Image 1"
                 className="w-full h-auto object-cover"
                 style={{ height: "300px" }} // Ajustez la hauteur comme nécessaire
@@ -63,7 +63,7 @@ export default function GalleryArea() {
             {/* Gallery Item 2 */}
             <div className="pf-item relative overflow-hidden animate__animated animate__fadeIn">
               <img
-                src="/public/media/b wenz.jpg"
+                src="/media/b wenz.jpg"
                 alt="Image 2"
                 className="w-full h-auto object-cover"
                 style={{ height: "300px" }} // Ajustez la hauteur comme nécessaire
@@ -90,7 +90,7 @@ export default function GalleryArea() {
             {/* Gallery Item 3 */}
             <div className="pf-item relative overflow-hidden animate__animated animate__fadeIn">
               <img
-                src="/public/media/b doct.jpg"
+                src="/media/b doct.jpg"
                 alt="Image 3"
                 className="w-full h-auto object-cover"
                 style={{ height: "300px" }} // Ajustez la hauteur comme nécessaire

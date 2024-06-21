@@ -1,19 +1,24 @@
-import React from "react";
-import { Input, Button } from "antd";
+import React from "react"
+import { Input, Button, Tooltip } from "antd"
 import {
   EnvironmentOutlined,
   MailOutlined,
   PhoneOutlined,
-} from "@ant-design/icons";
-import Navbar from "../../components/Navbars/NavBar";
-import Footer from "../../components/Footer";
-import "animate.css";
+  FacebookOutlined,
+  TwitterOutlined,
+  LinkedinOutlined,
+  PinterestOutlined,
+  InstagramOutlined
+} from "@ant-design/icons"
+import Navbar from "../../components/Navbars/NavBar"
+import Footer from "../../components/Footer"
+import "animate.css"
 
 const Contact = () => {
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle form submission logic here
-  };
+  }
 
   return (
     <div className="bg-gray-100">
@@ -166,6 +171,42 @@ const Contact = () => {
                         </div>
                       </a>
                     </li>
+                    <li className="flex items-start">
+                      <div className="social flex space-x-4 text-xl">
+                        <Tooltip title="Partager sur Facebook">
+                          <a
+                            href="#"
+                            className="text-blue-600 hover:text-blue-800"
+                          >
+                            <FacebookOutlined />
+                          </a>
+                        </Tooltip>
+                        <Tooltip title="Partager sur Twitter">
+                          <a
+                            href="#"
+                            className="text-blue-400 hover:text-blue-600"
+                          >
+                            <TwitterOutlined />
+                          </a>
+                        </Tooltip>
+                        <Tooltip title="Partager sur Pinterest">
+                          <a
+                            href="#"
+                            className="text-pink-500 hover:text-pink-700"
+                          >
+                            <InstagramOutlined />
+                          </a>
+                        </Tooltip>
+                        <Tooltip title="Partager sur LinkedIn">
+                          <a
+                            href="#"
+                            className="text-blue-700 hover:text-blue-900"
+                          >
+                            <LinkedinOutlined />
+                          </a>
+                        </Tooltip>
+                      </div>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -189,6 +230,6 @@ const Contact = () => {
       <Footer />
     </div>
   )
-};
+}
 
-export default Contact;
+export default Contact

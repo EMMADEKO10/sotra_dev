@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Button, Form, Input, Select, Row, Col, Card, Typography, Checkbox, message } from 'antd';
-import Navbar from '../../components/Navbars/NavBar';
-import Footer from '../../components/Footer';
 import 'tailwindcss/tailwind.css';
 import axios from "axios"
 
@@ -100,28 +98,7 @@ const InfoPrestataire = () => {
 
   return (
     <div>
-      <Navbar />
-
       {/* Début de la section d'en-tête */}
-      <div
-        className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
-        style={{ backgroundImage: "url('/sotradonsImage/5.jpg')" }}
-      >
-        {/* Overlay sombre */}
-        <div className="absolute inset-0 bg-black opacity-40"></div>
-        <div className="relative container mx-auto z-10">
-          <div className="breadcrumb-items">
-            <Row>
-              <Col span={24}>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
-                  Enregistrement pour Prestataires Sociaux
-                </h2>
-              </Col>
-            </Row>
-          </div>
-        </div>
-      </div>
-      {/* Fin de la section d'en-tête */}
 
       {/* Début de l'introduction */}
       <div className="about-area py-12">
@@ -503,8 +480,6 @@ const InfoPrestataire = () => {
         </div>
       </div>
       {/* Fin de la section Assistance et Support */}
-
-      <Footer />
     </div>
   )
 };

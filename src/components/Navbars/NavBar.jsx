@@ -36,7 +36,7 @@ const Navbar = () => {
       subItems: [
         { name: "Découvrir les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] },
-        { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
+        // { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
       ],
     },
     {
@@ -51,7 +51,7 @@ const Navbar = () => {
       title: "Sponsor",
       subItems: [
         { name: "Nos sponsors", link: "/nossponsorts", restrictedTo: ["admin", "user", "sponsor", "prestataire"] },
-        { name: "Devenir sponsor", link: "/sponsorregistration", restrictedTo: ["admin", "user"] }
+        // { name: "Devenir sponsor", link: "/sponsorregistration", restrictedTo: ["admin", "user"] }
       ],
     },
     {

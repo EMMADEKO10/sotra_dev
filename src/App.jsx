@@ -9,9 +9,9 @@ import Contact from "./pages/Info/Contact";
 import About from "./pages/Info/About";
 import NosSponsorts from "./pages/Sponsors/NosSponsorts";
 import Blogs from "./pages/Blog/blogs";
-import InfoPrestataire from "./pages/prestataire/InfoPrestataire";
+// import InfoPrestataire from "./pages/prestataire/InfoPrestataire";
 import ProjectSubmission from "./pages/Projets/ProjectSubmission";
-import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
+// import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
 import AllProjets from "./pages/Projets/AllProjets";
 import OneProjet from "./pages/Projets/OneProjet";
 import Charte from "./pages/Info/Charte";
@@ -76,18 +76,18 @@ function App() {
             element={<SocialBonds />}
           />
 
-          <Route
+          {/* <Route
             path="/infoprestataire"
             element={<InfoPrestataire />}
-          />
+          /> */}
           <Route
             path="/projectsubmission"
             element={<ProjectSubmission />}
           />
-          <Route
+          {/* <Route
             path="/sponsorregistration"
             element={<SponsorRegistration />}
-          />
+          /> */}
           <Route
             path="/allprojets"
             element={<AllProjets />}

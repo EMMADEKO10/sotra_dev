@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Button, Form, Input, Select, Row, Col, Card, Typography, Upload, message } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
-import Navbar from "../../components/Navbars/NavBar";
-import Footer from "../../components/Footer";
 import "tailwindcss/tailwind.css";
 import { NavLink } from "react-router-dom";
 import axios from "axios"
@@ -170,27 +168,6 @@ const SponsorRegistration = () => {
   // -----------------------------------------------------------REGISTRATION
   return (
     <div>
-      <Navbar />
-
-      {/* Section Breadcrumb */}
-     <div
-        className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
-        style={{ backgroundImage: "url(/sotradonsImage/10.jpg)" }}
-      >
-        {/* Overlay sombre */}
-        <div className="absolute inset-0 bg-black opacity-40"></div>
-        <div className="relative container mx-auto z-10">
-          <div className="breadcrumb-items">
-            <div className="row">
-              <div className="col-lg-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Enregistrement pour Sponsors
-                </h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div className="about-area py-12">
         <div className="container mx-auto">
@@ -547,8 +524,6 @@ const SponsorRegistration = () => {
           </Paragraph>
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }

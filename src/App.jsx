@@ -25,7 +25,7 @@ import PrestataireDashboard from "./pages/dashboard/prestataire/prestataire.dash
 import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort";
 import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
-// import SocialBonds from "./pages/Info/SocialBonds";
+import SocialBonds from "./pages/Info/SocialBonds";
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
@@ -70,6 +70,12 @@ function App() {
             path="/blogs"
             element={<Blogs />}
           />
+
+          <Route
+            path="/socialbonds"
+            element={<SocialBonds />}
+          />
+
           <Route
             path="/infoprestataire"
             element={<InfoPrestataire />}

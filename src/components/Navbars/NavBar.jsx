@@ -35,16 +35,16 @@ const Navbar = () => {
       title: "Projets",
       subItems: [
         { name: "Découvrir les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] }
+        { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] },
+        { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
       ],
     },
     {
       title: "Info",
       subItems: [
-        // { name: "Social bonds", link: "#", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        { name: "Social bonds", link: "/socialbonds", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         { name: "Charte", link: "/chart", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         // { name: "Blog", link: "/blogs", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
       ],
     },
     {

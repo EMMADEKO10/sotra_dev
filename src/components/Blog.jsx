@@ -9,7 +9,7 @@ export default function Blog() {
         {
             title: "RSE Market Place : Nouvelle initiative révolutionnaire",
             author: "Jeremie Ntela",
-            avatar: "/avatars/john_doe.jpg",
+            avatar: "/Sans titre-22000.jpg",
             comments: 12,
             image: "/blogs/RSE au cœur de la stratégie.jpg",
             content: "Découvrez comment la RSE Market Place transforme l'investissement social avec transparence et impact durable.",

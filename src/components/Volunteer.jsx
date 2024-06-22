@@ -29,7 +29,7 @@ export default function Volonteer() {
             <form action="#" className="mt-8 animate__animated animate__fadeIn">
               <Row gutter={[16, 16]} justify="center">
                 <Col xs={24} sm={18} md={16} lg={14} xl={12}>
-                  <NavLink to="/sponsorregistration">
+                  <NavLink to="/register">
                     <Button type="primary" size="large" block className="text-[#3bcf94]">
                       Rejoignez-nous maintenant
                     </Button>

@@ -1,147 +1,223 @@
-// Importation des bibliothèques nécessaires
-import 'tailwindcss/tailwind.css';
-import { Tabs, Progress, Button } from 'antd';
-import Navbar from '../../components/Navbars/NavBar';
-import Footer from '../../components/Footer';
+import React from "react"
+import { Button, List, Input, Divider, Tag, Space, Avatar, Tooltip } from "antd"
+import {
+  FacebookOutlined,
+  TwitterOutlined,
+  LinkedinOutlined,
+  PinterestOutlined,
+  LeftOutlined,
+  RightOutlined,
+} from "@ant-design/icons"
+import "animate.css/animate.min.css"
+import Navbar from "../../components/Navbars/NavBar"
+import Footer from "../../components/Footer"
 
-const { TabPane } = Tabs;
+const { TextArea } = Input
 
 const SocialBonds = () => {
   return (
-    <div className="bg-white text-gray-900">
+    <div>
       <Navbar />
-      
-      {/* Zone cible */}
-      <div className="target-area default-padding">
-        <div className="container mx-auto py-10">
-          <div className="flex flex-wrap -mx-4">
-            
-            {/* Image et contenu à gauche */}
-            <div className="w-full lg:w-1/2 px-4">
-              <div className="thumb">
-                <div className="flex flex-wrap -mx-4">
-                  <div className="w-1/2 px-4">
-                    <img src="assets/img/800x600.png" alt="Thumb" className="mb-4 rounded" />
-                    <img src="assets/img/800x800.png" alt="Thumb" className="rounded" />
-                  </div>
-                  <div className="w-1/2 px-4 flex flex-col justify-center">
-                    <img src="assets/img/800x1000.png" alt="Thumb" className="mb-4 rounded" />
-                    <div className="content">
-                      <h4 className="text-xl font-semibold">Helping Today. Helping Tomorrow</h4>
-                      <a href="#" className="text-primary hover:text-secondary mt-2">Become a volunteer</a>
-                    </div>
-                  </div>
-                </div>
+      <div
+        className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center animate__animated animate__fadeIn"
+        style={{ backgroundImage: "url(/sotradonsImage/10.jpg)" }}
+      >
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="relative container mx-auto z-10">
+          <div className="breadcrumb-items">
+            <div className="row">
+              <div className="col-lg-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                  Social Bonds
+                </h2>
               </div>
-            </div>
-            
-            {/* Contenu des onglets à droite */}
-            <div className="w-full lg:w-1/2 px-4">
-              <Tabs defaultActiveKey="1">
-                <TabPane tab="Our Mission" key="1">
-                  <div className="info">
-                    <h2 className="text-2xl font-bold">Bringing water, food & home to people in developing countries.</h2>
-                    <p className="mt-4">
-                      Delightful unreserved impossible few estimating men favourable see entreaties. She propriety immediate was improving. He or entrance humoured likewise moderate. Much nor game son say feel. Fat make met can must form into gate. Me we offending prevailed discovery.
-                    </p>
-                    <ul className="mt-6 space-y-4">
-                      <li className="flex items-center">
-                        <h5 className="text-xl font-bold mr-2">168K</h5>
-                        <span>Plants Protected</span>
-                      </li>
-                      <li className="flex items-center">
-                        <h5 className="text-xl font-bold mr-2">5M Ton</h5>
-                        <span>Water Conserved</span>
-                      </li>
-                      <li className="flex items-center">
-                        <h5 className="text-xl font-bold mr-2">37K Sqmi.</h5>
-                        <span>Ocean Protected</span>
-                      </li>
-                    </ul>
-                    <Button type="primary" className="mt-6">Read More</Button>
-                  </div>
-                </TabPane>
-                <TabPane tab="Our Vision" key="2">
-                  <div className="info">
-                    <h2 className="text-2xl font-bold">We are focused on restoring curable sight impairment worldwide</h2>
-                    <p className="mt-4">
-                      Delightful unreserved impossible few estimating men favourable see entreaties. She propriety immediate was improving. He or entrance humoured likewise moderate. Much nor game son say feel.
-                    </p>
-                    <div className="progress-items mt-6">
-                      <div className="mb-4">
-                        <h5>Completed program <span className="float-right">88%</span></h5>
-                        <Progress percent={88} />
-                      </div>
-                      <div>
-                        <h5>Program for this month <span className="float-right">95%</span></h5>
-                        <Progress percent={95} />
-                      </div>
-                    </div>
-                  </div>
-                </TabPane>
-              </Tabs>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Témoignages */}
-      <div className="testimonials-area carousel-shadow bg-gray-100 py-10">
-        <div className="container mx-auto text-center">
-          <div className="site-heading mb-10">
-            <h5 className="text-lg font-semibold">Testimonials</h5>
-            <h2 className="text-3xl font-bold">What people say <br /> About Poora</h2>
-            <div className="heading-divider mx-auto"></div>
-          </div>
-          <div className="testimonial-items flex space-x-6 overflow-x-scroll no-scrollbar">
-            {["Jeckey Pura", "Benil Sraw", "Adam Blaur"].map((name, idx) => (
-              <div key={idx} className="item bg-white p-6 rounded shadow-lg min-w-1/3">
-                <div className="top-info flex items-center mb-4">
-                  <i className="flaticon-left-quote-1 text-2xl text-primary"></i>
-                  <div className="provider ml-4">
-                    <h4 className="text-xl font-semibold">{name}</h4>
-                    <span className="text-sm text-gray-500">Volunteer</span>
+      <div className="blog-area single full-blog full-blog default-padding py-12 animate__animated animate__fadeInUp">
+        <div className="container mx-auto ">
+          <div className="blog-items">
+            <div className="row justify-center">
+              <div className="blog-content col-lg-10 offset-lg-1 col-md-12">
+                <div className="item">
+                  <div className="blog-item-box shadow-lg rounded-lg p-6 bg-white">
+                    {/* Start Post Thumb */}
+                    <div className="thumb w-full h- flex items-center justify-center opacity-90">
+                      <img
+                        src="/socialbonds.jpg"
+                        alt="Thumb"
+                        className="w-full h-full object-cover rounded-md"
+                      />
+                    </div>
+
+                    {/* End Post Thumb */}
+
+                    <div className="info">
+                      <div className="container mx-auto px-4 py-12 animate__animated animate__fadeInUp">
+                        <div className="max-w-3xl mx-auto">
+                          <div className="tags mb-4">
+                            <Tag color="blue">Social Bonds</Tag>
+                            <Tag color="green">Investissement Social</Tag>
+                          </div>
+                          <div className="meta mb-4">
+                            <Space>
+                              <span>
+                                <i className="fas fa-calendar-alt"></i> 05 jui,
+                                2024
+                              </span>
+                              <span>
+                                Par <a href="#">Christelle Haridi</a>
+                              </span>
+                            </Space>
+                          </div>
+                          <h3 className="text-4xl font-bold mb-4 leading-snug text-gray-900">
+                            Comprendre les Social Bonds sur la RSE Market Place
+                          </h3>
+                          <p className="mb-6 text-lg text-gray-700 leading-relaxed">
+                            Les Social Bonds sont des instruments financiers
+                            innovants qui permettent aux entreprises et aux
+                            investisseurs de financer des projets sociaux
+                            vérifiés via une plateforme dédiée, assurant ainsi
+                            un impact positif mesurable sur la société tout en
+                            maximisant la transparence et la traçabilité des
+                            fonds investis.
+                          </p>
+                          <p className="mb-6 text-lg text-gray-700 leading-relaxed">
+                            Chaque Social Bond, évalué à 1000 USD, représente
+                            une contribution directe à des initiatives sociales
+                            sélectionnées par des organisations spécialisées.
+                            Ces projets sont rigoureusement évalués et suivis
+                            par des entités indépendantes comme la Fondation
+                            SARA, garantissant ainsi leur alignement avec des
+                            normes strictes en matière d'impact social et de
+                            gestion financière responsable.
+                          </p>
+
+                          <blockquote className="border-l-4 border-gray-300 pl-4 mb-6 italic text-gray-600 leading-relaxed animate__animated animate__fadeInUp">
+                            "Les Social Bonds facilitent l'allocation efficace
+                            des ressources vers des projets sociaux, avec un
+                            suivi transparent des impacts et des contributions
+                            financières."{" "}
+                            <cite className="block mt-2 font-medium">
+                              – Al Kitenge
+                            </cite>
+                          </blockquote>
+
+                          <p className="mb-6 text-lg text-gray-700 leading-relaxed">
+                            La RSE Market Place fournit une infrastructure
+                            sécurisée où les sponsors peuvent investir en toute
+                            confiance, sachant que leurs contributions sont
+                            utilisées de manière efficace pour générer un impact
+                            social positif mesurable. La supervision régulière
+                            par la Fondation Entreprendre assure que tous les
+                            projets financés via les Social Bonds respectent les
+                            critères établis et fournissent des bénéfices
+                            tangibles à la communauté.
+                          </p>
+                          <h4 className="text-3xl font-semibold mb-4 leading-snug text-gray-900">
+                            Fonctionnement des Social Bonds
+                          </h4>
+                          <ul className="list-disc list-inside mb-6 text-lg text-gray-700 leading-relaxed">
+                            <li>
+                              Les sponsors acquièrent des Social Bonds pour
+                              financer des projets sociaux sélectionnés avec
+                              soin.
+                            </li>
+                            <li>
+                              Les projets sont proposés par des organisations
+                              accréditées et évalués selon des critères stricts
+                              par la Fondation SARA.
+                            </li>
+                            <li>
+                              La Fondation Entreprendre supervise la régulation
+                              et le reporting des projets financés.
+                            </li>
+                            <li>
+                              Les sponsors ont la possibilité de diversifier
+                              leurs investissements sur plusieurs projets,
+                              augmentant ainsi leur impact global.
+                            </li>
+                            <li>
+                              À la fin de chaque période, les Social Bonds
+                              accumulés par chaque sponsor sont comptabilisés
+                              pour mesurer leur engagement et leur impact
+                              social.
+                            </li>
+                          </ul>
+
+                          <div className="row">
+                            <div className="col-lg-6 mb-6">
+                              <p className="text-lg text-gray-700 leading-relaxed">
+                                En investissant dans des Social Bonds, les
+                                sponsors renforcent leur visibilité et leur
+                                réputation en tant que leaders engagés dans le
+                                développement durable et la responsabilité
+                                sociale. Cela leur permet également de réduire
+                                les risques associés à leurs investissements,
+                                tout en maximisant leur influence positive sur
+                                la société.
+                              </p>
+                            </div>
+                            <div className="col-lg-6">
+                              <p className="text-lg text-gray-700 leading-relaxed">
+                                La structure transparente de la RSE Market Place
+                                garantit que chaque dollar investi est suivi et
+                                évalué pour son efficacité et son impact,
+                                offrant aux sponsors des rapports détaillés sur
+                                l'utilisation de leurs fonds et les résultats
+                                obtenus.
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Tags and Social Share */}
+                          <div className="post-tags share flex justify-between items-center my-12">
+                            <div className="tags">
+                              <Tag color="magenta">Investissement</Tag>
+                              <Tag color="magenta">Impact Social</Tag>
+                            </div>
+                            <div className="social flex space-x-4 text-xl">
+                              <Tooltip title="Partager sur Facebook">
+                                <a
+                                  href="#"
+                                  className="text-blue-600 hover:text-blue-800"
+                                >
+                                  <FacebookOutlined />
+                                </a>
+                              </Tooltip>
+                              <Tooltip title="Partager sur Twitter">
+                                <a
+                                  href="#"
+                                  className="text-blue-400 hover:text-blue-600"
+                                >
+                                  <TwitterOutlined />
+                                </a>
+                              </Tooltip>
+                              <Tooltip title="Partager sur Pinterest">
+                                <a
+                                  href="#"
+                                  className="text-pink-500 hover:text-pink-700"
+                                >
+                                  <PinterestOutlined />
+                                </a>
+                              </Tooltip>
+                              <Tooltip title="Partager sur LinkedIn">
+                                <a
+                                  href="#"
+                                  className="text-blue-700 hover:text-blue-900"
+                                >
+                                  <LinkedinOutlined />
+                                </a>
+                              </Tooltip>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <p className="text-gray-700">
-                  Numerous indulged distance humoured prefer you. Take dear to go and its far off him she particular. You may require for many seek end wish you. 
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Que faisons-nous */}
-      <div className="wedo-area default-padding py-10">
-        <div className="container mx-auto">
-          <div className="flex flex-wrap -mx-4">
-            <div className="w-full lg:w-1/2 px-4">
-              <div className="thumb">
-                <img src="assets/img/800x1000.png" alt="Thumb" className="rounded mb-4" />
-              </div>
-            </div>
-            <div className="w-full lg:w-1/2 px-4">
-              <div className="info">
-                <h5 className="text-lg font-semibold">What we do</h5>
-                <h2 className="text-3xl font-bold mb-4">We Donate to charity causes around the world.</h2>
-                <p className="mb-6">
-                  Continual say suspicion provision you neglected sir curiosity unwilling. Simplicity end themselves increasing led day sympathize yet. General windows effects not are drawing man garrets.
-                </p>
-                <ul className="wedo-carousel flex space-x-6 overflow-x-scroll no-scrollbar">
-                  {[
-                    { icon: 'flaticon-water-bottle', title: 'Water Delivery', description: 'Taken now you him trees tears any. Her object giving end sister except oppose.' },
-                    { icon: 'flaticon-pharmacy', title: 'Medicine Help', description: 'Taken now you him trees tears any. Her object giving end sister except oppose.' },
-                    { icon: 'flaticon-planet-earth', title: 'Save Plants', description: 'Taken now you him trees tears any. Her object giving end sister except oppose.' },
-                    { icon: 'flaticon-home', title: 'Build & Create', description: 'Taken now you him trees tears any. Her object giving end sister except oppose.' }
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex-shrink-0 bg-white p-6 rounded shadow-lg min-w-1/3">
-                      <i className={`${item.icon} text-4xl text-primary mb-4`}></i>
-                      <h4 className="text-xl font-bold mb-2">{item.title}</h4>
-                      <p>{item.description}</p>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </div>
@@ -149,7 +225,7 @@ const SocialBonds = () => {
       </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default SocialBonds;
+export default SocialBonds

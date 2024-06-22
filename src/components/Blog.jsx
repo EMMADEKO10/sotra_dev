@@ -8,8 +8,8 @@ export default function Blog() {
     const articles = [
         {
             title: "RSE Market Place : Nouvelle initiative révolutionnaire",
-            author: "John Doe",
-            avatar: "/avatars/john_doe.jpg",
+            author: "Jeremie Ntela",
+            avatar: "/Sans titre-22000.jpg",
             comments: 12,
             image: "/blogs/RSE au cœur de la stratégie.jpg",
             content: "Découvrez comment la RSE Market Place transforme l'investissement social avec transparence et impact durable.",
@@ -17,8 +17,8 @@ export default function Blog() {
         },
         {
             title: "Entretien avec la Fondation SARA : Promouvoir la solidarité",
-            author: "Jane Smith",
-            avatar: "/avatars/jane_smith.jpg",
+            author: "Sara Ntela",
+            avatar: "https://i.pinimg.com/564x/89/47/27/8947270c4a54fad54ca0f1233502db30.jpg",
             comments: 26,
             image: "/blogs/Sara A.png",
             content: "Explorez les efforts de la Fondation SARA pour promouvoir la solidarité à travers ses initiatives sociales innovantes.",
@@ -26,8 +26,8 @@ export default function Blog() {
         },
         {
             title: "Impact environnemental : Initiatives durables de la Fondation Entreprendre",
-            author: "Michael Johnson",
-            avatar: "/avatars/michael_johnson.jpg",
+            author: "Al Kitenge",
+            avatar: "https://al-legacy.com/wp-content/uploads/2023/02/al_kitenge_profile.jpg",
             comments: 8,
             image: "/blogs/7.jpg",
             content: "Découvrez comment la Fondation Entreprendre contribue à la durabilité environnementale à travers ses projets novateurs.",

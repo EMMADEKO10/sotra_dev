@@ -4,19 +4,19 @@ import { Carousel } from 'antd';
 const Temoignages = () => {
     const donneesTemoignages = [
         {
-            nom: 'Jeanne Dupont',
+            nom: 'Al Kitenge',
             role: 'Partenaire stratégique',
             contenu: "En tant que partenaire stratégique de la RSE Market Place, nous avons été impressionnés par l'engagement envers l'innovation sociale et la transparence. La plateforme a facilité des collaborations fructueuses et des investissements à fort impact pour notre organisation."
         },
         {
-            nom: 'Martin Lambert',
-            role: 'Directeur financier',
-            contenu: "La RSE Market Place nous a permis de diversifier nos investissements socialement responsables de manière efficace. Les Social Bonds ont été un outil précieux pour soutenir des projets prometteurs, tout en respectant des standards élevés de qualité et d'impact."
+            nom: 'Sara Ntela',
+            role: 'Partenaire',
+            contenu: "Mon expérience avec Sotradons a été enrichissante. J'ai eu l'opportunité de contribuer à des initiatives qui font une réelle différence dans nos communautés. La transparence et l'intégrité sont au cœur de chaque projet soutenu par la RSE Market Place."
         },
         {
-            nom: 'Sophie Renaud',
-            role: 'Volontaire engagée',
-            contenu: "Mon expérience avec Sotradons a été enrichissante. J'ai eu l'opportunité de contribuer à des initiatives qui font une réelle différence dans nos communautés. La transparence et l'intégrité sont au cœur de chaque projet soutenu par la RSE Market Place."
+            nom: 'Christelle Haridi',
+            role: 'Directeur financier',
+            contenu: "La RSE Market Place nous a permis de diversifier nos investissements socialement responsables de manière efficace. Les Social Bonds ont été un outil précieux pour soutenir des projets prometteurs, tout en respectant des standards élevés de qualité et d'impact."
         }
     ];
 

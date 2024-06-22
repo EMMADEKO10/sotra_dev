@@ -9,9 +9,9 @@ import Contact from "./pages/Info/Contact";
 import About from "./pages/Info/About";
 import NosSponsorts from "./pages/Sponsors/NosSponsorts";
 import Blogs from "./pages/Blog/blogs";
-import InfoPrestataire from "./pages/prestataire/InfoPrestataire";
+// import InfoPrestataire from "./pages/prestataire/InfoPrestataire";
 import ProjectSubmission from "./pages/Projets/ProjectSubmission";
-import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
+// import SponsorRegistration from "./pages/Sponsors/SponsorRegistration";
 import AllProjets from "./pages/Projets/AllProjets";
 import OneProjet from "./pages/Projets/OneProjet";
 import Charte from "./pages/Info/Charte";
@@ -25,7 +25,7 @@ import PrestataireDashboard from "./pages/dashboard/prestataire/prestataire.dash
 import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort";
 import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
-// import SocialBonds from "./pages/Info/SocialBonds";
+import SocialBonds from "./pages/Info/SocialBonds";
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
@@ -70,18 +70,24 @@ function App() {
             path="/blogs"
             element={<Blogs />}
           />
+
           <Route
+            path="/socialbonds"
+            element={<SocialBonds />}
+          />
+
+          {/* <Route
             path="/infoprestataire"
             element={<InfoPrestataire />}
-          />
+          /> */}
           <Route
             path="/projectsubmission"
             element={<ProjectSubmission />}
           />
-          <Route
+          {/* <Route
             path="/sponsorregistration"
             element={<SponsorRegistration />}
-          />
+          /> */}
           <Route
             path="/allprojets"
             element={<AllProjets />}

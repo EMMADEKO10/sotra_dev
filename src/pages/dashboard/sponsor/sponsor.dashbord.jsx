@@ -233,7 +233,7 @@ const DashboardPageSponsor = () => {
               <div>
                 <h2 className="text-2xl font-semibold">{sponsorName}</h2>
                 <p>Developer web at Kadea</p>
-                <NavLink to="/createprofilesponsort">
+                <NavLink to={`/createprofilesponsort/${id}`}>
                   <Button
                     type="default"
                     icon={<EditOutlined />}

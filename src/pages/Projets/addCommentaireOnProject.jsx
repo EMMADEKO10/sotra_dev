@@ -1,10 +1,9 @@
-// import { useState,useEffect } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const AddCommentaire = ({setReloadComment,reloadComment}) => {
-  const { id } = useParams(); // Assuming you are using react-router for routing
+const AddCommentaire = ({ setReloadComment, reloadComment }) => {
+  const { id } = useParams();
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
@@ -22,13 +21,13 @@ const AddCommentaire = ({setReloadComment,reloadComment}) => {
           message: 'Commentaire ajouté',
           description: 'Votre commentaire a été ajouté avec succès.',
         });
-        form.resetFields(); // Reset form fields after successful submission
-        setReloadComment(!reloadComment)
+        form.resetFields();
+        setReloadComment(!reloadComment);
       }
     } catch (error) {
       notification.error({
         message: 'Erreur',
-        description: 'Une erreur est survenue lors de l\'ajout du commentaire.',
+        description: "Une erreur est survenue lors de l'ajout du commentaire.",
       });
     }
   };
@@ -56,7 +55,12 @@ const AddCommentaire = ({setReloadComment,reloadComment}) => {
           <Input.TextArea placeholder="Commentaire" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="mt-4"
+            style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}
+          >
             Publier le commentaire
           </Button>
         </Form.Item>
@@ -66,6 +70,3 @@ const AddCommentaire = ({setReloadComment,reloadComment}) => {
 };
 
 export default AddCommentaire;
-
-// --------------------------------------------------------------------------------------------------------------
-

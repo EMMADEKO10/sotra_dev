@@ -353,7 +353,7 @@ const DashboardPageSponsor = () => {
                         key={index}
                         className="bg-white rounded-lg shadow-md p-6"
                       >
-                        <NavLink to={`/oneprojet/${project._id}`}>
+                        <NavLink to={`/oneprojet/${project.id}`}>
                           <img
                             src={`${import.meta.env.VITE_URL_IMAGE}${
                               project.projectImage

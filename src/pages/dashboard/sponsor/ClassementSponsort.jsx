@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table, Typography, Divider, Input, Space, Button, Badge } from "antd";
 import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
 import "tailwindcss/tailwind.css";
+import 'animate.css';
 
 const { Title } = Typography;
 
@@ -89,12 +90,27 @@ const ClassementSponsort = () => {
   ];
 
   return (
-    <div className="p-4">
-      <Divider orientation="left">
+    <div className=" py-12 px-4">
+      {/* <Divider orientation="left">
         <Title level={3} >
           Top sponsorts
         </Title>
-      </Divider>
+      </Divider> */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="animate__animated animate__fadeInLeft">
+            <Title level={4} className="text-gray-600 font-semibold mb-2">
+            Classement de nos meilleurs partenaires
+            </Title>
+            <Title level={2} className="font-bold mb-4">
+            DRC RSE Awards.
+            </Title>
+          </div>
+          <div className="animate__animated animate__fadeInRight">
+            <p className="text-gray-700 mb-4">
+              Grâce à la générosité de nos sponsors, nous créons des impacts positifs à travers des initiatives sociales innovantes.
+            </p>
+          </div>
+        </div>
       <Space direction="vertical" size="middle" className="w-full">
         {/* <div className="flex justify-between items-center w-full mb-4">
           <Input

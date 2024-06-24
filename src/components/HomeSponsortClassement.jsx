@@ -80,16 +80,16 @@ const ClassementSponsort = () => {
               Nos Partenaires d'Impact
             </Title>
             <Title level={2} className="font-bold mb-4">
-              Découvrez les principaux contributeurs à nos projets caritatifs.
+            Découvrez les principaux contributeurs de nos projets.
             </Title>
           </div>
           <div className="animate__animated animate__fadeInRight">
             <p className="text-gray-700 mb-4">
               Grâce à la générosité de nos sponsors, nous créons des impacts positifs à travers des initiatives sociales innovantes.
             </p>
-            <NavLink to="/allprojets">
+            <NavLink to="/nossponsorts">
               <Button type="primary" className="py-3 px-6 text-base animate__animated animate__fadeInUp">
-              Découvrez en plus<i className="fas fa-angle-right ml-2"></i>
+              Découvrez en plus <i className="fas fa-angle-right ml-2"></i>
               </Button>
             </NavLink>
           </div>

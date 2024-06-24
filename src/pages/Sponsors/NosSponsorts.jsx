@@ -3,10 +3,14 @@ import axios from 'axios';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import { NavLink } from 'react-router-dom';
+import { Table, Typography, Divider, Space, Button, Badge } from "antd";
 import ClassementSponsort from '../dashboard/sponsor/ClassementSponsort';
 import SponsorRankingPage from '../../pages/dashboard/sponsor/graphiques';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import 'animate.css';
+
+const { Title } = Typography;
 
 const { Search } = Input;
 
@@ -67,8 +71,22 @@ const NosSponsorts = () => {
       {/* Sponsor Section */}
       <div className="volunteer-area py-12">
         <div className="container mx-auto">
-          <ClassementSponsort />
           
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="animate__animated animate__fadeInLeft">
+              <Title level={4} className="text-lg text-gray-600 font-semibold mb-2">
+                Nos Partenaires d'Impact
+              </Title>
+              <Title level={2} className="font-bold mb-4">
+              Découvrez les principaux contributeurs de nos projets.
+              </Title>
+            </div>
+            <div className="animate__animated animate__fadeInRight">
+              <p className="text-gray-700 mb-4">
+                Grâce à la générosité de nos sponsors, nous créons des impacts positifs à travers des initiatives sociales innovantes.
+              </p>
+            </div>
+          </div>
           {/* Champ de recherche */}
           <div className="container mx-auto mt-6 mb-6 flex justify-end">
           <div className="relative">
@@ -86,7 +104,7 @@ const NosSponsorts = () => {
           </div>
 
           {/* Grid des sponsors */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 py-12">
             {filteredSponsors.map((sponsor, index) => (
               <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
                 <NavLink to={`/profilepagesponsort/${sponsor._id}`} className="block h-full">
@@ -104,6 +122,7 @@ const NosSponsorts = () => {
               </div>
             ))}
           </div>
+          <ClassementSponsort />
         </div>
       </div>
 

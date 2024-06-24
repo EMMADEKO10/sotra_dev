@@ -153,8 +153,8 @@ const AllProjets = () => {
                           <div className="mt-4">
                             <Progress percent={percent} status="active"  />
                             <p className="mt-2 text-sm">
-                              Collecté : ${project.socialBondsCollect}{' '}
-                              <span className="text-gray-600">Objectif : ${project.socialBonds}</span>
+                              Collecté : {project.socialBondsCollect}Sb{' / '}
+                              <span className="text-gray-600">Objectif : {project.socialBonds}Sb</span>
                             </p>
                           </div>
                         </Card>

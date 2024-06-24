@@ -54,9 +54,9 @@ export default function AboutArea() {
               Nous visons à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en facilitant les collaborations entre les sponsors et les prestataires sociaux via notre plateforme dédiée.
             </p>
             <ul className="flex space-x-8 mb-8">
-              <InfoItem count="168K" label="Plantes protégées" />
-              <InfoItem count="5M Ton" label="Eau économisés" />
-              <InfoItem count="37K Sqmi." label="Ocean Protégé" />
+              <InfoItem count="16K" label="Plantes protégées" />
+              <InfoItem count="2M Ton" label="Eau économisés" />
+              <InfoItem count="7K Sqmi." label="Ocean Protégé" />
             </ul>
             <NavLink to="/about">
               <Button
@@ -91,7 +91,7 @@ function CauseItem({ image, category, title, raised, goal, percent }) {
           </h4>
           <div className="progress-box">
             <p>
-              Recueilli : ${raised} <span className="float-right">Objectif : ${goal}</span>
+              Recueilli : {raised}Sb <span className="float-right">Objectif : {goal}Sb</span>
             </p>
             <Progress percent={percent} showInfo={false} />
             <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>

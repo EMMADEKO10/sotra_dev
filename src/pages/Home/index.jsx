@@ -1,7 +1,7 @@
 
 // import './App.css'
 import HeaderTop from "../../components/HeaderTop"
-// import Header from "../../components/Header"
+import HomeSponsortClassement from "../../components/HomeSponsortClassement"
 import Banner from "../../components/Banner"
 import AboutArea from "../../components/AboutArea"
 import Activity from "../../components/Activity"
@@ -54,7 +54,10 @@ function Home() {
 
 
       <!-- Start What We Do
+
     ============================================= --> */}
+
+              <HomeSponsortClassement />
                   <Activity />
                   {/* <!-- End What We Do -->
 

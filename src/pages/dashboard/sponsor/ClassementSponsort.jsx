@@ -92,7 +92,7 @@ const ClassementSponsort = () => {
     <div className="p-4">
       <Divider orientation="left">
         <Title level={3} >
-          Top 10 de nos sponsort
+          Top sponsorts
         </Title>
       </Divider>
       <Space direction="vertical" size="middle" className="w-full">

@@ -26,6 +26,7 @@ import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort";
 import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
 import SocialBonds from "./pages/Info/SocialBonds";
+import Inscription from "./pages/Login/Inscription";
 
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
@@ -42,6 +43,12 @@ function App() {
             path="/"
             element={<Home />}
           />
+
+          <Route
+            path="/inscription"
+            element={<Inscription />}
+          />
+
           <Route
             path="/login"
             element={<Login />}

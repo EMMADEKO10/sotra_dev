@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Form, Input, Button, Typography } from 'antd';
+import axios from "axios";
 import {
   TwitterOutlined,
   FacebookOutlined,
@@ -17,9 +19,30 @@ const { Title, Paragraph } = Typography;
 
 const CreateProfileSponsor = () => {
   const [showSocialLinks, setShowSocialLinks] = useState(false);
+  const { id } = useParams()
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log('Success:', values);
+ // Créer un objet FormData
+ const formData = new FormData();
+
+ // Ajouter les valeurs à formData
+ for (const key in values) {
+   formData.append(key, values[key]);
+ }
+     // Ajouter le code pour envoyer les données au backend
+     try {
+      const apiUrl = import.meta.env.VITE_API_URL
+      const response = await axios.put(`${apiUrl}/sponsorsOrUpdate/${id}`, formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      const result = response.data;
+      console.log('Updated Sponsor:', result);
+    } catch (error) {
+      console.error('Error updating sponsor:', error);
+    }
   };
 
   return (
@@ -36,7 +59,7 @@ const CreateProfileSponsor = () => {
         <Form layout="vertical" onFinish={onFinish} className="space-y-4">
           <Form.Item
             label="* Nom"
-            name="name"
+            name="companyName"
             rules={[{ required: true, message: 'Veuillez entrer votre nom' }]}
           >
             <Input placeholder="Nom" />

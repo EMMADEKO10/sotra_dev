@@ -1,3 +1,4 @@
+
 import {
   Layout,
   Menu,
@@ -13,7 +14,7 @@ import {
   Space,
   Table,
   Tooltip,
-  Button,
+  Button,message
 } from "antd";
 import {
   UserOutlined,
@@ -35,6 +36,10 @@ import "tailwindcss/tailwind.css";
 import Navbar from "../../../components/Navbars/NavBar";
 import Footer2 from "../../../components/Footer"
 import Footer from "../../../components/Footer";
+
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { useParams } from "react-router-dom"
 
 const { Title, Paragraph } = Typography;
 const {Content } = Layout;
@@ -132,6 +137,51 @@ const columns = [
 ];
 
 const ProfilePageSponsort = () => {
+
+  const [projects, setProjects] = useState([])
+  const [sponsorStat, setSponsorStat] = useState([])
+  const { id } = useParams()
+  const [sponsor, setSponsor] = useState([])
+  // const [sponsorImage, setSponsorImage] = useState("")
+  // const [sponsorSocialBond, setSponsorSocialBond] = useState(0)
+   const [totalSocialBondsInvested, setTotalSocialBondsInvested] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const apiUrl = import.meta.env.VITE_API_URL
+        const response = await axios.get(`${apiUrl}/getSponsorDetails/${id}`)
+        const responseStat =  await axios.get(`${apiUrl}/sponsor-contributions`)
+        setSponsorStat(responseStat)
+        setSponsor(response.data.Sponsor)
+        setProjects(response.data.projects)
+        setTotalSocialBondsInvested(response.data.totalInvested)
+
+        // const fetchedProjects = response.data.map((project) => ({
+        //   ...project,
+        //   status: project.status || "N/A", // Ensure status is defined
+        // }))
+        // setProjects(fetchedProjects)
+        if (response.status === 200 || response.status === 201) {
+          // setSponsorName(response.data[0]?.sponsorName || "")
+          // setSponsorImage(response.data[0]?.sponsorImage || "")
+          // setSponsorSocialBond(response.data[0]?.sponsorSocialBond || 0)
+          // setTotalSocialBondsInvested(response.data[0]?.totalSocialBondsInvested || 0)
+          
+          // console.log("Voici tous pour spons : ",response.data)
+        } else {
+          message.error(`Erreur lors de la requête: ${response.status}`)
+        }
+      } catch (error) {
+        message.error(`Erreur lors de la requête: ${error.message}`)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [id])
   return (
     <div>
       <Navbar/>
@@ -147,10 +197,10 @@ const ProfilePageSponsort = () => {
               <div className="bg-white p-4 rounded-lg shadow-md text-center">
                 <Avatar
                   size={150}
-                  src="https://avatars.githubusercontent.com/u/101941972?v=4"
+                  src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`}
                 />
                 <Title level={2} className="text-gray-800">
-                  Criho James
+                  {sponsor.companyName}
                 </Title>
                 <Paragraph className="text-gray-600">
                   Developer web at Kadea
@@ -184,10 +234,7 @@ const ProfilePageSponsort = () => {
                   Mission et Impact Social
                 </Title>
                 <Paragraph className="text-gray-600">
-                  Notre mission est de soutenir des projets qui favorisent le
-                  développement durable et le bien-être social. Nous investissons
-                  dans des initiatives qui apportent des solutions tangibles aux
-                  problèmes environnementaux et sociaux.
+                 {sponsor.mission}
                 </Paragraph>
                 <Divider />
                 <Title level={3} className="text-gray-800">
@@ -195,9 +242,9 @@ const ProfilePageSponsort = () => {
                 </Title>
                 <Paragraph className="text-gray-600">
                   <ul className="list-disc list-inside">
-                    <li>3000 arbres plantés dans les zones rurales</li>
-                    <li>2000 enfants bénéficiant de meilleures infrastructures éducatives</li>
-                    <li>Amélioration des conditions de vie pour 500 familles</li>
+                    <li>{sponsor.impactExamples}</li>
+                    {/* <li>2000 enfants bénéficiant de meilleures infrastructures éducatives</li> */}
+                    {/* <li>Amélioration des conditions de vie pour 500 familles</li> */}
                   </ul>
                 </Paragraph>
               </div>
@@ -221,7 +268,7 @@ const ProfilePageSponsort = () => {
                             Capital Social
                           </span>
                         }
-                        value={500}
+                        value={sponsor.budget}
                         prefix={
                           <DollarCircleOutlined
                             style={{ color: "#3bcf93", fontSize: "24px" }}
@@ -248,7 +295,7 @@ const ProfilePageSponsort = () => {
                             Fonds Distribués
                           </span>
                         }
-                        value={200}
+                        value={totalSocialBondsInvested}
                         prefix={
                           <DollarCircleOutlined
                             style={{ color: "#3b83cf", fontSize: "24px" }}
@@ -275,7 +322,7 @@ const ProfilePageSponsort = () => {
                             Projets Sponsorisés
                           </span>
                         }
-                        value={10}
+                        value={projects.length}
                         prefix={
                           <ProjectOutlined
                             style={{ color: "#3b83cf", fontSize: "24px" }}
@@ -301,10 +348,10 @@ const ProfilePageSponsort = () => {
               </Title>
             </Divider>
             <Row gutter={16}>
-              {mockProjects.map((project) => (
+              {projects.map((project) => (
                 <Col span={24} md={12} lg={8} key={project.id}>
                   <Card
-                    title={project.name}
+                    title={project.project.projectTitle}
                     bordered={false}
                     className="mb-4 hover:shadow-lg transition-shadow duration-300"
                     actions={[
@@ -318,18 +365,17 @@ const ProfilePageSponsort = () => {
                       </Button>,
                     ]}
                   >
-                    <p>{project.description}</p>
+                    <p>{project.project.projectTitle}</p>
+                    <p>{project.project.projectDescription}</p>
                     <p>
-                      <strong>Montant :</strong> {project.amount}
+                      <strong>Montant :</strong> {project.investedAmount}
                     </p>
                     <p>
                       <strong>Statut :</strong>{" "}
                       <Tag
-                        color={
-                          project.status === "En cours" ? "#2196f3" : "#4caf50"
-                        }
+                        color={project.project.projectFinished ? "#4caf50" : "#2196f3"}
                       >
-                        {project.status}
+                         {project.project.projectFinished ? "Déjà fini" : "En cours"}
                       </Tag>
                     </p>
                   </Card>

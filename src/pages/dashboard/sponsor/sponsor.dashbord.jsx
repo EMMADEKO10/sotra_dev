@@ -233,7 +233,7 @@ const DashboardPageSponsor = () => {
               <div>
                 <h2 className="text-2xl font-semibold">{sponsorName}</h2>
                 <p>Developer web at Kadea</p>
-                <NavLink to="/createprofilesponsort">
+                <NavLink to={`/createprofilesponsort/${id}`}>
                   <Button
                     type="default"
                     icon={<EditOutlined />}
@@ -353,7 +353,7 @@ const DashboardPageSponsor = () => {
                         key={index}
                         className="bg-white rounded-lg shadow-md p-6"
                       >
-                        <NavLink to={`/oneprojet/${project._id}`}>
+                        <NavLink to={`/oneprojet/${project.id}`}>
                           <img
                             src={`${import.meta.env.VITE_URL_IMAGE}${
                               project.projectImage

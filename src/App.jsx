@@ -118,7 +118,7 @@ function App() {
           />
 
           <Route
-            path="/profilepagesponsort"
+            path="/profilepagesponsort/:id"
             element={<ProfilePageSponsort />}
           />
           <Route
@@ -127,7 +127,7 @@ function App() {
           />
 
           <Route
-            path="/createprofilesponsort"
+            path="/createprofilesponsort/:id"
             element={<CreateProfileSponsort />}
           />
 

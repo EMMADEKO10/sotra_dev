@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../components/Navbars/NavBar';
 import 'tailwindcss/tailwind.css';
 import { Input, Button, Row, Col } from 'antd';
 import { MailOutlined, PhoneOutlined, HomeOutlined } from '@ant-design/icons';
 import Footer from '../../components/Footer';
+import { NavLink } from 'react-router-dom';
+import SponsorRankingPage from '../../pages/dashboard/sponsor/graphiques'
 
 const NosSponsorts = () => {
   const [sponsors, setSponsors] = useState([]);
@@ -50,6 +52,7 @@ const NosSponsorts = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sponsors.map((sponsor, index) => (
               <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <NavLink to={`/profilepagesponsort/${sponsor._id}`}>
                 <div className="relative">
                   <img src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`} alt="Thumb" className="w-full h-64 object-cover" />
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
@@ -76,12 +79,14 @@ const NosSponsorts = () => {
                   <h4 className="text-xl font-bold">{sponsor.companyName}</h4>
                   <span className="text-gray-500">{sponsor.industry}</span>
                 </div>
+                </NavLink>
               </div>
             ))}
           </div>
         </div>
       </div>
 
+      <SponsorRankingPage />
       {/* Nouveau Footer */}
       <Footer />
     </div>

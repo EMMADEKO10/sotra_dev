@@ -1,141 +1,132 @@
-import { useState, useEffect } from 'react';
-import { Breadcrumb, Button, Form, Input, Progress, Avatar, List, Modal,message } from 'antd';
-import { HomeOutlined, ClockCircleOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import 'tailwindcss/tailwind.css';
-import Navbar from '../../components/Navbars/NavBar';
-import Footer from '../../components/Footer';
+import { useState, useEffect } from "react"
+import {
+  Breadcrumb,
+  Button,
+  Form,
+  Input,
+  Progress,
+  Avatar,
+  List,
+  Modal,
+  message,
+} from "antd"
+import {
+  HomeOutlined,
+  ClockCircleOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons"
+import "tailwindcss/tailwind.css"
+import Navbar from "../../components/Navbars/NavBar"
+import Footer from "../../components/Footer"
 import axios from "axios"
-import {useParams} from "react-router-dom"
-import AddCommentaire from "../Projets/addCommentaireOnProject" 
-import CommentairesProjet from "../Projets/getCommentaire" 
-import { motion, AnimatePresence } from 'framer-motion';
+import { useParams } from "react-router-dom"
+import AddCommentaire from "../Projets/addCommentaireOnProject"
+import CommentairesProjet from "../Projets/getCommentaire"
+import { motion, AnimatePresence } from "framer-motion"
 // import { Modal } from 'antd';
 
-const DonationPage =  () => {
-
-  const [project, setProjects] = useState([]);
-  const { id } = useParams();
-  const [customAmount, setCustomAmount] = useState("");
-  const [reload, setReload] = useState(false);
-  const [reloadComment, setReloadComment] = useState(false);
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const token = localStorage.getItem('token'); // Supposez que vous stockez le token sous le nom 'authToken'
-  const [modalVisible, setModalVisible] = useState(false);
-  const [unauthorizedModalVisible, setUnauthorizedModalVisible] = useState(false);
-  const [totalCommentaires, setTotalCommentaires] = useState(0);
+const DonationPage = () => {
+  const [project, setProjects] = useState([])
+  const { id } = useParams()
+  const [customAmount, setCustomAmount] = useState("")
+  const [reload, setReload] = useState(false)
+  const [reloadComment, setReloadComment] = useState(false)
+  const apiUrl = import.meta.env.VITE_API_URL
+  const token = localStorage.getItem("token") // Supposez que vous stockez le token sous le nom 'authToken'
+  const [modalVisible, setModalVisible] = useState(false)
+  const [unauthorizedModalVisible, setUnauthorizedModalVisible] =
+    useState(false)
+  const [totalCommentaires, setTotalCommentaires] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
+        const apiUrl = import.meta.env.VITE_API_URL
+        const ApiUrlImage = import.meta.env.VITE_URL_IMAGE
         console.log("Voci l'api des images : ", ApiUrlImage)
         console.log("Voci l'api des EndPoints : ", apiUrl)
 
-        const response = await axios.get(`${apiUrl}/projects/${id}`);
+        const response = await axios.get(`${apiUrl}/projects/${id}`)
         console.log("voici la reponse", response.data)
         setProjects(response.data)
         // Ajoutez ici la logique pour gérer la réponse de votre backend
-        if (response.status === 201 || response.status === 200) { // Check for successful registration response
-          console.log('Connexion réussie ! :')
+        if (response.status === 201 || response.status === 200) {
+          // Check for successful registration response
+          console.log("Connexion réussie ! :")
           // ---------------------------------------------------------------------------------------
-        
-          // ----------------------------------------------------------------------------------
 
+          // ----------------------------------------------------------------------------------
         } else {
           // Handle unsuccessful registration (e.g., display error message)
         }
       } catch (error) {
         if (error.response) {
           // Erreur avec réponse du serveur
-          console.error('Erreur de réponse du serveur:', error.response);
-
+          console.error("Erreur de réponse du serveur:", error.response)
         } else {
           // Erreur de configuration ou autre
-          console.error('Erreur lors de la requête:', error.message);
+          console.error("Erreur lors de la requête:", error.message)
         }
       }
-
-    };
-    fetchData(); // Call the function to fetch data
-  }, [id, reload]); // Empty dependency array ensures the effect runs only once
+    }
+    fetchData() // Call the function to fetch data
+  }, [id, reload]) // Empty dependency array ensures the effect runs only once
 
   const handleCustomAmountChange = (e) => {
-    const value = parseInt(e.target.value, 10); // Convertit la valeur en entier
+    const value = parseInt(e.target.value, 10) // Convertit la valeur en entier
     if (!isNaN(value)) {
-      setCustomAmount(value);
+      setCustomAmount(value)
     } else {
-      setCustomAmount(0); // Définit 0 si la valeur n'est pas un nombre valide
+      setCustomAmount(0) // Définit 0 si la valeur n'est pas un nombre valide
     }
-  };
-  const percent = project.socialBonds ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2) : 0;
+  }
+  const percent = project.socialBonds
+    ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)
+    : 0
   let role = localStorage.getItem("role")
 
   const handleDonation = async () => {
-    console.log("Montant personnalisé: ", customAmount);
+    console.log("Montant personnalisé: ", customAmount)
     // Ajoutez ici votre logique pour traiter le don avec le montant personnalisé
-    if (role !== 'sponsor') {
-      setUnauthorizedModalVisible(true);
-      return;
+    if (role !== "sponsor") {
+      setUnauthorizedModalVisible(true)
+      return
     }
-    const formData = new FormData();
-    formData.append('Sponsor', "6661ec3d6149744df1e68f30");
-    formData.append('projet', id);
-    formData.append('montant_reduit', customAmount); 
+    const formData = new FormData()
+    formData.append("Sponsor", "6661ec3d6149744df1e68f30")
+    formData.append("projet", id)
+    formData.append("montant_reduit", customAmount)
 
-    console.log(" Sponsor ", formData.get('Sponsor'))
-    console.log(" projet ", formData.get('projet'))
-    console.log(" montant_reduit ", formData.get('montant_reduit'))
+    console.log(" Sponsor ", formData.get("Sponsor"))
+    console.log(" projet ", formData.get("projet"))
+    console.log(" montant_reduit ", formData.get("montant_reduit"))
 
     try {
       //Envoyer les données à l'API
       const response = await axios.post(`${apiUrl}/bon`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`,
-          'X-CSRF-Token': 'your-csrf-token', // Ajouter un token CSRF pour la sécurité si nécessaire
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+          "X-CSRF-Token": "your-csrf-token", // Ajouter un token CSRF pour la sécurité si nécessaire
         },
-      });
+      })
 
       // Simulons une attente de réponse réussie pendant 3 secondes
       // setTimeout(() => {
-        setModalVisible(true);
+      setModalVisible(true)
       // },);
 
       console.log(response.data)
       // Afficher une notification de succès
-      setReload(!reload);
-
+      setReload(!reload)
     } catch (error) {
-      console.error('Error submitting the form', error);
-    } 
-  };
-
-
-  if (!project) {
-    return <div>Loading...</div>;
+      console.error("Error submitting the form", error)
+    }
   }
 
-  const comments = [
-    {
-      author: 'Jonathom Doe',
-      avatar: 'assets/img/100x100.png',
-      content: 'Livré vous sportifs zélieusement organiser franchise estimable comme. Non tout article activé musical timidité encore seize encore rougit. Entièrement sa figure merveillée.',
-      datetime: '28 Août, 2020',
-    },
-    {
-      author: 'Bravo Paul',
-      avatar: 'assets/img/100x100.png',
-      content: 'Livré vous sportifs zélieusement organiser franchise estimable comme. Non tout article activé musical timidité encore seize encore rougit. Entièrement sa figure merveillée.',
-      datetime: '17 Sep, 2020',
-    },
-    {
-      author: 'Hirosim Path',
-      avatar: 'assets/img/100x100.png',
-      content: 'Livré vous sportifs zélieusement organiser franchise estimable comme. Non tout article activé musical timidité encore seize encore rougit. Entièrement sa figure merveillée.',
-      datetime: '05 Déc, 2020',
-    },
-  ];
+  if (!project) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>
@@ -147,7 +138,7 @@ const DonationPage =  () => {
             {/* Contenu Principal */}
             <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
               <div className="bg-white shadow-lg rounded-lg p-8 items-center ">
-                <img 
+                <img
                   src={`${import.meta.env.VITE_URL_IMAGE}${
                     project.projectImage
                   }`}
@@ -168,27 +159,48 @@ const DonationPage =  () => {
                   {project.projectTitle}
                 </h4>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                 
                   {project.projectDescription}
                 </p>
-                <Button  type="primary" shape="round" size="large" className="mt-4" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
+                <Button
+                  type="primary"
+                  shape="round"
+                  size="large"
+                  className="mt-4"
+                  style={{ backgroundColor: "#3bcf93", borderColor: "#3bcf93" }}
+                >
+                  Faire un don maintenant
+                </Button>
               </div>
 
               {/* Section des Commentaires */}
               <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
-                <h4 className="text-xl font-semibold mb-6">{totalCommentaires} commentaires</h4>
-               
-              <CommentairesProjet reloadComment={reloadComment}  setTotalCommentaires={setTotalCommentaires} />
+                <h4 className="text-xl font-semibold mb-6">
+                  {totalCommentaires} commentaires
+                </h4>
+
+                <CommentairesProjet
+                  reloadComment={reloadComment}
+                  setTotalCommentaires={setTotalCommentaires}
+                />
               </div>
-              <AddCommentaire setReloadComment = {setReloadComment} reloadComment={reloadComment} />
+              <AddCommentaire
+                setReloadComment={setReloadComment}
+                reloadComment={reloadComment}
+              />
             </div>
 
             {/* Barre Latérale */}
             <div className="w-full lg:w-1/3 px-4">
               <aside>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <Progress percent={percent} strokeColor="#3bcf93" />
-                  <p className="mt-4">{`Collecté : ${project.socialBondsCollect}`} <span className="float-right">{`Objectif : ${project.socialBonds}`}</span></p>
+                  <Progress
+                    percent={percent}
+                    strokeColor="#3bcf93"
+                  />
+                  <p className="mt-4">
+                    {`Collecté : ${project.socialBondsCollect}`}{" "}
+                    <span className="float-right">{`Objectif : ${project.socialBonds}`}</span>
+                  </p>
                   <span className="text-gray-600">{`Fonds collectés à : ${percent} %`}</span>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
@@ -221,13 +233,28 @@ const DonationPage =  () => {
                       $100
                     </Button>
                   </div>
-                  <Input onChange={handleCustomAmountChange} value={customAmount} placeholder="Montant personnalisé" className="mt-4" />
-                  <Button onClick={handleDonation} type="primary" className="mt-4 w-full" style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}>Faire un don maintenant</Button>
+                  <Input
+                    onChange={handleCustomAmountChange}
+                    value={customAmount}
+                    placeholder="Montant personnalisé"
+                    className="mt-4"
+                  />
+                  <Button
+                    onClick={handleDonation}
+                    type="primary"
+                    className="mt-4 w-full"
+                    style={{
+                      backgroundColor: "#3bcf93",
+                      borderColor: "#3bcf93",
+                    }}
+                  >
+                    Faire un don maintenant
+                  </Button>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
                   <h4 className="text-lg font-semibold mb-4">Dons récents</h4>
 
-                  <DonRecent />        
+                  <DonRecent />
                   <a
                     href="#"
                     className="text-primary hover:underline"
@@ -241,40 +268,55 @@ const DonationPage =  () => {
         </div>
       </div>
 
-      <Modal visible={modalVisible} onCancel={() => setModalVisible(false)} footer={null}>
+      <Modal
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
         <p>Donation successful!</p>
       </Modal>
-      <Modal visible={unauthorizedModalVisible} onCancel={() => setUnauthorizedModalVisible(false)} footer={null}>
-        <p>Vous n'êtes pas autorisé. Vous devez être sponsor pour sponsoriser le projet.</p>
+      <Modal
+        visible={unauthorizedModalVisible}
+        onCancel={() => setUnauthorizedModalVisible(false)}
+        footer={null}
+      >
+        <p>
+          Vous n'êtes pas autorisé. Vous devez être sponsor pour sponsoriser le
+          projet.
+        </p>
       </Modal>
 
-      <Modals isOpen={modalVisible} onClose={() => setModalVisible(false)} />
+      <Modals
+        isOpen={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
       {/* Fin Cause Unique */}
       <Footer />
     </div>
   )
-};
-export default DonationPage;
+}
+export default DonationPage
 
 // --------------------------------------------------------------------------------------------------------------
 
-const DonRecent = () =>{
-  const { id } = useParams();
-  const [dons, setDons] = useState([]);
-  const [reload, setReload] = useState(false);
-  
+const DonRecent = () => {
+  const { id } = useParams()
+  const [dons, setDons] = useState([])
+  const [reload, setReload] = useState(false)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL;
+        const apiUrl = import.meta.env.VITE_API_URL
         // const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
-        const response = await axios.get(`${apiUrl}/bon/${id}`);
+        const response = await axios.get(`${apiUrl}/bon/${id}`)
         console.log("voici la reponse", response.data)
         setDons(response.data)
         // Ajoutez ici la logique pour gérer la réponse de votre backend
-        if (response.status === 201 || response.status === 200) { // Check for successful registration response
-          console.log('Connexion réussie ! :')
-          // ---------------------------------------------------------------------------------------      
+        if (response.status === 201 || response.status === 200) {
+          // Check for successful registration response
+          console.log("Connexion réussie ! :")
+          // ---------------------------------------------------------------------------------------
           // -----------------------------------------------------------------------------------
         } else {
           // Handle unsuccessful registration (e.g., display error message)
@@ -282,36 +324,38 @@ const DonRecent = () =>{
       } catch (error) {
         if (error.response) {
           // Erreur avec réponse du serveur
-          console.error('Erreur de réponse du serveur:', error.response);
+          console.error("Erreur de réponse du serveur:", error.response)
         } else {
           // Erreur de configuration ou autre
-          console.error('Erreur lors de la requête:', error.message);
+          console.error("Erreur lors de la requête:", error.message)
         }
       }
-
-    };
-    fetchData(); // Call the function to fetch data
-  }, [id, reload]); // Empty dependency array ensures the effect runs only once
-  return(
+    }
+    fetchData() // Call the function to fetch data
+  }, [id, reload]) // Empty dependency array ensures the effect runs only once
+  return (
     <div>
-    {dons.map(don => (
-      <div key={don._id} className="flex items-center mb-6">
-        <Avatar
-          src="assets/img/100x100.png"
-          alt={don.Sponsor.companyName}
-        />
-        <div className="ml-4">
-          <h5 className="text-lg font-semibold">${don.montant_reduit}</h5>
-          <ul className="text-gray-600">
-            <li>
-              <strong>{don.Sponsor.companyName}</strong>
-            </li>
-            <li>{don.createdAtFormatted}</li>
-          </ul>
+      {dons.map((don) => (
+        <div
+          key={don._id}
+          className="flex items-center mb-6"
+        >
+          <Avatar
+            src="assets/img/100x100.png"
+            alt={don.Sponsor.companyName}
+          />
+          <div className="ml-4">
+            <h5 className="text-lg font-semibold">${don.montant_reduit}</h5>
+            <ul className="text-gray-600">
+              <li>
+                <strong>{don.Sponsor.companyName}</strong>
+              </li>
+              <li>{don.createdAtFormatted}</li>
+            </ul>
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
+      ))}
+    </div>
   )
 }
 
@@ -351,36 +395,44 @@ const Modals = ({ isOpen, onClose }) => {
               <motion.div
                 key={i}
                 className="absolute w-4 h-4 bg-yellow-500 rounded-full"
-                initial={{ y: -50, x: Math.random() * 100 + '%' }}
-                animate={{ y: '100vh' }}
-                transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
+                initial={{ y: -50, x: Math.random() * 100 + "%" }}
+                animate={{ y: "100vh" }}
+                transition={{
+                  duration: Math.random() * 3 + 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                }}
               />
             ))}
             {Array.from({ length: 10 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-4 h-4 bg-red-500 rounded-full"
-                initial={{ y: -50, x: Math.random() * 100 + '%' }}
-                animate={{ y: '100vh' }}
-                transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
+                initial={{ y: -50, x: Math.random() * 100 + "%" }}
+                animate={{ y: "100vh" }}
+                transition={{
+                  duration: Math.random() * 3 + 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                }}
               />
             ))}
             {Array.from({ length: 10 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-4 h-4 bg-blue-500 rounded-full"
-                initial={{ y: -50, x: Math.random() * 100 + '%' }}
-                animate={{ y: '100vh' }}
-                transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
+                initial={{ y: -50, x: Math.random() * 100 + "%" }}
+                animate={{ y: "100vh" }}
+                transition={{
+                  duration: Math.random() * 3 + 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                }}
               />
             ))}
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
-  );
-};
-
-
-
-
+  )
+}

@@ -6,6 +6,7 @@ import { Input, Button, Row, Col } from 'antd';
 import { MailOutlined, PhoneOutlined, HomeOutlined } from '@ant-design/icons';
 import Footer from '../../components/Footer';
 import { NavLink } from 'react-router-dom';
+import SponsorRankingPage from '../../pages/dashboard/sponsor/graphiques'
 
 const NosSponsorts = () => {
   const [sponsors, setSponsors] = useState([]);
@@ -85,6 +86,7 @@ const NosSponsorts = () => {
         </div>
       </div>
 
+      <SponsorRankingPage />
       {/* Nouveau Footer */}
       <Footer />
     </div>

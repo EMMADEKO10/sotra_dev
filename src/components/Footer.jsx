@@ -39,9 +39,6 @@ export default function Footer() {
               <ul className="space-y-2">
                 <li><NavLink to="/socialbonds" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Social Bonds</NavLink></li>
                 <li><NavLink to="/chart" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Charte</NavLink></li>
-                <li><NavLink to="/blogs" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Blog</NavLink></li>
-                <li><NavLink to="/sponsorregistration" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Devenir Sponsor</NavLink></li>
-                <li><NavLink to="/infoprestataire" className="hover:text-green-400 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Devenir prestataire</NavLink></li>
               </ul>
             </div>
           </div>

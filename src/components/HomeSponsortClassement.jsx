@@ -50,9 +50,9 @@ const ClassementSponsort = () => {
       render: (text, record) => (
         <div className="flex items-center">
           <img
-            src={record.logo}
+            src={`${import.meta.env.VITE_URL_IMAGE}${record.logo}`}
             alt="logo"
-            className="w-12 h-12 rounded-full border-2 border-gray-300 mr-3"
+            className="hidden sm:block w-12 h-12 rounded-full border-2 border-gray-300 mr-3"
           />
           <span className="font-medium text-gray-800">{record.sponsorName}</span>
         </div>

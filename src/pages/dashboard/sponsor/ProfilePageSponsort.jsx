@@ -98,43 +98,7 @@ const lineConfig = {
   color: "#4caf50",
 };
 
-const columns = [
-  {
-    title: "Projet",
-    dataIndex: "name",
-    key: "name",
-    render: (text, record) => (
-      <a href={record.link} className="text-[#4caf50] hover:underline">
-        {text}
-      </a>
-    ),
-  },
-  {
-    title: "Description",
-    dataIndex: "description",
-    key: "description",
-    render: (text) => <Tooltip title={text}>{text}</Tooltip>,
-  },
-  {
-    title: "Montant",
-    dataIndex: "amount",
-    key: "amount",
-    align: "right",
-  },
-  {
-    title: "Statut",
-    dataIndex: "status",
-    key: "status",
-    render: (status) => {
-      let color = status === "En cours" ? "#2196f3" : "#4caf50";
-      return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
-        </Tag>
-      );
-    },
-  },
-];
+
 
 const ProfilePageSponsort = () => {
 
@@ -409,19 +373,7 @@ const ProfilePageSponsort = () => {
                 </Card>
               </Col>
             </Row>
-
-            {/* Tableau de projets */}
-            <Divider orientation="left">
-              <Title level={3} className="text-primary">
-                Détails des Projets
-              </Title>
-            </Divider>
-            <Table
-              columns={columns}
-              dataSource={mockProjects}
-              rowKey="id"
-              className="bg-white shadow-md rounded-lg"
-            />
+            
           </div>
         </div>
       </Content>

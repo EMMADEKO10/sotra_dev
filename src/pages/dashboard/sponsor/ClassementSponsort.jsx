@@ -27,7 +27,7 @@ const ClassementSponsort = () => {
         setSponsorData(sortedData);
         setFilteredData(sortedData);
       } catch (error) {
-        console.error("Error fetching sponsor data:", error);
+        console.error("Erreur lors de la récupération des données des sponsors:", error);
       }
     };
 

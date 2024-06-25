@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import {
   Breadcrumb,
   Button,
@@ -15,424 +15,382 @@ import {
   ClockCircleOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons"
+import { useParams } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
+import axios from "axios"
 import "tailwindcss/tailwind.css"
+
 import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
-import axios from "axios"
-import { useParams } from "react-router-dom"
 import AddCommentaire from "../Projets/addCommentaireOnProject"
 import CommentairesProjet from "../Projets/getCommentaire"
-import { motion, AnimatePresence } from "framer-motion"
-// import { Modal } from 'antd';
 
 const DonationPage = () => {
-  const [project, setProjects] = useState([])
-  const { id } = useParams()
+  const [project, setProject] = useState(null)
   const [customAmount, setCustomAmount] = useState("")
   const [reload, setReload] = useState(false)
   const [reloadComment, setReloadComment] = useState(false)
-  const apiUrl = import.meta.env.VITE_API_URL
-  const token = localStorage.getItem("token") // Supposez que vous stockez le token sous le nom 'authToken'
   const [modalVisible, setModalVisible] = useState(false)
   const [unauthorizedModalVisible, setUnauthorizedModalVisible] =
     useState(false)
   const [totalCommentaires, setTotalCommentaires] = useState(0)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiUrl = import.meta.env.VITE_API_URL
-        const ApiUrlImage = import.meta.env.VITE_URL_IMAGE
-        console.log("Voci l'api des images : ", ApiUrlImage)
-        console.log("Voci l'api des EndPoints : ", apiUrl)
+  const { id } = useParams()
+  const apiUrl = import.meta.env.VITE_API_URL
+  const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
 
-        const response = await axios.get(`${apiUrl}/projects/${id}`)
-        console.log("voici la reponse", response.data)
-        setProjects(response.data)
-        // Ajoutez ici la logique pour gérer la réponse de votre backend
-        if (response.status === 201 || response.status === 200) {
-          // Check for successful registration response
-          console.log("Connexion réussie ! :")
-          // ---------------------------------------------------------------------------------------
-
-          // ----------------------------------------------------------------------------------
-        } else {
-          // Handle unsuccessful registration (e.g., display error message)
-        }
-      } catch (error) {
-        if (error.response) {
-          // Erreur avec réponse du serveur
-          console.error("Erreur de réponse du serveur:", error.response)
-        } else {
-          // Erreur de configuration ou autre
-          console.error("Erreur lors de la requête:", error.message)
-        }
-      }
+  const fetchProject = useCallback(async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/projects/${id}`)
+      setProject(response.data)
+    } catch (error) {
+      console.error("Erreur lors de la récupération du projet:", error)
+      message.error("Impossible de charger les détails du projet")
     }
-    fetchData() // Call the function to fetch data
-  }, [id, reload]) // Empty dependency array ensures the effect runs only once
+  }, [apiUrl, id])
+
+  useEffect(() => {
+    fetchProject()
+  }, [fetchProject, reload])
 
   const handleCustomAmountChange = (e) => {
-    const value = e.target.value;
-    if (/^\d*\.?\d*$/.test(value)) { // Vérifie si l'entrée est un nombre valide avec ou sans décimale
-      setCustomAmount(value);
+    const value = e.target.value
+    if (/^\d*\.?\d*$/.test(value)) {
+      setCustomAmount(value)
     }
+  }
+
+  const handleDonation = async () => {
+    if (role !== "sponsor") {
+      setUnauthorizedModalVisible(true)
+      return
+    }
+
+    try {
+      const formData = new FormData()
+      formData.append("Sponsor", "6661ec3d6149744df1e68f30")
+      formData.append("projet", id)
+      formData.append("montant_reduit", customAmount)
+
+      await axios.post(`${apiUrl}/bon`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      setModalVisible(true)
+      setCustomAmount("")
+      setReload((prev) => !prev)
+      message.success("Don effectué avec succès !")
+    } catch (error) {
+      console.error("Erreur lors de la soumission du don", error)
+      message.error("Échec du don. Veuillez réessayer.")
+    }
+  }
+
+  if (!project) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Chargement...
+      </div>
+    )
   }
 
   const percent = project.socialBonds
     ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)
     : 0
-  let role = localStorage.getItem("role")
-
-  const handleDonation = async () => {
-    console.log("Montant personnalisé: ", customAmount)
-    // Ajoutez ici votre logique pour traiter le don avec le montant personnalisé
-    if (role !== "sponsor") {
-      setUnauthorizedModalVisible(true)
-      return
-    }
-    const formData = new FormData()
-    formData.append("Sponsor", "6661ec3d6149744df1e68f30")
-    formData.append("projet", id)
-    formData.append("montant_reduit", customAmount)
-
-    console.log(" Sponsor ", formData.get("Sponsor"))
-    console.log(" projet ", formData.get("projet"))
-    console.log(" montant_reduit ", formData.get("montant_reduit"))
-
-    try {
-      //Envoyer les données à l'API
-      const response = await axios.post(`${apiUrl}/bon`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-          "X-CSRF-Token": "your-csrf-token", // Ajouter un token CSRF pour la sécurité si nécessaire
-        },
-      })
-
-      // Simulons une attente de réponse réussie pendant 3 secondes
-      // setTimeout(() => {
-      setModalVisible(true)
-      // },);
-      setCustomAmount(''); // Reset the input field
-      console.log(response.data)
-      // Afficher une notification de succès
-      setReload(!reload)
-    } catch (error) {
-      console.error("Error submitting the form", error)
-    }
-  }
-
-  if (!project) {
-    return <div>Loading...</div>
-  }
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      {/* Début Cause Unique */}
-      <div className="py-16 bg-gray-100">
-        <div className="container mx-auto">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4">
+          <Breadcrumb className="mb-8">
+            <Breadcrumb.Item href="/">
+              <HomeOutlined />
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Projets</Breadcrumb.Item>
+            <Breadcrumb.Item>{project.projectTitle}</Breadcrumb.Item>
+          </Breadcrumb>
+
           <div className="flex flex-wrap -mx-4">
-            {/* Contenu Principal */}
             <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
-              <div className="bg-white shadow-lg rounded-lg p-8 items-center ">
-                <img
-                  src={`${import.meta.env.VITE_URL_IMAGE}${
-                    project.projectImage
-                  }`}
-                  alt="Vignette"
-                  className="mb-6 rounded-lg"
-                />
-                <div className="flex justify-between mb-4 text-gray-600">
-                  <div>
-                    <ClockCircleOutlined /> <strong>Créé le :</strong> 15 Juil,
-                    2020
-                  </div>
-                  <div>
-                    <EnvironmentOutlined /> <strong>Lieu :</strong> Mombasa,
-                    Afrique
-                  </div>
-                </div>
-                <h4 className="text-2xl font-semibold mb-4">
-                  {project.projectTitle}
-                </h4>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  {project.projectDescription}
-                </p>
-                <Button
-                  type="primary"
-                  shape="round"
-                  size="large"
-                  className="mt-4"
-                  style={{ backgroundColor: "#3bcf93", borderColor: "#3bcf93" }}
-                >
-                  Faire un don maintenant
-                </Button>
-              </div>
-
-              {/* Section des Commentaires */}
-              <div className="bg-white shadow-lg rounded-lg p-8 mt-10">
-                <h4 className="text-xl font-semibold mb-6">
-                  {totalCommentaires} commentaires
-                </h4>
-
-                <CommentairesProjet
-                  reloadComment={reloadComment}
-                  setTotalCommentaires={setTotalCommentaires}
-                />
-              </div>
-              <AddCommentaire
-                setReloadComment={setReloadComment}
+              <ProjectDetails project={project} />
+              <CommentSection
+                totalCommentaires={totalCommentaires}
+                setTotalCommentaires={setTotalCommentaires}
                 reloadComment={reloadComment}
+                setReloadComment={setReloadComment}
               />
             </div>
-
-            {/* Barre Latérale */}
             <div className="w-full lg:w-1/3 px-4">
-              <aside>
-                <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <Progress
-                    percent={percent}
-                    strokeColor="#3bcf93"
-                  />
-                  <p className="mt-4">
-                    {`Collecté : ${project.socialBondsCollect}`}{" "}
-                    <span className="float-right">{`Objectif : ${project.socialBonds}`}</span>
-                  </p>
-                  <span className="text-gray-600">{`Fonds collectés à : ${percent} %`}</span>
-                </div>
-                <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <h4 className="text-lg font-semibold mb-4">
-                    Sélectionner le montant
-                  </h4>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Button
-                      type="default"
-                      className="form-btn active"
-                    >
-                      $10
-                    </Button>
-                    <Button
-                      type="default"
-                      className="form-btn"
-                    >
-                      $25
-                    </Button>
-                    <Button
-                      type="default"
-                      className="form-btn"
-                    >
-                      $50
-                    </Button>
-                    <Button
-                      type="default"
-                      className="form-btn"
-                    >
-                      $100
-                    </Button>
-                  </div>
-                  <Input
-                    onChange={handleCustomAmountChange}
-                    value={customAmount}
-                    placeholder="Montant personnalisé"
-                    className="mt-4"
-                    type="text"
-                  />
-                  <Button
-                    onClick={handleDonation}
-                    type="primary"
-                    className="mt-4 w-full"
-                    style={{
-                      backgroundColor: "#3bcf93",
-                      borderColor: "#3bcf93",
-                    }}
-                  >
-                    Faire un don maintenant
-                  </Button>
-                </div>
-                <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-                  <h4 className="text-lg font-semibold mb-4">Dons récents</h4>
-
-                  <DonRecent />
-                  <a
-                    href="#"
-                    className="text-primary hover:underline"
-                  >
-                    Voir tout <i className="fas fa-angle-right"></i>
-                  </a>
-                </div>
-              </aside>
+              <DonationSidebar
+                project={project}
+                customAmount={customAmount}
+                handleCustomAmountChange={handleCustomAmountChange}
+                handleDonation={handleDonation}
+                percent={percent}
+              />
             </div>
           </div>
         </div>
-      </div>
-
-      {/* <Modal
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        footer={null}
-      >
-        <p>Donation successful!</p>
-      </Modal> */}
-      <Modal
-        visible={unauthorizedModalVisible}
-        onCancel={() => setUnauthorizedModalVisible(false)}
-        footer={null}
-      >
-        <p>
-          Vous n'êtes pas autorisé. Vous devez être sponsor pour sponsoriser le
-          projet.
-        </p>
-      </Modal>
-
-      <Modals
+      </main>
+      <Footer />
+      <DonationModal
         isOpen={modalVisible}
         onClose={() => setModalVisible(false)}
       />
-      {/* Fin Cause Unique */}
-      <Footer />
+      <UnauthorizedModal
+        isOpen={unauthorizedModalVisible}
+        onClose={() => setUnauthorizedModalVisible(false)}
+      />
     </div>
   )
 }
-export default DonationPage
 
-// --------------------------------------------------------------------------------------------------------------
+const ProjectDetails = ({ project }) => (
+  <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
+    <img
+      src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
+      alt={project.projectTitle}
+      className="w-full h-64 object-cover mb-6 rounded-lg"
+    />
+    <div className="flex flex-wrap justify-between mb-4 text-gray-600">
+      <div className="w-full sm:w-auto mb-2 sm:mb-0">
+        <ClockCircleOutlined className="mr-2" />
+        <strong>Créé le :</strong>{" "}
+        {new Date(project.createdAt).toLocaleDateString()}
+      </div>
+      <div className="w-full sm:w-auto">
+        <EnvironmentOutlined className="mr-2" />
+        <strong>Lieu :</strong> {project.location || "Non spécifié"}
+      </div>
+    </div>
+    <h1 className="text-3xl font-bold mb-4 break-words">
+      {project.projectTitle}
+    </h1>
+    <p className="text-gray-700 leading-relaxed mb-6 break-words">
+      {project.projectDescription}
+    </p>
+  </div>
+)
 
-const DonRecent = () => {
-  const { id } = useParams()
-  const [dons, setDons] = useState([])
-  const [reload, setReload] = useState(false)
+const CommentSection = ({ totalCommentaires, setTotalCommentaires, reloadComment, setReloadComment }) => (
+  <div className="bg-white shadow-lg rounded-lg p-8 overflow-hidden">
+    <h2 className="text-2xl font-semibold mb-6">{totalCommentaires} commentaires</h2>
+    <div className="max-h-96 overflow-y-auto mb-6">
+      <CommentairesProjet
+        reloadComment={reloadComment}
+        setTotalCommentaires={setTotalCommentaires}
+      />
+    </div>
+    <AddCommentaire
+      setReloadComment={setReloadComment}
+      reloadComment={reloadComment}
+    />
+  </div>
+);
+
+const DonationSidebar = ({
+  project,
+  customAmount,
+  handleCustomAmountChange,
+  handleDonation,
+  percent,
+}) => (
+  <aside>
+    <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
+      <Progress
+        percent={percent}
+        strokeColor="#3bcf93"
+        className="mb-4"
+      />
+      <p className="text-lg font-semibold mb-2 flex justify-between">
+        <span className="truncate">
+          Collecté : {project.socialBondsCollect}
+        </span>
+        <span className="truncate">Objectif : {project.socialBonds}</span>
+      </p>
+      <p className="text-gray-600">Fonds collectés à : {percent}%</p>
+    </div>
+    <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
+      <h3 className="text-xl font-semibold mb-4">Faire un don</h3>
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        {[0.5, 1, 5, 10].map((amount) => (
+          <Button
+            key={amount}
+            onClick={() =>
+              handleCustomAmountChange({ target: { value: amount.toString() } })
+            }
+            className={`w-full ${
+              customAmount === amount.toString()
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
+            }`}
+          >
+            {amount}Sb
+          </Button>
+        ))}
+      </div>
+      <Input
+        value={customAmount}
+        onChange={handleCustomAmountChange}
+        placeholder="Montant personnalisé"
+        className="mb-4 text-600"
+        prefix="Sb"
+      />
+      <Button
+        onClick={handleDonation}
+        type="primary"
+        className="w-full h-12 text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105"
+        style={{
+          backgroundColor: "#3bcf93",
+          borderColor: "#3bcf93",
+        }}
+      >
+        Faire un don maintenant
+      </Button>
+    </div>
+    <RecentDonations projectId={project._id} />
+  </aside>
+)
+
+const RecentDonations = ({ projectId }) => {
+  const [dons, setDons] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Number of items per page
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDons = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL
-        // const ApiUrlImage = import.meta.env.VITE_URL_IMAGE;
-        const response = await axios.get(`${apiUrl}/bon/${id}`)
-        console.log("voici la reponse", response.data)
-        setDons(response.data)
-        // Ajoutez ici la logique pour gérer la réponse de votre backend
-        if (response.status === 201 || response.status === 200) {
-          // Check for successful registration response
-          console.log("Connexion réussie ! :")
-          // ---------------------------------------------------------------------------------------
-          // -----------------------------------------------------------------------------------
-        } else {
-          // Handle unsuccessful registration (e.g., display error message)
-        }
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await axios.get(`${apiUrl}/bon/${projectId}`);
+        setDons(response.data);
       } catch (error) {
-        if (error.response) {
-          // Erreur avec réponse du serveur
-          console.error("Erreur de réponse du serveur:", error.response)
-        } else {
-          // Erreur de configuration ou autre
-          console.error("Erreur lors de la requête:", error.message)
-        }
+        console.error("Erreur lors de la récupération des dons récents:", error);
       }
+    };
+    fetchDons();
+  }, [projectId]);
+
+  const totalPages = Math.ceil(dons.length / itemsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
     }
-    fetchData() // Call the function to fetch data
-  }, [id, reload]) // Empty dependency array ensures the effect runs only once
-  return (
-    <div>
-      {dons.map((don) => (
-        <div
-          key={don._id}
-          className="flex items-center mb-6"
-        >
-          <Avatar
-            src="assets/img/100x100.png"
-            alt={don.Sponsor.companyName}
-          />
-          <div className="ml-4">
-            <h5 className="text-lg font-semibold">${don.montant_reduit}</h5>
-            <ul className="text-gray-600">
-              <li>
-                <strong>{don.Sponsor.companyName}</strong>
-              </li>
-              <li>{don.createdAtFormatted}</li>
-            </ul>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
+  };
 
-// ---------------------------------------------------------------------------------------------------------------
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
-const Modals = ({ isOpen, onClose }) => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const selectedDons = dons.slice(startIndex, startIndex + itemsPerPage);
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75"
-        >
+    <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
+      <h3 className="text-xl font-semibold mb-4">Dons récents</h3>
+      <List
+        dataSource={selectedDons}
+        renderItem={(don) => (
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative bg-white rounded-lg shadow-lg p-6 z-10"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.3 }}
+            key={don._id}
+            className="flex items-center mb-4 p-4 border rounded-md shadow-sm"
           >
-            <h2 className="text-2xl font-bold mb-4">Félicitations !</h2>
-            <p className="text-lg mb-6">Vous avez fait un don avec succès.</p>
-            <button
-              onClick={onClose}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Fermer
-            </button>
+            <Avatar
+              src={don.Sponsor.avatar || "assets/img/default-avatar.png"}
+              className="mr-4"
+              size="large"
+            />
+            <div className="flex-grow min-w-0">
+              <p className="font-semibold truncate text-lg flex items-center">
+                <span className="mr-2 text-green-500">Sb</span>
+                {don.montant_reduit}
+              </p>
+              <p className="text-sm text-gray-600 truncate">
+                {don.Sponsor.companyName}
+              </p>
+              <p className="text-xs text-gray-500">
+                {new Date(don.createdAt).toLocaleDateString()}
+              </p>
+            </div>
           </motion.div>
+        )}
+      />
+      <div className="flex justify-between mt-4">
+        <Button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Précédent
+        </Button>
+        <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Suivant
+        </Button>
+      </div>
+    </div>
+  );
+};
 
-          {/* Boules qui tombent */}
-          <motion.div className="absolute inset-0 overflow-hidden">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-4 h-4 bg-yellow-500 rounded-full"
-                initial={{ y: -50, x: Math.random() * 100 + "%" }}
-                animate={{ y: "100vh" }}
-                transition={{
-                  duration: Math.random() * 3 + 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 5,
-                }}
-              />
-            ))}
-            {Array.from({ length: 10 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-4 h-4 bg-red-500 rounded-full"
-                initial={{ y: -50, x: Math.random() * 100 + "%" }}
-                animate={{ y: "100vh" }}
-                transition={{
-                  duration: Math.random() * 3 + 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 5,
-                }}
-              />
-            ))}
-            {Array.from({ length: 10 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-4 h-4 bg-blue-500 rounded-full"
-                initial={{ y: -50, x: Math.random() * 100 + "%" }}
-                animate={{ y: "100vh" }}
-                transition={{
-                  duration: Math.random() * 3 + 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 5,
-                }}
-              />
-            ))}
-          </motion.div>
+
+const DonationModal = ({ isOpen, onClose }) => (
+  <AnimatePresence>
+    {isOpen && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+          className="bg-white rounded-lg p-8 max-w-md w-full"
+        >
+          <h2 className="text-2xl font-bold mb-4">Merci pour votre don !</h2>
+          <p className="mb-6">Votre générosité fait une réelle différence.</p>
+          <Button
+            onClick={onClose}
+            type="primary"
+            className="w-full"
+          >
+            Fermer
+          </Button>
         </motion.div>
-      )}
-    </AnimatePresence>
-  )
-}
+      </motion.div>
+    )}
+  </AnimatePresence>
+)
+
+const UnauthorizedModal = ({ isOpen, onClose }) => (
+  <Modal
+    visible={isOpen}
+    onCancel={onClose}
+    footer={null}
+    className="rounded-lg overflow-hidden"
+    bodyStyle={{ maxHeight: "80vh", overflowY: "auto" }}
+  >
+    <div className="p-6">
+      <h3 className="text-xl font-semibold mb-4">Action non autorisée</h3>
+      <p className="mb-6">
+        Vous devez être sponsor pour faire un don à ce projet.
+      </p>
+      <Button
+        onClick={onClose}
+        type="primary"
+        className="w-full"
+      >
+        Compris
+      </Button>
+    </div>
+  </Modal>
+)
+
+export default DonationPage

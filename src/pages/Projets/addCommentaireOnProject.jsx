@@ -1,12 +1,15 @@
-import { Form, Input, Button, notification } from 'antd';
+import { Form, Input, Button, notification, Spin } from 'antd';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
 const AddCommentaire = ({ setReloadComment, reloadComment }) => {
   const { id } = useParams();
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
+    setLoading(true);
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await axios.post(`${apiUrl}/commentaire`, {
@@ -27,8 +30,10 @@ const AddCommentaire = ({ setReloadComment, reloadComment }) => {
     } catch (error) {
       notification.error({
         message: 'Erreur',
-        description: "Une erreur est survenue lors de l'ajout du commentaire.",
+        description: "Une erreur est survenue lors de l'ajout du commentaire. Veuillez réessayer plus tard.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,7 +49,10 @@ const AddCommentaire = ({ setReloadComment, reloadComment }) => {
         </Form.Item>
         <Form.Item
           name="email"
-          rules={[{ required: true, message: 'Veuillez entrer votre email' }]}
+          rules={[
+            { required: true, message: 'Veuillez entrer votre email' },
+            { type: 'email', message: 'Veuillez entrer une adresse email valide' },
+          ]}
         >
           <Input placeholder="Email *" />
         </Form.Item>
@@ -60,8 +68,9 @@ const AddCommentaire = ({ setReloadComment, reloadComment }) => {
             htmlType="submit"
             className="mt-4"
             style={{ backgroundColor: '#3bcf93', borderColor: '#3bcf93' }}
+            disabled={loading}
           >
-            Publier le commentaire
+            {loading ? <Spin /> : 'Publier le commentaire'}
           </Button>
         </Form.Item>
       </Form>

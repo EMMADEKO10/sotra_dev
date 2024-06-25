@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Avatar } from 'antd';
 
-const CommentairesProjet = ({ reloadComment,setTotalCommentaires }) => {
+const CommentairesProjet = ({ reloadComment, setTotalCommentaires }) => {
   const { id } = useParams();
   const [commentaires, setCommentaires] = useState([]);
 
@@ -19,17 +20,22 @@ const CommentairesProjet = ({ reloadComment,setTotalCommentaires }) => {
     };
 
     fetchCommentaires();
-  }, [id, reloadComment,setTotalCommentaires]);
+  }, [id, reloadComment, setTotalCommentaires]);
 
   return (
-    <div>
+    <div className="space-y-6">
       {commentaires.map(commentaire => (
-        <div key={commentaire._id} className="mb-6">
-          <div className="flex items-center">
-            <div className="ml-4">
-              <h5 className="text-lg font-semibold">{commentaire.name}</h5>
-              <p>{new Date(commentaire.createdAt).toLocaleString()}</p>
-              <p>{commentaire.texte}</p>
+        <div key={commentaire._id} className="bg-gray-50 rounded-lg p-4 shadow">
+          <div className="flex items-start space-x-4">
+            <Avatar size={40} src={commentaire.avatar || "default-avatar.png"}>
+              {commentaire.name.charAt(0).toUpperCase()}
+            </Avatar>
+            <div className="flex-1 min-w-0">
+              <h5 className="text-lg font-semibold truncate">{commentaire.name}</h5>
+              <p className="text-sm text-gray-500 mb-2">
+                {new Date(commentaire.createdAt).toLocaleString()}
+              </p>
+              <p className="text-gray-700 break-words">{commentaire.texte}</p>
             </div>
           </div>
         </div>

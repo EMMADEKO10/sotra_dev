@@ -73,13 +73,12 @@ const DonationPage = () => {
   }, [id, reload]) // Empty dependency array ensures the effect runs only once
 
   const handleCustomAmountChange = (e) => {
-    const value = parseInt(e.target.value, 10) // Convertit la valeur en entier
-    if (!isNaN(value)) {
-      setCustomAmount(value)
-    } else {
-      setCustomAmount(0) // Définit 0 si la valeur n'est pas un nombre valide
+    const value = e.target.value;
+    if (/^\d*\.?\d*$/.test(value)) { // Vérifie si l'entrée est un nombre valide avec ou sans décimale
+      setCustomAmount(value);
     }
   }
+
   const percent = project.socialBonds
     ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)
     : 0
@@ -115,7 +114,7 @@ const DonationPage = () => {
       // setTimeout(() => {
       setModalVisible(true)
       // },);
-
+      setCustomAmount(''); // Reset the input field
       console.log(response.data)
       // Afficher une notification de succès
       setReload(!reload)
@@ -238,6 +237,7 @@ const DonationPage = () => {
                     value={customAmount}
                     placeholder="Montant personnalisé"
                     className="mt-4"
+                    type="text"
                   />
                   <Button
                     onClick={handleDonation}
@@ -268,13 +268,13 @@ const DonationPage = () => {
         </div>
       </div>
 
-      <Modal
+      {/* <Modal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={null}
       >
         <p>Donation successful!</p>
-      </Modal>
+      </Modal> */}
       <Modal
         visible={unauthorizedModalVisible}
         onCancel={() => setUnauthorizedModalVisible(false)}

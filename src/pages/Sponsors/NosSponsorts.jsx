@@ -9,6 +9,8 @@ import SponsorRankingPage from '../../pages/dashboard/sponsor/graphiques';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import 'animate.css';
+// import SponsorRankingPage from "../dashboard/sponsor/graphiques"
+
 
 const { Title } = Typography;
 
@@ -123,6 +125,7 @@ const NosSponsorts = () => {
             ))}
           </div>
           <ClassementSponsort />
+          <SponsorRankingPage />
         </div>
       </div>
 

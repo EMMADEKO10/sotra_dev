@@ -177,7 +177,7 @@ export default function DashSponsor() {
               <br />
               <br />
               <h5>Informations de contact</h5>
-              <strong>Nom du représentant:</strong> {record.representativeName}
+              <strong>Nom du représentant : </strong> {record.representativeName}
               <br/>
               <strong>Numéro de téléphone:</strong>{" "}<a href={`tel:${record.phone}`} className="text-blue-600 hover:text-blue-800">{record.phone}</a>
 

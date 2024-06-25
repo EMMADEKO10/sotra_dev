@@ -17,6 +17,7 @@ const ClassementSponsort = () => {
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${apiUrl}/getSponsorRanking`);
+        console.log(response.data)
 
         // Tri et ajout de l'index statique
         const sortedData = response.data
@@ -37,7 +38,7 @@ const ClassementSponsort = () => {
     const value = e.target.value.toLowerCase();
     setSearchText(value);
     const filtered = sponsorData.filter((sponsor) =>
-      sponsor.sponsorName.toLowerCase().includes(value)
+      sponsor.sponsorName.toLowerCase().includes(value),
     );
     setFilteredData(filtered);
   };
@@ -68,7 +69,7 @@ const ClassementSponsort = () => {
       render: (text, record) => (
         <div className="flex items-center">
           <img
-            src={record.logo}
+            src={`${import.meta.env.VITE_URL_IMAGE}${record.logo}`}
             alt="logo"
             className="hidden sm:block w-12 h-12 rounded-full border-2 border-gray-300 mr-3"
           />

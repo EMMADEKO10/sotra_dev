@@ -1,4 +1,4 @@
-import  { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Breadcrumb, Card, Col, Progress, Row, Pagination, Select, Input, Checkbox } from 'antd';
 import { HomeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
@@ -6,8 +6,6 @@ import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import axios from 'axios'
 import { NavLink } from 'react-router-dom';
-// import { Card, Col, Row, Pagination, Checkbox, Select, Progress } from 'antd';
-// import { ThunderboltOutlined } from '@ant-design/icons';
 import { Skeleton } from 'antd'; // Import du Skeleton
 
 const { Option } = Select;
@@ -137,11 +135,7 @@ const AllProjets = () => {
                           }
                           className="overflow-hidden rounded-lg shadow-md"
                         >
-                          {project.trend && (
-                            <div className="absolute top-0 right-0 m-2 text-yellow-500">
-                              <ThunderboltOutlined /> Tendance
-                            </div>
-                          )}
+                          
                           <Card.Meta
                             title={
                               <a href="#" className="text-lg font-semibold text-gray-900 hover:text-primary">
@@ -151,6 +145,7 @@ const AllProjets = () => {
                             description={<p className="text-sm text-gray-700">{project.projectDescription}</p>}
                           />
                           <div className="mt-4">
+                            <div className="text-sm text-gray-500">Catégorie : {project.projectCategory}</div> {/* Ajout de la catégorie ici */}
                             <Progress percent={percent} status="active"  />
                             <p className="mt-2 text-sm">
                               Collecté : {project.socialBondsCollect}Sb{' / '}

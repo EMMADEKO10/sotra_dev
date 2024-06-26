@@ -249,64 +249,64 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
                     ]}
                   >
                     <Select placeholder="Sélectionnez une catégorie">
-                      <Select.Option value="education">
+                      <Select.Option value="Éducation">
                         Éducation et formation
                       </Select.Option>
-                      <Select.Option value="health">
+                      <Select.Option value="Santé">
                         Santé et bien-être
                       </Select.Option>
-                      <Select.Option value="housing">
+                      <Select.Option value="Logement">
                         Logement et infrastructures
                       </Select.Option>
-                      <Select.Option value="employment">
+                      <Select.Option value="Emploi">
                         Emploi et développement économique
                       </Select.Option>
-                      <Select.Option value="childProtection">
+                      <Select.Option value="Protection de l'enfance">
                         Protection de l'enfance et des personnes vulnérables
                       </Select.Option>
-                      <Select.Option value="environment">
+                      <Select.Option value="Environnement">
                         Environnement et développement durable
                       </Select.Option>
-                      <Select.Option value="culture">
+                      <Select.Option value="Culture">
                         Culture et loisirs
                       </Select.Option>
-                      <Select.Option value="socialJustice">
+                      <Select.Option value="Justice sociale">
                         Justice sociale et droits de l'homme
                       </Select.Option>
-                      <Select.Option value="foodSecurity">
+                      <Select.Option value="Sécurité alimentaire">
                         Sécurité alimentaire
                       </Select.Option>
-                      <Select.Option value="socialCohesion">
+                      <Select.Option value="cohésion sociale">
                         Intégration et cohésion sociale
                       </Select.Option>
-                      <Select.Option value="violencePrevention">
+                      <Select.Option value="sécurité communautaire">
                         Prévention de la violence et sécurité communautaire
                       </Select.Option>
-                      <Select.Option value="womenEmpowerment">
+                      <Select.Option value="Autonomisation des femmes">
                         Autonomisation des femmes
                       </Select.Option>
-                      <Select.Option value="refugeeSupport">
+                      <Select.Option value="Immigration">
                         Aide aux réfugiés et aux migrants
                       </Select.Option>
-                      <Select.Option value="disabilitySupport">
+                      <Select.Option value="Soutien aux personnes handicapées">
                         Soutien aux personnes handicapées
                       </Select.Option>
-                      <Select.Option value="peacePromotion">
+                      <Select.Option value="Paix et réconciliation">
                         Promotion de la paix et de la réconciliation
                       </Select.Option>
-                      <Select.Option value="waterAccess">
+                      <Select.Option value="Assainissement">
                         Accès à l'eau potable et assainissement
                       </Select.Option>
-                      <Select.Option value="culturalHeritage">
+                      <Select.Option value="Patrimoine culturel">
                         Préservation du patrimoine culturel
                       </Select.Option>
-                      <Select.Option value="drugPrevention">
+                      <Select.Option value="Toxicomanie">
                         Lutte contre la toxicomanie
                       </Select.Option>
-                      <Select.Option value="digitalSkills">
+                      <Select.Option value="Numériques">
                         Formation en compétences numériques
                       </Select.Option>
-                      <Select.Option value="environmentalEducation">
+                      <Select.Option value="Sensibilisation">
                         Sensibilisation et éducation environnementale
                       </Select.Option>
                     </Select>

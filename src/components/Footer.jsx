@@ -79,7 +79,7 @@ export default function Footer() {
       {/* Bas de page */}
       <div className="footer-bottom bg-gray-800 py-4">
         <div className="container mx-auto flex flex-wrap items-center justify-between">
-          <p className="text-sm text-white">&copy; 2024. Conçu pa <a href="#" className="hover:text-green-400">Sotradons</a></p>
+          <p className="text-sm text-white">&copy; 2024. developed by <a href="#" className="hover:text-green-400">crihojames & deko</a></p>
           <ul className="flex space-x-4 text-sm text-gray-400">
             <li><a href="#" className="hover:text-green-400">Conditions</a></li>
             <li><a href="#" className="hover:text-green-400">Confidentialité</a></li>

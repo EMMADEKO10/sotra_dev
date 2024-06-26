@@ -112,16 +112,7 @@ export default function DashSponsor() {
       dataIndex: 'representativeName',
       key: 'representativeName',
     },
-    // {
-    //   title: 'Téléphone',
-    //   dataIndex: 'phone',
-    //   key: 'phone',
-    // },
-    // {
-    //   title: 'Adresse',
-    //   dataIndex: 'address',
-    //   key: 'address',
-    // },
+   
     {
       title: 'Validé',
       dataIndex: 'sponsorValidated',
@@ -164,7 +155,6 @@ export default function DashSponsor() {
           expandedRowRender: (record) => (
             <p style={{ margin: 0 }}>
               <h5>Informations de l'entreprise</h5>
-              
               <strong>Nom de l'entreprise:</strong> {record.companyName}
               <br />
               <strong>Adresse:</strong> {record.address}
@@ -180,8 +170,7 @@ export default function DashSponsor() {
               <strong>Nom du représentant : </strong> {record.representativeName}
               <br/>
               <strong>Numéro de téléphone:</strong>{" "}<a href={`tel:${record.phone}`} className="text-blue-600 hover:text-blue-800">{record.phone}</a>
-
-              <br/>
+        <br/>
               <strong>Deuxième Numéro de téléphone:</strong> {record.AutherPhone}
               <br />
               <br />

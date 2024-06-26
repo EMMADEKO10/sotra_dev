@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 import { NavLink } from 'react-router-dom';
 import { Table, Typography, Divider, Space, Button, Badge } from "antd";
 import ClassementSponsort from '../dashboard/sponsor/ClassementSponsort';
-import SponsorRankingPage from '../../pages/dashboard/sponsor/graphiques';
+import SponsorMonthlyContributions from '../../pages/dashboard/sponsor/graphiques';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import 'animate.css';
@@ -125,7 +125,7 @@ const NosSponsorts = () => {
             ))}
           </div>
           <ClassementSponsort />
-          <SponsorRankingPage />
+          <SponsorMonthlyContributions />
         </div>
       </div>
 

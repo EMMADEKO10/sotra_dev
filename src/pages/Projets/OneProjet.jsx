@@ -31,10 +31,8 @@ const DonationPage = () => {
   const [reload, setReload] = useState(false)
   const [reloadComment, setReloadComment] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
-  const [unauthorizedModalVisible, setUnauthorizedModalVisible] =
-    useState(false)
+  const [unauthorizedModalVisible, setUnauthorizedModalVisible] = useState(false)
   const [totalCommentaires, setTotalCommentaires] = useState(0)
-
   const { id } = useParams()
   const apiUrl = import.meta.env.VITE_API_URL
   const token = localStorage.getItem("token")
@@ -117,6 +115,26 @@ const DonationPage = () => {
 
           <div className="flex flex-wrap -mx-4">
             <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
+
+            {project.supportingDocuments && (
+  <div>
+    <a className="text-green-500 hover:text-green-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.supportingDocuments}`} target="_blank" rel="noopener noreferrer">Détails sur le projet</a>
+  </div>
+)}
+
+{project.projectBudgetDetails && (
+  <div>
+    <a className="text-blue-500 hover:text-blue-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.projectBudgetDetails}`} target="_blank" rel="noopener noreferrer">Détails sur le budget du projet</a>
+  </div>
+)}
+
+{project.projectProposal && (
+  <div>
+    <a className="text-red-500 hover:text-red-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.projectProposal}`} target="_blank" rel="noopener noreferrer">Détails sur la proposition du projet</a>
+  </div>
+)}
+
+
               <ProjectDetails project={project} />
               <CommentSection
                 totalCommentaires={totalCommentaires}
@@ -267,6 +285,7 @@ const RecentDonations = ({ projectId }) => {
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${apiUrl}/bon/${projectId}`);
+        console.log(response.data)
         setDons(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des dons récents:", error);
@@ -307,9 +326,10 @@ const RecentDonations = ({ projectId }) => {
             className="flex items-center mb-4 p-4 border rounded-md shadow-sm"
           >
             <Avatar
-              src={don.Sponsor.avatar || "assets/img/default-avatar.png"}
+              src={`${import.meta.env.VITE_URL_IMAGE}${don.Sponsor.logo}`}
               className="mr-4"
               size="large"
+              alt={`${import.meta.env.VITE_URL_IMAGE}${don.Sponsor.logo}`}
             />
             <div className="flex-grow min-w-0">
               <p className="font-semibold truncate text-lg flex items-center">
@@ -320,7 +340,8 @@ const RecentDonations = ({ projectId }) => {
                 {don.Sponsor.companyName}
               </p>
               <p className="text-xs text-gray-500">
-                {new Date(don.createdAt).toLocaleDateString()}
+                {/* {new Date(don.createdAt).toLocaleDateString()} */}
+                {don.createdAtFormatted}
               </p>
             </div>
           </motion.div>

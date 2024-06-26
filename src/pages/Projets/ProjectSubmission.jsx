@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Form, Input, Row, Col, Card, Typography, DatePicker, Upload, message, notification } from 'antd';
+import { Button, Form, Input, Row, Col, Card, Typography, DatePicker, Upload, message, notification, Select } from 'antd';
 import { UploadOutlined, PlusOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
@@ -71,6 +71,7 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
     const {
       projectTitle,
       projectDescription,
+      projectCategory,
       projectGoals,
       projectTimeline,
       projectAmount,
@@ -81,6 +82,7 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
     const formData = new FormData();
     formData.append('projectTitle', projectTitle);
     formData.append('projectDescription', projectDescription);
+    formData.append('projectCategory', projectCategory);
     formData.append('projectImage', projectImage); // Ce code assume que projectImage est un objet fichier
     formData.append('projectGoals', projectGoals);
     formData.append('projectTimeline', JSON.stringify(projectTimeline));
@@ -233,6 +235,81 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
                       rows={4}
                       placeholder="Description du projet"
                     />
+                  </Form.Item>
+
+                  <Form.Item
+                    name="projectCategory"
+                    label="Catégorie du projet"
+                    rules={[
+                      {
+                        required: true,
+                        message:
+                          "Veuillez sélectionner une catégorie pour le projet",
+                      },
+                    ]}
+                  >
+                    <Select placeholder="Sélectionnez une catégorie">
+                      <Select.Option value="education">
+                        Éducation et formation
+                      </Select.Option>
+                      <Select.Option value="health">
+                        Santé et bien-être
+                      </Select.Option>
+                      <Select.Option value="housing">
+                        Logement et infrastructures
+                      </Select.Option>
+                      <Select.Option value="employment">
+                        Emploi et développement économique
+                      </Select.Option>
+                      <Select.Option value="childProtection">
+                        Protection de l'enfance et des personnes vulnérables
+                      </Select.Option>
+                      <Select.Option value="environment">
+                        Environnement et développement durable
+                      </Select.Option>
+                      <Select.Option value="culture">
+                        Culture et loisirs
+                      </Select.Option>
+                      <Select.Option value="socialJustice">
+                        Justice sociale et droits de l'homme
+                      </Select.Option>
+                      <Select.Option value="foodSecurity">
+                        Sécurité alimentaire
+                      </Select.Option>
+                      <Select.Option value="socialCohesion">
+                        Intégration et cohésion sociale
+                      </Select.Option>
+                      <Select.Option value="violencePrevention">
+                        Prévention de la violence et sécurité communautaire
+                      </Select.Option>
+                      <Select.Option value="womenEmpowerment">
+                        Autonomisation des femmes
+                      </Select.Option>
+                      <Select.Option value="refugeeSupport">
+                        Aide aux réfugiés et aux migrants
+                      </Select.Option>
+                      <Select.Option value="disabilitySupport">
+                        Soutien aux personnes handicapées
+                      </Select.Option>
+                      <Select.Option value="peacePromotion">
+                        Promotion de la paix et de la réconciliation
+                      </Select.Option>
+                      <Select.Option value="waterAccess">
+                        Accès à l'eau potable et assainissement
+                      </Select.Option>
+                      <Select.Option value="culturalHeritage">
+                        Préservation du patrimoine culturel
+                      </Select.Option>
+                      <Select.Option value="drugPrevention">
+                        Lutte contre la toxicomanie
+                      </Select.Option>
+                      <Select.Option value="digitalSkills">
+                        Formation en compétences numériques
+                      </Select.Option>
+                      <Select.Option value="environmentalEducation">
+                        Sensibilisation et éducation environnementale
+                      </Select.Option>
+                    </Select>
                   </Form.Item>
 
                   <Title

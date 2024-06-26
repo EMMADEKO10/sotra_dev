@@ -48,8 +48,8 @@ export default function Footer() {
               <h4 className="widget-title text-lg font-semibold mb-4 text-[#F0F0F0]" style={{ opacity: 0.85 }}>Infos de Contact</h4>
               <ul className="space-y-2 text-[#F0F0F0]" style={{ opacity: 0.85 }}>
                 <li>
-                  <strong>Adresse:</strong>
                   <p> 76 Av. de la Justice, Kinshasa, Congo-Kinshasa</p>
+                  <strong>Adresse:</strong>
                 </li>
                 <li>
                   <strong>Email:</strong>

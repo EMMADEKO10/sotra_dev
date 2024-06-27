@@ -85,27 +85,6 @@ const Causes = () => {
                 : 0;
               return (
                 <Col
-                      key={index}
-                      lg={6}
-                      md={12}
-                    >
-                      <Card>
-                        <Skeleton
-                          loading={true}
-                          active
-                        />
-                      </Card>
-                    </Col>
-                  ))
-                : paginatedProjects.map((project, index) => {
-                    const percent = project.socialBonds
-                      ? (
-                          (project.socialBondsCollect / project.socialBonds) *
-                          100
-                        ).toFixed(2)
-                      : 0
-                    return (
-                      <Col
                         key={index}
                         lg={6}
                         md={12}
@@ -132,48 +111,40 @@ const Causes = () => {
                                     project.createdAt
                                   ).toLocaleDateString()}
                                 </span>
-                                <span className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 left-0 m-4 text-xs">
-                                  {project.projectCategory}
-                                </span>
+                                <span 
+                                className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 left-0 m-4 text-xs">
+                                {project.projectCategory}
+                              </span>
                               </div>
                             }
                             className="overflow-hidden rounded-lg shadow-md"
                           >
                             <Card.Meta
                               title={
-                                <p
-                                  className="text-lg font-semibold text-gray-900 leading-relaxed break-words line-clamp-2 text-justify" // Limite à environ 5 lignes avec TailwindCSS
-                                  // style={{ maxHeight: "10rem" }} // Limite à environ 5 lignes
+                                <a
+                                  href="#"
+                                  className="text-lg font-semibold text-gray-900 hover:text-primary"
                                 >
                                   {project.projectTitle}
-                                </p>
+                                </a>
                               }
                               description={
-                                <p
-                                className="text-sm text-gray-500 leading-relaxed break-words line-clamp-5 text-justify" // Limite à environ 5 lignes avec TailwindCSS
-                                  // style={{ maxHeight: "10rem" }} // Limite à environ 5 lignes
-                                >
+                                <p className="text-sm text-gray-700">
                                   {project.projectDescription}
                                 </p>
-                                
                               }
-                              
                             />
-
-                            <div className="mt-2">
+                            <div className="mt-4">
                               <Progress
                                 percent={percent}
                                 status="active"
                               />
-                              <div className="mt-2 flex justify-between">
-                                <span className="text-sm ">
-                                  Collecté : {project.socialBondsCollect}Sb
+                              <p className="mt-2 text-sm">
+                                Collecté : {project.socialBondsCollect}Sb{" "}
+                                <span className="text-gray-600">
+                                  / Objectif : {project.socialBonds}Sb
                                 </span>
-
-                                <span className="text-sm">
-                                    Objectif : {project.socialBonds}Sb
-                                </span>
-                                </div>
+                              </p>
                             </div>
                           </Card>
                         </NavLink>

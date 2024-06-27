@@ -4,6 +4,7 @@ import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
 import { NavLink } from 'react-router-dom';
+import Volunteer from '../../components/Volunteer'
 
 const About = () => {
   // Définitions des images des partenaires
@@ -237,6 +238,7 @@ const About = () => {
         </div>
       </div>
 
+      <Volunteer/>
       <Footer />
     </div>
   );

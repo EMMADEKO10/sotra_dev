@@ -1,13 +1,5 @@
 import React from "react"
 import { Button, List, Input, Divider, Tag, Space, Avatar, Tooltip } from "antd"
-import {
-  FacebookOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
-  PinterestOutlined,
-  LeftOutlined,
-  RightOutlined,
-} from "@ant-design/icons"
 import "animate.css/animate.min.css"
 import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
@@ -16,27 +8,39 @@ const { TextArea } = Input
 
 const SocialBonds = () => {
   return (
-    <div>
+    <>
       <Navbar />
+      {/* Section Breadcrumb avec effet parallaxe */}
       <div
-        className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center animate__animated animate__fadeIn"
-        style={{ backgroundImage: "url(/sotradonsImage/10.jpg)" }}
+        className="breadcrumb-area relative text-center shadow-lg p-12 bg-cover bg-center"
+        style={{
+          backgroundImage: "url(/sotradonsImage/10.jpg)",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
       >
         <div className="absolute inset-0 bg-black opacity-40"></div>
         <div className="relative container mx-auto z-10">
           <div className="breadcrumb-items">
-            <div className="row">
-              <div className="col-lg-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
-                  Social Bonds
-                </h2>
-              </div>
-            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Social Bonds
+            </h2>
+            <nav className="text-white">
+              <a
+                href="/"
+                className="hover:underline"
+              >
+                Accueil
+              </a>{" "}
+              &gt; <span>Social Bonds</span>
+            </nav>
           </div>
         </div>
       </div>
-
-      <div className="blog-area single full-blog full-blog default-padding py-12 animate__animated animate__fadeInUp">
+      
+      <div className="  bg-fixed bg-gray-100 blog-area single full-blog full-blog default-padding py-5 animate__animated animate__fadeInUp">
         <div className="container mx-auto ">
           <div className="blog-items">
             <div className="row justify-center">
@@ -178,40 +182,6 @@ const SocialBonds = () => {
                               <Tag color="magenta">Investissement</Tag>
                               <Tag color="magenta">Impact Social</Tag>
                             </div>
-                            <div className="social flex space-x-4 text-xl">
-                              <Tooltip title="Partager sur Facebook">
-                                <a
-                                  href="#"
-                                  className="text-blue-600 hover:text-blue-800"
-                                >
-                                  <FacebookOutlined />
-                                </a>
-                              </Tooltip>
-                              <Tooltip title="Partager sur Twitter">
-                                <a
-                                  href="#"
-                                  className="text-blue-400 hover:text-blue-600"
-                                >
-                                  <TwitterOutlined />
-                                </a>
-                              </Tooltip>
-                              <Tooltip title="Partager sur Pinterest">
-                                <a
-                                  href="#"
-                                  className="text-pink-500 hover:text-pink-700"
-                                >
-                                  <PinterestOutlined />
-                                </a>
-                              </Tooltip>
-                              <Tooltip title="Partager sur LinkedIn">
-                                <a
-                                  href="#"
-                                  className="text-blue-700 hover:text-blue-900"
-                                >
-                                  <LinkedinOutlined />
-                                </a>
-                              </Tooltip>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -224,7 +194,7 @@ const SocialBonds = () => {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   )
 }
 

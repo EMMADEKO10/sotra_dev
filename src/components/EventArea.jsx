@@ -55,23 +55,23 @@ export default function EventArea() {
               {eventDate}
             </div>
           </div>
-          <div className="event-info p-4">
-          <div className="time text-gray-600 mb-2 pt-4">
-              <i className="fas fa-clock"></i> {eventTime}
+          <div className="event-info p-4 bg-white rounded">
+            <div className="time text-gray-600 mb-2 pt-4">
+                <i className="fas fa-clock"></i> {eventTime}
+              </div>
+              <h4 className="event-title text-xl lg:text-2xl font-semibold mb-2">
+                {eventName}
+              </h4>
+              <p className="event-description text-gray-700 mb-4">
+                {eventDescription}
+              </p>
+              {/* <a
+                className="btn btn-theme border btn-md hover:bg-gray-200 inline-block animate__animated animate__fadeInUp lg:animate__delay-1s"
+                href="#"
+              >
+                En savoir plus
+              </a> */}
             </div>
-            <h4 className="event-title text-xl lg:text-2xl font-semibold mb-2">
-              {eventName}
-            </h4>
-            <p className="event-description text-gray-700 mb-4">
-              {eventDescription}
-            </p>
-            {/* <a
-              className="btn btn-theme border btn-md hover:bg-gray-200 inline-block animate__animated animate__fadeInUp lg:animate__delay-1s"
-              href="#"
-            >
-              En savoir plus
-            </a> */}
-          </div>
         </div>
       );
 

@@ -1,8 +1,26 @@
-import { Row, Col, Input, Button } from 'antd';
-import 'animate.css';
-import { NavLink } from 'react-router-dom';
+import { Row, Col, Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function Volonteer() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    if (
+      localStorage.getItem("token") &&
+      localStorage.getItem("user") &&
+      localStorage.getItem("role")
+    ) {
+      if (window.confirm("Attention : cette action nécessitera votre déconnexion. Voulez-vous vraiment continuer ?")) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("role");
+        navigate("/register"); // Redirige après la déconnexion
+      }
+    } else {
+      navigate("/register"); // Redirige après la déconnexion
+    }
+  };
+
   return (
     <div className="volunteer-area text-center bg-gray-100 py-20 relative overflow-hidden">
       {/* Fond animé */}
@@ -22,21 +40,19 @@ export default function Volonteer() {
               Soutenez des projets d'impact social avec la RSE Market Place
             </h2>
             <p className="text-lg text-gray-800 animate__animated animate__fadeIn">
-              Bienvenue chez RSE Market Place, où chaque sponsor fait une différence significative. Avec notre
-              plateforme, nous avons facilité le financement de plus de 120 000 projets caritatifs, touchant plus de
-              2 millions de personnes à travers la republique.
+              Bienvenue chez RSE Market Place, où chaque sponsor fait une
+              différence significative. Avec notre plateforme, nous avons
+              facilité le financement de plus de 120 000 projets caritatifs,
+              touchant plus de 2 millions de personnes à travers la république.
             </p>
-            <form action="#" className="mt-8 animate__animated animate__fadeIn">
-              <Row gutter={[16, 16]} justify="center">
-                <Col xs={24} sm={18} md={16} lg={14} xl={12}>
-                  <NavLink to="/register">
-                    <Button type="primary" size="large" block className="text-[#3bcf94]">
-                      Rejoignez-nous maintenant
-                    </Button>
-                  </NavLink>
-                </Col>
-              </Row>
-            </form>
+            <Button
+              onClick={logout}
+              type="primary"
+              size="large"
+              className="btn-theme inline-block animate__animated animate__fadeInUp animate__delay-1s"
+            >
+              Rejoignez-nous maintenant
+            </Button>
           </Col>
         </Row>
       </div>

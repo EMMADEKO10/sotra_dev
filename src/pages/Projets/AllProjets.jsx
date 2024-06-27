@@ -81,99 +81,105 @@ const AllProjets = () => {
   }, [])
 
   return (
-    <div className="bg-gray-100 py-20">
+    <>
       <Navbar />
-      <div className=" bg-fixed text-white">
-        <div
-          className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
-          style={{ backgroundImage: "url('/sotradonsImage/31.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black opacity-40"></div>
-          <div className="relative container mx-auto z-10">
-            <div className="breadcrumb-items">
-              <div className="row">
-                <div className="col-lg-12">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white">
-                    Projets
-                  </h2>
-                </div>
-              </div>
-            </div>
+      {/* Section Breadcrumb avec effet parallaxe */}
+      <div
+        className="breadcrumb-area relative text-center shadow-lg p-12 bg-cover bg-center"
+        style={{
+          backgroundImage: "url(/sotradonsImage/31.jpg)",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="relative container mx-auto z-10">
+          <div className="breadcrumb-items">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Projets
+            </h2>
+            <nav className="text-white">
+              <a
+                href="/"
+                className="hover:underline"
+              >
+                Accueil
+              </a>{" "}
+              &gt; <span>Projets</span>
+            </nav>
           </div>
         </div>
-
-        <div className="bg-gray-200 py-4">
-          <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 items-center">
-            <div className="flex items-center w-full">
-              <Search
-                placeholder="Rechercher par titre de projet"
-                onChange={handleSearch} // Changed to onChange
-                className="w-full"
-                value={searchTerm} // Keep the input controlled
-                enterButton
-              />
-            </div>
-            <div className="flex items-center w-full">
-              <Select
-                placeholder="Sélectionnez une catégorie"
-                onChange={handleCategoryChange}
-                className="w-full"
-                style={{ borderRadius: "4px" }}
-              >
-                <Option value="">Toutes les catégories</Option>
-                <Option value="Éducation">Éducation et formation</Option>
-                <Option value="Santé">Santé et bien-être</Option>
-                <Option value="Logement">Logement et infrastructures</Option>
-                <Option value="Emploi">
-                  Emploi et développement économique
-                </Option>
-                <Option value="Protection de l'enfance">
-                  Protection de l'enfance et des personnes vulnérables
-                </Option>
-                <Option value="Environnement">
-                  Environnement et développement durable
-                </Option>
-                <Option value="Culture">Culture et loisirs</Option>
-                <Option value="Justice sociale">
-                  Justice sociale et droits de l'homme
-                </Option>
-                <Option value="Sécurité alimentaire">
-                  Sécurité alimentaire
-                </Option>
-                <Option value="Cohésion sociale">
-                  Intégration et cohésion sociale
-                </Option>
-                <Option value="Sécurité communautaire">
-                  Prévention de la violence et sécurité communautaire
-                </Option>
-                <Option value="Autonomisation des femmes">
-                  Autonomisation des femmes
-                </Option>
-                <Option value="Immigration">
-                  Aide aux réfugiés et aux migrants
-                </Option>
-                <Option value="Soutien aux personnes handicapées">
-                  Soutien aux personnes handicapées
-                </Option>
-                <Option value="Paix et réconciliation">
-                  Promotion de la paix et de la réconciliation
-                </Option>
-                <Option value="Assainissement">
-                  Accès à l'eau potable et assainissement
-                </Option>
-                <Option value="Patrimoine culturel">
-                  Préservation du patrimoine culturel
-                </Option>
-                <Option value="Toxicomanie">Lutte contre la toxicomanie</Option>
-                <Option value="Numériques">
-                  Formation en compétences numériques
-                </Option>
-                <Option value="Sensibilisation">
-                  Sensibilisation et éducation environnementale
-                </Option>
-              </Select>
-            </div>
-            {/* <div className="flex items-center w-full">
+      </div>
+      <div className="bg-gray-200 py-4">
+        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 items-center">
+          <div className="flex items-center w-full">
+            <Search
+              placeholder="Rechercher par titre de projet"
+              onChange={handleSearch} // Changed to onChange
+              className="w-full"
+              value={searchTerm} // Keep the input controlled
+              enterButton
+            />
+          </div>
+          <div className="flex items-center w-full">
+            <Select
+              placeholder="Sélectionnez une catégorie"
+              onChange={handleCategoryChange}
+              className="w-full"
+              style={{ borderRadius: "4px" }}
+            >
+              <Option value="">Toutes les catégories</Option>
+              <Option value="Éducation">Éducation et formation</Option>
+              <Option value="Santé">Santé et bien-être</Option>
+              <Option value="Logement">Logement et infrastructures</Option>
+              <Option value="Emploi">Emploi et développement économique</Option>
+              <Option value="Protection de l'enfance">
+                Protection de l'enfance et des personnes vulnérables
+              </Option>
+              <Option value="Environnement">
+                Environnement et développement durable
+              </Option>
+              <Option value="Culture">Culture et loisirs</Option>
+              <Option value="Justice sociale">
+                Justice sociale et droits de l'homme
+              </Option>
+              <Option value="Sécurité alimentaire">Sécurité alimentaire</Option>
+              <Option value="Cohésion sociale">
+                Intégration et cohésion sociale
+              </Option>
+              <Option value="Sécurité communautaire">
+                Prévention de la violence et sécurité communautaire
+              </Option>
+              <Option value="Autonomisation des femmes">
+                Autonomisation des femmes
+              </Option>
+              <Option value="Immigration">
+                Aide aux réfugiés et aux migrants
+              </Option>
+              <Option value="Soutien aux personnes handicapées">
+                Soutien aux personnes handicapées
+              </Option>
+              <Option value="Paix et réconciliation">
+                Promotion de la paix et de la réconciliation
+              </Option>
+              <Option value="Assainissement">
+                Accès à l'eau potable et assainissement
+              </Option>
+              <Option value="Patrimoine culturel">
+                Préservation du patrimoine culturel
+              </Option>
+              <Option value="Toxicomanie">Lutte contre la toxicomanie</Option>
+              <Option value="Numériques">
+                Formation en compétences numériques
+              </Option>
+              <Option value="Sensibilisation">
+                Sensibilisation et éducation environnementale
+              </Option>
+            </Select>
+          </div>
+          {/* <div className="flex items-center w-full">
               <Checkbox
                 onChange={handleTrendingChange}
                 checked={onlyTrending}
@@ -183,9 +189,9 @@ const AllProjets = () => {
                 </span>
               </Checkbox>
             </div> */}
-          </div>
         </div>
-
+      </div>
+      <div className=" bg-fixed bg-gray-100 py-5">
         <div className="bg-gray-100 py-12">
           <div className="container mx-auto">
             <Row gutter={[16, 16]}>
@@ -300,7 +306,7 @@ const AllProjets = () => {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   )
 }
 

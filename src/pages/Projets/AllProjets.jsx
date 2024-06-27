@@ -83,7 +83,7 @@ const AllProjets = () => {
   return (
     <div className="bg-gray-100 py-20">
       <Navbar />
-      <div className="text-center bg-fixed text-white">
+      <div className=" bg-fixed text-white">
         <div
           className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
           style={{ backgroundImage: "url('/sotradonsImage/31.jpg')" }}
@@ -239,40 +239,46 @@ const AllProjets = () => {
                                     project.createdAt
                                   ).toLocaleDateString()}
                                 </span>
-                                <span 
-                                className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 left-0 m-4 text-xs">
-                                {project.projectCategory}
-                              </span>
+                                <span className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 left-0 m-4 text-xs">
+                                  {project.projectCategory}
+                                </span>
                               </div>
                             }
                             className="overflow-hidden rounded-lg shadow-md"
                           >
                             <Card.Meta
                               title={
-                                <a
-                                  href="#"
-                                  className="text-lg font-semibold text-gray-900 hover:text-primary"
+                                <p
+                                  className="text-lg font-semibold text-gray-900 leading-relaxed break-words line-clamp-2 text-justify" // Limite à environ 5 lignes avec TailwindCSS
+                                  // style={{ maxHeight: "10rem" }} // Limite à environ 5 lignes
                                 >
                                   {project.projectTitle}
-                                </a>
+                                </p>
                               }
                               description={
-                                <p className="text-sm text-gray-700">
+                                <p
+                                  className="text-sm text-gray-500 leading-relaxed break-words line-clamp-5 text-justify" // Limite à environ 5 lignes avec TailwindCSS
+                                  // style={{ maxHeight: "10rem" }} // Limite à environ 5 lignes
+                                >
                                   {project.projectDescription}
                                 </p>
                               }
                             />
-                            <div className="mt-4">
+
+                            <div className="mt-2">
                               <Progress
                                 percent={percent}
                                 status="active"
                               />
-                              <p className="mt-2 text-sm">
-                                Collecté : {project.socialBondsCollect}Sb{" "}
-                                <span className="text-gray-600">
-                                  / Objectif : {project.socialBonds}Sb
+                              <div className="mt-2 flex justify-between">
+                                <span className="text-sm ">
+                                  Collecté : {project.socialBondsCollect}Sb
                                 </span>
-                              </p>
+
+                                <span className="text-sm">
+                                  Objectif : {project.socialBonds}Sb
+                                </span>
+                              </div>
                             </div>
                           </Card>
                         </NavLink>

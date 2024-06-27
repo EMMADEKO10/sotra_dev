@@ -38,10 +38,9 @@ const AllProjets = () => {
     setCurrentPage(1);
   };
 
-  // Filtering projects based on projectTitle
   const filteredProjects = projects.filter((project) => {
     const matchesSearch = project.projectTitle && project.projectTitle.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory ? project.category === selectedCategory : true;
+    const matchesCategory = selectedCategory ? project.projectCategory === selectedCategory : true;
     const matchesTrending = onlyTrending ? project.trend : true;
     return matchesSearch && matchesCategory && matchesTrending;
   });
@@ -64,16 +63,21 @@ const AllProjets = () => {
   }, []);
 
   return (
-    <div className='bg-gray-100 py-20'>
+    <div className="bg-gray-100 py-20">
       <Navbar />
       <div className="text-center bg-fixed text-white">
-        <div className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center" style={{ backgroundImage: "url('/sotradonsImage/31.jpg')" }}>
+        <div
+          className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center"
+          style={{ backgroundImage: "url('/sotradonsImage/31.jpg')" }}
+        >
           <div className="absolute inset-0 bg-black opacity-40"></div>
           <div className="relative container mx-auto z-10">
             <div className="breadcrumb-items">
               <div className="row">
                 <div className="col-lg-12">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white">Projets</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold text-white">
+                    Projets
+                  </h2>
                 </div>
               </div>
             </div>
@@ -90,16 +94,64 @@ const AllProjets = () => {
               enterButton
             />
             <Select
-              placeholder="Sélectionner une catégorie"
+              placeholder="Sélectionnez une catégorie"
               onChange={handleCategoryChange}
               className="w-full lg:w-1/4"
             >
               <Option value="">Toutes les catégories</Option>
-              <Option value="Éducation">Éducation</Option>
-              <Option value="Santé">Santé</Option>
-              <Option value="Alimentation">Alimentation</Option>
+              <Option value="Éducation">Éducation et formation</Option>
+              <Option value="Santé">Santé et bien-être</Option>
+              <Option value="Logement">Logement et infrastructures</Option>
+              <Option value="Emploi">Emploi et développement économique</Option>
+              <Option value="Protection de l'enfance">
+                Protection de l'enfance et des personnes vulnérables
+              </Option>
+              <Option value="Environnement">
+                Environnement et développement durable
+              </Option>
+              <Option value="Culture">Culture et loisirs</Option>
+              <Option value="Justice sociale">
+                Justice sociale et droits de l'homme
+              </Option>
+              <Option value="Sécurité alimentaire">Sécurité alimentaire</Option>
+              <Option value="Cohésion sociale">
+                Intégration et cohésion sociale
+              </Option>
+              <Option value="Sécurité communautaire">
+                Prévention de la violence et sécurité communautaire
+              </Option>
+              <Option value="Autonomisation des femmes">
+                Autonomisation des femmes
+              </Option>
+              <Option value="Immigration">
+                Aide aux réfugiés et aux migrants
+              </Option>
+              <Option value="Soutien aux personnes handicapées">
+                Soutien aux personnes handicapées
+              </Option>
+              <Option value="Paix et réconciliation">
+                Promotion de la paix et de la réconciliation
+              </Option>
+              <Option value="Assainissement">
+                Accès à l'eau potable et assainissement
+              </Option>
+              <Option value="Patrimoine culturel">
+                Préservation du patrimoine culturel
+              </Option>
+              <Option value="Toxicomanie">
+                Lutte contre la toxicomanie
+              </Option>
+              <Option value="Numériques">
+                Formation en compétences numériques
+              </Option>
+              <Option value="Sensibilisation">
+                Sensibilisation et éducation environnementale
+              </Option>
             </Select>
-            <Checkbox onChange={handleTrendingChange} checked={onlyTrending}>
+            <Checkbox
+              onChange={handleTrendingChange}
+              checked={onlyTrending}
+            >
               Afficher seulement les tendances
             </Checkbox>
           </div>
@@ -108,56 +160,84 @@ const AllProjets = () => {
         <div className="bg-gray-100 py-12">
           <div className="container mx-auto">
             <Row gutter={[16, 16]}>
-              {loading ? (
-                Array.from({ length: pageSize }).map((_, index) => (
-                  <Col key={index} lg={6} md={12}>
-                    <Card>
-                      <Skeleton loading={true} active />
-                    </Card>
-                  </Col>
-                ))
-              ) : (
-                paginatedProjects.map((project, index) => {
-                  const percent = project.socialBonds
-                    ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)
-                    : 0;
-                  return (
-                    <Col key={index} lg={6} md={12} className="transform hover:scale-105 transition-transform duration-300">
-                      <NavLink to={`/oneprojet/${project._id}`}>
-                        <Card
-                          hoverable
-                          cover={
-                            <img
-                              alt="Thumb"
-                              src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
-                              className="w-full h-64 object-cover"
-                            />
-                          }
-                          className="overflow-hidden rounded-lg shadow-md"
-                        >
-                          
-                          <Card.Meta
-                            title={
-                              <a href="#" className="text-lg font-semibold text-gray-900 hover:text-primary">
-                                {project.projectTitle}
-                              </a>
-                            }
-                            description={<p className="text-sm text-gray-700">{project.projectDescription}</p>}
-                          />
-                          <div className="mt-4">
-                            <div className="text-sm text-gray-500">Catégorie : {project.projectCategory}</div>
-                            <Progress percent={percent} status="active" />
-                            <p className="mt-2 text-sm">
-                              Collecté : {project.socialBondsCollect}Sb{' / '}
-                              <span className="text-gray-600">Objectif : {project.socialBonds}Sb</span>
-                            </p>
-                          </div>
-                        </Card>
-                      </NavLink>
+              {loading
+                ? Array.from({ length: pageSize }).map((_, index) => (
+                    <Col
+                      key={index}
+                      lg={6}
+                      md={12}
+                    >
+                      <Card>
+                        <Skeleton
+                          loading={true}
+                          active
+                        />
+                      </Card>
                     </Col>
-                  );
-                })
-              )}
+                  ))
+                : paginatedProjects.map((project, index) => {
+                    const percent = project.socialBonds
+                      ? (
+                          (project.socialBondsCollect / project.socialBonds) *
+                          100
+                        ).toFixed(2)
+                      : 0
+                    return (
+                      <Col
+                        key={index}
+                        lg={6}
+                        md={12}
+                        className="transform hover:scale-105 transition-transform duration-300"
+                      >
+                        <NavLink to={`/oneprojet/${project._id}`}>
+                          <Card
+                            hoverable
+                            cover={
+                              <img
+                                alt="Thumb"
+                                src={`${import.meta.env.VITE_URL_IMAGE}${
+                                  project.projectImage
+                                }`}
+                                className="w-full h-64 object-cover"
+                              />
+                            }
+                            className="overflow-hidden rounded-lg shadow-md"
+                          >
+                            <Card.Meta
+                              title={
+                                <a
+                                  href="#"
+                                  className="text-lg font-semibold text-gray-900 hover:text-primary"
+                                >
+                                  {project.projectTitle}
+                                </a>
+                              }
+                              description={
+                                <p className="text-sm text-gray-700">
+                                  {project.projectDescription}
+                                </p>
+                              }
+                            />
+                            <div className="mt-4">
+                              <div className="text-sm text-gray-500">
+                                Catégorie : {project.projectCategory}
+                              </div>
+                              <Progress
+                                percent={percent}
+                                status="active"
+                              />
+                              <p className="mt-2 text-sm">
+                                Collecté : {project.socialBondsCollect}Sb{" / "}
+                                <span className="text-gray-600">
+                                  Objectif : {project.socialBonds}Sb
+                                </span>
+                              </p>
+                            </div>
+                          </Card>
+                        </NavLink>
+                      </Col>
+                    )
+                  })}
             </Row>
 
             <div className="text-center mt-8">
@@ -174,7 +254,7 @@ const AllProjets = () => {
       </div>
       <Footer />
     </div>
-  );
+  )
 };
 
 export default AllProjets;

@@ -276,10 +276,10 @@ const token = localStorage.getItem('token'); // Supposez que vous stockez le tok
                       <Select.Option value="Sécurité alimentaire">
                         Sécurité alimentaire
                       </Select.Option>
-                      <Select.Option value="cohésion sociale">
+                      <Select.Option value="Cohésion sociale">
                         Intégration et cohésion sociale
                       </Select.Option>
-                      <Select.Option value="sécurité communautaire">
+                      <Select.Option value="Sécurité communautaire">
                         Prévention de la violence et sécurité communautaire
                       </Select.Option>
                       <Select.Option value="Autonomisation des femmes">

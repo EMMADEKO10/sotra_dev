@@ -104,7 +104,7 @@ export default function EventArea() {
   };
 
   return (
-    <div className="event-area bg-gray-100 py-12">
+    <div className="event-area bg-gray-100 py-20">
       <div className="shape-bottom-left absolute z-0">
         <img src="/shape/8.png" alt="Shape" />
       </div>

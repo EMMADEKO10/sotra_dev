@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Volonteer() {
   return (
-    <div className="volunteer-area text-center bg-gray-100 py-16 relative overflow-hidden">
+    <div className="volunteer-area text-center bg-gray-100 py-20 relative overflow-hidden">
       {/* Fond animé */}
       <div className="shape-bottom absolute inset-0 z-10 overflow-hidden">
         <img

@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Breadcrumb, Card, Col, Progress, Row, Pagination, Select, Input, Checkbox } from 'antd';
+import { Breadcrumb, Card, Col, Progress, Row, Pagination, Select, Input, Checkbox, Skeleton } from 'antd';
 import { HomeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
-import axios from 'axios'
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import { Skeleton } from 'antd'; // Import du Skeleton
 
 const { Option } = Select;
 const { Search } = Input;
@@ -24,8 +23,8 @@ const AllProjets = () => {
     setCurrentPage(page);
   };
 
-  const handleSearch = (value) => {
-    setSearchTerm(value);
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
     setCurrentPage(1);
   };
 
@@ -39,9 +38,9 @@ const AllProjets = () => {
     setCurrentPage(1);
   };
 
-  const filteredProjects = projects.filter(project => {
-    const matchesSearch = (project.projectTitle && project.projectTitle.toLowerCase().includes(searchTerm.toLowerCase())) || 
-                         (project.projectDescription && project.projectDescription.toLowerCase().includes(searchTerm.toLowerCase()));
+  // Filtering projects based on projectTitle
+  const filteredProjects = projects.filter((project) => {
+    const matchesSearch = project.projectTitle && project.projectTitle.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory ? project.category === selectedCategory : true;
     const matchesTrending = onlyTrending ? project.trend : true;
     return matchesSearch && matchesCategory && matchesTrending;
@@ -65,7 +64,7 @@ const AllProjets = () => {
   }, []);
 
   return (
-    <div>
+    <div className='bg-gray-100 py-20'>
       <Navbar />
       <div className="text-center bg-fixed text-white">
         <div className="breadcrumb-area relative text-center shadow-lg bg-fixed p-12 bg-cover bg-center" style={{ backgroundImage: "url('/sotradonsImage/31.jpg')" }}>
@@ -84,9 +83,10 @@ const AllProjets = () => {
         <div className="bg-gray-200 py-4">
           <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0 lg:space-x-4">
             <Search
-              placeholder="Rechercher par mot-clé"
-              onSearch={handleSearch}
+              placeholder="Rechercher par titre de projet"
+              onChange={handleSearch} // Changed to onChange
               className="w-full lg:w-1/3"
+              value={searchTerm} // Keep the input controlled
               enterButton
             />
             <Select
@@ -145,8 +145,8 @@ const AllProjets = () => {
                             description={<p className="text-sm text-gray-700">{project.projectDescription}</p>}
                           />
                           <div className="mt-4">
-                            <div className="text-sm text-gray-500">Catégorie : {project.projectCategory}</div> {/* Ajout de la catégorie ici */}
-                            <Progress percent={percent} status="active"  />
+                            <div className="text-sm text-gray-500">Catégorie : {project.projectCategory}</div>
+                            <Progress percent={percent} status="active" />
                             <p className="mt-2 text-sm">
                               Collecté : {project.socialBondsCollect}Sb{' / '}
                               <span className="text-gray-600">Objectif : {project.socialBonds}Sb</span>

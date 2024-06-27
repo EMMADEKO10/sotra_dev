@@ -21,9 +21,9 @@ const Temoignages = () => {
     ];
 
     return (
-        <div className="testimonials-area bg-gray p-8 md:p-16">
+        <div className="testimonials-area bg-gray py-20">
             <div className="container mx-auto">
-                <div className="text-center mb-12">
+                <div className="text-center ">
                     <h5 className="text-lg text-gray-600">Témoignages</h5>
                     <h2 className="text-3xl md:text-4xl font-bold">Ce que les gens disent à propos de la RSE Market Place</h2>
                     <div className="heading-divider h-1 bg-blue-#3bcf93 mx-auto my-4"></div>

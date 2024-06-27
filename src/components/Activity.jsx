@@ -5,7 +5,7 @@ const { Title, Paragraph } = Typography;
 
 export default function Activity() {
   return (
-    <div className="we-do-area bg-gray-100 py-16">
+    <div className="we-do-area bg-gray-100 py-20">
       <div className="container mx-auto">
         <div className="text-center mb-12 animate__animated animate__fadeInUp">
           <h5 className="text-green-500 font-semibold">Nos domaines d'intervention</h5>

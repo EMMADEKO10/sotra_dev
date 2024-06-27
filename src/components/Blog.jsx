@@ -37,7 +37,7 @@ export default function Blog() {
 
     return (
         <>
-            <div className="blog-area bg-gray py-12">
+            <div className="blog-area bg-gray py-20">
                 <div className="container mx-auto">
                     <div className="text-center">
                         <Title level={5}>Dernières nouvelles</Title>

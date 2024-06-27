@@ -72,7 +72,7 @@ const ClassementSponsort = () => {
   ];
 
   return (
-    <div className="causes-area bg-gray py-12 px-4">
+    <div className="causes-area bg-gray py-20">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div className="animate__animated animate__fadeInLeft">

@@ -28,9 +28,9 @@ const Causes = () => {
 
   // Fonction pour sélectionner 3 projets aléatoires
   const getRandomProjects = () => {
-    if (projects.length <= 3) return projects;
+    if (projects.length <= 4) return projects;
     const shuffled = projects.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 3);
+    return shuffled.slice(0, 4);
   };
 
   useEffect(() => {
@@ -84,42 +84,71 @@ const Causes = () => {
                 ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)
                 : 0;
               return (
-                <Col key={index} lg={8} md={12} sm={24} className="transform hover:scale-105 transition-transform duration-300">
-                  <div className="single-item animate__animated animate__fadeInUp">
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                      <div className="relative">
-                        <img
-                          src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
-                          alt="Thumb"
-                          className="w-full h-56 object-cover object-center"
-                        />
-                        {project.trend && (
-                          <div className="absolute bg-green-500 text-white py-1 px-3 rounded-full top-0 left-0 m-4 text-xs">
-                            En Tendance
-                          </div>
-                        )}
-                        <span className="absolute bg-gray-800 text-white py-1 px-3 rounded-full bottom-0 right-0 m-4 text-xs">
-                          Créé : {new Date(project.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className="p-6">
-                        <h4 className="text-lg font-semibold mb-2">
-                          <a href="#">{project.projectTitle}</a>
-                        </h4>
-                        <p className="text-gray-700 mb-4">
-                          {project.projectDescription}
-                        </p>
-                        <div className="flex items-center mb-4">
-                          <Progress percent={percent} className="w-full" />
-                        </div>
-                        <p className="text-gray-700">
-                        Collecté : {project.socialBondsCollect}Sb{' / '}
-                        <span className="text-gray-600">Objectif : {project.socialBonds}Sb</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
+                <Col
+                        key={index}
+                        lg={6}
+                        md={12}
+                        className=" w-full transform hover:scale-105 transition-transform duration-300 my-3"
+                      >
+                        <NavLink to={`/oneprojet/${project._id}`}>
+                          <Card
+                            hoverable
+                            cover={
+                              <div className="w-full h-64 overflow-hidden relative bg-gray-200">
+                                <img
+                                  alt="Thumb"
+                                  src={`${import.meta.env.VITE_URL_IMAGE}${
+                                    project.projectImage
+                                  }`}
+                                  className="absolute top-0 left-0 w-full h-full object-cover"
+                                  onError={(e) =>
+                                    (e.target.style.display = "none")
+                                  } // Hide image if it fails to load
+                                />
+                                <span className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 right-0 m-4 text-xs">
+                                  Créé :{" "}
+                                  {new Date(
+                                    project.createdAt
+                                  ).toLocaleDateString()}
+                                </span>
+                                <span 
+                                className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 left-0 m-4 text-xs">
+                                {project.projectCategory}
+                              </span>
+                              </div>
+                            }
+                            className="overflow-hidden rounded-lg shadow-md"
+                          >
+                            <Card.Meta
+                              title={
+                                <a
+                                  href="#"
+                                  className="text-lg font-semibold text-gray-900 hover:text-primary"
+                                >
+                                  {project.projectTitle}
+                                </a>
+                              }
+                              description={
+                                <p className="text-sm text-gray-700">
+                                  {project.projectDescription}
+                                </p>
+                              }
+                            />
+                            <div className="mt-4">
+                              <Progress
+                                percent={percent}
+                                status="active"
+                              />
+                              <p className="mt-2 text-sm">
+                                Collecté : {project.socialBondsCollect}Sb{" "}
+                                <span className="text-gray-600">
+                                  / Objectif : {project.socialBonds}Sb
+                                </span>
+                              </p>
+                            </div>
+                          </Card>
+                        </NavLink>
+                      </Col>
               );
             })
           )}

@@ -72,7 +72,11 @@ const ClassementSponsort = () => {
       render: (text, record) => (
         <Badge
           count={`#${record.staticRanking}`}
-          style={{ backgroundColor: "#3bcf94" }}
+          style={{ 
+            backgroundColor: record.staticRanking <= 3 ? '#ffd700' : '#3bcf94',
+            color: record.staticRanking <= 3 ? '#000' : '#fff',
+            fontWeight: 'bold'
+          }}
         />
       ),
       className: "font-bold text-center",

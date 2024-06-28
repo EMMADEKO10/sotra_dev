@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, Typography, Space, Button, Badge } from "antd";
+import { Table, Typography, Space, Button, Badge, Spin } from "antd";
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import 'animate.css';
 
 const { Title } = Typography;
@@ -9,26 +10,26 @@ const { Title } = Typography;
 const ClassementSponsort = () => {
   const [sponsorData, setSponsorData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSponsorData = async () => {
+      setLoading(true);
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${apiUrl}/getSponsorRanking`);
-
-        // Trier les données et prendre les 5 premiers sponsors
         const sortedData = response.data
           .sort((a, b) => b.totalInvested - a.totalInvested)
           .slice(0, 5)
           .map((item, index) => ({ ...item, staticRanking: index + 1 }));
-
         setSponsorData(sortedData);
         setFilteredData(sortedData);
       } catch (error) {
         console.error("Erreur lors de la récupération des données des sponsors :", error);
+      } finally {
+        setLoading(false);
       }
     };
-
     fetchSponsorData();
   }, []);
 
@@ -38,10 +39,17 @@ const ClassementSponsort = () => {
       dataIndex: "staticRanking",
       key: "staticRanking",
       render: (text, record) => (
-        <Badge count={`#${record.staticRanking}`} style={{ backgroundColor: "#3bcf94" }} />
+        <Badge
+          count={`#${record.staticRanking}`}
+          style={{ 
+            backgroundColor: record.staticRanking <= 3 ? '#ffd700' : '#3bcf94',
+            color: record.staticRanking <= 3 ? '#000' : '#fff',
+            fontWeight: 'bold'
+          }}
+        />
       ),
       className: "font-bold text-center",
-      width: 5,
+      width: 100,
     },
     {
       title: "Sponsors",
@@ -72,40 +80,50 @@ const ClassementSponsort = () => {
   ];
 
   return (
-    <div className="causes-area bg-gray py-20">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div className="animate__animated animate__fadeInLeft">
-            <Title level={4} className="text-gray-600 font-semibold mb-2">
-              Nos Partenaires d'Impact
-            </Title>
-            <Title level={2} className="font-bold mb-4">
-            Découvrez les principaux contributeurs de nos projets.
-            </Title>
-          </div>
-          <div className="animate__animated animate__fadeInRight">
-            <p className="text-gray-700 mb-4">
-              Grâce à la générosité de nos sponsors, nous créons des impacts positifs à travers des initiatives sociales innovantes.
-            </p>
-            <NavLink to="/nossponsorts">
-              <Button type="primary" className="py-3 px-6 text-base animate__animated animate__fadeInUp">
+    <div className="causes-area bg-gray-50 py-20">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="container mx-auto"
+      >
+        <div className="text-center mb-12">
+          <h4 className="text-xl text-gray-600 font-semibold mb-2">
+            Nos Partenaires d'Impact
+          </h4>
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            Découvrez les principaux contributeurs de nos projets
+          </h2>
+          <p className="text-gray-700 max-w-2xl mx-auto mb-8">
+            Grâce à la générosité de nos sponsors, nous créons des impacts positifs à travers des initiatives sociales innovantes.
+          </p>
+          <NavLink to="/nossponsorts">
+            <Button type="primary" className="py-3 px-6 text-base animate__animated animate__fadeInUp bg-[#3bcf94] hover:bg-[#2eaf7a] border-none">
               Découvrez en plus <i className="fas fa-angle-right ml-2"></i>
-              </Button>
-            </NavLink>
-          </div>
+            </Button>
+          </NavLink>
         </div>
-      </div>
-      <div className="container mx-auto">
-        <Space direction="vertical" size="middle" className="w-full">
-          <Table
-            className="mt-4 bg-white shadow-md rounded-lg overflow-hidden"
-            columns={columns}
-            dataSource={filteredData}
-            rowKey="sponsorName"
-            pagination={false}  // Pagination désactivée
-          />
-        </Space>
-      </div>
+
+        <div className="max-w-4xl mx-auto">
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <Table
+              className="mt-8 bg-white shadow-lg rounded-lg overflow-hidden"
+              columns={columns}
+              dataSource={filteredData}
+              rowKey="sponsorName"
+              pagination={false}
+              bordered={false}
+              rowClassName={(record, index) => 
+                index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
+              }
+            />
+          )}
+        </div>
+      </motion.div>
     </div>
   );
 };

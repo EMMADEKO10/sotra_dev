@@ -2,7 +2,7 @@
 <div
 className="breadcrumb-area relative text-center shadow-lg p-12 bg-cover bg-center"
 style={{
-  backgroundImage: "url(/sotradonsImage/10.jpg)",
+  backgroundImage: "url(/sotradonsImage/35.jpg)",
   backgroundAttachment: "fixed",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
@@ -13,10 +13,10 @@ style={{
 <div className="relative container mx-auto z-10">
   <div className="breadcrumb-items">
     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-    Nos sponsors
+    Contactez-nous
     </h2>
     <nav className="text-white">
-      <a href="/" className="hover:underline">Accueil</a> &gt; <span>Nos sponsors</span>
+      <a href="/" className="hover:underline">Accueil</a> &gt; <span>Contactez-nous</span>
     </nav>
   </div>
 </div>

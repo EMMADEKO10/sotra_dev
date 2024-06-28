@@ -54,8 +54,8 @@ function Home() {
 
     ============================================= --> */}
 
-      <HomeSponsortClassement />
       <Activity />
+      <HomeSponsortClassement />
       {/* <!-- End What We Do -->
 
       <!-- Start Our Mission

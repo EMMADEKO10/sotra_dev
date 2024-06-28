@@ -76,3 +76,8 @@ input:focus{
 button{
     height: 45px !important;
 }
+
+/* Ajoutez ceci à votre fichier CSS */
+.ant-table-tbody > tr:hover > td {
+    background-color: #f0f7ff !important;
+  }

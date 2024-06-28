@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import { Table, Typography, Divider, Input, Space, Button, Badge } from "antd"
+import {
+  Table,
+  Typography,
+  Divider,
+  Input,
+  Space,
+  Button,
+  Badge,
+  Spin,
+} from "antd"
 import "tailwindcss/tailwind.css"
 import "animate.css"
 import { motion } from "framer-motion"
@@ -11,9 +20,11 @@ const ClassementSponsort = () => {
   const [sponsorData, setSponsorData] = useState([])
   const [filteredData, setFilteredData] = useState([])
   const [searchText, setSearchText] = useState("")
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchSponsorData = async () => {
+      setLoading(true)
       try {
         const apiUrl = import.meta.env.VITE_API_URL
         const response = await axios.get(`${apiUrl}/getSponsorRanking`)
@@ -31,6 +42,8 @@ const ClassementSponsort = () => {
           "Erreur lors de la récupération des données des sponsors:",
           error
         )
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -121,21 +134,27 @@ const ClassementSponsort = () => {
           size="middle"
           className="w-full"
         >
-          <Table
-            className="mt-8 bg-white shadow-lg rounded-lg overflow-hidden"
-            columns={columns}
-            dataSource={filteredData}
-            rowKey="sponsorName"
-            pagination={{
-              pageSize: 10,
-              showSizeChanger: false,
-              className: "pagination-centered",
-            }}
-            bordered={false}
-            rowClassName={(record, index) =>
-              index % 2 === 0 ? "bg-gray-50" : "bg-white"
-            }
-          />
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <Table
+              className="mt-8 bg-white shadow-lg rounded-lg overflow-hidden"
+              columns={columns}
+              dataSource={filteredData}
+              rowKey="sponsorName"
+              pagination={{
+                pageSize: 10,
+                showSizeChanger: false,
+                className: "pagination-centered",
+              }}
+              bordered={false}
+              rowClassName={(record, index) =>
+                index % 2 === 0 ? "bg-gray-50" : "bg-white"
+              }
+            />
+          )}
         </Space>
       </motion.div>
     </div>

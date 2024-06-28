@@ -1,8 +1,5 @@
-
 import {
   Layout,
-  Menu,
-  Breadcrumb,
   Avatar,
   Typography,
   Divider,
@@ -11,19 +8,12 @@ import {
   Col,
   Card,
   Statistic,
-  Space,
-  Table,
   Tooltip,
-  Button,message
+  Button,
 } from "antd";
 import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
   DollarCircleOutlined,
   ProjectOutlined,
-  PieChartOutlined,
-  LineChartOutlined,
   GlobalOutlined,
   TwitterOutlined,
   FacebookOutlined,
@@ -34,34 +24,16 @@ import {
 import { Pie, Line } from "@ant-design/charts";
 import "tailwindcss/tailwind.css";
 import Navbar from "../../../components/Navbars/NavBar";
-import Footer2 from "../../../components/Footer"
 import Footer from "../../../components/Footer";
 
-import { useState, useEffect } from "react"
-import axios from "axios"
-import { useParams } from "react-router-dom"
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import RetourEnHaut from "../../../components/bouton/RetourEnHaut";
 
-const { Title, Paragraph } = Typography;
-const {Content } = Layout;
+const { Title, Paragraph, Text } = Typography;
+const { Content } = Layout;
 
-const mockProjects = [
-  {
-    id: 1,
-    name: "Projet Alpha",
-    description: "Soutien à la communauté locale pour le développement durable.",
-    amount: "$1000",
-    status: "En cours",
-    link: "#",
-  },
-  {
-    id: 2,
-    name: "Projet Beta",
-    description: "Amélioration des infrastructures éducatives.",
-    amount: "$2000",
-    status: "Terminé",
-    link: "#",
-  },
-];
 
 const pieConfig = {
   appendPadding: 10,
@@ -146,240 +118,164 @@ const ProfilePageSponsort = () => {
     }
     fetchData()
   }, [id])
+
+
   return (
-    <div>
-      <Navbar/>
-      <Content style={{ padding: "0 50px", margin: "16px 0" }}>
-        {/* <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>Profile</Breadcrumb.Item>
-        </Breadcrumb> */}
-        <div className="site-layout-content m">
-          <div className="container mx-auto p-8 bg-white shadow-lg rounded-lg">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Profile Top */}
-              <div className="bg-white p-4 rounded-lg shadow-md text-center">
-                <Avatar
-                  size={150}
-                  src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`}
-                />
-                <Title level={2} className="text-gray-800">
-                  {sponsor.companyName}
-                </Title>
-                <Paragraph className="text-gray-600">
-                  Developer web at Kadea
-                </Paragraph>
-                <Paragraph className="text-gray-600">Seattle, WA</Paragraph>
-                <div className="flex justify-center mt-4 space-x-4">
-                  <a href="#">
-                    <GlobalOutlined className="text-gray-600 text-2xl" />
+    <div className="min-h-screen flex flex-col bg-gray-100">
+    <Navbar />
+    <Content className="flex-grow py-12 px-2 sm:px-6 lg:px-8 bg-gray">
+      <div className="max-w-7xl mx-auto ">
+        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
+            {/* Profile */}
+            <div className="bg-gradient-to-br from-blue-500 to-[#3bcf93] p-8 rounded-2xl text-center text-white">
+              <Avatar
+                size={180}
+                src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`}
+                className="mb-6 border-4 border-white shadow-lg"
+              />
+              <Title level={2} className="text-white mb-2 font-bold">
+                {sponsor.companyName}
+              </Title>
+              <Paragraph className="text-blue-100 text-lg mb-1">
+                Developer web at Kadea
+              </Paragraph>
+              <Paragraph className="text-blue-100 text-lg mb-6">Seattle, WA</Paragraph>
+              <div className="flex justify-center space-x-4">
+                {[GlobalOutlined, TwitterOutlined, FacebookOutlined, LinkedinOutlined, YoutubeOutlined, InstagramOutlined].map((Icon, index) => (
+                  <a key={index} href="#" className="text-white hover:text-blue-200 transition-colors">
+                    <Icon className="text-2xl" />
                   </a>
-                  <a href="#">
-                    <TwitterOutlined className="text-gray-600 text-2xl" />
-                  </a>
-                  <a href="#">
-                    <FacebookOutlined className="text-gray-600 text-2xl" />
-                  </a>
-                  <a href="#">
-                    <LinkedinOutlined className="text-gray-600 text-2xl" />
-                  </a>
-                  <a href="#">
-                    <YoutubeOutlined className="text-gray-600 text-2xl" />
-                  </a>
-                  <a href="#">
-                    <InstagramOutlined className="text-gray-600 text-2xl" />
-                  </a>
-                </div>
-              </div>
-
-              {/* About */}
-              <div className="bg-white p-4 rounded-lg shadow-md">
-                <Title level={3} className="text-gray-800">
-                  Mission et Impact Social
-                </Title>
-                <Paragraph className="text-gray-600">
-                 {sponsor.mission}
-                </Paragraph>
-                <Divider />
-                <Title level={3} className="text-gray-800">
-                  Exemples d'Impact
-                </Title>
-                <Paragraph className="text-gray-600">
-                  <ul className="list-disc list-inside">
-                    <li>{sponsor.impactExamples}</li>
-                    {/* <li>2000 enfants bénéficiant de meilleures infrastructures éducatives</li> */}
-                    {/* <li>Amélioration des conditions de vie pour 500 familles</li> */}
-                  </ul>
-                </Paragraph>
-              </div>
-
-              {/* Sponsoring */}
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <Title level={3} className="text-gray-800 mb-4">
-                  Sponsoring
-                </Title>
-                <div className="flex flex-wrap justify-center gap-4">
-                  {/* Cards d'aperçu */}
-                  <Card
-                    className="w-full md:w-1/3 text-center hover:shadow-lg transition-all transform hover:scale-105"
-                    bordered={false}
-                    style={{ backgroundColor: "#f9fafb" }}
-                  >
-                    <Tooltip title="Capital Social disponible">
-                      <Statistic
-                        title={
-                          <span className="text-gray-600 font-semibold">
-                            Capital Social
-                          </span>
-                        }
-                        value={sponsor.budget}
-                        prefix={
-                          <DollarCircleOutlined
-                            style={{ color: "#3bcf93", fontSize: "24px" }}
-                          />
-                        }
-                        valueStyle={{
-                          color: "#3bcf93",
-                          fontSize: "32px",
-                          fontWeight: "bold",
-                        }}
-                      />
-                    </Tooltip>
-                  </Card>
-
-                  <Card
-                    className="w-full md:w-1/3 text-center hover:shadow-lg transition-all transform hover:scale-105"
-                    bordered={false}
-                    style={{ backgroundColor: "#f9fafb" }}
-                  >
-                    <Tooltip title="Total des fonds distribués">
-                      <Statistic
-                        title={
-                          <span className="text-gray-600 font-semibold">
-                            Fonds Distribués
-                          </span>
-                        }
-                        value={totalSocialBondsInvested}
-                        prefix={
-                          <DollarCircleOutlined
-                            style={{ color: "#3b83cf", fontSize: "24px" }}
-                          />
-                        }
-                        valueStyle={{
-                          color: "#3b83cf",
-                          fontSize: "32px",
-                          fontWeight: "bold",
-                        }}
-                      />
-                    </Tooltip>
-                  </Card>
-
-                  <Card
-                    className="w-full md:w-1/3 text-center hover:shadow-lg transition-all transform hover:scale-105"
-                    bordered={false}
-                    style={{ backgroundColor: "#f9fafb" }}
-                  >
-                    <Tooltip title="Nombre de projets sponsorisés">
-                      <Statistic
-                        title={
-                          <span className="text-gray-600 font-semibold">
-                            Projets Sponsorisés
-                          </span>
-                        }
-                        value={projects.length}
-                        prefix={
-                          <ProjectOutlined
-                            style={{ color: "#3b83cf", fontSize: "24px" }}
-                          />
-                        }
-                        valueStyle={{
-                          color: "#3b83cf",
-                          fontSize: "32px",
-                          fontWeight: "bold",
-                        }}
-                      />
-                    </Tooltip>
-                  </Card>
-                </div>
-
+                ))}
               </div>
             </div>
 
-            {/* Section de projets */}
-            <Divider orientation="left">
-              <Title level={3} className="text-primary">
-                Projets Récents
+            {/* About */}
+            <div className="bg-gray-50 p-8 rounded-2xl shadow-inner">
+              <Title level={3} className="text-gray-800 mb-4 font-bold">
+                Mission et Impact Social
               </Title>
-            </Divider>
-            <Row gutter={16}>
-              {projects.map((project) => (
-                <Col span={24} md={12} lg={8} key={project.id}>
-                  <Card
-                    title={project.project.projectTitle}
-                    bordered={false}
-                    className="mb-4 hover:shadow-lg transition-shadow duration-300"
-                    actions={[
-                      <Button
-                        // type="primary"
-                        key="link"
-                        href={project.link}
-                        // className="bg-[#4caf50] border-none hover:bg-[#388e3c]"
-                      >
-                        Voir plus
-                      </Button>,
-                    ]}
-                  >
-                    <p>{project.project.projectTitle}</p>
-                    <p>{project.project.projectDescription}</p>
-                    <p>
-                      <strong>Montant :</strong> {project.investedAmount}
-                    </p>
-                    <p>
-                      <strong>Statut :</strong>{" "}
-                      <Tag
-                        color={project.project.projectFinished ? "#4caf50" : "#2196f3"}
-                      >
-                         {project.project.projectFinished ? "Déjà fini" : "En cours"}
-                      </Tag>
-                    </p>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
+              <Paragraph className="text-gray-600 text-lg mb-6 leading-relaxed">
+                {sponsor.mission}
+              </Paragraph>
+              <Divider className="my-6" />
+              <Title level={3} className="text-gray-800 mb-4 font-bold">
+                Exemples d'Impact
+              </Title>
+              <ul className="list-disc list-inside text-gray-600 text-lg leading-relaxed">
+                <li>{sponsor.impactExamples}</li>
+              </ul>
+            </div>
 
-            {/* Section des graphiques */}
-            <Divider orientation="left">
-              <Title level={3} className="text-primary">
-                Visualisation des Données
+            {/* Sponsoring */}
+            <div className="bg-gray-50 p-8 rounded-2xl shadow-inner">
+              <Title level={3} className="text-gray-800 mb-6 font-bold">
+                Sponsoring
               </Title>
-            </Divider>
-            <Row gutter={16}>
-              <Col span={24} lg={12}>
+              <div className="grid grid-cols-1 gap-6">
+                {[
+                  { title: "Capital Social", value: sponsor.budget, color: "#3bcf93", icon: DollarCircleOutlined },
+                  { title: "Fonds Distribués", value: totalSocialBondsInvested, color: "#3b83cf", icon: DollarCircleOutlined },
+                  { title: "Projets Sponsorisés", value: projects.length, color: "#8e44ad", icon: ProjectOutlined },
+                ].map((item, index) => (
+                  <Card
+                    key={index}
+                    className="text-center hover:shadow-lg transition-all transform hover:scale-105 bg-white"
+                    bordered={false}
+                  >
+                    <Tooltip title={`Total ${item.title}`}>
+                      <Statistic
+                        title={<span className="text-gray-600 font-semibold text-lg">{item.title}</span>}
+                        value={item.value}
+                        prefix={<item.icon style={{ color: item.color, fontSize: "28px" }} />}
+                        valueStyle={{
+                          color: item.color,
+                          fontSize: "28px",
+                          fontWeight: "bold",
+                        }}
+                      />
+                    </Tooltip>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Section des graphiques */}
+          <div className="p-8">
+            {/* <Title level={2} className="text-gray-800 mb-8 font-bold text-center">
+              Visualisation des Données
+            </Title> */}
+            <Row gutter={[24, 24]}>
+              <Col xs={24} lg={12}>
                 <Card
-                  title="Répartition des Projets"
+                  title={<Text strong className="text-lg">Répartition des Projets</Text>}
                   bordered={false}
-                  className="mb-4 hover:shadow-lg transition-shadow duration-300"
+                  className="h-full rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
                 >
                   <Pie {...pieConfig} />
                 </Card>
               </Col>
-              <Col span={24} lg={12}>
+              <Col xs={24} lg={12}>
                 <Card
-                  title="Évolution des Fonds Distribués"
+                  title={<Text strong className="text-lg">Évolution des Fonds Distribués</Text>}
                   bordered={false}
-                  className="mb-4 hover:shadow-lg transition-shadow duration-300"
+                  className="h-full rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
                 >
                   <Line {...lineConfig} />
                 </Card>
               </Col>
             </Row>
-            
+          </div>
+
+          {/* Section de projets */}
+          <div className="p-8 bg-gray-50">
+            <Title level={2} className="text-gray-800 mb-8 font-bold text-center">
+              Projets Récents
+            </Title>
+            <Row gutter={[24, 24]}>
+              {projects.map((project) => (
+                <Col xs={24} sm={12} lg={8} key={project.id}>
+                  <Card
+                    hoverable
+                    className="h-full overflow-hidden rounded-2xl transition-all duration-300 transform hover:scale-105"
+                    cover={
+                      <div className="h-48 bg-gradient-to-r from-blue-500 to-[#3bcf93] flex items-center justify-center text-center p">
+                        <Text className="text-2xl font-bold text-white ">{project.project.projectTitle}</Text>
+                      </div>
+                    }
+                  >
+                    <Paragraph ellipsis={{ rows: 3 }} className="mb-4 text-gray-600">
+                      {project.project.projectDescription}
+                    </Paragraph>
+                    <Paragraph className="mb-2">
+                      <Text strong>Montant :</Text> <Text className="text-blue-600">{project.investedAmount}</Text>
+                    </Paragraph>
+                    <Paragraph>
+                      <Text strong>Statut :</Text>{" "}
+                      <Tag
+                        color={project.project.projectFinished ? "#3bcf93" : "#2196f3"}
+                        className="text-sm font-medium px-3 py-1 rounded-full"
+                      >
+                        {project.project.projectFinished ? "Terminé" : "En cours"}
+                      </Tag>
+                    </Paragraph>
+                    <Button type="primary" href={project.link} className="mt-4 w-full bg-blue-500 hover:bg-blue-600">
+                      Voir plus
+                    </Button>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
           </div>
         </div>
-      </Content>
-      <Footer/>
       </div>
-  );
+    </Content>
+
+    <RetourEnHaut/>
+    <Footer />
+  </div>
+);
 };
 
 export default ProfilePageSponsort;

@@ -1,52 +1,55 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Table, Typography, Divider, Input, Space, Button, Badge } from "antd";
-import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
-import "tailwindcss/tailwind.css";
-import 'animate.css';
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { Table, Typography, Divider, Input, Space, Button, Badge } from "antd"
+import "tailwindcss/tailwind.css"
+import "animate.css"
+import { motion } from "framer-motion"
 
-const { Title } = Typography;
+const { Title } = Typography
 
 const ClassementSponsort = () => {
-  const [sponsorData, setSponsorData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  const [sponsorData, setSponsorData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
+  const [searchText, setSearchText] = useState("")
 
   useEffect(() => {
     const fetchSponsorData = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await axios.get(`${apiUrl}/getSponsorRanking`);
+        const apiUrl = import.meta.env.VITE_API_URL
+        const response = await axios.get(`${apiUrl}/getSponsorRanking`)
         console.log(response.data)
 
         // Tri et ajout de l'index statique
         const sortedData = response.data
           .sort((a, b) => b.totalInvested - a.totalInvested)
-          .map((item, index) => ({ ...item, staticRanking: index + 1 }));
+          .map((item, index) => ({ ...item, staticRanking: index + 1 }))
 
-        setSponsorData(sortedData);
-        setFilteredData(sortedData);
+        setSponsorData(sortedData)
+        setFilteredData(sortedData)
       } catch (error) {
-        console.error("Erreur lors de la récupération des données des sponsors:", error);
+        console.error(
+          "Erreur lors de la récupération des données des sponsors:",
+          error
+        )
       }
-    };
+    }
 
-    fetchSponsorData();
-  }, []);
+    fetchSponsorData()
+  }, [])
 
   const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearchText(value);
+    const value = e.target.value.toLowerCase()
+    setSearchText(value)
     const filtered = sponsorData.filter((sponsor) =>
-      sponsor.sponsorName.toLowerCase().includes(value),
-    );
-    setFilteredData(filtered);
-  };
+      sponsor.sponsorName.toLowerCase().includes(value)
+    )
+    setFilteredData(filtered)
+  }
 
   const resetSearch = () => {
-    setSearchText("");
-    setFilteredData(sponsorData);
-  };
+    setSearchText("")
+    setFilteredData(sponsorData)
+  }
 
   const columns = [
     {
@@ -73,7 +76,9 @@ const ClassementSponsort = () => {
             alt="logo"
             className="hidden sm:block w-12 h-12 rounded-full border-2 border-gray-300 mr-3"
           />
-          <span className="font-medium text-gray-800">{record.sponsorName}</span>
+          <span className="font-medium text-gray-800">
+            {record.sponsorName}
+          </span>
         </div>
       ),
       className: "text-left",
@@ -88,47 +93,30 @@ const ClassementSponsort = () => {
       className: "text-center text-blue-600 font-semibold",
       width: 295,
     },
-  ];
+  ]
 
   return (
-    <div className=" py-12 px-4">
-      {/* <Divider orientation="left">
-        <Title level={3} >
-          Top sponsorts
-        </Title>
-      </Divider> */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div className="animate__animated animate__fadeInLeft">
-            <Title level={4} className="text-gray-600 font-semibold mb-2">
+    <div className="py-12 px-4 bg-gray-100">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-7xl mx-auto"
+      >
+        <div className="text-center mb-12">
+          <h4 className="text-xl text-gray-600 font-semibold mb-2">
             Classement de nos meilleurs partenaires
-            </Title>
-            <Title level={2} className="font-bold mb-4">
-            DRC RSE Awards.
-            </Title>
-          </div>
-          <div className="animate__animated animate__fadeInRight">
-            <p className="text-gray-700 mb-4">
-              Grâce à la générosité de nos sponsors, nous créons des impacts positifs à travers des initiatives sociales innovantes.
-            </p>
-          </div>
+          </h4>
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            DRC RSE Awards
+          </h2>
+          <p className="text-gray-700 max-w-2xl mx-auto">
+            Grâce à la générosité de nos sponsors, nous créons des impacts
+            positifs à travers des initiatives sociales innovantes.
+          </p>
         </div>
-      <Space direction="vertical" size="middle" className="w-full">
-        {/* <div className="flex justify-between items-center w-full mb-4">
-          <Input
-            placeholder="Rechercher un sponsor"
-            value={searchText}
-            onChange={handleSearch}
-            prefix={<SearchOutlined className="text-gray-400" />}
-            className="w-full md:w-1/2 lg:w-1/3 p-2 border border-gray-300 rounded-md focus:border-primary focus:ring focus:ring-primary-light transition duration-200"
-          />
-          <Button
-            onClick={resetSearch}
-            icon={<ReloadOutlined />}
-            className="ml-4 p-2 bg-primary text-white rounded-md shadow hover:bg-primary-dark transition duration-200"
-          >
-            Réinitialiser
-          </Button>
-        </div> */}
+
+        <Space direction="vertical" size="middle" className="w-full">
         <Table
           className="mt-4 bg-white shadow-md rounded-lg overflow-hidden"
           columns={columns}
@@ -138,8 +126,9 @@ const ClassementSponsort = () => {
           bordered
         />
       </Space>
+      </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default ClassementSponsort;
+export default ClassementSponsort

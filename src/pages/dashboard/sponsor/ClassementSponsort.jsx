@@ -116,16 +116,27 @@ const ClassementSponsort = () => {
           </p>
         </div>
 
-        <Space direction="vertical" size="middle" className="w-full">
-        <Table
-          className="mt-4 bg-white shadow-md rounded-lg overflow-hidden"
-          columns={columns}
-          dataSource={filteredData}
-          rowKey="sponsorName"
-          pagination={{ pageSize: 10 }}
-          bordered
-        />
-      </Space>
+        <Space
+          direction="vertical"
+          size="middle"
+          className="w-full"
+        >
+          <Table
+            className="mt-8 bg-white shadow-lg rounded-lg overflow-hidden"
+            columns={columns}
+            dataSource={filteredData}
+            rowKey="sponsorName"
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false,
+              className: "pagination-centered",
+            }}
+            bordered={false}
+            rowClassName={(record, index) =>
+              index % 2 === 0 ? "bg-gray-50" : "bg-white"
+            }
+          />
+        </Space>
       </motion.div>
     </div>
   )

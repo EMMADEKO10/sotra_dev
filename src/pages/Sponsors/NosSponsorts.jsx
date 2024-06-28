@@ -6,11 +6,8 @@ import { NavLink } from "react-router-dom"
 import { Table, Typography, Divider, Space, Button, Badge } from "antd"
 import ClassementSponsort from "../dashboard/sponsor/ClassementSponsort"
 import SponsorMonthlyContributions from "../../pages/dashboard/sponsor/graphiques"
-import { Input, Spin, } from "antd"
-import {
-  SearchOutlined,
-  FileSearchOutlined
-} from "@ant-design/icons"
+import { Input, Spin } from "antd"
+import { SearchOutlined, FileSearchOutlined } from "@ant-design/icons"
 import "animate.css"
 import { motion, useInView } from "framer-motion"
 import RetourEnHaut from "../../components/bouton/RetourEnHaut"
@@ -91,9 +88,14 @@ const NosSponsorts = () => {
         </div>
       </div>
 
+
       {/* Sponsor Section */}
+        <ClassementSponsort />
       <div className="volunteer-area bg-gray-100 py-16">
         <div className="container mx-auto">
+
+       
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -208,7 +210,7 @@ const NosSponsorts = () => {
               </Button>
             </div>
           )}
-          <ClassementSponsort />
+
           <SponsorMonthlyContributions />
         </div>
       </div>

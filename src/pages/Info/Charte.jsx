@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../../components/Navbars/NavBar';
 import Footer from '../../components/Footer';
+import RetourEnHaut from '../../components/bouton/RetourEnHaut';
 
 const chartePoints = [
   {
@@ -127,7 +128,7 @@ const Charte = () => {
           </Row>
         </div>
       </div>
-
+      <RetourEnHaut />
       <Footer />
     </>
   );

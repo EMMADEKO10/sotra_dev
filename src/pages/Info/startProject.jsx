@@ -13,14 +13,27 @@ style={{
 <div className="relative container mx-auto z-10">
   <div className="breadcrumb-items">
     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-    Social Bonds
+    Nos sponsors
     </h2>
     <nav className="text-white">
-      <a href="/" className="hover:underline">Accueil</a> &gt; <span>Social Bonds</span>
+      <a href="/" className="hover:underline">Accueil</a> &gt; <span>Nos sponsors</span>
     </nav>
   </div>
 </div>
 </div>
+
+bg-gray-100 py-12
+bg-gray-100 py-16
+
+import { BackTop } from 'antd';
+import { ArrowUpOutlined } from '@ant-design/icons';
+
+// Dans le rendu, juste avant le Footer
+<BackTop>
+        <div className="flex items-center justify-center w-12 h-12 bg-primary-500 text-white rounded-full shadow-lg hover:bg-primary-600 active:bg-primary-700 transition-all duration-300 ease-in-out animate-bounce">
+          <ArrowUpOutlined className="text-xl" />
+        </div>
+      </BackTop>
 
 {/* <div className="text-center mt-12">
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>

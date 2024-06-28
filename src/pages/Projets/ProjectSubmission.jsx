@@ -18,6 +18,7 @@ import "tailwindcss/tailwind.css"
 import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
 import axios from "axios"
+import RetourEnHaut from "../../components/bouton/RetourEnHaut"
 
 const { TextArea } = Input
 const { Title, Paragraph, Text } = Typography
@@ -631,6 +632,7 @@ const ProjectSubmission = () => {
           </div>
         </div>
       </div>
+      <RetourEnHaut/>
       <Footer />
     </>
   )

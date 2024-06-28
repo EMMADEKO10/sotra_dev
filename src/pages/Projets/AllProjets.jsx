@@ -10,16 +10,19 @@ import {
   Input,
   Checkbox,
   Skeleton,
+  Typography
 } from "antd"
-import { HomeOutlined, ThunderboltOutlined } from "@ant-design/icons"
+import { HomeOutlined, ThunderboltOutlined, FileSearchOutlined  } from "@ant-design/icons"
 import "tailwindcss/tailwind.css"
 import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
 import axios from "axios"
 import { NavLink } from "react-router-dom"
+import RetourEnHaut from "../../components/bouton/RetourEnHaut"
 
 const { Option } = Select
 const { Search } = Input
+const { Title, Text } = Typography
 
 const AllProjets = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -291,8 +294,24 @@ const AllProjets = () => {
                       </Col>
                     )
                   })}
+                      {filteredProjects.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-12 bg-gray-100 shadow-md rounded-lg max-w-lg mx-auto animate__animated animate__fadeIn">
+                  <FileSearchOutlined className="text-primary-500 text-7xl mb-4" />
+                  <Title
+                    level={4}
+                    className="text-gray-700 text-center"
+                  >
+                    Aucun résultat trouvé
+                  </Title>
+                  <Text className="text-gray-500 text-center px-4">
+                    Il semble que nous n'ayons pas trouvé de résultats
+                    correspondant à votre recherche. Essayez de modifier vos
+                    critères de recherche.
+                  </Text>
+                </div>
+              )}
             </Row>
-
+                  
             <div className="text-center mt-8">
               <Pagination
                 current={currentPage}
@@ -305,6 +324,7 @@ const AllProjets = () => {
           </div>
         </div>
       </div>
+      <RetourEnHaut/>
       <Footer />
     </>
   )

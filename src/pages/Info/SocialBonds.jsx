@@ -3,6 +3,7 @@ import { Button, List, Input, Divider, Tag, Space, Avatar, Tooltip } from "antd"
 import "animate.css/animate.min.css"
 import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
+import RetourEnHaut from "../../components/bouton/RetourEnHaut"
 
 const { TextArea } = Input
 
@@ -193,6 +194,7 @@ const SocialBonds = () => {
           </div>
         </div>
       </div>
+      <RetourEnHaut />
       <Footer />
     </>
   )

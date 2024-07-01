@@ -124,10 +124,10 @@ function App() {
             path="/profilepagesponsort/:id"
             element={<ProfilePageSponsort />}
           />
-          <Route
+          {/* <Route
             path="/dashboardpagesponsor"
             element={<DashboardPageSponsor />}
-          />
+          /> */}
 
           <Route
             path="/createprofilesponsort/:id"

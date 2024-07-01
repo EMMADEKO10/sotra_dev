@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Form, Input, Button, Typography } from 'antd';
+import { Form, Input, Button, Typography, message, Upload } from 'antd';
 import axios from "axios";
 import {
   TwitterOutlined,
@@ -9,134 +9,165 @@ import {
   LinkedinOutlined,
   InstagramOutlined,
   UserOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
-import 'antd/dist/reset.css'; // Include Ant Design styles
-import 'tailwindcss/tailwind.css'; // Include Tailwind CSS styles
+import 'antd/dist/reset.css';
+import 'tailwindcss/tailwind.css';
 import Navbar from '../../../components/Navbars/NavBar';
 import Footer from '../../../components/Footer';
 
 const { Title, Paragraph } = Typography;
 
 const CreateProfileSponsor = () => {
+  const [form] = Form.useForm();
   const [showSocialLinks, setShowSocialLinks] = useState(false);
-  const { id } = useParams()
+  const { id } = useParams();
+  const [initialValues, setInitialValues] = useState({});
+
+  useEffect(() => {
+    const fetchSponsorData = async () => {
+      if (id) {
+        try {
+          const apiUrl = import.meta.env.VITE_API_URL;
+          const response = await axios.get(`${apiUrl}/getSponsorDetails/${id}`);
+          const sponsorData = response.data.Sponsor;
+          setInitialValues(sponsorData);
+          form.setFieldsValue(sponsorData);
+          setShowSocialLinks(!!sponsorData.socialMedia);
+        } catch (error) {
+          console.error('Error fetching sponsor data:', error);
+          message.error('Erreur lors du chargement des données du sponsor');
+        }
+      }
+    };
+    fetchSponsorData();
+  }, [id]);
 
   const onFinish = async (values) => {
-    console.log('Success:', values);
- // Créer un objet FormData
- const formData = new FormData();
-
- // Ajouter les valeurs à formData
- for (const key in values) {
-   formData.append(key, values[key]);
- }
-     // Ajouter le code pour envoyer les données au backend
-     try {
-      const apiUrl = import.meta.env.VITE_API_URL
-      const response = await axios.put(`${apiUrl}/sponsorsOrUpdate/${id}`, formData,{
-        headers: {
-          'Content-Type': 'multipart/form-data'
+    const formData = new FormData();
+    Object.keys(values).forEach(key => {
+      if (values[key] !== undefined && values[key] !== null) {
+        if (key === 'logo' && values[key].file) {
+          formData.append('logo', values[key].file.originFileObj);
+        } else {
+          formData.append(key, values[key]);
         }
+      }
+    });
+
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await axios.put(`${apiUrl}/sponsorsOrUpdate/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
-      const result = response.data;
-      console.log('Updated Sponsor:', result);
+      message.success('Profil mis à jour avec succès');
+      console.log('Updated Sponsor:', response.data);
     } catch (error) {
       console.error('Error updating sponsor:', error);
+      message.error('Erreur lors de la mise à jour du profil');
     }
   };
 
   return (
     <div>
-    <Navbar />
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <section className="container mx-auto p-6 my-8 bg-white shadow-md rounded-md w-full max-w-lg">
-        <Title level={2} className="text-center text-2xl text-red-600 mb-4">Créer votre Profil</Title>
-        <Paragraph className="text-lg text-center mb-4">
-          <UserOutlined className="mr-2" />
-          Renseignons vos informations pour personnaliser votre profil
-        </Paragraph>
-        <small className="block mb-6 text-center text-gray-600">* = champ obligatoire</small>
-        <Form layout="vertical" onFinish={onFinish} className="space-y-4">
-          <Form.Item
-            label="* Nom"
-            name="companyName"
-            rules={[{ required: true, message: 'Veuillez entrer votre nom' }]}
+      <Navbar />
+      <div className="bg-gray-100 min-h-screen flex items-center justify-center py-12">
+        <section className="container mx-auto p-8 bg-white shadow-lg rounded-lg w-full max-w-2xl">
+          <Title level={2} className="text-center text-2xl text-blue-600 mb-6">
+            {id ? "Modifier votre Profil" : "Créer votre Profil"}
+          </Title>
+          <Paragraph className="text-lg text-center mb-6">
+            <UserOutlined className="mr-2" />
+            Renseignez vos informations pour personnaliser votre profil
+          </Paragraph>
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+            initialValues={initialValues}
+            className="space-y-4"
           >
-            <Input placeholder="Nom" />
-          </Form.Item>
-          <Form.Item
-            label="* Titre Professionnel"
-            name="title"
-            rules={[{ required: true, message: 'Veuillez entrer votre titre professionnel' }]}
-          >
-            <Input placeholder="Titre Professionnel" />
-          </Form.Item>
-          <Form.Item label="Localisation" name="location">
-            <Input placeholder="Localisation" />
-          </Form.Item>
-          <Form.Item
-            label="* Mission et Impact Social"
-            name="mission"
-            rules={[{ required: true, message: 'Veuillez entrer votre mission et impact social' }]}
-          >
-            <Input.TextArea rows={4} placeholder="Décrivez la mission de votre organisation et son impact social" />
-          </Form.Item>
-          <Form.Item
-            label="Exemples d'Impact"
-            name="impactExamples"
-          >
-            <Input.TextArea rows={4} placeholder="Fournissez des exemples concrets de l'impact de votre organisation" />
-          </Form.Item>
-          <div className="my-2 flex items-center">
-            <Button
-              type="dashed"
-              onClick={() => setShowSocialLinks(!showSocialLinks)}
-              style={{
-                borderColor: '#3bcf93',
-                color: '#3bcf93',
-                fontWeight: 'bold',
-                borderRadius: '5px',
-                transition: 'all 0.3s ease',
-              }}
-              className="hover:bg-[#3bcf93] hover:text-white"
+            <Form.Item
+              label="Nom de l'entreprise"
+              name="companyName"
+              rules={[{ required: true, message: 'Veuillez entrer le nom de lentreprise' }]}
             >
-              Ajouter des liens vers les réseaux sociaux
-            </Button>
-            <span className="ml-4 text-gray-600">Optionnel</span>
-          </div>
-          {showSocialLinks && (
-            <>
-              <Form.Item label="Twitter URL" name="twitter">
-                <Input prefix={<TwitterOutlined />} placeholder="Twitter URL" />
-              </Form.Item>
-              <Form.Item label="Facebook URL" name="facebook">
-                <Input prefix={<FacebookOutlined />} placeholder="Facebook URL" />
-              </Form.Item>
-              <Form.Item label="YouTube URL" name="youtube">
-                <Input prefix={<YoutubeOutlined />} placeholder="YouTube URL" />
-              </Form.Item>
-              <Form.Item label="LinkedIn URL" name="linkedin">
-                <Input prefix={<LinkedinOutlined />} placeholder="LinkedIn URL" />
-              </Form.Item>
-              <Form.Item label="Instagram URL" name="instagram">
-                <Input prefix={<InstagramOutlined />} placeholder="Instagram URL" />
-              </Form.Item>
-            </>
-          )}
-          <Form.Item className="text-center">
-            <Button type="primary" htmlType="submit" className="w-full">
-              Soumettre
-            </Button>
-          </Form.Item>
-          <Form.Item className="text-center">
-            <Button type="default" href="/dashboardpagesponsor">
-              Retour
-            </Button>
-          </Form.Item>
-        </Form>
-      </section>
-    </div>
-    <Footer/>
+              <Input placeholder="Nom de l'entreprise" />
+            </Form.Item>
+            <Form.Item
+              label="Titre"
+              name="title"
+              rules={[{ required: true, message: 'Veuillez entrer le titre' }]}
+            >
+              <Input placeholder="Titre" />
+            </Form.Item>
+            <Form.Item label="Localisation" name="location">
+              <Input placeholder="Localisation" />
+            </Form.Item>
+            <Form.Item
+              label="Mission et Impact Social"
+              name="mission"
+              rules={[{ required: true, message: 'Veuillez décrire la mission et limpact social' }]}
+            >
+              <Input.TextArea rows={4} placeholder="Décrivez la mission et l'impact social" />
+            </Form.Item>
+            <Form.Item label="Exemples d'Impact" name="impactExamples">
+              <Input.TextArea rows={4} placeholder="Fournissez des exemples d'impact" />
+            </Form.Item>
+            <Form.Item label="Logo" name="logo">
+              <Upload
+                listType="picture"
+                maxCount={1}
+                beforeUpload={() => false}
+              >
+                <Button icon={<UploadOutlined />}>Télécharger le logo</Button>
+              </Upload>
+            </Form.Item>
+            <Form.Item label="Budget" name="budget">
+              <Input type="number" placeholder="Budget" />
+            </Form.Item>
+            <div className="my-4">
+              <Button
+                type="dashed"
+                onClick={() => setShowSocialLinks(!showSocialLinks)}
+                className="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 border-blue-300"
+              >
+                {showSocialLinks ? "Masquer" : "Afficher"} les liens vers les réseaux sociaux
+              </Button>
+            </div>
+            {showSocialLinks && (
+              <>
+                <Form.Item label="Twitter" name={["socialMedia", "twitter"]}>
+                  <Input prefix={<TwitterOutlined />} placeholder="URL Twitter" />
+                </Form.Item>
+                <Form.Item label="Facebook" name={["socialMedia", "facebook"]}>
+                  <Input prefix={<FacebookOutlined />} placeholder="URL Facebook" />
+                </Form.Item>
+                <Form.Item label="YouTube" name={["socialMedia", "youtube"]}>
+                  <Input prefix={<YoutubeOutlined />} placeholder="URL YouTube" />
+                </Form.Item>
+                <Form.Item label="LinkedIn" name={["socialMedia", "linkedin"]}>
+                  <Input prefix={<LinkedinOutlined />} placeholder="URL LinkedIn" />
+                </Form.Item>
+                <Form.Item label="Instagram" name={["socialMedia", "instagram"]}>
+                  <Input prefix={<InstagramOutlined />} placeholder="URL Instagram" />
+                </Form.Item>
+              </>
+            )}
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+                {id ? "Mettre à jour" : "Créer le profil"}
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <Button type="default" href="/dashboardpagesponsor" className="w-full">
+                Retour
+              </Button>
+            </Form.Item>
+          </Form>
+        </section>
+      </div>
+      <Footer />
     </div>
   );
 };

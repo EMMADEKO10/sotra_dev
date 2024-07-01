@@ -18,7 +18,7 @@ const FormManager = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Section Breadcrumb pour le contexte et l’orientation de l'utilisateur */}
       <div

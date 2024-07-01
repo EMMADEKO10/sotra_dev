@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Typography, Spin, Select, Empty } from 'antd';
+import { Card, Typography, Spin, Select, Empty,Row, Col  } from 'antd';
 import { Column } from '@ant-design/charts';
 import { motion } from 'framer-motion';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
+
+
 
 const SponsorMonthlyContributions = () => {
   const [monthlyContributions, setMonthlyContributions] = useState([]);
@@ -19,6 +21,7 @@ const SponsorMonthlyContributions = () => {
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${apiUrl}/getSponsorMonthlyContributions`);
+        console.log('Données reçues :', response.data);
         setMonthlyContributions(response.data);
         setError(null);
       } catch (error) {
@@ -45,34 +48,34 @@ const SponsorMonthlyContributions = () => {
     seriesField: 'month',
     label: {
       position: 'middle',
-      style: {
-        fill: '#FFFFFF',
-        opacity: 0.6,
-      },
+      layout: [
+        { type: 'interval-adjust-position' },
+        { type: 'interval-hide-overlap' },
+        { type: 'adjust-color' },
+      ],
     },
-    meta: {
-      amount: {
-        alias: 'Montant Investi (€)',
-      },
+    tooltip: {
+      fields: ['sponsor', 'month', 'amount'],
+      showTitle: true,
+      title: 'month',
+      formatter: (datum) => ({
+        name: datum.sponsor,
+        value: `Montant: ${datum.amount}€`,
+      }),
     },
     xAxis: {
-      label: {
-        autoHide: true,
-        autoRotate: false,
+      title: {
+        text: 'Sponsor',
       },
     },
     yAxis: {
-      label: {
-        formatter: (v) => `${v}€`,
+      title: {
+        text: 'Montant Investi (€)',
       },
     },
     legend: {
-      position: 'top',
+      position: 'top-left',
     },
-    tooltip: {
-      showMarkers: false,
-    },
-    interactions: [{ type: 'element-active' }],
   };
 
   return (
@@ -111,12 +114,17 @@ const SponsorMonthlyContributions = () => {
           image={Empty.PRESENTED_IMAGE_SIMPLE}
         />
       ) : (
-        <Card
-          className="hover:shadow-xl transition-shadow duration-300"
-          bodyStyle={{ padding: 0 }}
-        >
-          <Column {...columnConfig} height={400} />
-        </Card>
+        <Row gutter={16}>
+          <Col span={24}>
+            <Card
+              title="Évolution Mensuelle des Contributions"
+              bordered={false}
+              className="mb-4 hover:shadow-lg transition-shadow duration-300"
+            >
+              <Column {...columnConfig} height={400} />
+            </Card>
+          </Col>
+        </Row>
       )}
     </motion.div>
   );

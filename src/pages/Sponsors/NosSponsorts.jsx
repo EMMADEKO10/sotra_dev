@@ -22,7 +22,12 @@ const NosSponsorts = () => {
   const [filteredSponsors, setFilteredSponsors] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)

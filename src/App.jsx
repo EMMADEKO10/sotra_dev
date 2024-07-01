@@ -27,14 +27,17 @@ import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
 import SocialBonds from "./pages/Info/SocialBonds";
 import Inscription from "./pages/Login/Inscription";
-
+import { useEffect } from 'react';
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
 // import DashBoardSponsor from "./pages/dashBoardSponsor"
 
 function App() {
   // const token = localStorage.getItem('token');
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <div>
       <BrowserRouter>

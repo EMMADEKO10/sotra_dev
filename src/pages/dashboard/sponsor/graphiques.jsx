@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Typography, Spin, Select, Empty,Row, Col  } from 'antd';
+import { Card, Typography, Spin, Select, Empty,Col, Row } from 'antd';
 import { Column } from '@ant-design/charts';
 import { motion } from 'framer-motion';
 

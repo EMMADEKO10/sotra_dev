@@ -53,15 +53,15 @@ const SponsorMonthlyContributions = () => {
         { type: 'adjust-color' },
       ],
     },
-    tooltip: {
-      fields: ['sponsor', 'month', 'amount'],
-      showTitle: true,
-      title: 'month',
-      formatter: (datum) => ({
-        name: datum.sponsor,
-        value: `Montant: ${datum.amount}€`,
-      }),
-    },
+    // tooltip: {
+    //   fields: ['sponsor', 'month', 'amount'],
+    //   showTitle: true,
+    //   title: 'month',
+    //   formatter: (datum) => ({
+    //     name: datum.sponsor,
+    //     value: `Montant: ${datum.amount}€`,
+    //   }),
+    // },
     xAxis: {
       title: {
         text: 'Sponsor',

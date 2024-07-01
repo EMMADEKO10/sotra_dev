@@ -42,6 +42,7 @@ const DonationPage = () => {
     try {
       const response = await axios.get(`${apiUrl}/projects/${id}`)
       setProject(response.data)
+      console.log(response)
     } catch (error) {
       console.error("Erreur lors de la récupération du projet:", error)
       message.error("Impossible de charger les détails du projet")
@@ -112,11 +113,13 @@ const DonationPage = () => {
             <Breadcrumb.Item>Projets</Breadcrumb.Item>
             <Breadcrumb.Item>{project.projectTitle}</Breadcrumb.Item>
           </Breadcrumb>
+          <div> Le prestataire qui a créé le Projet : <h3>{project.prestataire.organizationName}</h3></div>
 
           <div className="flex flex-wrap -mx-4">
+            
             <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
 
-            {project.supportingDocuments && (
+{project.supportingDocuments && (
   <div>
     <a className="text-green-500 hover:text-green-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.supportingDocuments}`} target="_blank" rel="noopener noreferrer">Détails sur le projet</a>
   </div>
@@ -133,15 +136,10 @@ const DonationPage = () => {
     <a className="text-red-500 hover:text-red-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.projectProposal}`} target="_blank" rel="noopener noreferrer">Détails sur la proposition du projet</a>
   </div>
 )}
+<ProjectDetails project={project} />
 
 
-              <ProjectDetails project={project} />
-              <CommentSection
-                totalCommentaires={totalCommentaires}
-                setTotalCommentaires={setTotalCommentaires}
-                reloadComment={reloadComment}
-                setReloadComment={setReloadComment}
-              />
+<CommentSection totalCommentaires={totalCommentaires} setTotalCommentaires={setTotalCommentaires} reloadComment={reloadComment} setReloadComment={setReloadComment}/>
             </div>
             <div className="w-full lg:w-1/3 px-4">
               <DonationSidebar

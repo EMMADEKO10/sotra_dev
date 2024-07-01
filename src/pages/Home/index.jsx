@@ -64,25 +64,26 @@ function Home() {
       {/* <!-- End Our Mission -->
 
 
+
       <!-- Start Volunteer
     ============================================= --> */}
-      <Volunteer />
+      
       {/* <!-- End Volunteer -->
-
+      
       <!-- Start Event Area
     ============================================= --> */}
       <EventArea />
       {/* <!-- End Event Area --> */}
       {/*
-      <!-- Start Donation
+      <!-- Start Volunteer
     ============================================= --> */}
-      {/* <Donnation /> */}
+    <Volunteer />
       {/* <!-- End Donation Area -->
 
       <!-- Start Testimonials
     ============================================= --> */}
       <Testimonials />
-      {/* <!-- End Testimonials Area -->
+      {/* <!-- End Volunteer -->
 
       <!-- Start Gallery
     ============================================= --> */}

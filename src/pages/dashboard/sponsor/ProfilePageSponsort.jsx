@@ -138,9 +138,9 @@ const ProfilePageSponsort = () => {
                 {sponsor.companyName}
               </Title>
               <Paragraph className="text-blue-100 text-lg mb-1">
-                Developer web at Kadea
+              {sponsor.title}
               </Paragraph>
-              <Paragraph className="text-blue-100 text-lg mb-6">Seattle, WA</Paragraph>
+              <Paragraph className="text-blue-100 text-lg mb-6">{sponsor.location}</Paragraph>
               <div className="flex justify-center space-x-4">
                 {[GlobalOutlined, TwitterOutlined, FacebookOutlined, LinkedinOutlined, YoutubeOutlined, InstagramOutlined].map((Icon, index) => (
                   <a key={index} href="#" className="text-white hover:text-blue-200 transition-colors">

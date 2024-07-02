@@ -10,9 +10,14 @@ import {
   Input,
   Checkbox,
   Skeleton,
-  Typography
+  Typography,
+  Space,
 } from "antd"
-import { HomeOutlined, ThunderboltOutlined, FileSearchOutlined  } from "@ant-design/icons"
+import {
+  HomeOutlined,
+  ThunderboltOutlined,
+  FileSearchOutlined,
+} from "@ant-design/icons"
 import "tailwindcss/tailwind.css"
 import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
@@ -182,136 +187,92 @@ const AllProjets = () => {
               </Option>
             </Select>
           </div>
-          {/* <div className="flex items-center w-full">
-              <Checkbox
-                onChange={handleTrendingChange}
-                checked={onlyTrending}
-              >
-                <span className="text-gray-700">
-                  Afficher seulement les tendances
-                </span>
-              </Checkbox>
-            </div> */}
         </div>
       </div>
       <div className=" bg-fixed bg-gray-100 py-5">
         <div className="bg-gray-100 py-12">
-          <div className="container mx-auto">
-            <Row gutter={[16, 16]}>
-              {loading
-                ? Array.from({ length: pageSize }).map((_, index) => (
-                    <Col
-                      key={index}
-                      lg={6}
-                      md={12}
-                    >
-                      <Card>
-                        <Skeleton
-                          loading={true}
-                          active
-                        />
-                      </Card>
-                    </Col>
-                  ))
-                : paginatedProjects.map((project, index) => {
-                    const percent = project.socialBonds
-                      ? (
-                          (project.socialBondsCollect / project.socialBonds) *
-                          100
-                        ).toFixed(2)
-                      : 0
-                    return (
-                      <Col
-                        key={index}
-                        lg={6}
-                        md={12}
-                        className=" w-full transform hover:scale-105 transition-transform duration-300 my-3"
-                      >
-                        <NavLink to={`/oneprojet/${project._id}`}>
-                          <Card
-                            hoverable
-                            cover={
-                              <div className="w-full h-64 overflow-hidden relative bg-gray-200">
-                                <img
-                                  alt="Thumb"
-                                  src={`${import.meta.env.VITE_URL_IMAGE}${
-                                    project.projectImage
-                                  }`}
-                                  className="absolute top-0 left-0 w-full h-full object-cover"
-                                  onError={(e) =>
-                                    (e.target.style.display = "none")
-                                  } // Hide image if it fails to load
-                                />
-                                <span className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 right-0 m-4 text-xs">
-                                  Créé :{" "}
-                                  {new Date(
-                                    project.createdAt
-                                  ).toLocaleDateString()}
-                                </span>
-                                <span className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-0 left-0 m-4 text-xs">
-                                  {project.projectCategory}
-                                </span>
-                              </div>
-                            }
-                            className="overflow-hidden rounded-lg shadow-md"
-                          >
-                            <Card.Meta
-                              title={
-                                <p
-                                  className="text-lg font-semibold text-gray-900 leading-relaxed break-words line-clamp-2 text-justify" // Limite à environ 5 lignes avec TailwindCSS
-                                  // style={{ maxHeight: "10rem" }} // Limite à environ 5 lignes
-                                >
-                                  {project.projectTitle}
-                                </p>
-                              }
-                              description={
-                                <p
-                                  className="text-sm text-gray-500 leading-relaxed break-words line-clamp-5 text-justify" // Limite à environ 5 lignes avec TailwindCSS
-                                  // style={{ maxHeight: "10rem" }} // Limite à environ 5 lignes
-                                >
-                                  {project.projectDescription}
-                                </p>
-                              }
-                            />
-
-                            <div className="mt-2">
-                              <Progress
-                                percent={percent}
-                                status="active"
-                              />
-                              <div className="mt-2 flex justify-between">
-                                <span className="text-sm ">
-                                  Collecté : {project.socialBondsCollect}Sb
-                                </span>
-
-                                <span className="text-sm">
-                                  Objectif : {project.socialBonds}Sb
-                                </span>
-                              </div>
-                            </div>
-                          </Card>
-                        </NavLink>
-                      </Col>
-                    )
-                  })}
-                      {filteredProjects.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-12 bg-gray-100 shadow-md rounded-lg max-w-lg mx-auto animate__animated animate__fadeIn">
-                  <FileSearchOutlined className="text-primary-500 text-7xl mb-4" />
-                  <Title
-                    level={4}
-                    className="text-gray-700 text-center"
-                  >
-                    Aucun résultat trouvé
-                  </Title>
-                  <Text className="text-gray-500 text-center px-4">
-                    Il semble que nous n'ayons pas trouvé de résultats
-                    correspondant à votre recherche. Essayez de modifier vos
-                    critères de recherche.
-                  </Text>
-                </div>
-              )}
-            </Row>
-                  
+        <div className="container mx-auto px-4">
+  <Row gutter={[16, 16]}>
+    {loading
+      ? Array.from({ length: pageSize }).map((_, index) => (
+          <Col key={index} xs={24} sm={12} md={8} lg={6}>
+            <Card className="h-full">
+              <Skeleton.Image className="w-full h-48" active />
+              <Skeleton active paragraph={{ rows: 3 }} />
+            </Card>
+          </Col>
+        ))
+      : paginatedProjects.map((project, index) => {
+          const percent = project.socialBonds
+            ? ((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)
+            : 0;
+          return (
+            <Col
+              key={index}
+              xs={24}
+              sm={12}
+              md={8}
+              lg={6}
+              className="transform hover:scale-105 transition-transform duration-300"
+            >
+              <NavLink to={`/oneprojet/${project._id}`}>
+                <Card
+                  hoverable
+                  cover={
+                    <div className="relative pt-[56.25%] bg-gray-200 overflow-hidden">
+                      <img
+                        alt="Thumb"
+                        src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={(e) => (e.target.style.display = "none")}
+                      />
+                      <span className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-2 right-2 text-xs">
+                        Créé : {new Date(project.createdAt).toLocaleDateString()}
+                      </span>
+                      <span className="absolute bg-[#3bcf93] text-white py-1 px-3 rounded-full bottom-2 left-2 text-xs">
+                        {project.projectCategory}
+                      </span>
+                    </div>
+                  }
+                  className="h-full flex flex-col shadow-md rounded-lg overflow-hidden"
+                >
+                  <Card.Meta
+                    title={
+                      <p className="text-lg font-semibold text-gray-900 leading-tight line-clamp-2">
+                        {project.projectTitle}
+                      </p>
+                    }
+                    description={
+                      <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">
+                        {project.projectDescription}
+                      </p>
+                    }
+                  />
+                  <div className="mt-auto pt-4">
+                    <Progress percent={percent} status="active" />
+                    <div className="mt-2 flex justify-between text-xs sm:text-sm">
+                      <span>Collecté : {project.socialBondsCollect}Sb</span>
+                      <span>Objectif : {project.socialBonds}Sb</span>
+                    </div>
+                  </div>
+                </Card>
+              </NavLink>
+            </Col>
+          );
+        })}
+  </Row>
+  {!loading && filteredProjects.length === 0 && (
+    <div className="flex flex-col items-center justify-center py-12 bg-white shadow-md rounded-lg max-w-lg mx-auto mt-8 animate__animated animate__fadeIn">
+      <FileSearchOutlined className="text-primary-500 text-5xl sm:text-7xl mb-4" />
+      <Title level={4} className="text-gray-700 text-center">
+        Aucun résultat trouvé
+      </Title>
+      <Text className="text-gray-500 text-center px-4">
+        Il semble que nous n'ayons pas trouvé de résultats correspondant à votre recherche. Essayez de modifier vos critères de recherche.
+      </Text>
+    </div>
+  )}
+</div>
             <div className="text-center mt-8">
               <Pagination
                 current={currentPage}
@@ -323,8 +284,7 @@ const AllProjets = () => {
             </div>
           </div>
         </div>
-      </div>
-      <RetourEnHaut/>
+      <RetourEnHaut />
       <Footer />
     </>
   )

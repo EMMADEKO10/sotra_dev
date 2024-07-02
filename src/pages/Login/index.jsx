@@ -26,13 +26,13 @@ function Login() {
 
       setProgress(70);
 
-      console.log("voici la reponse", response.data.token);
+      if (response.status === 200 || response.status === 201) {
+        console.log("voici la reponse", response.data.token);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", response.data.user._id);
       localStorage.setItem("role", response.data.user.role);
       console.log("voici la reponse", response.data.user._id);
 
-      if (response.status === 200 || response.status === 201) {
         setIsRegistrationSuccessful(true);
         setProgress(100);
         setTimeout(() => {

@@ -16,6 +16,7 @@ const DashNotification = ({ reload }) => {
             try {
                 const response = await axios.get(`${apiUrl}/notif`);
                 setNotifications(response.data);
+                console.log("Voici les notifications = ", response.data)
             } catch (error) {
                 console.error('Erreur lors de la requête:', error.message);
             }
@@ -42,6 +43,22 @@ const DashNotification = ({ reload }) => {
             console.error('Erreur lors de la modification du statut du prestataire:', error);
         }
     };
+// ----------------------------------------------------------------------------------------------------
+
+const handleMarkAllAsRead = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    try {
+        const unreadNotifications = notifications.filter(notification => !notification.read);
+        await Promise.all(unreadNotifications.map(notification => axios.patch(`${apiUrl}/notif/${notification._id}`)));
+        const updatedNotifications = notifications.map(notification => ({ ...notification, read: true }));
+        setNotifications(updatedNotifications);
+        updateCurrentNotifications(currentType, updatedNotifications);
+    } catch (error) {
+        console.error('Erreur lors de la modification du statut des notifications:', error);
+    }
+};
+
+// ----------------------------------------------------------------------------------------------------
 
     const handleDelete = async (id) => {
         const apiUrl = import.meta.env.VITE_API_URL;
@@ -108,44 +125,48 @@ const DashNotification = ({ reload }) => {
             </Button>
 
             <Modal
-                title="Notifications"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                footer={[
-                    <Button key="close" type="primary" onClick={handleOk}>
-                        Fermer
-                    </Button>,
-                ]}
-            >
-                <div className="max-h-[500px] overflow-y-auto">
-                    {currentNotifications.length > 0 ? (
-                        currentNotifications.map((notification) => (
-                            <div key={notification._id} className={`p-4 mb-2 rounded-lg border ${notification.read ? "bg-white" : "bg-[#EBEBEB]"}`}>
-                                <p className="text-sm mb-2">{notification.message}</p>
-                                <div className="flex justify-end">
-                                    <Button size="small" type="link" onClick={() => handleMarkAsRead(notification._id)} className="text-blue-500 mr-2">
-                                        <span className="flex items-center">
-                                            <CheckCircleOutlined className="mr-1" />
-                                            Marquer comme lu
-                                        </span>
-                                    </Button>
-                                    <Button size="small" type="link" onClick={() => handleDelete(notification._id)} className="text-red-500">
-                                        <span className="flex items-center">
-                                            <DeleteOutlined className="mr-1" />
-                                            Supprimer
-                                        </span>
-                                    </Button>
-                                </div>
+            title="Notifications"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[
+                <Button key="markAllAsRead" type="primary" onClick={handleMarkAllAsRead}>
+                    Marquer tout comme lu
+                </Button>,
+                <Button key="close" type="default" onClick={handleOk}>
+                    Fermer
+                </Button>,
+            ]}
+        >
+            <div className="max-h-[500px] overflow-y-auto">
+                {currentNotifications.length > 0 ? (
+                    currentNotifications.map((notification) => (
+                        <div key={notification._id} className={`p-4 mb-2 rounded-lg border ${notification.read ? "bg-white" : "bg-[#EBEBEB]"}`}>
+                            <p className="text-sm mb-2">{notification.message}</p>
+                            <p className="text-xs text-gray-500 mb-2">{notification.formattedDate}</p> {/* Ajouter la date formatée ici */}
+                            <div className="flex justify-end">
+                                <Button size="small" type="link" onClick={() => handleMarkAsRead(notification._id)} className="text-blue-500 mr-2">
+                                    <span className="flex items-center">
+                                        <CheckCircleOutlined className="mr-1" />
+                                        Marquer comme lu
+                                    </span>
+                                </Button>
+                                <Button size="small" type="link" onClick={() => handleDelete(notification._id)} className="text-red-500">
+                                    <span className="flex items-center">
+                                        <DeleteOutlined className="mr-1" />
+                                        Supprimer
+                                    </span>
+                                </Button>
                             </div>
-                        ))
-                    ) : (
-                        <div className="p-4 text-center text-gray-500">
-                            Aucune notification pour le moment.
                         </div>
-                    )}
-                </div>
-            </Modal>
+                    ))
+                ) : (
+                    <div className="p-4 text-center text-gray-500">
+                        Aucune notification pour le moment.
+                    </div>
+                )}
+            </div>
+        </Modal>
         </div>
     );
 };

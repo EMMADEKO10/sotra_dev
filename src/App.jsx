@@ -27,15 +27,50 @@ import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
 import SocialBonds from "./pages/Info/SocialBonds";
 import Inscription from "./pages/Login/Inscription";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
 // import DashBoardSponsor from "./pages/dashBoardSponsor"
+const isTokenExpired = (token) => {
+  if (!token) {
+    return true;
+  }
 
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const expiry = payload.exp * 1000; // exp est en secondes, convertir en millisecondes
+  const now = new Date().getTime();
+  return now > expiry;
+};
 function App() {
-  // const token = localStorage.getItem('token');
+
+  const [loggedOut, setLoggedOut] = useState(false);
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token && isTokenExpired(token) && !loggedOut) {
+  //     setLoggedOut(true);
+  //     localStorage.removeItem('token');
+  //     localStorage.removeItem('role');
+  //     localStorage.removeItem('user');
+  //     window.location.reload(); // Recharge la page pour forcer la déconnexion
+  //     window.location.href = '/login'; // Rediriger vers la page de login
+  //   }
+  // }, [loggedOut]);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const interval = setInterval(() => {
+      const token = localStorage.getItem('token');
+      if (token && isTokenExpired(token)) {
+        setLoggedOut(true);
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        localStorage.removeItem('user');
+        window.location.reload(); // Recharge la page pour forcer la déconnexion
+        window.location.href = '/login'; // Rediriger vers la page de login
+      }
+    }, 60000); // Vérifie toutes les 60 secondes
+
+    return () => clearInterval(interval);
   }, []);
   
   return (
@@ -120,14 +155,14 @@ function App() {
             element={<SponsorDashboard />}
           />
 
-          <Route
+          <Route 
             path="/profilepagesponsort/:id"
             element={<ProfilePageSponsort />}
           />
-          {/* <Route
+          <Route
             path="/dashboardpagesponsor"
             element={<DashboardPageSponsor />}
-          /> */}
+          />
 
           <Route
             path="/createprofilesponsort/:id"

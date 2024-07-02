@@ -70,7 +70,7 @@ function App() {
         window.location.reload(); // Recharge la page pour forcer la déconnexion
         window.location.href = '/login'; // Rediriger vers la page de login
       }
-    }, 10000); // Vérifie toutes les 20 secondes
+    }, 10000); // Vérifie toutes les 10 secondes
 
     return () => clearInterval(interval);
   }, []);

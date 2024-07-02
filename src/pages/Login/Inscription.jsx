@@ -179,7 +179,7 @@ export default class Inscription extends Component {
               >
                 <Title className="mb-15">Sign In</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Enter your email and password to sign in
+                Entrez votre email et mot de passe pour vous connecter
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -221,7 +221,7 @@ export default class Inscription extends Component {
                     valuePropName="checked"
                   >
                     <Switch defaultChecked onChange={onChange} />
-                    Remember me
+                    Se souvenir de moi
                   </Form.Item>
 
                   <Form.Item>
@@ -230,13 +230,13 @@ export default class Inscription extends Component {
                       htmlType="submit"
                       style={{ width: "100%" }}
                     >
-                      SIGN IN
+                      S'inscrire
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    Don't have an account?{" "}
+                  Vous n’avez pas de compte ?{" "}
                     <Link to="/sign-up" className="text-dark font-bold">
-                      Sign Up
+                    S'inscrire
                     </Link>
                   </p>
                 </Form>

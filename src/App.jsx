@@ -1,6 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,  } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+// import Login from "./pages/Login/indexlmlwdmlwdmlwdmlwdmlwd";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 
@@ -28,6 +28,8 @@ import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponso
 import SocialBonds from "./pages/Info/SocialBonds";
 import Inscription from "./pages/Login/Inscription";
 import { useEffect, useState } from 'react';
+import Logins from "./pages/Login/Login";
+import Login from "./pages/Login/Login";
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
 // import DashBoardSponsor from "./pages/dashBoardSponsor"
@@ -91,6 +93,10 @@ function App() {
             path="/login"
             element={<Login />}
           />
+          {/* <Route
+            path="/logins"
+            element={<Logins />}
+          /> */}
           <Route
             path="/register"
             element={<Register />}

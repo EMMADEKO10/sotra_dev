@@ -14,6 +14,7 @@ import {
   HomeOutlined,
   ClockCircleOutlined,
   EnvironmentOutlined,
+  UserOutlined
 } from "@ant-design/icons"
 import { useParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
@@ -31,7 +32,8 @@ const DonationPage = () => {
   const [reload, setReload] = useState(false)
   const [reloadComment, setReloadComment] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
-  const [unauthorizedModalVisible, setUnauthorizedModalVisible] = useState(false)
+  const [unauthorizedModalVisible, setUnauthorizedModalVisible] =
+    useState(false)
   const [totalCommentaires, setTotalCommentaires] = useState(0)
   const { id } = useParams()
   const apiUrl = import.meta.env.VITE_API_URL
@@ -104,8 +106,7 @@ const DonationPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto px-4">
+      <main className="container ">
           <Breadcrumb className="mb-8">
             <Breadcrumb.Item href="/">
               <HomeOutlined />
@@ -113,33 +114,17 @@ const DonationPage = () => {
             <Breadcrumb.Item>Projets</Breadcrumb.Item>
             <Breadcrumb.Item>{project.projectTitle}</Breadcrumb.Item>
           </Breadcrumb>
-          <div> Le prestataire qui a créé le Projet : <h3>{project.prestataire.organizationName}</h3></div>
 
           <div className="flex flex-wrap -mx-4">
-            
             <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
+              <ProjectDetails project={project} />
 
-{project.supportingDocuments && (
-  <div>
-    <a className="text-green-500 hover:text-green-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.supportingDocuments}`} target="_blank" rel="noopener noreferrer">Détails sur le projet</a>
-  </div>
-)}
-
-{project.projectBudgetDetails && (
-  <div>
-    <a className="text-blue-500 hover:text-blue-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.projectBudgetDetails}`} target="_blank" rel="noopener noreferrer">Détails sur le budget du projet</a>
-  </div>
-)}
-
-{project.projectProposal && (
-  <div>
-    <a className="text-red-500 hover:text-red-600" href={`${import.meta.env.VITE_URL_IMAGE}${project.projectProposal}`} target="_blank" rel="noopener noreferrer">Détails sur la proposition du projet</a>
-  </div>
-)}
-<ProjectDetails project={project} />
-
-
-<CommentSection totalCommentaires={totalCommentaires} setTotalCommentaires={setTotalCommentaires} reloadComment={reloadComment} setReloadComment={setReloadComment}/>
+              <CommentSection
+                totalCommentaires={totalCommentaires}
+                setTotalCommentaires={setTotalCommentaires}
+                reloadComment={reloadComment}
+                setReloadComment={setReloadComment}
+              />
             </div>
             <div className="w-full lg:w-1/3 px-4">
               <DonationSidebar
@@ -151,7 +136,7 @@ const DonationPage = () => {
               />
             </div>
           </div>
-        </div>
+ 
       </main>
       <Footer />
       <DonationModal
@@ -167,35 +152,93 @@ const DonationPage = () => {
 }
 
 const ProjectDetails = ({ project }) => (
-  <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
-    <img
-      src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
-      alt={project.projectTitle}
-      className="w-full h-64 object-cover mb-6 rounded-lg"
-    />
-    <div className="flex flex-wrap justify-between mb-4 text-gray-600">
-      <div className="w-full sm:w-auto mb-2 sm:mb-0">
-        <ClockCircleOutlined className="mr-2" />
-        <strong>Créé le :</strong>{" "}
-        {new Date(project.createdAt).toLocaleDateString()}
+  <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="relative h-64 sm:h-80 md:h-96">
+      <img
+        src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
+        alt={project.projectTitle}
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+      <h1 className="absolute bottom-4 left-4 right-4 text-2xl sm:text-3xl md:text-4xl font-bold text-white break-words">
+        {project.projectTitle}
+      </h1>
+    </div>
+    
+    <div className="p-6">
+      <div className="flex flex-wrap justify-between mb-6 text-sm sm:text-base text-gray-600">
+        <div className="flex items-center mb-2 sm:mb-0">
+          <ClockCircleOutlined className="mr-2 text-blue-500" />
+          <span><strong>Créé le :</strong> {new Date(project.createdAt).toLocaleDateString()}</span>
+        </div>
+        <div className="flex items-center">
+          <UserOutlined className="mr-2 text-green-500" />
+          <span><strong>Organisation :</strong> {project.prestataire.organizationName}</span>
+        </div>
       </div>
-      <div className="w-full sm:w-auto">
-        <EnvironmentOutlined className="mr-2" />
-        <strong>Lieu :</strong> {project.location || "Non spécifié"}
+      
+      <p className="text-gray-700 leading-relaxed mb-8 break-words">
+        {project.projectDescription}
+      </p>
+      
+      <div className="bg-gray-50 rounded-lg p-6 mb-8">
+        <h3 className="text-xl font-semibold mb-4">Documents du projet</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {project.supportingDocuments && (
+            <DocumentCard
+              title="Détails sur le projet"
+              icon="📄"
+              color="green"
+              href={`${import.meta.env.VITE_URL_IMAGE}${project.supportingDocuments}`}
+            />
+          )}
+          {project.projectBudgetDetails && (
+            <DocumentCard
+              title="Budget du projet"
+              icon="💰"
+              color="blue"
+              href={`${import.meta.env.VITE_URL_IMAGE}${project.projectBudgetDetails}`}
+            />
+          )}
+          {project.projectProposal && (
+            <DocumentCard
+              title="Proposition du projet"
+              icon="📊"
+              color="red"
+              href={`${import.meta.env.VITE_URL_IMAGE}${project.projectProposal}`}
+            />
+          )}
+        </div>
       </div>
     </div>
-    <h1 className="text-3xl font-bold mb-4 break-words">
-      {project.projectTitle}
-    </h1>
-    <p className="text-gray-700 leading-relaxed mb-6 break-words">
-      {project.projectDescription}
-    </p>
   </div>
 )
 
-const CommentSection = ({ totalCommentaires, setTotalCommentaires, reloadComment, setReloadComment }) => (
+const DocumentCard = ({ title, icon, color, href }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`flex items-center p-3 bg-white border border-${color}-200 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-md`}
+  >
+    <span className="text-2xl mr-3">{icon}</span>
+    <div>
+      <span className={`text-${color}-700 font-semibold text-sm sm:text-base`}>{title}</span>
+      {/* <p className={`text-${color}-600 text-xs sm:text-sm`}>Cliquez pour télécharger</p> */}
+    </div>
+  </a>
+)
+
+const CommentSection = ({
+  totalCommentaires,
+  setTotalCommentaires,
+  reloadComment,
+  setReloadComment,
+}) => (
   <div className="bg-white shadow-lg rounded-lg p-8 overflow-hidden">
-    <h2 className="text-2xl font-semibold mb-6">{totalCommentaires} commentaires</h2>
+    <h2 className="text-2xl font-semibold mb-6">
+      {totalCommentaires} commentaires
+    </h2>
     <div className="max-h-96 overflow-y-auto mb-6">
       <CommentairesProjet
         reloadComment={reloadComment}
@@ -207,7 +250,7 @@ const CommentSection = ({ totalCommentaires, setTotalCommentaires, reloadComment
       reloadComment={reloadComment}
     />
   </div>
-);
+)
 
 const DonationSidebar = ({
   project,
@@ -274,40 +317,40 @@ const DonationSidebar = ({
 )
 
 const RecentDonations = ({ projectId }) => {
-  const [dons, setDons] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Number of items per page
+  const [dons, setDons] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 5 // Number of items per page
 
   useEffect(() => {
     const fetchDons = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await axios.get(`${apiUrl}/bon/${projectId}`);
+        const apiUrl = import.meta.env.VITE_API_URL
+        const response = await axios.get(`${apiUrl}/bon/${projectId}`)
         console.log(response.data)
-        setDons(response.data);
+        setDons(response.data)
       } catch (error) {
-        console.error("Erreur lors de la récupération des dons récents:", error);
+        console.error("Erreur lors de la récupération des dons récents:", error)
       }
-    };
-    fetchDons();
-  }, [projectId]);
+    }
+    fetchDons()
+  }, [projectId])
 
-  const totalPages = Math.ceil(dons.length / itemsPerPage);
+  const totalPages = Math.ceil(dons.length / itemsPerPage)
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      setCurrentPage(currentPage + 1)
     }
-  };
+  }
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage(currentPage - 1)
     }
-  };
+  }
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const selectedDons = dons.slice(startIndex, startIndex + itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const selectedDons = dons.slice(startIndex, startIndex + itemsPerPage)
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 mb-10">
@@ -346,17 +389,22 @@ const RecentDonations = ({ projectId }) => {
         )}
       />
       <div className="flex justify-between mt-4">
-        <Button onClick={handlePreviousPage} disabled={currentPage === 1}>
+        <Button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
           Précédent
         </Button>
-        <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <Button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
           Suivant
         </Button>
       </div>
     </div>
-  );
-};
-
+  )
+}
 
 const DonationModal = ({ isOpen, onClose }) => (
   <AnimatePresence>

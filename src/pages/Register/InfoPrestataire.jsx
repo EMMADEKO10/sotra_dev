@@ -10,9 +10,19 @@ import {
   Typography,
   Checkbox,
   message,
+  Progress,
 } from "antd"
-import "tailwindcss/tailwind.css"
+import {
+  EnvironmentOutlined,
+  UserOutlined,
+  PhoneOutlined,
+  MailOutlined,
+  LockOutlined,
+  GlobalOutlined,
+} from "@ant-design/icons"
 import axios from "axios"
+
+import "tailwindcss/tailwind.css"
 
 const { TextArea } = Input
 const { Option } = Select
@@ -49,7 +59,7 @@ const provincesRDC = [
 
 const InfoPrestataire = () => {
   const [form] = Form.useForm()
-  const token = localStorage.getItem("token") // Supposez que vous stockez le token sous le nom 'token'
+  const token = localStorage.getItem("token")
   const user = localStorage.getItem("user")
   const [submitting, setSubmitting] = useState(false)
   const [otherOrganizationType, setOtherOrganizationType] = useState(false)
@@ -62,7 +72,7 @@ const InfoPrestataire = () => {
       // Logique pour démarrer un projet
     }
   }
-  // ------------------------------------------------------------
+
   const handleModalOk = () => {
     form
       .validateFields()
@@ -76,7 +86,7 @@ const InfoPrestataire = () => {
         console.log("Validation Failed:", info)
       })
   }
-  // ---------------------------------------------------------------
+
   const handleSubmit = async (values) => {
     const apiUrl = import.meta.env.VITE_API_URL
 
@@ -87,6 +97,7 @@ const InfoPrestataire = () => {
       website: values.website?.trim(),
       representativeName: values.representativeName.trim(),
       phone: values.phone.trim(),
+      phone2: values.phone2.trim(),
       email: values.email.trim(),
       password: values.password.trim(),
       services: values.services.trim(),
@@ -110,450 +121,267 @@ const InfoPrestataire = () => {
 
       formData.append("iduser", user)
 
-      console.log("sanitizedValues : ", sanitizedValues)
-
       const response = await axios.post(`${apiUrl}/prestataire`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
-          "X-CSRF-Token": "your-csrf-token", // Ajouter un token CSRF pour la sécurité si nécessaire
+          "X-CSRF-Token": "your-csrf-token",
         },
       })
       console.log(response.data)
+      message.success("Formulaire soumis avec succès!")
     } catch (error) {
       console.error("Error submitting form:", error)
       message.error("Erreur de soumission : Veuillez réessayer plus tard.")
     } finally {
       setSubmitting(false)
     }
-
-    // ------------------------------------------------------------------------------------------------
   }
 
   return (
-    <div>
-      {/* Début de la section d'en-tête */}
+    <div className=" py-8">
+      <Progress
+        className="mb-6"
+        percent={form.isFieldsTouched([
+          "organizationName",
+          "address",
+          "representativeName",
+          "phone",
+          "email",
+          "password",
+        ])
+          ? 50
+          : 0}
+        showInfo={true}
+      />
 
-      {/* Début de l'introduction */}
-      <div className="about-area py-12">
-      <div className="container mx-auto">
-        <Row justify="center" gutter={24}>
-          <Col lg={16} className="text-center">
-            <Title level={3} className="text-3xl font-bold mb-4">
-              Devenez un Prestataire Social avec SOTRADONS
-            </Title>
-            <Paragraph className="text-lg mb-4">
-              En tant que prestataire social chez SOTRADONS, vous intégrez un
-              réseau dynamique dédié à la promotion de la Responsabilité
-              Sociétale des Entreprises (RSE). Nous offrons aux prestataires
-              sociaux la possibilité de contribuer activement à des projets
-              impactants tout en bénéficiant de visibilité, de crédibilité et
-              de financement.
-            </Paragraph>
-            <div className="custom-divider mb-4"></div>
-            <Paragraph className="text-lg mb-4">
-              Pour devenir un prestataire chez SOTRADONS, vous devez adhérer à
-              nos conditions rigoureuses :
-            </Paragraph>
-            <ul className="conditions-list mb-4">
-              <li>
-                Démontrer un engagement fort envers les principes de solidarité,
-                transparence et dons pour des causes humanitaires.
-              </li>
-              <li>
-                Présenter des projets socialement viables et innovants, alignés
-                avec les objectifs de développement durable et les standards de
-                qualité de SOTRADONS.
-              </li>
-              <li>
-                Être accrédité et formé par la Fondation SARA pour assurer la
-                qualité et l'efficacité de l'exécution des projets.
-              </li>
-              <li>
-                Maintenir une intégrité personnelle et professionnelle à toute
-                épreuve, en agissant de manière éthique et respectueuse dans
-                toutes les interactions.
-              </li>
-              <li>
-                Fournir une transparence totale dans la gestion des fonds et des
-                ressources alloués aux projets, conformément aux normes éthiques
-                et légales.
-              </li>
-            </ul>
-            <Paragraph className="text-lg mb-4">
-              En rejoignant notre réseau de prestataires sociaux, vous
-              contribuez activement à bâtir un avenir meilleur tout en
-              bénéficiant du soutien et des ressources nécessaires pour
-              maximiser l'impact de vos initiatives sociales.
-            </Paragraph>
-          </Col>
-        </Row>
+      <div className="mb-8">
+        <Title level={3} className="mb-2">
+          Devenez un Prestataire Social avec SOTRADONS
+        </Title>
+        <Paragraph className="mb-4">
+          En tant que prestataire social chez SOTRADONS, vous intégrez un réseau
+          dynamique dédié à la promotion de la Responsabilité Sociétale des
+          Entreprises (RSE). Nous offrons aux prestataires sociaux la possibilité
+          de contribuer activement à des projets impactants tout en bénéficiant
+          de visibilité, de crédibilité et de financement.
+        </Paragraph>
       </div>
-    </div>
-      {/* Fin de l'introduction */}
 
-      {/* Début du formulaire d'enregistrement */}
-      <div className="registration-form-area py-12 bg-gray-100">
-        <div className="container mx-auto">
-          <Row justify="center">
-            <Col lg={16}>
-              <Card className="shadow-lg rounded-lg p-8">
-                <Form
-                  form={form}
-                  layout="vertical"
-                  onFinish={handleSubmit}
-                >
-                  {/* Informations de l'organisation */}
-                  <Title
-                    level={4}
-                    className="text-xl font-bold mb-4"
-                  >
-                    Informations de l'organisation
-                  </Title>
-                  <Form.Item
-                    name="organizationName"
-                    label="Nom de l'organisation"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le nom de l'organisation",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Nom de l'organisation" />
-                  </Form.Item>
-                  <Form.Item
-                    name="address"
-                    label="Adresse"
-                    rules={[
-                      { required: true, message: "Veuillez entrer l'adresse" },
-                    ]}
-                  >
-                    <Input placeholder="Adresse" />
-                  </Form.Item>
-                  <Form.Item
-                    name="website"
-                    label="Site web"
-                    rules={[
-                      {
-                        type: "url",
-                        message: "Veuillez entrer une URL valide",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="https://example.com" />
-                  </Form.Item>
-                  {/* ------------------------------------------------------------------ */}
-
-                  <Form.Item
-                    name="organizationType"
-                    label="Type d'organisation"
-                    rules={[
-                      {
-                        required: !otherOrganizationType,
-                        message: "Veuillez sélectionner le type d'organisation",
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Sélectionnez le type d'organisation"
-                      disabled={otherOrganizationType}
-                    >
-                      <Option value="association">Association</Option>
-                      <Option value="ngo">ONG</Option>
-                      <Option value="socialEnterprise">
-                        Entreprise sociale
-                      </Option>
-                    </Select>
-                  </Form.Item>
-                  <Form.Item>
-                    <Checkbox
-                      checked={otherOrganizationType}
-                      onChange={(e) =>
-                        setOtherOrganizationType(e.target.checked)
-                      }
-                    >
-                      Autre type d'organisation
-                    </Checkbox>
-                  </Form.Item>
-                  {otherOrganizationType && (
-                    <Form.Item
-                      name="specificOrganizationType"
-                      label="Type d'organisation spécifique"
-                      rules={[
-                        {
-                          required: true,
-                          message:
-                            "Veuillez indiquer le type d'organisation spécifique",
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Type d'organisation spécifique" />
-                    </Form.Item>
-                  )}
-                  {/* ------------------------------------------------------------------------------------------ */}
-                  <Form.Item
-                    name="email"
-                    label="Adresse e-mail"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer l'adresse e-mail",
-                        type: "email",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="email@example.com" />
-                  </Form.Item>
-                  {/* ------------------------------------------------------------------------------------------ */}
-
-                  <Form.Item
-                    label="Mot de passe"
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer votre mot de passe!",
-                      },
-                      {
-                        min: 6,
-                        message:
-                          "Le mot de passe doit contenir au moins 6 caractères",
-                      },
-                    ]}
-                  >
-                    <Input
-                      type="password"
-                      placeholder="Mot de passe"
-                      className="rounded-md"
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    label="Confirmer le mot de passe"
-                    name="password2"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez confirmer votre mot de passe!",
-                      },
-                      ({ getFieldValue }) => ({
-                        validator(_, value) {
-                          if (!value || getFieldValue("password") === value) {
-                            return Promise.resolve()
-                          }
-                          return Promise.reject(
-                            new Error("Les mots de passe ne correspondent pas!")
-                          )
-                        },
-                      }),
-                    ]}
-                  >
-                    <Input placeholder="Mot de passe" />
-                  </Form.Item>
-
-                  {/* Informations de contact */}
-                  <Title
-                    level={4}
-                    className="text-xl font-bold mb-4"
-                  >
-                    Informations de contact
-                  </Title>
-                  <Form.Item
-                    name="representativeName"
-                    label="Nom du représentant"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le nom du représentant",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Nom du représentant" />
-                  </Form.Item>
-                  <Form.Item
-                    name="emailRepresant"
-                    label="Adresse e-mail"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer l'adresse e-mail",
-                        type: "email",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="email@example.com" />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="phone"
-                    label="Numéro de téléphone"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le numéro de téléphone",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Numéro de téléphone" />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="phone2"
-                    label="Deuxième Numéro de téléphone"
-                    rules={[
-                      {
-                        required: true,
-                        message:
-                          "Veuillez entrer le deuxième numéro de téléphone",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Numéro de téléphone" />
-                  </Form.Item>
-
-                  {/* Champs spécifiques */}
-                  <Title
-                    level={4}
-                    className="text-xl font-bold mb-4"
-                  >
-                    Détails spécifiques
-                  </Title>
-                  <Form.Item
-                    name="services"
-                    label="Description des services offerts"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez décrire les services offerts",
-                      },
-                    ]}
-                  >
-                    <TextArea
-                      rows={4}
-                      placeholder="Description des services offerts"
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    name="geographicAreas"
-                    label="Zones géographiques d'intervention"
-                    rules={[
-                      {
-                        required: true,
-                        message:
-                          "Veuillez indiquer les zones géographiques d'intervention",
-                      },
-                    ]}
-                  >
-                    <Select
-                      mode="multiple"
-                      placeholder="Sélectionnez les zones géographiques d'intervention"
-                    >
-                      {provincesRDC.map((province) => (
-                        <Option
-                          key={province}
-                          value={province}
-                        >
-                          {province}
-                        </Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    name="projects"
-                    label="Projets en cours ou précédents"
-                    rules={[
-                      {
-                        required: true,
-                        message:
-                          "Veuillez décrire les projets en cours ou précédents",
-                      },
-                    ]}
-                  >
-                    <TextArea
-                      rows={4}
-                      placeholder="Projets en cours ou précédents"
-                    />
-                  </Form.Item>
-
-                  <Button
-                    type="primary"
-                    shape="round"
-                    className="bg-[#3bcf93] border-none mt-4"
-                    htmlType="submit"
-                    loading={submitting}
-                  >
-                    Soumettre
-                  </Button>
-                </Form>
-
-                {/* Informations complémentaires */}
-                <div className="mt-8">
-                  <Text>
-                    En soumettant ce formulaire, vous acceptez notre{" "}
-                    <a
-                      href="#"
-                      className="text-[#3bcf93]"
-                    >
-                      politique de confidentialité
-                    </a>{" "}
-                    et nos{" "}
-                    <a
-                      href="#"
-                      className="text-[#3bcf93]"
-                    >
-                      conditions générales
-                    </a>
-                    .
-                  </Text>
-                  <Text>
-                    Pour plus d'informations sur les critères de sélection et le
-                    processus d'évaluation des prestataires, cliquez{" "}
-                    <a
-                      href="#"
-                      className="text-[#3bcf93]"
-                    >
-                      ici
-                    </a>
-                    .
-                  </Text>
-                </div>
-              </Card>
+      <Card>
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
+          <Title level={4} className="text-xl font-bold mb-4">
+            Informations de l'organisation
+          </Title>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="organizationName"
+                label="Nom de l'organisation"
+                rules={[{ required: true, message: "Veuillez entrer le nom de l'organisation" }]}
+              >
+                <Input prefix={<UserOutlined />} placeholder="Nom de l'organisation" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="address"
+                label="Adresse"
+                rules={[{ required: true, message: "Veuillez entrer l'adresse" }]}
+              >
+                <Input prefix={<EnvironmentOutlined />} placeholder="Adresse" />
+              </Form.Item>
             </Col>
           </Row>
-        </div>
-      </div>
-      {/* Fin du formulaire d'enregistrement */}
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="website"
+                label="Site web"
+                rules={[{ type: "url", message: "Veuillez entrer une URL valide" }]}
+              >
+                <Input prefix={<GlobalOutlined />} placeholder="https://example.com" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="organizationType"
+                label="Type d'organisation"
+                rules={[{ required: !otherOrganizationType, message: "Veuillez sélectionner le type d'organisation" }]}
+              >
+                <Select
+                  placeholder="Sélectionnez le type d'organisation"
+                  disabled={otherOrganizationType}
+                >
+                  <Option value="association">Association</Option>
+                  <Option value="ngo">ONG</Option>
+                  <Option value="socialEnterprise">Entreprise sociale</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item>
+            <Checkbox
+              checked={otherOrganizationType}
+              onChange={(e) => setOtherOrganizationType(e.target.checked)}
+            >
+              Autre type d'organisation
+            </Checkbox>
+          </Form.Item>
+          {otherOrganizationType && (
+            <Form.Item
+              name="specificOrganizationType"
+              label="Type d'organisation spécifique"
+              rules={[{ required: true, message: "Veuillez indiquer le type d'organisation spécifique" }]}
+            >
+              <Input placeholder="Type d'organisation spécifique" />
+            </Form.Item>
+          )}
 
-      {/* Début de la section Assistance et Support */}
-      <div className="support-area py-12">
-        <div className="container mx-auto text-center">
-          <Title
-            level={3}
-            className="text-2xl font-bold"
-          >
-            Besoin d'aide ?
+          <Title level={4} className="text-xl font-bold mb-4">
+            Informations de contact
           </Title>
-          <Paragraph>
-            Pour toute assistance avec l'inscription, veuillez nous contacter à{" "}
-            <a
-              href="mailto:support@example.com"
-              className="text-[#3bcf93]"
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="representativeName"
+                label="Nom du représentant"
+                rules={[{ required: true, message: "Veuillez entrer le nom du représentant" }]}
+              >
+                <Input prefix={<UserOutlined />} placeholder="Nom du représentant" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="phone"
+                label="Numéro de téléphone"
+                rules={[{ required: true, message: "Veuillez entrer le numéro de téléphone" }]}
+              >
+                <Input prefix={<PhoneOutlined />} placeholder="Numéro de téléphone" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="phone2"
+                label="Deuxième Numéro de téléphone"
+                rules={[{ required: true, message: "Veuillez entrer le deuxième numéro de téléphone" }]}
+              >
+                <Input prefix={<PhoneOutlined />} placeholder="Numéro de téléphone" />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Title level={4} className="text-xl font-bold mb-4">
+            Informations d'authentification
+          </Title>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="email"
+                label="Adresse e-mail"
+                rules={[
+                  { required: true, message: "Veuillez entrer l'adresse e-mail" },
+                  { type: "email", message: "Veuillez entrer une adresse e-mail valide" }
+                ]}
+              >
+                <Input prefix={<MailOutlined />} placeholder="email@example.com" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="password"
+                label="Mot de passe"
+                rules={[
+                  { required: true, message: "Veuillez entrer votre mot de passe!" },
+                  { min: 6, message: "Le mot de passe doit contenir au moins 6 caractères" }
+                ]}
+              >
+                <Input prefix={<LockOutlined />} type="password" placeholder="Mot de passe" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col xs={24} sm={12}>
+              <Form.Item
+                name="password2"
+                label="Confirmer le mot de passe"
+                dependencies={["password"]}
+                rules={[
+                  { required: true, message: "Veuillez confirmer votre mot de passe!" },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve()
+                      }
+                      return Promise.reject(new Error("Les mots de passe ne correspondent pas!"))
+                    },
+                  }),
+                ]}
+              >
+                <Input prefix={<LockOutlined />} type="password" placeholder="Confirmer le mot de passe" />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Title level={4} className="text-xl font-bold mb-4">
+            Détails spécifiques
+          </Title>
+          <Form.Item
+            name="services"
+            label="Description des services offerts"
+            rules={[{ required: true, message: "Veuillez décrire les services offerts" }]}
+          >
+            <TextArea rows={4} placeholder="Description des services offerts" />
+          </Form.Item>
+          <Form.Item
+            name="geographicAreas"
+            label="Zones géographiques d'intervention"
+            rules={[{ required: true, message: "Veuillez indiquer les zones géographiques d'intervention" }]}
+          >
+            <Select mode="multiple" placeholder="Sélectionnez les zones géographiques d'intervention">
+              {provincesRDC.map((province) => (
+                <Option key={province} value={province}>{province}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="projects"
+            label="Projets en cours ou précédents"
+            rules={[{ required: true, message: "Veuillez décrire les projets en cours ou précédents" }]}
+          >
+            <TextArea rows={4} placeholder="Projets en cours ou précédents" />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={submitting}
+              className="bg-[#3bcf93] border-none"
             >
-              support@example.com
-            </a>{" "}
-            ou appeler le{" "}
-            <a
-              href="tel:+1234567890"
-              className="text-[#3bcf93]"
-            >
-              +1 234 567 890
-            </a>
-            .
-          </Paragraph>
-        </div>
+              Soumettre
+            </Button>
+            <Text className="ml-4">
+              En soumettant ce formulaire, vous acceptez notre{" "}
+              <a href="#" className="text-[#3bcf93]">politique de confidentialité</a>{" "}
+              et nos <a href="#" className="text-[#3bcf93]">conditions générales</a>.
+            </Text>
+          </Form.Item>
+        </Form>
+      </Card>
+
+      <div className="mt-8">
+        <Title level={3} className="text-2xl font-bold">
+          Besoin d'aide ?
+        </Title>
+        <Paragraph>
+          Pour toute assistance avec l'inscription, veuillez nous contacter à{" "}
+          <a href="mailto:support@example.com" className="text-[#3bcf93]">support@example.com</a>{" "}
+          ou appeler le <a href="tel:+1234567890" className="text-[#3bcf93]">+1 234 567 890</a>.
+        </Paragraph>
       </div>
-      {/* Fin de la section Assistance et Support */}
     </div>
   )
 }

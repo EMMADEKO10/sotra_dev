@@ -342,6 +342,13 @@ const SponsorRegistration = () => {
                       </Button>
                     </Upload>
                   </Form.Item>
+
+                  <Title
+                    level={4}
+                    className="text-xl font-bold mb-4"
+                  >
+                    Informations d'authentification
+                  </Title>
                   <Form.Item
                     name="email"
                     label="Adresse e-mail"

@@ -1,34 +1,94 @@
-import { useState } from "react";
+import { useState, useCallback, memo, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LogoutOutlined, UserOutlined, DollarCircleOutlined, ToolOutlined, StarOutlined, ProfileOutlined, DashboardOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { LogoutOutlined, UserOutlined, DollarCircleOutlined, ToolOutlined, StarOutlined, ProfileOutlined, DashboardOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { Button, Modal } from 'antd';
+
+const NavItem = memo(({ item, roleUserConnect }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const timeoutRef = useRef(null);
+  const navItemRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutRef.current);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div 
+      className="relative group"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      ref={navItemRef}
+    >
+      <button
+        className="text-lg font-semibold hover:text-[#3bcf94] transition-colors bg-transparent flex items-center"
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+      >
+        {item.title}
+        <span className={`ml-1 text-[#3bcf94] transition-transform duration-300 transform ${isOpen ? 'rotate-180' : ''}`}>▼</span>
+      </button>
+      {isOpen && (
+        <div 
+          className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-10"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <ul className="py-2">
+            {item.subItems.map((subItem, subIndex) => (
+              !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
+                <li key={subIndex}>
+                  <Link
+                    to={subItem.link}
+                    className="block px-4 py-2 text-gray-700 hover:bg-[#3bcf94] hover:text-white transition-colors"
+                  >
+                    {subItem.name}
+                  </Link>
+                </li>
+              ) : null
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+});
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(null);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
-  const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigate = useNavigate();
 
   const userConnect = localStorage.getItem("user");
   let roleUserConnect = localStorage.getItem("role") || "user";
 
-  const toggleDropdown = (index) => {
-    setDropdownOpen(dropdownOpen === index ? null : index);
-  };
-
-  const toggleMobileDropdown = (index) => {
+  const toggleMobileDropdown = useCallback((index) => {
     setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
-  };
+  }, [mobileDropdownOpen]);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
       localStorage.removeItem('token');
       localStorage.removeItem("user");
       localStorage.removeItem("role");
       navigate('/login');
     }
-  };
+  }, [navigate]);
 
   const navItems = [
     {
@@ -36,7 +96,6 @@ const Navbar = () => {
       subItems: [
         { name: "Découvrir les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] },
-        // { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
       ],
     },
     {
@@ -44,14 +103,12 @@ const Navbar = () => {
       subItems: [
         { name: "Social bonds", link: "/socialbonds", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
         { name: "Charte", link: "/chart", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        // { name: "Blog", link: "/blogs", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
       ],
     },
     {
       title: "Sponsor",
       subItems: [
         { name: "Nos sponsors", link: "/nossponsorts", restrictedTo: ["admin", "user", "sponsor", "prestataire"] },
-        // { name: "Devenir sponsor", link: "/sponsorregistration", restrictedTo: ["admin", "user"] }
       ],
     },
     {
@@ -63,9 +120,7 @@ const Navbar = () => {
     },
   ];
 
-  let dashboardUrl;
-  let dashboardIcon;
-  let dashboardText;
+  let dashboardUrl, dashboardIcon, dashboardText;
 
   if (roleUserConnect === 'admin') {
     dashboardUrl = `/dashboard`;
@@ -81,16 +136,37 @@ const Navbar = () => {
     dashboardIcon = <ProfileOutlined />;
   }
 
+  const isValidRole = ['prestataire', 'sponsor', 'admin'].includes(roleUserConnect);
+
+  const roleButtonStyle = isValidRole
+    ? "bg-green-500 text-white border-green-500 hover:bg-green-600 hover:border-green-600"
+    : "bg-red-500 text-white border-red-500 hover:bg-red-600 hover:border-red-600";
+
+  const roleIcon = isValidRole
+    ? <CheckCircleOutlined />
+    : <CloseCircleOutlined />;
+
+  const roleButtonText = isValidRole ? roleUserConnect : "Non approuvé";
+
+  const showModal = () => {
+    if (!isValidRole) {
+      setIsModalVisible(true);
+    }
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <nav className="sticky top-0 bg-white z-50 shadow-md">
+    <nav className="sticky top-0 bg-white z-50 shadow-md transition-all duration-300">
       <div className="flex flex-row justify-between items-center container mx-auto px-4 py-3">
-        <Link to="/" className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
           <img
             src="/sotradon logo.png"
             alt="Logo de Sotradons - RSE Market Place by Gouvernix"
             className="w-10 h-10"
           />
-
           <div className="sotradons-text">
             <div className="ttext">
               <span className="s" style={{ '--order': 0 }}>S</span>
@@ -110,71 +186,53 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden xl:flex space-x-8">
           {navItems.map((item, index) => (
-            <div key={index} className="relative group">
-              <button
-                onClick={() => toggleDropdown(index)}
-                className="text-lg font-semibold hover:text-[#3bcf94] transition-colors bg-transparent"
-              >
-                {item.title} <span className="text-[#3bcf94]">+</span>
-              </button>
-              {dropdownOpen === index && (
-                <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                  <ul className="py-2">
-                    {item.subItems.map((subItem, subIndex) => (
-                      !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
-                        <li key={subIndex}>
-                          <Link
-                            className="block px-4 py-2 text-gray-700 hover:bg-[#3bcf94] hover:text-white transition-colors"
-                            to={subItem.link}
-                            onClick={() => setDropdownOpen(null)}
-                          >
-                            {subItem.name}
-                          </Link>
-                        </li>
-                      ) : null
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+            <NavItem
+              key={index}
+              item={item}
+              roleUserConnect={roleUserConnect}
+            />
           ))}
         </div>
 
         {/* User Actions */}
-        <div className=" hidden lg:flex items-center space-x-4">
+        <div className="hidden lg:flex items-center space-x-4">
           {userConnect ? (
             <>
-              <button
-                className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
-                onClick={() => navigate(dashboardUrl)}
-              >
-                {dashboardIcon}
-                {dashboardText}
-              </button>
-              <button
-                className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
-              >
-                {roleUserConnect === 'prestataire' ? <UserOutlined /> :
-                  roleUserConnect === 'sponsor' ? <DollarCircleOutlined /> :
-                  roleUserConnect === 'admin' ? <ToolOutlined /> :
-                  <UserOutlined style={{ color: 'gray' }} />
-                }
-                {roleUserConnect}
-              </button>
-              <Button
-                type="primary"
-                danger
-                onClick={logout}
-                icon={<LogoutOutlined />}
-              >
-                Déconnexion
-              </Button>
+            <Link
+                    to={dashboardUrl}
+                    className="w-full max-w-lg flex justify-center"
+                  >
+                    <button 
+                    className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+                      {dashboardIcon}
+                      {dashboardText}
+                    </button>
+                  </Link>
+
+                  <button 
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+                    icon={roleIcon}
+                    onClick={showModal}
+                  >
+                    {roleButtonText}
+                  </button>
+
+                  <Button 
+                    className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
+                    type="primary"
+                    danger
+                    onClick={logout}
+                    icon={<LogoutOutlined />}
+                  >
+                    Déconnexion
+                  </Button>
+  
             </>
           ) : (
             <Link to="/login">
-              <button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-[#3bcf94] px-4 py-1.5 rounded transition-colors">
+              <Button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-white px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
                 Connexion
-              </button>
+              </Button>
             </Link>
           )}
         </div>
@@ -183,11 +241,12 @@ const Navbar = () => {
         <button
           className="xl:hidden flex items-center bg-transparent"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
         >
           {menuOpen ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#3bcf94]"
+              className="h-8 w-8 text-[#3bcf94] transition-transform duration-300 transform rotate-90"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -202,7 +261,7 @@ const Navbar = () => {
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#3bcf94]"
+              className="h-8 w-8 text-[#3bcf94] transition-transform duration-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -220,23 +279,19 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {menuOpen && (
-        <div className="bg-white w-full shadow-lg z-40 xl:hidden">
+        <div className="bg-white w-full shadow-lg z-40 xl:hidden transition-all duration-300 ease-in-out">
           <div className="p-4 space-y-4">
-            <div className="space-y-3 flex flex-col items-center w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto">
-             
-            </div>
-
             <div className="space-y-3">
               {navItems.map((item, index) => (
                 <div key={index} className="w-full">
                   <button
                     onClick={() => toggleMobileDropdown(index)}
-                    className="w-full flex items-center justify-between text-lg font-semibold bg-[#3bcf94] text-white px-4 py-2 rounded-md"
+                    className="w-full flex items-center justify-between text-lg font-semibold bg-[#3bcf94] text-white px-4 py-2 rounded-md transition-all duration-300"
                   >
                     {item.title}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 transform transition-transform duration-300"
+                      className={`h-5 w-5 transform transition-transform duration-300 ${mobileDropdownOpen === index ? 'rotate-180' : ''}`}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -271,38 +326,62 @@ const Navbar = () => {
                 <div className="flex flex-col gap-2 w-full items-center">
                   <Link
                     to={dashboardUrl}
-                    className="w-full max-w-lg flex  justify-center"
+                    className="w-full max-w-lg flex justify-center"
                   >
-                    <button className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                    <button 
+                    className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2">
                       {dashboardIcon}
                       {dashboardText}
                     </button>
                   </Link>
 
-                    <Button 
-                    className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors"
+                  <button 
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+                    icon={roleIcon}
+                    onClick={showModal}
+                  >
+                    {roleButtonText}
+                  </button>
+
+                  <Button 
+                    className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
                     type="primary"
                     danger
                     onClick={logout}
                     icon={<LogoutOutlined />}
-                    >
-                      Déconnexion
-                    </Button>
+                  >
+                    Déconnexion
+                  </Button>
                 </div>
-
               ) : (
                 <Link to="/login" className="w-full max-w-lg flex justify-center">
-                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
                     Connexion
                   </button>
                 </Link>
               )}
-            </div>
+              </div>
           </div>
         </div>
       )}
+
+      {/* Modal pour les utilisateurs non approuvés */}
+      <Modal
+        title="Compte non approuvé"
+        open={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleOk}
+        footer={[
+          <Button key="ok" type="primary" onClick={handleOk}>
+            J'ai compris
+          </Button>,
+        ]}
+      >
+        <p>Nous vous remercions pour votre inscription. Votre compte est actuellement en attente d'approbation. Pour finaliser ce processus et accéder à toutes les fonctionnalités de notre plateforme, nous vous invitons à contacter notre équipe administrative.</p>
+        <p>Ils se feront un plaisir de vérifier vos informations et d'activer votre compte dans les plus brefs délais. Nous apprécions votre patience et votre compréhension.</p>
+      </Modal>
     </nav>
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

@@ -1,567 +1,340 @@
-import { useState } from "react"
-import {
-  Button,
-  Form,
-  Input,
-  Select,
-  Row,
-  Col,
-  Card,
-  Typography,
-  Checkbox,
-  message,
-} from "antd"
-import "tailwindcss/tailwind.css"
-import axios from "axios"
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LogoutOutlined, UserOutlined, DollarCircleOutlined, ToolOutlined, StarOutlined, ProfileOutlined, DashboardOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
-const { TextArea } = Input
-const { Option } = Select
-const { Title, Paragraph, Text } = Typography
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
+  const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-const provincesRDC = [
-  "Bas-Uele",
-  "Équateur",
-  "Haut-Katanga",
-  "Haut-Lomami",
-  "Haut-Uele",
-  "Ituri",
-  "Kasaï",
-  "Kasaï-Central",
-  "Kasaï-Oriental",
-  "Kinshasa",
-  "Kongo-Central",
-  "Kwango",
-  "Kwilu",
-  "Lomami",
-  "Lualaba",
-  "Mai-Ndombe",
-  "Maniema",
-  "Mongala",
-  "Nord-Kivu",
-  "Nord-Ubangi",
-  "Sankuru",
-  "Sud-Kivu",
-  "Sud-Ubangi",
-  "Tanganyika",
-  "Tshopo",
-  "Tshuapa",
-].sort()
+  const userConnect = localStorage.getItem("user");
+  let roleUserConnect = localStorage.getItem("role") || "user";
 
-const InfoPrestataire = () => {
-  const [form] = Form.useForm()
-  const token = localStorage.getItem("token") // Supposez que vous stockez le token sous le nom 'token'
-  const user = localStorage.getItem("user")
-  const [submitting, setSubmitting] = useState(false)
-  const [otherOrganizationType, setOtherOrganizationType] = useState(false)
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const toggleDropdown = (index) => {
+    setDropdownOpen(dropdownOpen === index ? null : index);
+  };
 
-  const handleStartProjectClick = () => {
-    if (!token) {
-      setIsModalVisible(true)
-    } else {
-      // Logique pour démarrer un projet
+  const toggleMobileDropdown = (index) => {
+    setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
+  };
+
+  const logout = () => {
+    if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+      localStorage.removeItem('token');
+      localStorage.removeItem("user");
+      localStorage.removeItem("role");
+      navigate('/login');
     }
-  }
-  // ------------------------------------------------------------
-  const handleModalOk = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        if (values.agree) {
-          setIsModalVisible(false)
-          history.push("/devenir-prestataire")
-        }
-      })
-      .catch((info) => {
-        console.log("Validation Failed:", info)
-      })
-  }
-  // ---------------------------------------------------------------
-  const handleSubmit = async (values) => {
-    const apiUrl = import.meta.env.VITE_API_URL
+  };
 
-    const sanitizedValues = {
-      ...values,
-      organizationName: values.organizationName.trim(),
-      address: values.address.trim(),
-      website: values.website?.trim(),
-      representativeName: values.representativeName.trim(),
-      phone: values.phone.trim(),
-      email: values.email.trim(),
-      password: values.password.trim(),
-      services: values.services.trim(),
-      geographicAreas: values.geographicAreas,
-      projects: values.projects.trim(),
-      specificOrganizationType: values.specificOrganizationType?.trim(),
-    }
+  const navItems = [
+    {
+      title: "Projets",
+      subItems: [
+        { name: "Découvrir les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] },
+        // { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
+      ],
+    },
+    {
+      title: "Info",
+      subItems: [
+        { name: "Social bonds", link: "/socialbonds", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        { name: "Charte", link: "/chart", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        // { name: "Blog", link: "/blogs", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+      ],
+    },
+    {
+      title: "Sponsor",
+      subItems: [
+        { name: "Nos sponsors", link: "/nossponsorts", restrictedTo: ["admin", "user", "sponsor", "prestataire"] },
+        // { name: "Devenir sponsor", link: "/sponsorregistration", restrictedTo: ["admin", "user"] }
+      ],
+    },
+    {
+      title: "À propos",
+      subItems: [
+        { name: "Vision et Mission", link: "/about" },
+        { name: "Contact", link: "/contact" }
+      ],
+    },
+  ];
 
-    try {
-      const formData = new FormData()
+  let dashboardUrl;
+  let dashboardIcon;
+  let dashboardText;
 
-      for (const key in sanitizedValues) {
-        if (Array.isArray(sanitizedValues[key])) {
-          sanitizedValues[key].forEach((value, index) => {
-            formData.append(`${key}[${index}]`, value)
-          })
-        } else {
-          formData.append(key, sanitizedValues[key])
-        }
-      }
-
-      formData.append("iduser", user)
-
-      console.log("sanitizedValues : ", sanitizedValues)
-
-      const response = await axios.post(`${apiUrl}/prestataire`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-          "X-CSRF-Token": "your-csrf-token", // Ajouter un token CSRF pour la sécurité si nécessaire
-        },
-      })
-      console.log(response.data)
-    } catch (error) {
-      console.error("Error submitting form:", error)
-      message.error("Erreur de soumission : Veuillez réessayer plus tard.")
-    } finally {
-      setSubmitting(false)
-    }
-
-    // ------------------------------------------------------------------------------------------------
+  if (roleUserConnect === 'admin') {
+    dashboardUrl = `/dashboard`;
+    dashboardText = "Dashboard";
+    dashboardIcon = <DashboardOutlined />;
+  } else if (roleUserConnect === 'sponsor') {
+    dashboardUrl = `/sponsor/${userConnect}`;
+    dashboardText = "Mes Projets Sponsorisés";
+    dashboardIcon = <StarOutlined />;
+  } else {
+    dashboardUrl = `/prestataire/${userConnect}`;
+    dashboardText = "Mes Projets";
+    dashboardIcon = <ProfileOutlined />;
   }
 
   return (
-    <div>
-      {/* Début de la section d'en-tête */}
+    <nav className="sticky top-0 bg-white z-50 shadow-md">
+      <div className="flex flex-row justify-between items-center container mx-auto px-4 py-3">
+        <Link to="/" className="flex items-center space-x-2">
+          <img
+            src="/sotradon logo.png"
+            alt="Logo de Sotradons - RSE Market Place by Gouvernix"
+            className="w-10 h-10"
+          />
 
-      {/* Début de l'introduction */}
-      <div className="about-area py-12">
-      <div className="container mx-auto">
-        <Row justify="center" gutter={24}>
-          <Col lg={16} className="text-center">
-            <Title level={3} className="text-3xl font-bold mb-4">
-              Devenez un Prestataire Social avec SOTRADONS
-            </Title>
-            <Paragraph className="text-lg mb-4">
-              En tant que prestataire social chez SOTRADONS, vous intégrez un
-              réseau dynamique dédié à la promotion de la Responsabilité
-              Sociétale des Entreprises (RSE). Nous offrons aux prestataires
-              sociaux la possibilité de contribuer activement à des projets
-              impactants tout en bénéficiant de visibilité, de crédibilité et
-              de financement.
-            </Paragraph>
-            <div className="custom-divider mb-4"></div>
-            <Paragraph className="text-lg mb-4">
-              Pour devenir un prestataire chez SOTRADONS, vous devez adhérer à
-              nos conditions rigoureuses :
-            </Paragraph>
-            <ul className="conditions-list mb-4">
-              <li>
-                Démontrer un engagement fort envers les principes de solidarité,
-                transparence et dons pour des causes humanitaires.
-              </li>
-              <li>
-                Présenter des projets socialement viables et innovants, alignés
-                avec les objectifs de développement durable et les standards de
-                qualité de SOTRADONS.
-              </li>
-              <li>
-                Être accrédité et formé par la Fondation SARA pour assurer la
-                qualité et l'efficacité de l'exécution des projets.
-              </li>
-              <li>
-                Maintenir une intégrité personnelle et professionnelle à toute
-                épreuve, en agissant de manière éthique et respectueuse dans
-                toutes les interactions.
-              </li>
-              <li>
-                Fournir une transparence totale dans la gestion des fonds et des
-                ressources alloués aux projets, conformément aux normes éthiques
-                et légales.
-              </li>
-            </ul>
-            <Paragraph className="text-lg mb-4">
-              En rejoignant notre réseau de prestataires sociaux, vous
-              contribuez activement à bâtir un avenir meilleur tout en
-              bénéficiant du soutien et des ressources nécessaires pour
-              maximiser l'impact de vos initiatives sociales.
-            </Paragraph>
-          </Col>
-        </Row>
-      </div>
-    </div>
-      {/* Fin de l'introduction */}
+          <div className="sotradons-text">
+            <div className="ttext">
+              <span className="s" style={{ '--order': 0 }}>S</span>
+              <span className="o" style={{ '--order': 1 }}>O</span>
+              <span className="t" style={{ '--order': 2 }}>T</span>
+              <span className="r" style={{ '--order': 3 }}>R</span>
+              <span className="a" style={{ '--order': 4 }}>A</span>
+              <span className="d" style={{ '--order': 5 }}>D</span>
+              <span className="o" style={{ '--order': 6 }}>O</span>
+              <span className="n" style={{ '--order': 7 }}>N</span>
+              <span className="s" style={{ '--order': 8 }}>S</span>
+            </div>
+            <span className="by">BY GOUVERNIX</span>
+          </div>
+        </Link>
 
-      {/* Début du formulaire d'enregistrement */}
-      <div className="registration-form-area py-12 bg-gray-100">
-        <div className="container mx-auto">
-          <Row justify="center">
-            <Col lg={16}>
-              <Card className="shadow-lg rounded-lg p-8">
-                <Form
-                  form={form}
-                  layout="vertical"
-                  onFinish={handleSubmit}
-                >
-                  {/* Informations de l'organisation */}
-                  <Title
-                    level={4}
-                    className="text-xl font-bold mb-4"
-                  >
-                    Informations de l'organisation
-                  </Title>
-                  <Form.Item
-                    name="organizationName"
-                    label="Nom de l'organisation"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le nom de l'organisation",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Nom de l'organisation" />
-                  </Form.Item>
-                  <Form.Item
-                    name="address"
-                    label="Adresse"
-                    rules={[
-                      { required: true, message: "Veuillez entrer l'adresse" },
-                    ]}
-                  >
-                    <Input placeholder="Adresse" />
-                  </Form.Item>
-                  <Form.Item
-                    name="website"
-                    label="Site web"
-                    rules={[
-                      {
-                        type: "url",
-                        message: "Veuillez entrer une URL valide",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="https://example.com" />
-                  </Form.Item>
-                  {/* ------------------------------------------------------------------ */}
-
-                  <Form.Item
-                    name="organizationType"
-                    label="Type d'organisation"
-                    rules={[
-                      {
-                        required: !otherOrganizationType,
-                        message: "Veuillez sélectionner le type d'organisation",
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Sélectionnez le type d'organisation"
-                      disabled={otherOrganizationType}
-                    >
-                      <Option value="association">Association</Option>
-                      <Option value="ngo">ONG</Option>
-                      <Option value="socialEnterprise">
-                        Entreprise sociale
-                      </Option>
-                    </Select>
-                  </Form.Item>
-                  <Form.Item>
-                    <Checkbox
-                      checked={otherOrganizationType}
-                      onChange={(e) =>
-                        setOtherOrganizationType(e.target.checked)
-                      }
-                    >
-                      Autre type d'organisation
-                    </Checkbox>
-                  </Form.Item>
-                  {otherOrganizationType && (
-                    <Form.Item
-                      name="specificOrganizationType"
-                      label="Type d'organisation spécifique"
-                      rules={[
-                        {
-                          required: true,
-                          message:
-                            "Veuillez indiquer le type d'organisation spécifique",
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Type d'organisation spécifique" />
-                    </Form.Item>
-                  )}
-                  {/* ------------------------------------------------------------------------------------------ */}
-                  <Form.Item
-                    name="email"
-                    label="Adresse e-mail"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer l'adresse e-mail",
-                        type: "email",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="email@example.com" />
-                  </Form.Item>
-                  {/* ------------------------------------------------------------------------------------------ */}
-
-                  <Form.Item
-                    label="Mot de passe"
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer votre mot de passe!",
-                      },
-                      {
-                        min: 6,
-                        message:
-                          "Le mot de passe doit contenir au moins 6 caractères",
-                      },
-                    ]}
-                  >
-                    <Input
-                      type="password"
-                      placeholder="Mot de passe"
-                      className="rounded-md"
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    label="Confirmer le mot de passe"
-                    name="password2"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez confirmer votre mot de passe!",
-                      },
-                      ({ getFieldValue }) => ({
-                        validator(_, value) {
-                          if (!value || getFieldValue("password") === value) {
-                            return Promise.resolve()
-                          }
-                          return Promise.reject(
-                            new Error("Les mots de passe ne correspondent pas!")
-                          )
-                        },
-                      }),
-                    ]}
-                  >
-                    <Input placeholder="Mot de passe" />
-                  </Form.Item>
-
-                  {/* Informations de contact */}
-                  <Title
-                    level={4}
-                    className="text-xl font-bold mb-4"
-                  >
-                    Informations de contact
-                  </Title>
-                  <Form.Item
-                    name="representativeName"
-                    label="Nom du représentant"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le nom du représentant",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Nom du représentant" />
-                  </Form.Item>
-                  <Form.Item
-                    name="emailRepresant"
-                    label="Adresse e-mail"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer l'adresse e-mail",
-                        type: "email",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="email@example.com" />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="phone"
-                    label="Numéro de téléphone"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez entrer le numéro de téléphone",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Numéro de téléphone" />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="phone2"
-                    label="Deuxième Numéro de téléphone"
-                    rules={[
-                      {
-                        required: true,
-                        message:
-                          "Veuillez entrer le deuxième numéro de téléphone",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Numéro de téléphone" />
-                  </Form.Item>
-
-                  {/* Champs spécifiques */}
-                  <Title
-                    level={4}
-                    className="text-xl font-bold mb-4"
-                  >
-                    Détails spécifiques
-                  </Title>
-                  <Form.Item
-                    name="services"
-                    label="Description des services offerts"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Veuillez décrire les services offerts",
-                      },
-                    ]}
-                  >
-                    <TextArea
-                      rows={4}
-                      placeholder="Description des services offerts"
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    name="geographicAreas"
-                    label="Zones géographiques d'intervention"
-                    rules={[
-                      {
-                        required: true,
-                        message:
-                          "Veuillez indiquer les zones géographiques d'intervention",
-                      },
-                    ]}
-                  >
-                    <Select
-                      mode="multiple"
-                      placeholder="Sélectionnez les zones géographiques d'intervention"
-                    >
-                      {provincesRDC.map((province) => (
-                        <Option
-                          key={province}
-                          value={province}
-                        >
-                          {province}
-                        </Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    name="projects"
-                    label="Projets en cours ou précédents"
-                    rules={[
-                      {
-                        required: true,
-                        message:
-                          "Veuillez décrire les projets en cours ou précédents",
-                      },
-                    ]}
-                  >
-                    <TextArea
-                      rows={4}
-                      placeholder="Projets en cours ou précédents"
-                    />
-                  </Form.Item>
-
-                  <Button
-                    type="primary"
-                    shape="round"
-                    className="bg-[#3bcf93] border-none mt-4"
-                    htmlType="submit"
-                    loading={submitting}
-                  >
-                    Soumettre
-                  </Button>
-                </Form>
-
-                {/* Informations complémentaires */}
-                <div className="mt-8">
-                  <Text>
-                    En soumettant ce formulaire, vous acceptez notre{" "}
-                    <a
-                      href="#"
-                      className="text-[#3bcf93]"
-                    >
-                      politique de confidentialité
-                    </a>{" "}
-                    et nos{" "}
-                    <a
-                      href="#"
-                      className="text-[#3bcf93]"
-                    >
-                      conditions générales
-                    </a>
-                    .
-                  </Text>
-                  <Text>
-                    Pour plus d'informations sur les critères de sélection et le
-                    processus d'évaluation des prestataires, cliquez{" "}
-                    <a
-                      href="#"
-                      className="text-[#3bcf93]"
-                    >
-                      ici
-                    </a>
-                    .
-                  </Text>
+        {/* Desktop Navigation */}
+        <div className="hidden xl:flex space-x-8">
+          {navItems.map((item, index) => (
+            <div key={index} className="relative group">
+              <button
+                onClick={() => toggleDropdown(index)}
+                className="text-lg font-semibold hover:text-[#3bcf94] transition-colors bg-transparent"
+              >
+                {item.title} <span className="text-[#3bcf94]">+</span>
+              </button>
+              {dropdownOpen === index && (
+                <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                  <ul className="py-2">
+                    {item.subItems.map((subItem, subIndex) => (
+                      !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
+                        <li key={subIndex}>
+                          <Link
+                            className="block px-4 py-2 text-gray-700 hover:bg-[#3bcf94] hover:text-white transition-colors"
+                            to={subItem.link}
+                            onClick={() => setDropdownOpen(null)}
+                          >
+                            {subItem.name}
+                          </Link>
+                        </li>
+                      ) : null
+                    ))}
+                  </ul>
                 </div>
-              </Card>
-            </Col>
-          </Row>
+              )}
+            </div>
+          ))}
         </div>
-      </div>
-      {/* Fin du formulaire d'enregistrement */}
 
-      {/* Début de la section Assistance et Support */}
-      <div className="support-area py-12">
-        <div className="container mx-auto text-center">
-          <Title
-            level={3}
-            className="text-2xl font-bold"
-          >
-            Besoin d'aide ?
-          </Title>
-          <Paragraph>
-            Pour toute assistance avec l'inscription, veuillez nous contacter à{" "}
-            <a
-              href="mailto:support@example.com"
-              className="text-[#3bcf93]"
-            >
-              support@example.com
-            </a>{" "}
-            ou appeler le{" "}
-            <a
-              href="tel:+1234567890"
-              className="text-[#3bcf93]"
-            >
-              +1 234 567 890
-            </a>
-            .
-          </Paragraph>
+        {/* User Actions */}
+        <div className=" hidden lg:flex items-center space-x-4">
+          {userConnect ? (
+            <>
+              <button
+                className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
+                onClick={() => navigate(dashboardUrl)}
+              >
+                {dashboardIcon}
+                {dashboardText}
+              </button>
+              <button
+                className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
+              >
+                {roleUserConnect === 'prestataire' ? <UserOutlined /> :
+                  roleUserConnect === 'sponsor' ? <DollarCircleOutlined /> :
+                  roleUserConnect === 'admin' ? <ToolOutlined /> :
+                  <UserOutlined style={{ color: 'gray' }} />
+                }
+                {roleUserConnect}
+              </button>
+              <Button
+                type="primary"
+                danger
+                onClick={logout}
+                icon={<LogoutOutlined />}
+              >
+                Déconnexion
+              </Button>
+            </>
+          ) : (
+            <Link to="/login">
+              <button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-[#3bcf94] px-4 py-1.5 rounded transition-colors">
+                Connexion
+              </button>
+            </Link>
+          )}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="xl:hidden flex items-center bg-transparent"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8 text-[#3bcf94]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8 text-[#3bcf94]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          )}
+        </button>
       </div>
-      {/* Fin de la section Assistance et Support */}
-    </div>
-  )
-}
 
-export default InfoPrestataire
+      {/* Mobile Navigation */}
+      {menuOpen && (
+        <div className="bg-white w-full shadow-lg z-40 xl:hidden">
+          <div className="p-4 space-y-4">
+            <div className="space-y-3 flex flex-col items-center w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto">
+             
+            </div>
+
+            <div className="space-y-3">
+              {navItems.map((item, index) => (
+                <div key={index} className="w-full">
+                  <button
+                    onClick={() => toggleMobileDropdown(index)}
+                    className="w-full flex items-center justify-between text-lg font-semibold bg-[#3bcf94] text-white px-4 py-2 rounded-md"
+                  >
+                    {item.title}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 transform transition-transform duration-300"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06-.02L10 10.46l3.71-3.27a.75.75 0 111.02 1.1l-4 3.5a.75.75 0 01-1.02 0l-4-3.5a.75.75 0 01-.02-1.06z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  {mobileDropdownOpen === index && (
+                    <ul className="mt-2 bg-gray-100 rounded-md shadow-inner">
+                      {item.subItems.map((subItem, subIndex) => (
+                        !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
+                          <li key={subIndex}>
+                            <Link
+                              className="block px-4 py-2 text-gray-700 hover:bg-[#3bcf94] hover:text-white transition-colors"
+                              to={subItem.link}
+                              onClick={() => setMenuOpen(false)}
+                            >
+                              {subItem.name}
+                            </Link>
+                          </li>
+                        ) : null
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+
+              {userConnect ? (
+                <div className="flex flex-col gap-2 w-full items-center">
+                  <Link
+                    to={dashboardUrl}
+                    className="w-full max-w-lg flex  justify-center"
+                  >
+                    <button className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                      {dashboardIcon}
+                      {dashboardText}
+                    </button>
+                  </Link>
+
+                    <Button 
+                    className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors"
+                    type="primary"
+                    danger
+                    onClick={logout}
+                    icon={<LogoutOutlined />}
+                    >
+                      Déconnexion
+                    </Button>
+                </div>
+
+              ) : (
+                <Link to="/login" className="w-full max-w-lg flex justify-center">
+                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
+                    Connexion
+                  </button>
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
+`
 
 
 
+ <>
+              <Button
+                className="bg-[#3bcf94] border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
+                onClick={() => navigate(dashboardUrl)}
+                icon={dashboardIcon}
+              >
+                {dashboardText}
+              </Button>
+              <Button
+                className={`flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+                icon={roleIcon}
+                onClick={showModal}
+              >
+                {roleButtonText}
+              </Button>
+              <Button
+                type="primary"
+                danger
+                onClick={logout}
+                icon={<LogoutOutlined />}
+                className="transition-all duration-300 hover:shadow-lg"
+              >
+                Déconnexion
+              </Button>
+            </>
 
 
 

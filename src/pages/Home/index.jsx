@@ -1,106 +1,48 @@
-// import './App.css'
-import HeaderTop from "../../components/HeaderTop"
-import HomeSponsortClassement from "../../components/HomeSponsortClassement"
-import Banner from "../../components/Banner"
-import AboutArea from "../../components/AboutArea"
-import Activity from "../../components/Activity"
-import OurMission from "../../components/OurMission"
-import Causes from "../../components/Causes"
-import Volunteer from "../../components/Volunteer"
-import EventArea from "../../components/EventArea"
-import Donnation from "../../components/Donnation"
-import Testimonials from "../../components/Testimonials"
-import GalleryArea from "../../components/GalleryArea"
-import Blog from "../../components/Blog"
-import Footer from "../../components/Footer"
-import NavBar from "../../components/Navbars/NavBar"
-import RetourEnHaut from "../../components/bouton/RetourEnHaut"
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/js/bootstrap.bundle.min';
+import React, { lazy, Suspense } from 'react';
+import HeaderTop from "../../components/HeaderTop";
+import NavBar from "../../components/Navbars/NavBar";
+import Banner from "../../components/Banner";
+import RetourEnHaut from "../../components/bouton/RetourEnHaut";
+
+// Lazy load components
+const HomeSponsortClassement = lazy(() => import("../../components/HomeSponsortClassement"));
+const AboutArea = lazy(() => import("../../components/AboutArea"));
+const Activity = lazy(() => import("../../components/Activity"));
+const OurMission = lazy(() => import("../../components/OurMission"));
+const Causes = lazy(() => import("../../components/Causes"));
+const Volunteer = lazy(() => import("../../components/Volunteer"));
+const EventArea = lazy(() => import("../../components/EventArea"));
+const Testimonials = lazy(() => import("../../components/Testimonials"));
+const GalleryArea = lazy(() => import("../../components/GalleryArea"));
+const Blog = lazy(() => import("../../components/Blog"));
+const Footer = lazy(() => import("../../components/Footer"));
 
 function Home() {
   return (
     <>
-      {/* <!-- Preloader Start --> */}
-      {/* <div className="se-pre-con"></div> */}
-      {/* <!-- Preloader Ends --> */}
-
       <HeaderTop />
-      {/* // <!-- Header
-    // ============================================= -->  */}
       <NavBar />
-      {/* <Header /> */}
-
-      {/* <!-- End Header -->
-
-      <!-- Start Banner
-    ============================================= --> */}
-      <Banner />
-      {/* <!-- End Banner -->
-
-      <!-- Star About Area
-    ============================================= --> */}
-      <AboutArea />
-      {/* <!-- End About Area -->
-
-      <!-- Start Causes
-    ============================================= --> */}
-
-      <Causes />
-      {/* <!-- End Causes -->
-
-
-      <!-- Start What We Do
-
-    ============================================= --> */}
-
-      <Activity />
-      <HomeSponsortClassement />
-      {/* <!-- End What We Do -->
-
-      <!-- Start Our Mission
-    ============================================= --> */}
-      <OurMission />
-      {/* <!-- End Our Mission -->
-
-
-
-      <!-- Start Volunteer
-    ============================================= --> */}
-      
-      {/* <!-- End Volunteer -->
-      
-      <!-- Start Event Area
-    ============================================= --> */}
-      <EventArea />
-      {/* <!-- End Event Area --> */}
-      {/*
-      <!-- Start Volunteer
-    ============================================= --> */}
-    <Volunteer />
-      {/* <!-- End Donation Area -->
-
-      <!-- Start Testimonials
-    ============================================= --> */}
-      <Testimonials />
-      {/* <!-- End Volunteer -->
-
-      <!-- Start Gallery
-    ============================================= --> */}
-      <GalleryArea />
-      {/* <!-- End Gallery Area -->
-
-      <!-- Start Blog
-    ============================================= --> */}
-      <Blog />
-      {/* <!-- End Blog Area -->
-
-      <!-- Start Footer
-    ============================================= --> */}
-      <RetourEnHaut/>
-      <Footer />
-      {/* <!-- End Footer --> */}
+      <main>
+        <Banner />
+        <Suspense fallback={<div>Chargement...</div>}>
+          <AboutArea />
+          <Causes />
+          <Activity />
+          <HomeSponsortClassement />
+          <OurMission />
+          <EventArea />
+          <Volunteer />
+          <Testimonials />
+          <GalleryArea />
+          <Blog />
+        </Suspense>
+      </main>
+      <RetourEnHaut />
+      <Suspense fallback={<div>Chargement...</div>}>
+        <Footer />
+      </Suspense>
     </>
-  )
+  );
 }
-export default Home
+
+export default Home;

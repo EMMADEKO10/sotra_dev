@@ -122,19 +122,19 @@ const Navbar = () => {
 
   let dashboardUrl, dashboardIcon, dashboardText;
 
-  if (roleUserConnect === 'admin') {
-    dashboardUrl = `/dashboard`;
-    dashboardText = "Dashboard";
-    dashboardIcon = <DashboardOutlined />;
-  } else if (roleUserConnect === 'sponsor') {
-    dashboardUrl = `/sponsor/${userConnect}`;
-    dashboardText = "Mes Projets Sponsorisés";
-    dashboardIcon = <StarOutlined />;
-  } else {
-    dashboardUrl = `/prestataire/${userConnect}`;
-    dashboardText = "Mes Projets";
-    dashboardIcon = <ProfileOutlined />;
-  }
+if (roleUserConnect === 'admin') {
+  dashboardUrl = `/dashboard`;
+  dashboardText = "Dashboard";
+  dashboardIcon = <DashboardOutlined />;
+} else if (roleUserConnect === 'sponsor') {
+  dashboardUrl = `/sponsor/${userConnect}`;
+  dashboardText = "Mes Projets Sponsorisés";
+  dashboardIcon = <StarOutlined />;
+} else if (roleUserConnect === 'prestataire') {
+  dashboardUrl = `/prestataire/${userConnect}`;
+  dashboardText = "Mes Projets";
+  dashboardIcon = <ProfileOutlined />;
+}
 
   const isValidRole = ['prestataire', 'sponsor', 'admin'].includes(roleUserConnect);
 
@@ -194,49 +194,45 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* User Actions */}
-        <div className="hidden lg:flex items-center space-x-4">
-          {userConnect ? (
-            <>
-            <Link
-                    to={dashboardUrl}
-                    className="w-full max-w-lg flex justify-center"
-                  >
-                    <button 
-                    className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
-                      {dashboardIcon}
-                      {dashboardText}
-                    </button>
-                  </Link>
+{/* User Actions */}
+<div className="hidden lg:flex items-center space-x-4">
+  {userConnect ? (
+    <>
+      {isValidRole && (
+        <Link to={dashboardUrl} className="w-full max-w-lg flex justify-center">
+          <button className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+            {dashboardIcon}
+            {dashboardText}
+          </button>
+        </Link>
+      )}
 
-                  <button 
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-                    icon={roleIcon}
-                    onClick={showModal}
-                  >
-                    {roleButtonText}
-                  </button>
+      <button 
+        className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+        onClick={showModal}
+      >
+        {roleIcon}
+        {roleButtonText}
+      </button>
 
-                  <Button 
-                    className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
-                    type="primary"
-                    danger
-                    onClick={logout}
-                    icon={<LogoutOutlined />}
-                  >
-                    Déconnexion
-                  </Button>
-  
-            </>
-          ) : (
-            <Link to="/login">
-              <Button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-white px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
-                Connexion
-              </Button>
-            </Link>
-          )}
-        </div>
-
+      <Button 
+        className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
+        type="primary"
+        danger
+        onClick={logout}
+        icon={<LogoutOutlined />}
+      >
+        
+      </Button>
+    </>
+  ) : (
+    <Link to="/login">
+      <Button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-white px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+        Connexion
+      </Button>
+    </Link>
+  )}
+</div>
         {/* Mobile Menu Button */}
         <button
           className="xl:hidden flex items-center bg-transparent"
@@ -323,43 +319,41 @@ const Navbar = () => {
               ))}
 
               {userConnect ? (
-                <div className="flex flex-col gap-2 w-full items-center">
-                  <Link
-                    to={dashboardUrl}
-                    className="w-full max-w-lg flex justify-center"
-                  >
-                    <button 
-                    className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2">
-                      {dashboardIcon}
-                      {dashboardText}
-                    </button>
-                  </Link>
+  <div className="flex flex-col gap-2 w-full items-center">
+    {isValidRole && (
+      <Link to={dashboardUrl} className="w-full max-w-lg flex justify-center">
+        <button className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2">
+          {dashboardIcon}
+          {dashboardText}
+        </button>
+      </Link>
+    )}
 
-                  <button 
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-                    icon={roleIcon}
-                    onClick={showModal}
-                  >
-                    {roleButtonText}
-                  </button>
+    <button 
+      className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+      onClick={showModal}
+    >
+      {roleIcon}
+      {roleButtonText}
+    </button>
 
-                  <Button 
-                    className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
-                    type="primary"
-                    danger
-                    onClick={logout}
-                    icon={<LogoutOutlined />}
-                  >
-                    Déconnexion
-                  </Button>
-                </div>
-              ) : (
-                <Link to="/login" className="w-full max-w-lg flex justify-center">
-                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
-                    Connexion
-                  </button>
-                </Link>
-              )}
+    <Button 
+      className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
+      type="primary"
+      danger
+      onClick={logout}
+      icon={<LogoutOutlined />}
+    >
+      
+    </Button>
+  </div>
+) : (
+  <Link to="/login" className="w-full max-w-lg flex justify-center">
+    <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+      Connexion
+    </button>
+  </Link>
+)}
               </div>
           </div>
         </div>

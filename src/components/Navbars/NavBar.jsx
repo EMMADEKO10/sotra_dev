@@ -1,34 +1,44 @@
-import { useState, useCallback, memo, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { LogoutOutlined, UserOutlined, DollarCircleOutlined, ToolOutlined, StarOutlined, ProfileOutlined, DashboardOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Button, Modal } from 'antd';
+import { useState, useCallback, memo, useRef, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import {
+  LogoutOutlined,
+  UserOutlined,
+  DollarCircleOutlined,
+  ToolOutlined,
+  StarOutlined,
+  ProfileOutlined,
+  DashboardOutlined,
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+} from "@ant-design/icons"
+import { Button, Modal } from "antd"
 
 const NavItem = memo(({ item, roleUserConnect }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const timeoutRef = useRef(null);
-  const navItemRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const timeoutRef = useRef(null)
+  const navItemRef = useRef(null)
 
   const handleMouseEnter = () => {
-    clearTimeout(timeoutRef.current);
-    setIsOpen(true);
-  };
+    clearTimeout(timeoutRef.current)
+    setIsOpen(true)
+  }
 
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 300);
-  };
+      setIsOpen(false)
+    }, 300)
+  }
 
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+        clearTimeout(timeoutRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   return (
-    <div 
+    <div
       className="relative group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -40,17 +50,24 @@ const NavItem = memo(({ item, roleUserConnect }) => {
         aria-expanded={isOpen}
       >
         {item.title}
-        <span className={`ml-1 text-[#3bcf94] transition-transform duration-300 transform ${isOpen ? 'rotate-180' : ''}`}>▼</span>
+        <span
+          className={`ml-1 text-[#3bcf94] transition-transform duration-300 transform ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        >
+          ▼
+        </span>
       </button>
       {isOpen && (
-        <div 
+        <div
           className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-10"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <ul className="py-2">
-            {item.subItems.map((subItem, subIndex) => (
-              !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
+            {item.subItems.map((subItem, subIndex) =>
+              !subItem.restrictedTo ||
+              subItem.restrictedTo.includes(roleUserConnect) ? (
                 <li key={subIndex}>
                   <Link
                     to={subItem.link}
@@ -60,108 +77,138 @@ const NavItem = memo(({ item, roleUserConnect }) => {
                   </Link>
                 </li>
               ) : null
-            ))}
+            )}
           </ul>
         </div>
       )}
     </div>
-  );
-});
+  )
+})
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const navigate = useNavigate()
 
-  const userConnect = localStorage.getItem("user");
-  let roleUserConnect = localStorage.getItem("role") || "user";
+  const userConnect = localStorage.getItem("user")
+  let roleUserConnect = localStorage.getItem("role") || "user"
 
-  const toggleMobileDropdown = useCallback((index) => {
-    setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
-  }, [mobileDropdownOpen]);
+  const toggleMobileDropdown = useCallback(
+    (index) => {
+      setMobileDropdownOpen(mobileDropdownOpen === index ? null : index)
+    },
+    [mobileDropdownOpen]
+  )
 
   const logout = useCallback(() => {
     if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
-      localStorage.removeItem('token');
-      localStorage.removeItem("user");
-      localStorage.removeItem("role");
-      navigate('/login');
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      localStorage.removeItem("role")
+      navigate("/login")
     }
-  }, [navigate]);
+  }, [navigate])
 
   const navItems = [
     {
       title: "Projets",
       subItems: [
-        { name: "Découvrir les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] },
+        {
+          name: "Découvrir les projets",
+          link: "/allprojets",
+          restrictedTo: ["admin", "user", "prestataire", "sponsor"],
+        },
+        {
+          name: "Démarrer un projet",
+          link: "/projectsubmission",
+          restrictedTo: ["admin", "prestataire", "user"],
+        },
       ],
     },
     {
       title: "Info",
       subItems: [
-        { name: "Social bonds", link: "/socialbonds", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        { name: "Charte", link: "/chart", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
+        {
+          name: "Social bonds",
+          link: "/socialbonds",
+          restrictedTo: ["admin", "user", "prestataire", "sponsor"],
+        },
+        {
+          name: "Charte",
+          link: "/chart",
+          restrictedTo: ["admin", "user", "prestataire", "sponsor"],
+        },
       ],
     },
     {
       title: "Sponsor",
       subItems: [
-        { name: "Nos sponsors", link: "/nossponsorts", restrictedTo: ["admin", "user", "sponsor", "prestataire"] },
+        {
+          name: "Nos sponsors",
+          link: "/nossponsorts",
+          restrictedTo: ["admin", "user", "sponsor", "prestataire"],
+        },
       ],
     },
     {
       title: "À propos",
       subItems: [
         { name: "Vision et Mission", link: "/about" },
-        { name: "Contact", link: "/contact" }
+        { name: "Contact", link: "/contact" },
       ],
     },
-  ];
+  ]
 
-  let dashboardUrl, dashboardIcon, dashboardText;
+  let dashboardUrl, dashboardIcon, dashboardText
 
-if (roleUserConnect === 'admin') {
-  dashboardUrl = `/dashboard`;
-  dashboardText = "Dashboard";
-  dashboardIcon = <DashboardOutlined />;
-} else if (roleUserConnect === 'sponsor') {
-  dashboardUrl = `/sponsor/${userConnect}`;
-  dashboardText = "Mes Projets Sponsorisés";
-  dashboardIcon = <StarOutlined />;
-} else if (roleUserConnect === 'prestataire') {
-  dashboardUrl = `/prestataire/${userConnect}`;
-  dashboardText = "Mes Projets";
-  dashboardIcon = <ProfileOutlined />;
-}
+  if (roleUserConnect === "admin") {
+    dashboardUrl = `/dashboard`
+    dashboardText = "Dashboard"
+    dashboardIcon = <DashboardOutlined />
+  } else if (roleUserConnect === "sponsor") {
+    dashboardUrl = `/sponsor/${userConnect}`
+    dashboardText = "Mes Projets Sponsorisés"
+    dashboardIcon = <StarOutlined />
+  } else if (roleUserConnect === "prestataire") {
+    dashboardUrl = `/prestataire/${userConnect}`
+    dashboardText = "Mes Projets"
+    dashboardIcon = <ProfileOutlined />
+  }
 
-  const isValidRole = ['prestataire', 'sponsor', 'admin'].includes(roleUserConnect);
+  const isValidRole = ["prestataire", "sponsor", "admin"].includes(
+    roleUserConnect
+  )
 
   const roleButtonStyle = isValidRole
     ? "bg-green-500 text-white border-green-500 hover:bg-green-600 hover:border-green-600"
-    : "bg-red-500 text-white border-red-500 hover:bg-red-600 hover:border-red-600";
+    : "bg-red-500 text-white border-red-500 hover:bg-red-600 hover:border-red-600"
 
-  const roleIcon = isValidRole
-    ? <CheckCircleOutlined />
-    : <CloseCircleOutlined />;
+  const roleIcon = isValidRole ? (
+    <CheckCircleOutlined />
+  ) : (
+    <CloseCircleOutlined />
+  )
 
-  const roleButtonText = isValidRole ? roleUserConnect : "Non approuvé";
+  const roleButtonText = isValidRole ? roleUserConnect : "Non approuvé"
 
   const showModal = () => {
     if (!isValidRole) {
-      setIsModalVisible(true);
+      setIsModalVisible(true)
     }
-  };
+  }
 
   const handleOk = () => {
-    setIsModalVisible(false);
-  };
+    setIsModalVisible(false)
+  }
 
   return (
     <nav className="sticky top-0 bg-white z-50 shadow-md transition-all duration-300">
-      <div className="flex flex-row justify-between items-center container mx-auto px-4 py-3">
-        <Link to="/" className="flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
+      <div className="flex flex-row justify-between items-center container mx-auto px-4 py-1">
+        <Link
+          to="/"
+          className="flex items-center space-x-2 transition-transform duration-300 hover:scale-105"
+        >
           <img
             src="/sotradon logo.png"
             alt="Logo de Sotradons - RSE Market Place by Gouvernix"
@@ -169,15 +216,60 @@ if (roleUserConnect === 'admin') {
           />
           <div className="sotradons-text">
             <div className="ttext">
-              <span className="s" style={{ '--order': 0 }}>S</span>
-              <span className="o" style={{ '--order': 1 }}>O</span>
-              <span className="t" style={{ '--order': 2 }}>T</span>
-              <span className="r" style={{ '--order': 3 }}>R</span>
-              <span className="a" style={{ '--order': 4 }}>A</span>
-              <span className="d" style={{ '--order': 5 }}>D</span>
-              <span className="o" style={{ '--order': 6 }}>O</span>
-              <span className="n" style={{ '--order': 7 }}>N</span>
-              <span className="s" style={{ '--order': 8 }}>S</span>
+              <span
+                className="s"
+                style={{ "--order": 0 }}
+              >
+                S
+              </span>
+              <span
+                className="o"
+                style={{ "--order": 1 }}
+              >
+                O
+              </span>
+              <span
+                className="t"
+                style={{ "--order": 2 }}
+              >
+                T
+              </span>
+              <span
+                className="r"
+                style={{ "--order": 3 }}
+              >
+                R
+              </span>
+              <span
+                className="a"
+                style={{ "--order": 4 }}
+              >
+                A
+              </span>
+              <span
+                className="d"
+                style={{ "--order": 5 }}
+              >
+                D
+              </span>
+              <span
+                className="o"
+                style={{ "--order": 6 }}
+              >
+                O
+              </span>
+              <span
+                className="n"
+                style={{ "--order": 7 }}
+              >
+                N
+              </span>
+              <span
+                className="s"
+                style={{ "--order": 8 }}
+              >
+                S
+              </span>
             </div>
             <span className="by">BY GOUVERNIX</span>
           </div>
@@ -194,45 +286,46 @@ if (roleUserConnect === 'admin') {
           ))}
         </div>
 
-{/* User Actions */}
-<div className="hidden lg:flex items-center space-x-4">
-  {userConnect ? (
-    <>
-      {isValidRole && (
-        <Link to={dashboardUrl} className="w-full max-w-lg flex justify-center">
-          <button className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
-            {dashboardIcon}
-            {dashboardText}
-          </button>
-        </Link>
-      )}
+        {/* User Actions */}
+        <div className="hidden lg:flex items-center space-x-4">
+          {userConnect ? (
+            <>
+              {isValidRole && (
+                <Link
+                  to={dashboardUrl}
+                  className="w-full max-w-lg flex justify-center"
+                >
+                  <button className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+                    {dashboardIcon}
+                    {dashboardText}
+                  </button>
+                </Link>
+              )}
 
-      <button 
-        className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-        onClick={showModal}
-      >
-        {roleIcon}
-        {roleButtonText}
-      </button>
+              <button
+                className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+                onClick={showModal}
+              >
+                {roleIcon}
+                {roleButtonText}
+              </button>
 
-      <Button 
-        className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
-        type="primary"
-        danger
-        onClick={logout}
-        icon={<LogoutOutlined />}
-      >
-        
-      </Button>
-    </>
-  ) : (
-    <Link to="/login">
-      <Button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-white px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
-        Connexion
-      </Button>
-    </Link>
-  )}
-</div>
+              <Button
+                className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
+                type="primary"
+                danger
+                onClick={logout}
+                icon={<LogoutOutlined />}
+              ></Button>
+            </>
+          ) : (
+            <Link to="/login">
+              <Button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-white px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+                Connexion
+              </Button>
+            </Link>
+          )}
+        </div>
         {/* Mobile Menu Button */}
         <button
           className="xl:hidden flex items-center bg-transparent"
@@ -279,7 +372,10 @@ if (roleUserConnect === 'admin') {
           <div className="p-4 space-y-4">
             <div className="space-y-3">
               {navItems.map((item, index) => (
-                <div key={index} className="w-full">
+                <div
+                  key={index}
+                  className="w-full"
+                >
                   <button
                     onClick={() => toggleMobileDropdown(index)}
                     className="w-full flex items-center justify-between text-lg font-semibold bg-[#3bcf94] text-white px-4 py-2 rounded-md transition-all duration-300"
@@ -287,7 +383,9 @@ if (roleUserConnect === 'admin') {
                     {item.title}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`h-5 w-5 transform transition-transform duration-300 ${mobileDropdownOpen === index ? 'rotate-180' : ''}`}
+                      className={`h-5 w-5 transform transition-transform duration-300 ${
+                        mobileDropdownOpen === index ? "rotate-180" : ""
+                      }`}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -300,8 +398,9 @@ if (roleUserConnect === 'admin') {
                   </button>
                   {mobileDropdownOpen === index && (
                     <ul className="mt-2 bg-gray-100 rounded-md shadow-inner">
-                      {item.subItems.map((subItem, subIndex) => (
-                        !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
+                      {item.subItems.map((subItem, subIndex) =>
+                        !subItem.restrictedTo ||
+                        subItem.restrictedTo.includes(roleUserConnect) ? (
                           <li key={subIndex}>
                             <Link
                               className="block px-4 py-2 text-gray-700 hover:bg-[#3bcf94] hover:text-white transition-colors"
@@ -312,49 +411,53 @@ if (roleUserConnect === 'admin') {
                             </Link>
                           </li>
                         ) : null
-                      ))}
+                      )}
                     </ul>
                   )}
                 </div>
               ))}
 
               {userConnect ? (
-  <div className="flex flex-col gap-2 w-full items-center">
-    {isValidRole && (
-      <Link to={dashboardUrl} className="w-full max-w-lg flex justify-center">
-        <button className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2">
-          {dashboardIcon}
-          {dashboardText}
-        </button>
-      </Link>
-    )}
+                <div className="flex flex-col gap-2 w-full items-center">
+                  {isValidRole && (
+                    <Link
+                      to={dashboardUrl}
+                      className="w-full max-w-lg flex justify-center"
+                    >
+                      <button className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2">
+                        {dashboardIcon}
+                        {dashboardText}
+                      </button>
+                    </Link>
+                  )}
 
-    <button 
-      className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-      onClick={showModal}
-    >
-      {roleIcon}
-      {roleButtonText}
-    </button>
+                  <button
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+                    onClick={showModal}
+                  >
+                    {roleIcon}
+                    {roleButtonText}
+                  </button>
 
-    <Button 
-      className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
-      type="primary"
-      danger
-      onClick={logout}
-      icon={<LogoutOutlined />}
-    >
-      
-    </Button>
-  </div>
-) : (
-  <Link to="/login" className="w-full max-w-lg flex justify-center">
-    <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
-      Connexion
-    </button>
-  </Link>
-)}
-              </div>
+                  <Button
+                    className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
+                    type="primary"
+                    danger
+                    onClick={logout}
+                    icon={<LogoutOutlined />}
+                  ></Button>
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="w-full max-w-lg flex justify-center"
+                >
+                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+                    Connexion
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -366,16 +469,29 @@ if (roleUserConnect === 'admin') {
         onOk={handleOk}
         onCancel={handleOk}
         footer={[
-          <Button key="ok" type="primary" onClick={handleOk}>
+          <Button
+            key="ok"
+            type="primary"
+            onClick={handleOk}
+          >
             J'ai compris
           </Button>,
         ]}
       >
-        <p>Nous vous remercions pour votre inscription. Votre compte est actuellement en attente d'approbation. Pour finaliser ce processus et accéder à toutes les fonctionnalités de notre plateforme, nous vous invitons à contacter notre équipe administrative.</p>
-        <p>Ils se feront un plaisir de vérifier vos informations et d'activer votre compte dans les plus brefs délais. Nous apprécions votre patience et votre compréhension.</p>
+        <p>
+          Nous vous remercions pour votre inscription. Votre compte est
+          actuellement en attente d'approbation. Pour finaliser ce processus et
+          accéder à toutes les fonctionnalités de notre plateforme, nous vous
+          invitons à contacter notre équipe administrative.
+        </p>
+        <p>
+          Ils se feront un plaisir de vérifier vos informations et d'activer
+          votre compte dans les plus brefs délais. Nous apprécions votre
+          patience et votre compréhension.
+        </p>
       </Modal>
     </nav>
-  );
-};
+  )
+}
 
-export default memo(Navbar);
+export default memo(Navbar)

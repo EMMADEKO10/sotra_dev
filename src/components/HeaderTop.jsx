@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-// Simulate user authentication status
+// Fonction pour vérifier si l'utilisateur est connecté
 const isAuthenticated = () => {
-    // Replace this with actual authentication logic
-    return localStorage.getItem('isAuthenticated') === 'true';
-}
+    return localStorage.getItem('user') !== null;
+};
 
 export default function HeaderTop() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -14,7 +13,8 @@ export default function HeaderTop() {
         setLoggedIn(isAuthenticated());
     }, []);
 
-    if (loggedIn) return null; // Hide top bar if the user is logged in
+    // Si l'utilisateur est connecté, on ne rend rien
+    if (loggedIn) return null;
 
     return (
         <div className="bg-gray-800 text-white max-sm:hidden">

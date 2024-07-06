@@ -24,6 +24,7 @@ import Footer from "../../components/Footer"
 import axios from "axios"
 import { NavLink } from "react-router-dom"
 import RetourEnHaut from "../../components/bouton/RetourEnHaut"
+import SbIcon from "../../components/Social Bonds/SbIcon"
 
 const { Option } = Select
 const { Search } = Input
@@ -270,16 +271,16 @@ const AllProjets = () => {
                                 </p>
                               }
                             />
-                            <div className="mt-auto pt-4">
+                            <div className="mt-auto pt-4 text-gray-500">
                               <Progress
                                 percent={percent}
                                 status="active"
                               />
-                              <div className="mt-2 flex justify-between text-xs sm:text-sm">
+                              <div className="mt-2 flex justify-between">
                                 <span>
-                                  Collecté : {project.socialBondsCollect}Sb
+                                  Collecté : {project.socialBondsCollect}<SbIcon  color="#52c41a" />
                                 </span>
-                                <span>Objectif : {project.socialBonds}Sb</span>
+                                <span>Objectif : {project.socialBonds}<SbIcon color="#ff9800" /></span>
                               </div>
                             </div>
                           </Card>

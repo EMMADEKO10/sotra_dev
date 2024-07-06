@@ -1,6 +1,7 @@
 import { Progress, Button } from 'antd';
 import 'animate.css';
 import { NavLink } from 'react-router-dom';
+import SbIcon from './Social Bonds/SbIcon';
 
 export default function AboutArea() {
   return (
@@ -91,7 +92,7 @@ function CauseItem({ image, category, title, raised, goal, percent }) {
           </h4>
           <div className="progress-box">
             <p>
-              Recueilli : {raised}Sb <span className="float-right">Objectif : {goal}Sb</span>
+            Collecté : {raised}<SbIcon  color="#52c41a" /> <span className="float-right">Objectif : {goal}<SbIcon color="#ff9800" /></span>
             </p>
             <Progress percent={percent} showInfo={false} />
             <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>

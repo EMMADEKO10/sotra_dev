@@ -302,13 +302,15 @@ const Navbar = () => {
                 </Link>
               )}
 
-              <button
-                className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-                onClick={showModal}
-              >
-                {roleIcon}
-                {roleButtonText}
-              </button>
+              {!isValidRole && (
+                <button
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+                  onClick={showModal}
+                >
+                  {roleIcon}
+                  {roleButtonText}
+                </button>
+              )}
 
               <Button
                 className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
@@ -431,13 +433,15 @@ const Navbar = () => {
                     </Link>
                   )}
 
-                  <button
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-                    onClick={showModal}
-                  >
-                    {roleIcon}
-                    {roleButtonText}
-                  </button>
+                  {!isValidRole && (
+  <button
+    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
+    onClick={showModal}
+  >
+    {roleIcon}
+    {roleButtonText}
+  </button>
+)}
 
                   <Button
                     className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"

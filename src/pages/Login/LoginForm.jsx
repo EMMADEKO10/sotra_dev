@@ -9,6 +9,7 @@ import {
   Layout,
   Divider,
   Tooltip,
+  Checkbox,
 } from "antd"
 import { Link } from "react-router-dom"
 import {
@@ -132,24 +133,18 @@ const LoginForm = ({
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center space-x-3">
               <Tooltip title={defaultChecked ? "Désactiver" : "Activer"}>
-                <Switch
+                <Checkbox
                   defaultChecked={defaultChecked}
                   onChange={onChange}
                   className="transition-all duration-300 ease-in-out transform focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md"
-                  checkedChildren={<CheckCircleFilled />}
-                  unCheckedChildren={<CloseCircleFilled />}
-                />
+                >
+                  Se souvenir de moi
+                </Checkbox>
               </Tooltip>
-              <label
-                htmlFor="remember"
-                className="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-300 ease-in-out cursor-pointer"
-              >
-                Se souvenir de moi
-              </label>
             </div>
 
             <Link
-              to="/forgot-password"
+              to="#"
               className="text-[#3bcf93] hover:text-[#34b684] text-sm"
             >
               Mot de passe oublié ?

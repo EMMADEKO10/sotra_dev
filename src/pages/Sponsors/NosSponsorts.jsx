@@ -95,7 +95,7 @@ const NosSponsorts = () => {
 
 
       {/* Sponsor Section */}
-        <ClassementSponsort />
+       
       <div className="volunteer-area bg-gray-100 py-16">
         <div className="container mx-auto">
 
@@ -215,8 +215,8 @@ const NosSponsorts = () => {
               </Button>
             </div>
           )}
-
           <SponsorMonthlyContributions />
+          <ClassementSponsort />
         </div>
       </div>
       <RetourEnHaut />

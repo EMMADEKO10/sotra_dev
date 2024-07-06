@@ -16,13 +16,7 @@ import {
   Modal,
   Form,
   InputNumber,
-  message,
-  notification,
-  Switch,
-  Breadcrumb,
-  Row,
-  Col,
-  Space,
+  message,notification
 } from "antd"
 import Navbar from "../../../components/Navbars/NavBar"
 import Footer from "../../../components/Footer"
@@ -37,25 +31,26 @@ import {
   DeleteOutlined,
   TransactionOutlined,
   PhoneOutlined,
-  HomeOutlined,
-  AppstoreOutlined,
-  BarsOutlined,
 } from "@ant-design/icons"
 import "antd/dist/reset.css"
 import "tailwindcss/tailwind.css"
-import { motion } from "framer-motion"
 
 const { Content } = Layout
 const { TextArea } = Input
 
 const DashboardPageSponsor = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+},[]);
+
   const [searchText, setSearchText] = useState("")
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isCreditModalVisible, setIsCreditModalVisible] = useState(false)
   const [creditForm] = Form.useForm()
-  const [isGridView, setIsGridView] = useState(true)
 
   const [projects, setProjects] = useState([])
+  const [sponsorStat, setSponsorStat] = useState([])
   const { id } = useParams()
   const [sponsorName, setSponsorName] = useState("")
   const [sponsorImage, setSponsorImage] = useState("")
@@ -66,32 +61,55 @@ const DashboardPageSponsor = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true)
-        const apiUrl = import.meta.env.VITE_API_URL
-        const response = await axios.get(`${apiUrl}/sponsors/pjtmontants/${id}`)
-        const fetchedProjects = response.data.map((project) => ({
-          ...project,
-          status: project.status || "N/A",
-        }))
-        setProjects(fetchedProjects)
-        if (response.status === 200 || response.status === 201) {
-          setSponsorName(response.data[0]?.sponsorName || "")
-          setSponsorImage(response.data[0]?.sponsorImage || "")
-          setSponsorSocialBond(response.data[0]?.sponsorSocialBond || 0)
-          setTotalSocialBondsInvested(
-            response.data[0]?.totalSocialBondsInvested || 0
-          )
-        } else {
-          message.error(`Erreur lors de la requête: ${response.status}`)
+        setLoading(true);
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await axios.get(`${apiUrl}/sponsors/pjtmontants/${id}`);
+        const responseStat = await axios.get(`${apiUrl}/sponsor-contributions`);
+        setSponsorStat(responseStat.data);
+  
+        let fetchedProjects = [];
+        let sponsorName = "";
+        let sponsorImage = "";
+        let sponsorSocialBond = 0;
+        let totalSocialBondsInvested = 0;
+  
+        // Vérifier si response.data est un objet avec une clé projects
+        if (response.data.projects !== undefined) {
+          // Cas où il n'y a pas de projets sponsorisés
+          sponsorName = response.data.sponsorName;
+          sponsorImage = response.data.sponsorImage;
+          sponsorSocialBond = response.data.sponsorSocialBond;
+          fetchedProjects = response.data.projects;
+        } else if (Array.isArray(response.data)) {
+          // Cas où il y a des projets sponsorisés
+          fetchedProjects = response.data.map((project) => ({
+            ...project,
+            status: project.status || "N/A", // Ensure status is defined
+          }));
+  
+          if (response.data.length > 0) {
+            sponsorName = response.data[0]?.sponsorName || "";
+            sponsorImage = response.data[0]?.sponsorImage || "";
+            sponsorSocialBond = response.data[0]?.sponsorSocialBond || 0;
+            totalSocialBondsInvested = response.data[0]?.totalSocialBondsInvested || 0;
+          }
         }
+  
+        setProjects(fetchedProjects);
+        setSponsorName(sponsorName);
+        setSponsorImage(sponsorImage);
+        setSponsorSocialBond(sponsorSocialBond);
+        setTotalSocialBondsInvested(totalSocialBondsInvested);
       } catch (error) {
-        message.error(`Erreur lors de la requête: ${error.message}`)
+        message.error(`Erreur lors de la requête: ${error.message}`);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchData()
-  }, [id])
+    };
+  
+    fetchData();
+  }, [id]);
+  
 
   const handleSearch = (value) => {
     setSearchText(value)
@@ -108,31 +126,30 @@ const DashboardPageSponsor = () => {
 
   const handleCreditRequest = async () => {
     try {
-      const values = await creditForm.validateFields()
-      const message = `Demande de crédit pour un montant de €${values.amount}`
+      const values = await creditForm.validateFields();
+      const message = `Demande de crédit pour un montant de €${values.amount}`;
 
-      const apiUrl = import.meta.env.VITE_API_URL
+      const apiUrl = import.meta.env.VITE_API_URL;
       await axios.post(`${apiUrl}/notifications/credit`, {
         message,
         sponsorName,
-      })
+      });
 
       notification.success({
-        message: "Demande de crédit envoyée",
-        description: "Votre demande de crédit a été envoyée avec succès.",
-      })
+        message: 'Demande de crédit envoyée',
+        description: 'Votre demande de crédit a été envoyée avec succès.',
+      });
 
-      setIsCreditModalVisible(false)
-      creditForm.resetFields()
+      setIsCreditModalVisible(false);
+      creditForm.resetFields();
     } catch (error) {
-      console.error("Erreur lors de l'envoi de la demande de crédit:", error)
+      console.error("Erreur lors de l'envoi de la demande de crédit:", error);
       notification.error({
-        message: "Erreur",
-        description:
-          "Une erreur est survenue lors de l'envoi de la demande de crédit.",
-      })
+        message: 'Erreur',
+        description: 'Une erreur est survenue lors de l\'envoi de la demande de crédit.',
+      });
     }
-  }
+  };
 
   const handleMaskProject = (record) => {
     console.log("Masking project:", record)
@@ -141,6 +158,11 @@ const DashboardPageSponsor = () => {
   const handleDeleteProject = (record) => {
     console.log("Deleting project:", record)
   }
+
+  // -------------------------------------------------------------------------
+
+  
+  // -------------------------------------------------------------------------
 
   const columns = [
     {
@@ -206,6 +228,7 @@ const DashboardPageSponsor = () => {
     },
   ]
 
+  // Define transaction columns
   const transactionColumns = [
     {
       title: "Date",
@@ -225,288 +248,240 @@ const DashboardPageSponsor = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div>
       <Navbar />
-      <Layout>
-        <Content className="px-4 sm:px-6 lg:px-8 py-8">
-          <div className="max-w-7xl mx-auto">
-            <Breadcrumb className="mb-6">
-              <Breadcrumb.Item href="/">
-                <HomeOutlined />
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-              <Breadcrumb.Item>{sponsorName}</Breadcrumb.Item>
-            </Breadcrumb>
+      <Layout style={{ minHeight: "100vh", background: "#f0f2f5" }}>
+        <Content style={{ padding: "20px" }}>
+          <div className="container mx-auto p-4 bg-white shadow-lg rounded-lg">
+            {/* Profile Section */}
+            <div className="flex items-center space-x-4 mb-4">
+              <Avatar
+                size={100}
+                src={`${import.meta.env.VITE_URL_IMAGE}${sponsorImage}`}
+              />
+              <div>
+                <h2 className="text-2xl font-semibold">{sponsorName}</h2>
+                <p>Developer web at Kadea</p>
+                <NavLink to={`/createprofilesponsort/${id}`}>
+                  <Button
+                    type="default"
+                    icon={<EditOutlined />}
+                    className="mt-2"
+                    href="#"
+                  >
+                    Modifier le profil
+                  </Button>
+                </NavLink>
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  className="mt-2 ml-2"
+                  onClick={handleShowCreditModal}
+                >
+                  Demander un crédit
+                </Button>
+                <Button
+                  type="default"
+                  icon={<TransactionOutlined />}
+                  className="mt-2 ml-2"
+                  onClick={() => setIsModalVisible(true)}
+                >
+                  Voir les transactions
+                </Button>
+              </div>
+            </div>
 
-            <Card className="mb-8 shadow-md">
-              <Row
-                gutter={[24, 24]}
-                align="middle"
+            {/* Social Bonds Overview */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+              <Card
+                bordered={false}
+                className="hover:shadow-lg transition-shadow duration-300"
+                style={{ backgroundColor: "#f9fafb" }}
               >
-                <Col
-                  xs={24}
-                  sm={8}
-                  md={6}
-                  lg={4}
-                >
-                  <Avatar
-                    size={100}
-                    src={`${import.meta.env.VITE_URL_IMAGE}${sponsorImage}`}
-                  />
-                </Col>
-                <Col
-                  xs={24}
-                  sm={16}
-                  md={18}
-                  lg={20}
-                >
-                  <h2 className="text-2xl font-semibold mb-2">{sponsorName}</h2>
-                  <Space wrap>
-                    <NavLink to={`/createprofilesponsort/${id}`}>
-                      <Button
-                        type="default"
-                        icon={<EditOutlined />}
-                      >
-                        Modifier le profil
-                      </Button>
-                    </NavLink>
-                    <Button
-                      type="primary"
-                      icon={<PlusOutlined />}
-                      onClick={handleShowCreditModal}
-                    >
-                      Demander un crédit
-                    </Button>
-                    <Button
-                      type="default"
-                      icon={<TransactionOutlined />}
-                      onClick={() => setIsModalVisible(true)}
-                    >
-                      Voir les transactions
-                    </Button>
-                  </Space>
-                </Col>
-              </Row>
-            </Card>
+                <Statistic
+                  title="Solde des Social Bonds"
+                  value={sponsorSocialBond}
+                  prefix={
+                    <DollarCircleOutlined
+                      style={{ color: "#4caf50", fontSize: "24px" }}
+                    />
+                  }
+                  valueStyle={{
+                    color: "#4caf50",
+                    fontSize: "32px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </Card>
+              <Card
+                bordered={false}
+                className="hover:shadow-lg transition-shadow duration-300"
+                style={{ backgroundColor: "#f9fafb" }}
+              >
+                <Statistic
+                  title="Totalité des Social Bonds Distribués"
+                  value={totalSocialBondsInvested}
+                  prefix={
+                    <DollarCircleOutlined
+                      style={{ color: "#ff9800", fontSize: "24px" }}
+                    />
+                  }
+                  valueStyle={{
+                    color: "#ff9800",
+                    fontSize: "32px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </Card>
+              <Card
+                bordered={false}
+                className="hover:shadow-lg transition-shadow duration-300"
+                style={{ backgroundColor: "#f9fafb" }}
+              >
+                <Statistic
+                  title="Nombre de Projets Sponsorisés"
+                  value={projects.length}
+                  prefix={
+                    <ProjectOutlined
+                      style={{ color: "#2196f3", fontSize: "24px" }}
+                    />
+                  }
+                  valueStyle={{
+                    color: "#2196f3",
+                    fontSize: "32px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </Card>
+            </div>
 
-            <Row
-              gutter={[16, 16]}
-              className="mb-8"
-            >
-              <Col
-                xs={24}
-                sm={12}
-                lg={8}
-              >
-                <Card
-                  hoverable
-                  className="h-full"
-                >
-                  <Statistic
-                    title="Solde des Social Bonds"
-                    value={sponsorSocialBond}
-                    prefix={<DollarCircleOutlined className="text-green-500" />}
-                    valueStyle={{ color: "#4caf50" }}
-                  />
-                </Card>
-              </Col>
-              <Col
-                xs={24}
-                sm={12}
-                lg={8}
-              >
-                <Card
-                  hoverable
-                  className="h-full"
-                >
-                  <Statistic
-                    title="Totalité des Social Bonds Distribués"
-                    value={totalSocialBondsInvested}
-                    prefix={
-                      <DollarCircleOutlined className="text-yellow-500" />
-                    }
-                    valueStyle={{ color: "#ff9800" }}
-                  />
-                </Card>
-              </Col>
-              <Col
-                xs={24}
-                sm={12}
-                lg={8}
-              >
-                <Card
-                  hoverable
-                  className="h-full"
-                >
-                  <Statistic
-                    title="Nombre de Projets Sponsorisés"
-                    value={projects.length}
-                    prefix={<ProjectOutlined className="text-blue-500" />}
-                    valueStyle={{ color: "#2196f3" }}
-                  />
-                </Card>
-              </Col>
-            </Row>
-
+            {/* Sponsored Projects List */}
             <Card
               title="Projets Sponsorisés"
-              className="mb-8 shadow-md"
-              extra={
-                <Space>
-                  <Switch
-                    checkedChildren={<AppstoreOutlined />}
-                    unCheckedChildren={<BarsOutlined />}
-                    checked={isGridView}
-                    onChange={(checked) => setIsGridView(checked)}
-                  />
-                  <Input.Search
-                    placeholder="Rechercher un projet"
-                    onSearch={handleSearch}
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    style={{ width: 250 }}
-                  />
-                </Space>
-              }
+              className="p-4 bg-white shadow-sm rounded-lg"
             >
-              {isGridView ? (
-                <Row gutter={[16, 16]}>
-                  {loading
-                    ? Array.from({ length: 6 }).map((_, index) => (
-                        <Col
-                          xs={24}
-                          sm={12}
-                          lg={8}
-                          key={index}
-                        >
-                          <Card className="h-full">
-                            <Skeleton active />
-                          </Card>
-                        </Col>
-                      ))
-                    : projects.map((project, index) => (
-                        <Col
-                          xs={24}
-                          sm={12}
-                          lg={8}
-                          key={index}
-                        >
-                          <motion.div
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <Card
-                              hoverable
-                              cover={
-                                <img
-                                  alt={project.projectName}
-                                  src={`${import.meta.env.VITE_URL_IMAGE}${
-                                    project.projectImage
-                                  }`}
-                                  className="h-48 object-cover"
-                                />
-                              }
-                              className="h-full"
-                            >
-                              <Card.Meta
-                                title={project.projectName}
-                                description={
-                                  <Tooltip title={project.projectDescription}>
-                                    <p className="truncate">
-                                      {project.projectDescription}
-                                    </p>
-                                  </Tooltip>
-                                }
-                              />
-                              <div className="mt-4">
-                                <p className="text-sm text-gray-500">
-                                  Montant total investi
-                                </p>
-                                <p className="text-lg font-bold">
-                                  {project.totalMontantReduit}
-                                </p>
-                              </div>
-                              <div className="mt-2">
-                                <p className="text-sm text-gray-500">
-                                  Montant collecté
-                                </p>
-                                <p className="text-lg font-bold">
-                                  {project.socialBondsCollect} /{" "}
-                                  {project.socialBonds}
-                                </p>
-                              </div>
-                            </Card>
-                          </motion.div>
-                        </Col>
-                      ))}
-                </Row>
-              ) : (
-                <Table
-                  columns={columns}
-                  dataSource={projects}
-                  rowKey="id"
-                  loading={loading}
-                  pagination={{ pageSize: 10 }}
-                  scroll={{ x: true }}
-                />
-              )}
+              <Input.Search
+                placeholder="Rechercher un projet"
+                onSearch={handleSearch}
+                enterButton={<SearchOutlined />}
+                className="mb-4"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {loading
+                  ? Array.from({ length: 6 }).map((_, index) => (
+                      <Skeleton
+                        key={index}
+                        active
+                        paragraph={{ rows: 4 }}
+                      />
+                    ))
+                  : projects.map((project, index) => (
+                      <div
+                        key={index}
+                        className="bg-white rounded-lg shadow-md p-6"
+                      >
+                        <NavLink to={`/oneprojet/${project.id}`}>
+                          <img
+                            src={`${import.meta.env.VITE_URL_IMAGE}${
+                              project.projectImage
+                            }`}
+                            alt={project.projectName}
+                            className="w-full h-48 object-cover mb-4 rounded-lg"
+                          />
+                          <h2 className="text-xl font-semibold mb-2">
+                            {project.projectName}
+                          </h2>
+                          <p className="text-gray-600 mb-4">
+                            {project.projectDescription}
+                          </p>
+                          <div className="flex justify-between">
+                            <div>
+                              <p className="text-sm text-gray-500">
+                                Montant total investi
+                              </p>
+                              <p className="text-lg font-bold">
+                                {project.totalMontantReduit}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-500">
+                                Montant collecté
+                              </p>
+                              <p className="text-lg font-bold">
+                                {project.socialBondsCollect} /{" "}
+                                {project.socialBonds}
+                              </p>
+                            </div>
+                          </div>
+                        </NavLink>
+                      </div>
+                    ))}
+              </div>
             </Card>
+
+            {/* Modals */}
+            <Modal
+              title="Transactions"
+              visible={isModalVisible}
+              onCancel={() => setIsModalVisible(false)}
+              footer={null}
+              width={800}
+            >
+              <Table
+                columns={transactionColumns}
+                dataSource={projects} // Replace with your transaction data source
+                rowKey="id"
+              />
+            </Modal>
+
+            <Modal
+              title="Demander un crédit"
+              visible={isCreditModalVisible}
+              onOk={handleCreditRequest}
+              onCancel={handleHideCreditModal}
+              okText="Envoyer la demande"
+              cancelText="Annuler"
+            >
+              <Form
+                form={creditForm}
+                layout="vertical"
+              >
+                <Form.Item
+                  name="amount"
+                  label="Montant"
+                  rules={[
+                    { required: true, message: "Veuillez entrer le montant" },
+                  ]}
+                >
+                  <InputNumber
+                    min={0}
+                    formatter={(value) =>
+                      `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value.replace(/€\s?|(,*)/g, "")}
+                    style={{ width: "100%" }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Veuillez entrer la description",
+                    },
+                  ]}
+                >
+                  <TextArea rows={4} />
+                </Form.Item>
+              </Form>
+            </Modal>
           </div>
         </Content>
         <Footer />
       </Layout>
-
-      <Modal
-        title="Transactions"
-        visible={isModalVisible}
-        onCancel={() => setIsModalVisible(false)}
-        footer={null}
-        width={800}
-      >
-        <Table
-          columns={transactionColumns}
-          dataSource={projects}
-          rowKey="id"
-        />
-      </Modal>
-
-      <Modal
-        title="Demander un crédit"
-        visible={isCreditModalVisible}
-        onOk={handleCreditRequest}
-        onCancel={handleHideCreditModal}
-        okText="Envoyer la demande"
-        cancelText="Annuler"
-      >
-        <Form
-          form={creditForm}
-          layout="vertical"
-        >
-          <Form.Item
-            name="amount"
-            label="Montant"
-            rules={[{ required: true, message: "Veuillez entrer le montant" }]}
-          >
-            <InputNumber
-              min={0}
-              formatter={(value) =>
-                `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              }
-              parser={(value) => value.replace(/€\s?|(,*)/g, "")}
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="description"
-            label="Description"
-            rules={[
-              { required: true, message: "Veuillez entrer la description" },
-            ]}
-          >
-            <TextArea rows={4} />
-          </Form.Item>
-        </Form>
-      </Modal>
     </div>
   )
 }

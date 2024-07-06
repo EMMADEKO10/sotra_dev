@@ -6,6 +6,7 @@ import {
   TeamOutlined,
   UserSwitchOutlined,
 } from "@ant-design/icons";
+import ClassementSponsort from "./ClassementSponsort";
 
 const Dashboard = () => {
   return (
@@ -80,6 +81,7 @@ const Dashboard = () => {
           </div>
         </Card>
       </div>
+      <ClassementSponsort />
     </div>
   );
 };

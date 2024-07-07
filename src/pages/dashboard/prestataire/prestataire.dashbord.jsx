@@ -74,7 +74,8 @@ const PrestataireDashboard = () => {
                 <ProjectOutlined className="text-3xl text-blue-600" />
                 <div className="ml-4">
                   <Title level={4} className="m-0 text-blue-700">Projets soumis</Title>
-                  <Paragraph className="text-lg text-blue-800">{profileData.projectsSubmitted}</Paragraph>
+                  {/* <Paragraph className="text-lg text-blue-800">{profileData.projectsSubmitted}</Paragraph> */}
+                  <Paragraph className="text-lg text-blue-800">{projects.length}</Paragraph>
                 </div>
               </div>
             </Card>

@@ -151,6 +151,7 @@ const DonationPage = () => {
   )
 }
 
+
 const ProjectDetails = ({ project }) => (
   <div className="bg-white shadow-lg rounded-lg overflow-hidden">
     <div className="relative h-64 sm:h-80 md:h-96">

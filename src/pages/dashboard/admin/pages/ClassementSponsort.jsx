@@ -113,24 +113,20 @@ const ClassementSponsort = () => {
   ]
 
   return (
-    <div className="py-12 px-4 bg-gray-100">
+    <>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="max-w-7xl mx-auto"
       >
-        <div className="text-center mb-12">
+        <div className="text- mt-12 text-wrap">
           <h4 className="text-xl text-gray-600 font-semibold mb-2">
             Classement de nos meilleurs partenaires
           </h4>
           <h2 className="text-4xl font-bold text-gray-800 mb-4">
             DRC RSE Awards
           </h2>
-          <p className="text-gray-700 max-w-2xl mx-auto">
-            Grâce à la générosité de nos sponsors, nous créons des impacts
-            positifs à travers des initiatives sociales innovantes.
-          </p>
         </div>
 
         <Space
@@ -161,7 +157,7 @@ const ClassementSponsort = () => {
           )}
         </Space>
       </motion.div>
-    </div>
+    </>
   )
 }
 

@@ -16,7 +16,8 @@ import {
   Modal,
   Form,
   InputNumber,
-  message,notification
+  message,
+  notification,
 } from "antd"
 import Navbar from "../../../components/Navbars/NavBar"
 import Footer from "../../../components/Footer"
@@ -34,15 +35,15 @@ import {
 } from "@ant-design/icons"
 import "antd/dist/reset.css"
 import "tailwindcss/tailwind.css"
+import SbIcon from "../../../components/Social Bonds/SbIcon"
 
 const { Content } = Layout
 const { TextArea } = Input
 
 const DashboardPageSponsor = () => {
-
   useEffect(() => {
-    window.scrollTo(0, 0);
-},[]);
+    window.scrollTo(0, 0)
+  }, [])
 
   const [searchText, setSearchText] = useState("")
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -61,55 +62,55 @@ const DashboardPageSponsor = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await axios.get(`${apiUrl}/sponsors/pjtmontants/${id}`);
-        const responseStat = await axios.get(`${apiUrl}/sponsor-contributions`);
-        setSponsorStat(responseStat.data);
-  
-        let fetchedProjects = [];
-        let sponsorName = "";
-        let sponsorImage = "";
-        let sponsorSocialBond = 0;
-        let totalSocialBondsInvested = 0;
-  
+        setLoading(true)
+        const apiUrl = import.meta.env.VITE_API_URL
+        const response = await axios.get(`${apiUrl}/sponsors/pjtmontants/${id}`)
+        const responseStat = await axios.get(`${apiUrl}/sponsor-contributions`)
+        setSponsorStat(responseStat.data)
+
+        let fetchedProjects = []
+        let sponsorName = ""
+        let sponsorImage = ""
+        let sponsorSocialBond = 0
+        let totalSocialBondsInvested = 0
+
         // Vérifier si response.data est un objet avec une clé projects
         if (response.data.projects !== undefined) {
           // Cas où il n'y a pas de projets sponsorisés
-          sponsorName = response.data.sponsorName;
-          sponsorImage = response.data.sponsorImage;
-          sponsorSocialBond = response.data.sponsorSocialBond;
-          fetchedProjects = response.data.projects;
+          sponsorName = response.data.sponsorName
+          sponsorImage = response.data.sponsorImage
+          sponsorSocialBond = response.data.sponsorSocialBond
+          fetchedProjects = response.data.projects
         } else if (Array.isArray(response.data)) {
           // Cas où il y a des projets sponsorisés
           fetchedProjects = response.data.map((project) => ({
             ...project,
             status: project.status || "N/A", // Ensure status is defined
-          }));
-  
+          }))
+
           if (response.data.length > 0) {
-            sponsorName = response.data[0]?.sponsorName || "";
-            sponsorImage = response.data[0]?.sponsorImage || "";
-            sponsorSocialBond = response.data[0]?.sponsorSocialBond || 0;
-            totalSocialBondsInvested = response.data[0]?.totalSocialBondsInvested || 0;
+            sponsorName = response.data[0]?.sponsorName || ""
+            sponsorImage = response.data[0]?.sponsorImage || ""
+            sponsorSocialBond = response.data[0]?.sponsorSocialBond || 0
+            totalSocialBondsInvested =
+              response.data[0]?.totalSocialBondsInvested || 0
           }
         }
-  
-        setProjects(fetchedProjects);
-        setSponsorName(sponsorName);
-        setSponsorImage(sponsorImage);
-        setSponsorSocialBond(sponsorSocialBond);
-        setTotalSocialBondsInvested(totalSocialBondsInvested);
+
+        setProjects(fetchedProjects)
+        setSponsorName(sponsorName)
+        setSponsorImage(sponsorImage)
+        setSponsorSocialBond(sponsorSocialBond)
+        setTotalSocialBondsInvested(totalSocialBondsInvested)
       } catch (error) {
-        message.error(`Erreur lors de la requête: ${error.message}`);
+        message.error(`Erreur lors de la requête: ${error.message}`)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-  
-    fetchData();
-  }, [id]);
-  
+    }
+
+    fetchData()
+  }, [id])
 
   const handleSearch = (value) => {
     setSearchText(value)
@@ -126,30 +127,31 @@ const DashboardPageSponsor = () => {
 
   const handleCreditRequest = async () => {
     try {
-      const values = await creditForm.validateFields();
-      const message = `Demande de crédit pour un montant de €${values.amount}`;
+      const values = await creditForm.validateFields()
+      const message = `Demande de crédit pour un montant de €${values.amount}`
 
-      const apiUrl = import.meta.env.VITE_API_URL;
+      const apiUrl = import.meta.env.VITE_API_URL
       await axios.post(`${apiUrl}/notifications/credit`, {
         message,
         sponsorName,
-      });
+      })
 
       notification.success({
-        message: 'Demande de crédit envoyée',
-        description: 'Votre demande de crédit a été envoyée avec succès.',
-      });
+        message: "Demande de crédit envoyée",
+        description: "Votre demande de crédit a été envoyée avec succès.",
+      })
 
-      setIsCreditModalVisible(false);
-      creditForm.resetFields();
+      setIsCreditModalVisible(false)
+      creditForm.resetFields()
     } catch (error) {
-      console.error("Erreur lors de l'envoi de la demande de crédit:", error);
+      console.error("Erreur lors de l'envoi de la demande de crédit:", error)
       notification.error({
-        message: 'Erreur',
-        description: 'Une erreur est survenue lors de l\'envoi de la demande de crédit.',
-      });
+        message: "Erreur",
+        description:
+          "Une erreur est survenue lors de l'envoi de la demande de crédit.",
+      })
     }
-  };
+  }
 
   const handleMaskProject = (record) => {
     console.log("Masking project:", record)
@@ -161,7 +163,6 @@ const DashboardPageSponsor = () => {
 
   // -------------------------------------------------------------------------
 
-  
   // -------------------------------------------------------------------------
 
   const columns = [
@@ -261,7 +262,7 @@ const DashboardPageSponsor = () => {
               />
               <div>
                 <h2 className="text-2xl font-semibold">{sponsorName}</h2>
-                <p>Developer web at Kadea</p>
+                {/* <p>Developer web at Kadea</p> */}
                 <NavLink to={`/createprofilesponsort/${id}`}>
                   <Button
                     type="default"
@@ -302,9 +303,7 @@ const DashboardPageSponsor = () => {
                   title="Solde des Social Bonds"
                   value={sponsorSocialBond}
                   prefix={
-                    <DollarCircleOutlined
-                      style={{ color: "#4caf50", fontSize: "24px" }}
-                    />
+                    <SbIcon size={32} color="#52c41a" />
                   }
                   valueStyle={{
                     color: "#4caf50",
@@ -322,9 +321,7 @@ const DashboardPageSponsor = () => {
                   title="Totalité des Social Bonds Distribués"
                   value={totalSocialBondsInvested}
                   prefix={
-                    <DollarCircleOutlined
-                      style={{ color: "#ff9800", fontSize: "24px" }}
-                    />
+                    <SbIcon size={32} color="#ff9800" />
                   }
                   valueStyle={{
                     color: "#ff9800",
@@ -399,10 +396,10 @@ const DashboardPageSponsor = () => {
                           <div className="flex justify-between">
                             <div>
                               <p className="text-sm text-gray-500">
-                                Montant total investi
+                                Montant total investi 
                               </p>
                               <p className="text-lg font-bold">
-                                {project.totalMontantReduit}
+                                {project.totalMontantReduit}<SbIcon color="#ff9800" />
                               </p>
                             </div>
                             <div>
@@ -410,8 +407,8 @@ const DashboardPageSponsor = () => {
                                 Montant collecté
                               </p>
                               <p className="text-lg font-bold">
-                                {project.socialBondsCollect} /{" "}
-                                {project.socialBonds}
+                                {project.socialBondsCollect}<SbIcon color="#ff9800" /> /{" "}
+                                {project.socialBonds}<SbIcon  color="#52c41a" />
                               </p>
                             </div>
                           </div>
@@ -457,11 +454,16 @@ const DashboardPageSponsor = () => {
                 >
                   <InputNumber
                     min={0}
+                    step={0.001} // Définissez le pas pour permettre les décimales jusqu'à trois chiffres
                     formatter={(value) =>
-                      `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      ` ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     }
-                    parser={(value) => value.replace(/€\s?|(,*)/g, "")}
+                    parser={(value) => value.replace(/Sb\s?|(,*)/g, "")}
+                    precision={3} // Définissez la précision à 3 décimales
                     style={{ width: "100%" }}
+                    prefix={
+                    <SbIcon size={32} color="#52c41a" />
+                  }
                   />
                 </Form.Item>
                 <Form.Item

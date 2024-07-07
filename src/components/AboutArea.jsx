@@ -1,8 +1,29 @@
+import { useState, useEffect } from 'react';
 import { Progress, Button } from 'antd';
 import 'animate.css';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import SbIcon from './Social Bonds/SbIcon';
 
 export default function AboutArea() {
+  const [topProjects, setTopProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await axios.get(`${apiUrl}/projects/validated`);
+        const sortedProjects = response.data
+          .sort((a, b) => b.socialBondsCollect - a.socialBondsCollect)
+          .slice(0, 3);
+        setTopProjects(sortedProjects);
+      } catch (error) {
+        console.error("Erreur lors de la requête:", error.message);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   return (
     <div className="about-area bg-gray-100 py-20">
       <div className="container mx-auto">
@@ -13,30 +34,18 @@ export default function AboutArea() {
               <i className="fas fa-bolt mr-2"></i> Causes populaires
             </h4>
             <div className="flex flex-col space-y-8">
-              <CauseItem
-                image="/Mission/l’éducation (2).jpg"
-                category="Education"
-                title="Donner l’éducation en République Démocratique du Congo"
-                raised={6230}
-                goal={8400}
-                percent={87}
-              />
-              <CauseItem
-                image="/Mission/l’eau pour tous (2).jpg"
-                category="Water"
-                title="De l’eau pour tous les enfants"
-                raised={970}
-                goal={1800}
-                percent={55}
-              />
-              <CauseItem
-                image="/Mission/Nourriture saine (2).jpg"
-                category="Food"
-                title="Nourriture saine"
-                raised={2400}
-                goal={4300}
-                percent={77}
-              />
+              {topProjects.map((project, index) => (
+                <CauseItem
+                  key={index}
+                  project={project}
+                  image={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
+                  category={project.projectCategory}
+                  title={project.projectTitle}
+                  raised={project.socialBondsCollect}
+                  goal={project.socialBonds}
+                  percent={((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)}
+                />
+              ))}
             </div>
           </div>
 
@@ -75,25 +84,23 @@ export default function AboutArea() {
 }
 
 // Composant pour les items de cause
-function CauseItem({ image, category, title, raised, goal, percent }) {
+function CauseItem({ project, image, category, title, raised, goal, percent }) {
   return (
-    <NavLink to="/allprojets">
+    <NavLink to={`/oneprojet/${project._id}`}>
       <div className="flex space-x-6 animate__animated animate__fadeIn">
         <div className="w-1/3">
-          <img src={image} alt="Thumb" className="rounded-lg" />
+          <img src={image} alt="Thumb" className="rounded-lg object-cover h-full" />
         </div>
         <div className="w-2/3">
           <span className="block text-sm text-gray-500">{category}</span>
           <h4 className="text-lg font-bold mb-2">
-            <a href="#" className="hover:text-blue-600">
-              {title}
-            </a>
+            {title}
           </h4>
           <div className="progress-box">
             <p>
-              Recueilli : {raised}Sb <span className="float-right">Objectif : {goal}Sb</span>
+              Collecté : {raised}<SbIcon color="#ff9800" /> <span className="float-right">Objectif : {goal}<SbIcon color="#52c41a" /></span>
             </p>
-            <Progress percent={percent} showInfo={false} />
+            <Progress percent={percent} showInfo={false} strokeColor="#3bcf93"/>
             <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>
           </div>
         </div>

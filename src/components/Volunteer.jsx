@@ -22,15 +22,9 @@ export default function Volonteer() {
   };
 
   return (
-    <div className="volunteer-area text-center bg-gray-100 py-20 relative overflow-hidden">
+    <div className="volunteer-area text-center bg-gradient-to-b relative overflow-hidden">
       {/* Fond animé */}
-      <div className="shape-bottom absolute inset-0 z-10 overflow-hidden">
-        <img
-          src="/shape/7.png"
-          alt="Shape"
-          className="object-cover w-full h-full animate__animated animate__fadeIn"
-        />
-      </div>
+      
 
       <div className="container mx-auto relative z-20">
         <Row justify="center" gutter={[16, 16]}>

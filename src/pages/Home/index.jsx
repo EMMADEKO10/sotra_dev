@@ -3,6 +3,8 @@ import HeaderTop from "../../components/HeaderTop";
 import NavBar from "../../components/Navbars/NavBar";
 import Banner from "../../components/Banner";
 import RetourEnHaut from "../../components/bouton/RetourEnHaut";
+import SponsorCarousel from '../../components/SponsorCarousel';
+import SocialBondsSection from '../../components/SocialBondsSection';
 
 // Lazy load components
 const HomeSponsortClassement = lazy(() => import("../../components/HomeSponsortClassement"));
@@ -28,12 +30,15 @@ function Home() {
           <AboutArea />
           <Causes />
           <Activity />
-          <HomeSponsortClassement />
           <OurMission />
-          <EventArea />
-          <Volunteer />
+          <div className='py-20'>
+            <SponsorCarousel />
+            <Volunteer />
+          </div>
+          <SocialBondsSection />
           <Testimonials />
           <GalleryArea />
+          <EventArea />
           <Blog />
         </Suspense>
       </main>

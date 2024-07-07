@@ -23,12 +23,12 @@ import DashPrestataire from "./pages/dashboard/admin/pages/DashPrestataire";
 import DashSponsor from "./pages/dashboard/admin/pages/DashSponsor";
 import PrestataireDashboard from "./pages/dashboard/prestataire/prestataire.dashbord"
 import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort";
-import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
+// import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort";
 import SocialBonds from "./pages/Info/SocialBonds";
 import Inscription from "./pages/Login/Inscription";
 import { useEffect, useState } from 'react';
-import Logins from "./pages/Login/Login";
+// import Logins from "./pages/Login/Login";
 import Login from "./pages/Login/Login";
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
@@ -165,10 +165,10 @@ function App() {
             path="/profilepagesponsort/:id"
             element={<ProfilePageSponsort />}
           />
-          <Route
+          {/* <Route
             path="/dashboardpagesponsor"
             element={<DashboardPageSponsor />}
-          />
+          /> */}
 
           <Route
             path="/createprofilesponsort/:id"

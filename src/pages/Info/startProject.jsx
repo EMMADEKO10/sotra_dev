@@ -1,427 +1,180 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { LogoutOutlined, UserOutlined, DollarCircleOutlined, ToolOutlined, StarOutlined, ProfileOutlined, DashboardOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { useEffect, useState } from "react"
+import axios from "axios"
+import Navbar from "../../components/Navbars/NavBar"
+import Footer from "../../components/Footer"
+import { NavLink } from "react-router-dom"
+import { Table, Typography, Divider, Space, Button, Badge } from "antd"
+import ClassementSponsort from "../dashboard/admin/pages/ClassementSponsort"
+import SponsorMonthlyContributions from "../../pages/dashboard/sponsor/graphiques"
+import { Input, Spin } from "antd"
+import { SearchOutlined, FileSearchOutlined } from "@ant-design/icons"
+import "animate.css"
+import { motion, useInView } from "framer-motion"
+import RetourEnHaut from "../../components/bouton/RetourEnHaut"
+// import SponsorRankingPage from "../dashboard/sponsor/graphiques"
 
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(null);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
-  const navigate = useNavigate();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+const { Title, Text } = Typography
 
-  const userConnect = localStorage.getItem("user");
-  let roleUserConnect = localStorage.getItem("role") || "user";
+const { Search } = Input
 
-  const toggleDropdown = (index) => {
-    setDropdownOpen(dropdownOpen === index ? null : index);
-  };
+const NosSponsorts = () => {
+  const [sponsors, setSponsors] = useState([])
+  const [filteredSponsors, setFilteredSponsors] = useState([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const [loading, setLoading] = useState(true)
 
-  const toggleMobileDropdown = (index) => {
-    setMobileDropdownOpen(mobileDropdownOpen === index ? null : index);
-  };
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
-  const logout = () => {
-    if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
-      localStorage.removeItem('token');
-      localStorage.removeItem("user");
-      localStorage.removeItem("role");
-      navigate('/login');
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL
+        const response = await axios.get(`${apiUrl}/sponsors`)
+        setSponsors(response.data)
+        setFilteredSponsors(response.data)
+      } catch (error) {
+        console.error("Erreur lors de la requête:", error.message)
+      } finally {
+        setLoading(false)
+      }
     }
-  };
 
-  const navItems = [
-    {
-      title: "Projets",
-      subItems: [
-        { name: "Découvrir les projets", link: "/allprojets", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        { name: "Démarrer un projet", link: "/projectsubmission", restrictedTo: ["admin", "prestataire", "user"] },
-        // { name: "Devenir prestataire", link: "/infoprestataire", restrictedTo: ["admin", "user"] }
-      ],
-    },
-    {
-      title: "Info",
-      subItems: [
-        { name: "Social bonds", link: "/socialbonds", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        { name: "Charte", link: "/chart", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-        // { name: "Blog", link: "/blogs", restrictedTo: ["admin", "user", "prestataire", "sponsor"] },
-      ],
-    },
-    {
-      title: "Sponsor",
-      subItems: [
-        { name: "Nos sponsors", link: "/nossponsorts", restrictedTo: ["admin", "user", "sponsor", "prestataire"] },
-        // { name: "Devenir sponsor", link: "/sponsorregistration", restrictedTo: ["admin", "user"] }
-      ],
-    },
-    {
-      title: "À propos",
-      subItems: [
-        { name: "Vision et Mission", link: "/about" },
-        { name: "Contact", link: "/contact" }
-      ],
-    },
-  ];
+    fetchData()
+  }, [])
 
-  let dashboardUrl;
-  let dashboardIcon;
-  let dashboardText;
+  const handleSearchChange = (event) => {
+    const value = event.target.value
+    setSearchTerm(value)
+    filterSponsors(value)
+  }
 
-  if (roleUserConnect === 'admin') {
-    dashboardUrl = `/dashboard`;
-    dashboardText = "Dashboard";
-    dashboardIcon = <DashboardOutlined />;
-  } else if (roleUserConnect === 'sponsor') {
-    dashboardUrl = `/sponsor/${userConnect}`;
-    dashboardText = "Mes Projets Sponsorisés";
-    dashboardIcon = <StarOutlined />;
-  } else {
-    dashboardUrl = `/prestataire/${userConnect}`;
-    dashboardText = "Mes Projets";
-    dashboardIcon = <ProfileOutlined />;
+  const filterSponsors = (value) => {
+    const filtered = sponsors.filter((sponsor) =>
+      sponsor.companyName.toLowerCase().includes(value.toLowerCase())
+    )
+    setFilteredSponsors(filtered)
   }
 
   return (
-    <nav className="sticky top-0 bg-white z-50 shadow-md">
-      <div className="flex flex-row justify-between items-center container mx-auto px-4 py-3">
-        <Link to="/" className="flex items-center space-x-2">
-          <img
-            src="/sotradon logo.png"
-            alt="Logo de Sotradons - RSE Market Place by Gouvernix"
-            className="w-10 h-10"
-          />
+    <>
+      {/* Sponsor Section */}
 
-          <div className="sotradons-text">
-            <div className="ttext">
-              <span className="s" style={{ '--order': 0 }}>S</span>
-              <span className="o" style={{ '--order': 1 }}>O</span>
-              <span className="t" style={{ '--order': 2 }}>T</span>
-              <span className="r" style={{ '--order': 3 }}>R</span>
-              <span className="a" style={{ '--order': 4 }}>A</span>
-              <span className="d" style={{ '--order': 5 }}>D</span>
-              <span className="o" style={{ '--order': 6 }}>O</span>
-              <span className="n" style={{ '--order': 7 }}>N</span>
-              <span className="s" style={{ '--order': 8 }}>S</span>
-            </div>
-            <span className="by">BY GOUVERNIX</span>
-          </div>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden xl:flex space-x-8">
-          {navItems.map((item, index) => (
-            <div key={index} className="relative group">
-              <button
-                onClick={() => toggleDropdown(index)}
-                className="text-lg font-semibold hover:text-[#3bcf94] transition-colors bg-transparent"
-              >
-                {item.title} <span className="text-[#3bcf94]">+</span>
-              </button>
-              {dropdownOpen === index && (
-                <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                  <ul className="py-2">
-                    {item.subItems.map((subItem, subIndex) => (
-                      !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
-                        <li key={subIndex}>
-                          <Link
-                            className="block px-4 py-2 text-gray-700 hover:bg-[#3bcf94] hover:text-white transition-colors"
-                            to={subItem.link}
-                            onClick={() => setDropdownOpen(null)}
-                          >
-                            {subItem.name}
-                          </Link>
-                        </li>
-                      ) : null
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* User Actions */}
-        <div className=" hidden lg:flex items-center space-x-4">
-          {userConnect ? (
-            <>
-              <button
-                className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
-                onClick={() => navigate(dashboardUrl)}
-              >
-                {dashboardIcon}
-                {dashboardText}
-              </button>
-              <button
-                className="bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-colors"
-              >
-                {roleUserConnect === 'prestataire' ? <UserOutlined /> :
-                  roleUserConnect === 'sponsor' ? <DollarCircleOutlined /> :
-                  roleUserConnect === 'admin' ? <ToolOutlined /> :
-                  <UserOutlined style={{ color: 'gray' }} />
-                }
-                {roleUserConnect}
-              </button>
+      <div className="volunteer-area bg-gray-100 py-16">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h4 className="text-xl text-gray-600 font-semibold mb-2">
+              Nos Partenaires d'Impact
+            </h4>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Découvrez les principaux contributeurs de nos projets
+            </h2>
+            <p className="text-gray-700 max-w-2xl mx-auto mb-8">
+              Grâce à la générosité de nos sponsors, nous créons des impacts
+              positifs à travers des initiatives sociales innovantes.
+            </p>
+            <NavLink to="/nossponsorts">
               <Button
                 type="primary"
-                danger
-                onClick={logout}
-                icon={<LogoutOutlined />}
+                className="py-3 px-6 text-base animate__animated animate__fadeInUp bg-[#3bcf94] hover:bg-[#2eaf7a] border-none"
               >
-                Déconnexion
+                Découvrez en plus <i className="fas fa-angle-right ml-2"></i>
               </Button>
-            </>
-          ) : (
-            <Link to="/login">
-              <button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-[#3bcf94] px-4 py-1.5 rounded transition-colors">
-                Connexion
-              </button>
-            </Link>
-          )}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="xl:hidden flex items-center bg-transparent"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#3bcf94]"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-[#3bcf94]"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      {menuOpen && (
-        <div className="bg-white w-full shadow-lg z-40 xl:hidden">
-          <div className="p-4 space-y-4">
-            <div className="space-y-3 flex flex-col items-center w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto">
-             
+            </NavLink>
+          </div>
+          {/* Grid des sponsors */}
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <Spin size="large" />
             </div>
-
-            <div className="space-y-3">
-              {navItems.map((item, index) => (
-                <div key={index} className="w-full">
-                  <button
-                    onClick={() => toggleMobileDropdown(index)}
-                    className="w-full flex items-center justify-between text-lg font-semibold bg-[#3bcf94] text-white px-4 py-2 rounded-md"
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 py-12">
+              {filteredSponsors.map((sponsor, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                >
+                  <NavLink
+                    to={`/profilepagesponsort/${sponsor._id}`}
+                    className="block h-full"
                   >
-                    {item.title}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 transform transition-transform duration-300"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06-.02L10 10.46l3.71-3.27a.75.75 0 111.02 1.1l-4 3.5a.75.75 0 01-1.02 0l-4-3.5a.75.75 0 01-.02-1.06z"
-                        clipRule="evenodd"
+                    <div className="relative group">
+                      <img
+                        src={`${import.meta.env.VITE_URL_IMAGE}${sponsor.logo}`}
+                        alt="Sponsor Logo"
+                        className="w-full h-40 object-cover"
                       />
-                    </svg>
-                  </button>
-                  {mobileDropdownOpen === index && (
-                    <ul className="mt-2 bg-gray-100 rounded-md shadow-inner">
-                      {item.subItems.map((subItem, subIndex) => (
-                        !subItem.restrictedTo || subItem.restrictedTo.includes(roleUserConnect) ? (
-                          <li key={subIndex}>
-                            <Link
-                              className="block px-4 py-2 text-gray-700 hover:bg-[#3bcf94] hover:text-white transition-colors"
-                              to={subItem.link}
-                              onClick={() => setMenuOpen(false)}
-                            >
-                              {subItem.name}
-                            </Link>
-                          </li>
-                        ) : null
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-white text-sm font-semibold">
+                          Voir le profil
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-4 text-center">
+                      <h4 className="text-lg font-bold truncate">
+                        {sponsor.companyName}
+                      </h4>
+                      <span className="text-gray-500 text-sm">
+                        {sponsor.industry}
+                      </span>
+                    </div>
+                  </NavLink>
+                </motion.div>
               ))}
-
-              {userConnect ? (
-                <div className="flex flex-col gap-2 w-full items-center">
-                  <Link
-                    to={dashboardUrl}
-                    className="w-full max-w-lg flex  justify-center"
-                  >
-                    <button className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
-                      {dashboardIcon}
-                      {dashboardText}
-                    </button>
-                  </Link>
-
-                    <Button 
-                    className="w-full  bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors"
-                    type="primary"
-                    danger
-                    onClick={logout}
-                    icon={<LogoutOutlined />}
-                    >
-                      Déconnexion
-                    </Button>
-                </div>
-
-              ) : (
-                <Link to="/login" className="w-full max-w-lg flex justify-center">
-                  <button className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-colors">
-                    Connexion
-                  </button>
-                </Link>
-              )}
             </div>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-};
-
-export default Navbar;
-`
-
-
-
- <>
-              <Button
-                className="bg-[#3bcf94] border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
-                onClick={() => navigate(dashboardUrl)}
-                icon={dashboardIcon}
+          )}
+          {filteredSponsors.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-12 bg-gray-100 shadow-md rounded-lg max-w-lg mx-auto animate__animated animate__fadeIn">
+              <FileSearchOutlined className="text-primary-500 text-7xl mb-4" />
+              <Title
+                level={4}
+                className="text-gray-700 text-center"
               >
-                {dashboardText}
-              </Button>
-              <Button
-                className={`flex items-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-                icon={roleIcon}
-                onClick={showModal}
-              >
-                {roleButtonText}
-              </Button>
+                Aucun résultat trouvé
+              </Title>
+              <Text className="text-gray-500 text-center px-4">
+                Il semble que nous n'ayons pas trouvé de résultats correspondant
+                à votre recherche. Essayez de modifier vos critères de
+                recherche.
+              </Text>
               <Button
                 type="primary"
-                danger
-                onClick={logout}
-                icon={<LogoutOutlined />}
-                className="transition-all duration-300 hover:shadow-lg"
+                className="mt-6"
+                onClick={() => window.location.reload()} // Exemple d'action, peut être adapté
               >
-                Déconnexion
+                Réessayer
               </Button>
-            </>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* Section Breadcrumb avec effet parallaxe */}
-<div
-className="breadcrumb-area relative text-center shadow-lg p-12 bg-cover bg-center"
-style={{
-  backgroundImage: "url(/sotradonsImage/35.jpg)",
-  backgroundAttachment: "fixed",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover"
-}}
->
-<div className="absolute inset-0 bg-black opacity-40"></div>
-<div className="relative container mx-auto z-10">
-  <div className="breadcrumb-items">
-    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-    Contactez-nous
-    </h2>
-    <nav className="text-white">
-      <a href="/" className="hover:underline">Accueil</a> &gt; <span>Contactez-nous</span>
-    </nav>
-  </div>
-</div>
-</div>
-
-bg-gray-100 py-12
-bg-gray-100 py-16
-
-import { BackTop } from 'antd';
-import { ArrowUpOutlined } from '@ant-design/icons';
-
-// Dans le rendu, juste avant le Footer
-<BackTop>
-        <div className="flex items-center justify-center w-12 h-12 bg-primary-500 text-white rounded-full shadow-lg hover:bg-primary-600 active:bg-primary-700 transition-all duration-300 ease-in-out animate-bounce">
-          <ArrowUpOutlined className="text-xl" />
+            </div>
+          )}
         </div>
-      </BackTop>
+      </div>
+    </>
+  )
+}
 
-{/* <div className="text-center mt-12">
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Button
-                type="primary"
-                shape="round"
-                size="large"
-                className="bg-[#3bcf93] border-none hover:bg-[#2eaf7a] transition-colors duration-300"
-              >
-                Adhérez à la charte
-              </Button>
-            </motion.div>
-          </div> */}
+export default NosSponsorts
 
-
-
-          <div className="min-h-screen bg-slate-200 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md relative">
-
-
-
-
-
+<div className="sponsor-carousel  bg-gradient-to-b from-gray-50 to-white overflow">
+    
+    <div className="container mx-auto">
+    <div className="text-center mb-12">
+        <h4 className="text-xl text-gray-600 font-semibold mb-2">
+          Nos Partenaires d'Impact
+        </h4>
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+          Découvrez les principaux contributeurs de nos projets
+        </h2>
+        <p className="text-gray-700 max-w-2xl mx-auto mb-8">
+          Grâce à la générosité de nos sponsors, nous créons des impacts positifs à travers des initiatives sociales innovantes.
+        </p>
+        <NavLink to="/nossponsorts">
+          <Button type="primary" className="py-3 px-6 text-base animate__animated animate__fadeInUp bg-[#3bcf94] hover:bg-[#2eaf7a] border-none">
+            Découvrez en plus <i className="fas fa-angle-right ml-2"></i>
+          </Button>
+        </NavLink>
+      </div>

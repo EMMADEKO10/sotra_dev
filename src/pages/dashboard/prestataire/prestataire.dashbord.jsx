@@ -5,6 +5,7 @@ import Navbar from "../../../components/Navbars/NavBar"
 import Footer from "../../../components/Footer"
 import { Skeleton, Avatar, Card, Typography, Button, Progress, Tooltip } from "antd";
 import { EditOutlined, ProjectOutlined, UserOutlined } from "@ant-design/icons";
+import SbIcon from "../../../components/Social Bonds/SbIcon";
 
 const { Title, Paragraph } = Typography;
 
@@ -63,9 +64,9 @@ const PrestataireDashboard = () => {
               <Title level={2} className="text-2xl text-blue-600 m-0">{prestaireName}</Title>
               <Paragraph className="text-lg text-gray-500">Bienvenue sur votre tableau de bord</Paragraph>
             </div>
-            <Button type="primary" icon={<EditOutlined />} className="bg-blue-500 border-none hover:bg-blue-600 focus:bg-blue-700">
+            {/* <Button type="primary" icon={<EditOutlined />} className="bg-blue-500 border-none hover:bg-blue-600 focus:bg-blue-700">
               Modifier le profil
-            </Button>
+            </Button> */}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -101,7 +102,7 @@ const PrestataireDashboard = () => {
                         </div>
                         <div className="text-center">
                           <p className="text-sm text-gray-500">Montant collecté</p>
-                          <p className="text-lg font-bold">{project.socialBondsCollect} sur {project.socialBonds}</p>
+                          <p className="text-lg font-bold">{project.socialBondsCollect}<SbIcon color="#ff9800" /> sur {project.socialBonds}<SbIcon  color="#52c41a" /></p>
                         </div>
                       </div>
                     </div>

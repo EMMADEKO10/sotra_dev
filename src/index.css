@@ -108,3 +108,30 @@ button{
   .animation-delay-4000 {
     animation-delay: 4s;
   }
+
+  /* animation carousel */
+
+  .carousel-row {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  
+  .carousel-content {
+    display: flex;
+    width: fit-content;
+  }
+  
+  .sponsor-item {
+    width: 180px;
+  }
+  
+  @media (max-width: 768px) {
+    .sponsor-item {
+      width: 150px;
+    }
+  }
+  
+  .sponsor-item:hover .text-gray-600 {
+    opacity: 1;
+  }

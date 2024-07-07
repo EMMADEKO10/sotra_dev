@@ -3,6 +3,7 @@ import { Button, Progress, Skeleton, Col, Row, Card } from 'antd';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import 'animate.css';
+import SbIcon from './Social Bonds/SbIcon';
 
 const Causes = () => {
   const [projects, setProjects] = useState([]);
@@ -134,17 +135,20 @@ const Causes = () => {
                                 </p>
                               }
                             />
-                            <div className="mt-4">
+                            <div className="mt-auto pt-4 text-gray-500">
                               <Progress
                                 percent={percent}
                                 status="active"
+                                strokeColor="#3bcf93"
                               />
-                              <p className="mt-2 text-sm">
-                                Collecté : {project.socialBondsCollect}Sb{" "}
-                                <span className="text-gray-600">
-                                  / Objectif : {project.socialBonds}Sb
+                              <div className="mt-2 flex justify-between">
+                              <span >
+                                Collecté : {project.socialBondsCollect}<SbIcon color="#ff9800" />
+                              </span>
+                                <span>
+                                   Objectif : {project.socialBonds}<SbIcon  color="#52c41a" />
                                 </span>
-                              </p>
+                                </div>
                             </div>
                           </Card>
                         </NavLink>

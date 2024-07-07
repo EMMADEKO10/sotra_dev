@@ -322,9 +322,9 @@ const Navbar = () => {
             </>
           ) : (
             <Link to="/login">
-              <Button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-white px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
+              <button className="bg-[#3bcf94] text-white border-2 border-[#3bcf94] hover:bg-[#1e8159] hover:text-white px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg">
                 Connexion
-              </Button>
+              </button>
             </Link>
           )}
         </div>

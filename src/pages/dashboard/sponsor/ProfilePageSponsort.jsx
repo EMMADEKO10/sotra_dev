@@ -1,28 +1,9 @@
-import {
-  Layout,
-  Avatar,
-  Typography,
-  Divider,
-  Tag,
-  Row,
-  Col,
-  Card,
-  Statistic,
-  Tooltip,
-  Button,message
-} from "antd";
-import {
-  DollarCircleOutlined,
-  ProjectOutlined,
-  GlobalOutlined,
-  TwitterOutlined,
-  FacebookOutlined,
-  LinkedinOutlined,
-  YoutubeOutlined,
-  InstagramOutlined,
-} from "@ant-design/icons";
+import { Layout, Avatar, Typography, Divider, Tag, Row, Col, Card, Statistic, Tooltip, Button, message, Carousel } from "antd";
+import { DollarCircleOutlined, ProjectOutlined, GlobalOutlined, TwitterOutlined, FacebookOutlined, LinkedinOutlined, YoutubeOutlined, InstagramOutlined, EnvironmentOutlined, TeamOutlined } from "@ant-design/icons";
 import { Pie, Line } from "@ant-design/charts";
 import "tailwindcss/tailwind.css";
+
+
 import Navbar from "../../../components/Navbars/NavBar";
 import Footer from "../../../components/Footer";
 
@@ -30,6 +11,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import RetourEnHaut from "../../../components/bouton/RetourEnHaut";
+import SbIcon from "../../../components/Social Bonds/SbIcon";
 
 const { Title, Paragraph, Text } = Typography;
 const { Content } = Layout;
@@ -82,6 +64,8 @@ const ProfilePageSponsort = () => {
   // const [sponsorSocialBond, setSponsorSocialBond] = useState(0)
    const [totalSocialBondsInvested, setTotalSocialBondsInvested] = useState(0)
   const [loading, setLoading] = useState(true)
+
+  const iconSize = 24
 
   useEffect(() => {
     const fetchData = async () => {
@@ -175,9 +159,9 @@ const ProfilePageSponsort = () => {
               </Title>
               <div className="grid grid-cols-1 gap-6">
                 {[
-                  { title: "Capital Social", value: sponsor.budget, color: "#3bcf93", icon: DollarCircleOutlined },
-                  { title: "Fonds Distribués", value: totalSocialBondsInvested, color: "#3b83cf", icon: DollarCircleOutlined },
-                  { title: "Projets Sponsorisés", value: projects.length, color: "#8e44ad", icon: ProjectOutlined },
+                  { title: "Capital Social", value: sponsor.budget, color: "#52c41a", icon: SbIcon },
+                  { title: "Fonds Distribués", value: totalSocialBondsInvested, color: "#ff9800", icon: SbIcon },
+                  { title: "Projets Sponsorisés", value: projects.length, color: "#3b83cf", icon: ProjectOutlined },
                 ].map((item, index) => (
                   <Card
                     key={index}
@@ -188,7 +172,7 @@ const ProfilePageSponsort = () => {
                       <Statistic
                         title={<span className="text-gray-600 font-semibold text-lg">{item.title}</span>}
                         value={item.value}
-                        prefix={<item.icon style={{ color: item.color, fontSize: "28px" }} />}
+                        prefix={<item.icon style={{ color: item.color, fontSize: "28px" }} />} 
                         valueStyle={{
                           color: item.color,
                           fontSize: "28px",
@@ -201,6 +185,8 @@ const ProfilePageSponsort = () => {
               </div>
             </div>
           </div>
+
+          {/* <SbIcon color="#ff9800" /> */}
 
           {/* Section des graphiques */}
           <div className="p-8">
@@ -241,7 +227,7 @@ const ProfilePageSponsort = () => {
                     hoverable
                     className="h-full overflow-hidden rounded-2xl transition-all duration-300 transform hover:scale-105"
                     cover={
-                      <div className="h-48 bg-gradient-to-r from-blue-500 to-[#3bcf93] flex items-center justify-center text-center p">
+                      <div className="h-48 bg-gradient-to-r from-gray-500 to-orange-300 flex items-center justify-center text-center p">
                         <Text className="text-2xl font-bold text-white ">{project.project.projectTitle}</Text>
                       </div>
                     }
@@ -250,20 +236,20 @@ const ProfilePageSponsort = () => {
                       {project.project.projectDescription}
                     </Paragraph>
                     <Paragraph className="mb-2">
-                      <Text strong>Montant :</Text> <Text className="text-blue-600">{project.investedAmount}</Text>
+                      <span strong>Montant :</span> <span className="text-blue-600">{project.investedAmount}<SbIcon color="#ff9800" /></span>
                     </Paragraph>
                     <Paragraph>
                       <Text strong>Statut :</Text>{" "}
                       <Tag
-                        color={project.project.projectFinished ? "#3bcf93" : "#2196f3"}
+                        color={project.project.projectFinished ? "#52c41a" : "#ff9800"}
                         className="text-sm font-medium px-3 py-1 rounded-full"
                       >
                         {project.project.projectFinished ? "Terminé" : "En cours"}
                       </Tag>
                     </Paragraph>
-                    <Button type="primary" href={project.link} className="mt-4 w-full bg-blue-500 hover:bg-blue-600">
+                    <button type="primary" href={project.link} className="mt-4 w-full bg-orange-300 hover:bg-orange-300">
                       Voir plus
-                    </Button>
+                    </button>
                   </Card>
                 </Col>
               ))}

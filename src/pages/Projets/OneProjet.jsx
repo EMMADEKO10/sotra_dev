@@ -8,13 +8,14 @@ import {
   Avatar,
   List,
   Modal,
+  InputNumber,
   message,
 } from "antd"
 import {
   HomeOutlined,
   ClockCircleOutlined,
   EnvironmentOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons"
 import { useParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
@@ -25,6 +26,7 @@ import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
 import AddCommentaire from "../Projets/addCommentaireOnProject"
 import CommentairesProjet from "../Projets/getCommentaire"
+import SbIcon from "../../components/Social Bonds/SbIcon"
 
 const DonationPage = () => {
   const [project, setProject] = useState(null)
@@ -107,36 +109,35 @@ const DonationPage = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="container ">
-          <Breadcrumb className="mb-8">
-            <Breadcrumb.Item href="/">
-              <HomeOutlined />
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Projets</Breadcrumb.Item>
-            <Breadcrumb.Item>{project.projectTitle}</Breadcrumb.Item>
-          </Breadcrumb>
+        <Breadcrumb className="mb-8">
+          <Breadcrumb.Item href="/">
+            <HomeOutlined />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Projets</Breadcrumb.Item>
+          <Breadcrumb.Item>{project.projectTitle}</Breadcrumb.Item>
+        </Breadcrumb>
 
-          <div className="flex flex-wrap -mx-4">
-            <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
-              <ProjectDetails project={project} />
+        <div className="flex flex-wrap -mx-4">
+          <div className="w-full lg:w-2/3 px-4 mb-10 lg:mb-0">
+            <ProjectDetails project={project} />
 
-              <CommentSection
-                totalCommentaires={totalCommentaires}
-                setTotalCommentaires={setTotalCommentaires}
-                reloadComment={reloadComment}
-                setReloadComment={setReloadComment}
-              />
-            </div>
-            <div className="w-full lg:w-1/3 px-4">
-              <DonationSidebar
-                project={project}
-                customAmount={customAmount}
-                handleCustomAmountChange={handleCustomAmountChange}
-                handleDonation={handleDonation}
-                percent={percent}
-              />
-            </div>
+            <CommentSection
+              totalCommentaires={totalCommentaires}
+              setTotalCommentaires={setTotalCommentaires}
+              reloadComment={reloadComment}
+              setReloadComment={setReloadComment}
+            />
           </div>
- 
+          <div className="w-full lg:w-1/3 px-4">
+            <DonationSidebar
+              project={project}
+              customAmount={customAmount}
+              handleCustomAmountChange={handleCustomAmountChange}
+              handleDonation={handleDonation}
+              percent={percent}
+            />
+          </div>
+        </div>
       </main>
       <Footer />
       <DonationModal
@@ -164,48 +165,62 @@ const ProjectDetails = ({ project }) => (
         {project.projectTitle}
       </h1>
     </div>
-    
+
     <div className="p-6">
       <div className="flex flex-wrap justify-between mb-6 text-sm sm:text-base text-gray-600">
         <div className="flex items-center mb-2 sm:mb-0">
           <ClockCircleOutlined className="mr-2 text-blue-500" />
-          <span><strong>Créé le :</strong> {new Date(project.createdAt).toLocaleDateString()}</span>
+          <span>
+            <strong>Créé le :</strong>{" "}
+            {new Date(project.createdAt).toLocaleDateString()}
+          </span>
         </div>
         <div className="flex items-center">
           <UserOutlined className="mr-2 text-green-500" />
-          <span><strong>Organisation :</strong> {project.prestataire.organizationName}</span>
+          <span>
+            <strong>Organisation :</strong>{" "}
+            {project.prestataire.organizationName}
+          </span>
         </div>
       </div>
-      
+
       <p className="text-gray-700 leading-relaxed mb-8 break-words">
         {project.projectDescription}
       </p>
-      
+
       <div className="bg-gray-50 rounded-lg p-6 mb-8">
-        <h3 className="text-xl font-semibold mb-4">Documents du projet</h3>
+        <h3 className="text-xl font-semibold mb-4 text-gray-700">
+          Documents du projet
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {project.supportingDocuments && (
             <DocumentCard
               title="Détails sur le projet"
               icon="📄"
-              color="green"
-              href={`${import.meta.env.VITE_URL_IMAGE}${project.supportingDocuments}`}
+              color="gray" // Changer en gris
+              href={`${import.meta.env.VITE_URL_IMAGE}${
+                project.supportingDocuments
+              }`}
             />
           )}
           {project.projectBudgetDetails && (
             <DocumentCard
               title="Budget du projet"
-              icon="💰"
-              color="blue"
-              href={`${import.meta.env.VITE_URL_IMAGE}${project.projectBudgetDetails}`}
+              icon="📄"
+              color="gray" // Changer en gris
+              href={`${import.meta.env.VITE_URL_IMAGE}${
+                project.projectBudgetDetails
+              }`}
             />
           )}
           {project.projectProposal && (
             <DocumentCard
               title="Proposition du projet"
-              icon="📊"
-              color="red"
-              href={`${import.meta.env.VITE_URL_IMAGE}${project.projectProposal}`}
+              icon="📄"
+              color="gray" // Changer en gris
+              href={`${import.meta.env.VITE_URL_IMAGE}${
+                project.projectProposal
+              }`}
             />
           )}
         </div>
@@ -219,11 +234,13 @@ const DocumentCard = ({ title, icon, color, href }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className={`flex items-center p-3 bg-white border border-${color}-200 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-md`}
+    className={`flex items-center p-3 bg-white border border-${color}-200  rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-md`}
   >
     <span className="text-2xl mr-3">{icon}</span>
     <div>
-      <span className={`text-${color}-700 font-semibold text-sm sm:text-base`}>{title}</span>
+      <span className={`text-${color}-500 font-semibold text-sm sm:text-base `}>
+        {title}
+      </span>
       {/* <p className={`text-${color}-600 text-xs sm:text-sm`}>Cliquez pour télécharger</p> */}
     </div>
   </a>
@@ -269,8 +286,12 @@ const DonationSidebar = ({
       <p className="text-lg font-semibold mb-2 flex justify-between">
         <span className="truncate">
           Collecté : {project.socialBondsCollect}
+          <SbIcon color="#ff9800"/>
         </span>
-        <span className="truncate">Objectif : {project.socialBonds}</span>
+        <span className="truncate">
+          Objectif : {project.socialBonds}
+          <SbIcon color="#52c41a" />
+        </span>
       </p>
       <p className="text-gray-600">Fonds collectés à : {percent}%</p>
     </div>
@@ -278,27 +299,35 @@ const DonationSidebar = ({
       <h3 className="text-xl font-semibold mb-4">Faire un don</h3>
       <div className="grid grid-cols-2 gap-4 mb-4">
         {[0.5, 1, 5, 10].map((amount) => (
-          <Button
+          <button
             key={amount}
             onClick={() =>
               handleCustomAmountChange({ target: { value: amount.toString() } })
             }
             className={`w-full ${
               customAmount === amount.toString()
-                ? "bg-blue-500 text-white"
+                ? "bg-[#ff9800] text-white"
                 : "bg-gray-200"
-            }`}
+            } hover:bg-primary`}
           >
-            {amount}Sb
-          </Button>
+            {amount}
+            {/* <SbIcon color="#374151" /> */}
+          </button>
         ))}
       </div>
       <Input
+        min={0}
+        step={0.001} // Définissez le pas pour permettre les décimales jusqu'à trois chiffres
+        formatter={(value) => ` ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        parser={(value) => value.replace(/Sb\s?|(,*)/g, "")}
+        precision={3} // Définissez la précision à 3 décimales
+                    style={{ width: "100%" }}
+                    prefix={
+                    <SbIcon size={32} color="#52c41a" />}
         value={customAmount}
         onChange={handleCustomAmountChange}
         placeholder="Montant personnalisé"
         className="mb-4 text-600"
-        prefix="Sb"
       />
       <Button
         onClick={handleDonation}
@@ -374,8 +403,8 @@ const RecentDonations = ({ projectId }) => {
             />
             <div className="flex-grow min-w-0">
               <p className="font-semibold truncate text-lg flex items-center">
-                <span className="mr-2 text-green-500">Sb</span>
-                {don.montant_reduit}
+                <span className="mr-2 text-green-500"></span>
+                {don.montant_reduit}<SbIcon color="#ff9800" />
               </p>
               <p className="text-sm text-gray-600 truncate">
                 {don.Sponsor.companyName}

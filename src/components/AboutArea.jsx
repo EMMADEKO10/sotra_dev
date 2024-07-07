@@ -92,9 +92,9 @@ function CauseItem({ image, category, title, raised, goal, percent }) {
           </h4>
           <div className="progress-box">
             <p>
-            Collecté : {raised}<SbIcon  color="#52c41a" /> <span className="float-right">Objectif : {goal}<SbIcon color="#ff9800" /></span>
+            Collecté : {raised}<SbIcon color="#ff9800" /> <span className="float-right">Objectif : {goal}<SbIcon  color="#52c41a" /></span>
             </p>
-            <Progress percent={percent} showInfo={false} />
+            <Progress percent={percent} showInfo={false} strokeColor="#3bcf93"/>
             <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>
           </div>
         </div>

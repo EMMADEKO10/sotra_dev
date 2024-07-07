@@ -396,10 +396,10 @@ const DashboardPageSponsor = () => {
                           <div className="flex justify-between">
                             <div>
                               <p className="text-sm text-gray-500">
-                                Montant total investi
+                                Montant total investi 
                               </p>
                               <p className="text-lg font-bold">
-                                {project.totalMontantReduit}
+                                {project.totalMontantReduit}<SbIcon color="#ff9800" />
                               </p>
                             </div>
                             <div>
@@ -407,8 +407,8 @@ const DashboardPageSponsor = () => {
                                 Montant collecté
                               </p>
                               <p className="text-lg font-bold">
-                                {project.socialBondsCollect} /{" "}
-                                {project.socialBonds}
+                                {project.socialBondsCollect}<SbIcon color="#ff9800" /> /{" "}
+                                {project.socialBonds}<SbIcon  color="#52c41a" />
                               </p>
                             </div>
                           </div>

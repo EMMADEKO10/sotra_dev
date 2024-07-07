@@ -139,13 +139,14 @@ const Causes = () => {
                               <Progress
                                 percent={percent}
                                 status="active"
+                                strokeColor="#3bcf93"
                               />
                               <div className="mt-2 flex justify-between">
                               <span >
-                                Collecté : {project.socialBondsCollect}<SbIcon  color="#52c41a" />
+                                Collecté : {project.socialBondsCollect}<SbIcon color="#ff9800" />
                               </span>
                                 <span>
-                                   Objectif : {project.socialBonds}<SbIcon color="#ff9800" />
+                                   Objectif : {project.socialBonds}<SbIcon  color="#52c41a" />
                                 </span>
                                 </div>
                             </div>

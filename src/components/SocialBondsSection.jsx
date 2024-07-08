@@ -68,7 +68,7 @@ const SocialBondsSection = () => {
                   icon={<DownloadOutlined />}
                   className="bg-white text-gray-800 font-bold rounded-lg border-2 border-gray-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
                 >
-                  Téléchargez la brochure PDF
+                  Téléchargez la brochure
                 </Button>
               </motion.a>
             </div>

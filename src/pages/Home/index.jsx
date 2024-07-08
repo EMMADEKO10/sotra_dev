@@ -5,6 +5,7 @@ import Banner from "../../components/Banner";
 import RetourEnHaut from "../../components/bouton/RetourEnHaut";
 import SponsorCarousel from '../../components/SponsorCarousel';
 import SocialBondsSection from '../../components/SocialBondsSection';
+import FAQ from '../../components/FAQ';
 
 // Lazy load components
 const HomeSponsortClassement = lazy(() => import("../../components/HomeSponsortClassement"));
@@ -37,6 +38,7 @@ function Home() {
           </div>
           <SocialBondsSection />
           <Testimonials />
+          <FAQ />
           <GalleryArea />
           <EventArea />
           <Blog />

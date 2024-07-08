@@ -15,6 +15,7 @@ import Footer from "../../components/Footer"
 import { NavLink } from "react-router-dom"
 import Volunteer from "../../components/Volunteer"
 import RetourEnHaut from "../../components/bouton/RetourEnHaut"
+import FAQ from "../../components/FAQ"
 
 const About = () => {
   // Définitions des images des partenaires
@@ -83,9 +84,9 @@ const About = () => {
         </div>
       </div>
 
-      <div>
+      <div className="py-16">
         {/* Section À propos */}
-        <div className="about-area py-16">
+        <div className="about-area ">
           <div className="container mx-auto">
             <Row
               align="middle"
@@ -281,57 +282,47 @@ const About = () => {
           </div>
         </div>
 
+        <FAQ/>
+
         {/* Section Partenaires */}
-        <div className="volunteer-area bg-gray-100 py-16">
-          <div className="container mx-auto">
-            <Row justify="center">
-              <Col
-                lg={16}
-                className="text-center space-y-4"
-              >
-                <h5 className="text-lg font-medium">Partenaires</h5>
-                <h2 className="text-3xl font-bold">
-                  Merci à nos
-                  <br />
-                  précieux partenaires
-                </h2>
-                <div className="heading-divider mx-auto w-20 h-1 bg-[#3bcf93]"></div>
-              </Col>
-            </Row>
-            <Row
-              justify="center"
-              className="mt-8"
-              gutter={[32, 32]}
-            >
-              {partners.map((partner, index) => (
-                <Col
-                  key={index}
-                  lg={8}
-                  md={12}
-                  xs={24}
-                  className="text-center space-y-4"
-                >
-                  <div className="relative">
-                    <img
-                      src={partner.img}
-                      alt={partner.name}
-                      className="mx-auto rounded-full w-48 h-48 object-cover shadow-lg"
-                    />
-                    <div className="social mt-4 space-x-4">
-                      <FacebookOutlined className="text-xl" />
-                      <TwitterOutlined className="text-xl" />
-                      <InstagramOutlined className="text-xl" />
-                    </div>
-                  </div>
-                  <div className="info mt-4">
-                    <h4 className="text-xl font-bold">{partner.name}</h4>
-                    <span className="text-gray-500">Partenaire clé</span>
-                  </div>
-                </Col>
-              ))}
-            </Row>
+<div className="volunteer-area bg-gray-100 py-16">
+  <div className="container mx-auto">
+    <Row justify="center">
+      <Col lg={16} className="text-center space-y-4">
+        <h5 className="text-lg font-medium">Nos Fondateurs</h5>
+        <h2 className="text-3xl font-bold">
+          Honneur à nos
+          <br />
+          visionnaires
+        </h2>
+        <div className="heading-divider mx-auto w-20 h-1 bg-[#3bcf93]"></div>
+      </Col>
+    </Row>
+    <Row justify="center" className="mt-8" gutter={[32, 32]}>
+      {partners.map((founder, index) => (
+        <Col key={index} lg={8} md={12} xs={24} className="text-center space-y-4">
+          <div className="relative">
+            <img
+              src={founder.img}
+              alt={founder.name}
+              className="mx-auto rounded-full w-48 h-48 object-cover shadow-lg"
+            />
+            <div className="social mt-4 space-x-4">
+              <FacebookOutlined className="text-xl" />
+              <TwitterOutlined className="text-xl" />
+              <InstagramOutlined className="text-xl" />
+            </div>
           </div>
-        </div>
+          <div className="info mt-4">
+            <h4 className="text-xl font-bold">{founder.name}</h4>
+            <span className="text-gray-500">Co-fondateur</span>
+          </div>
+        </Col>
+      ))}
+    </Row>
+  </div>
+</div>
+
 
         <Volunteer />
       </div>

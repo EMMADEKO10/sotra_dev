@@ -1,38 +1,63 @@
-import { Carousel } from 'antd';
 import React from 'react';
+import { Carousel } from 'antd';
+import { Link } from 'react-router-dom'; // Assurez-vous d'avoir react-router-dom installé
 import 'animate.css';
 
 export default function EventArea() {
   // Définition des titres d'événements avec leurs descriptions correspondantes
   const eventDescriptions = {
-    "Amélioration des infrastructures éducatives dans les régions rurales": "Amélioration des infrastructures éducatives dans les régions rurales, visant à fournir un meilleur accès à l'éducation pour les communautés éloignées.",
-    "Campagne de sensibilisation sur la santé maternelle": "Campagne de sensibilisation visant à promouvoir la santé maternelle et à réduire les taux de mortalité maternelle dans les zones défavorisées.",
-    "Distribution de kits d'hygiène dans les zones défavorisées": "Distribution de kits d'hygiène pour améliorer les conditions sanitaires dans les zones défavorisées et prévenir les maladies.",
-    "Séminaire sur l'entrepreneuriat social pour les jeunes": "Séminaire visant à inspirer et à éduquer les jeunes sur l'entrepreneuriat social pour stimuler le développement économique local.",
-    "Plantation d'arbres pour lutter contre le changement climatique": "Initiative de plantation d'arbres pour restaurer l'écosystème local et lutter contre les effets du changement climatique.",
-    "Formation professionnelle pour les femmes en situation de précarité": "Programme de formation visant à renforcer les compétences professionnelles des femmes en situation de précarité économique.",
-    "Journée de nettoyage des plages pour la préservation de l'environnement": "Journée dédiée au nettoyage des plages pour sensibiliser à la préservation de l'environnement côtier.",
-    "Clinique mobile pour les soins de santé primaires": "Clinique mobile offrant des services de santé primaires pour les communautés éloignées et difficilement accessibles.",
-    "Ateliers de sensibilisation sur les droits des enfants": "Ateliers éducatifs visant à informer et à protéger les droits des enfants dans la société.",
-    "Programme de micro-financement pour les petites entreprises locales": "Programme de micro-financement pour soutenir le démarrage et la croissance des petites entreprises locales.",
-    "Exposition d'art au profit des initiatives sociales": "Exposition artistique pour sensibiliser et collecter des fonds pour des initiatives sociales locales.",
-    "Conférence sur l'éducation numérique pour les enseignants": "Conférence visant à améliorer les compétences numériques des enseignants pour une meilleure éducation.",
-    "Collecte de fonds pour l'accès à l'eau potable dans les villages": "Collecte de fonds pour financer l'accès à l'eau potable dans les villages isolés.",
-    "Ateliers de formation agricole pour une agriculture durable": "Ateliers de formation pour promouvoir des pratiques agricoles durables et améliorer la sécurité alimentaire.",
-    "Séminaire sur les énergies renouvelables et leur impact": "Séminaire sur l'adoption des énergies renouvelables pour réduire l'empreinte carbone et promouvoir la durabilité.",
-    "Visite médicale gratuite pour les personnes âgées": "Initiative de santé publique offrant des soins médicaux gratuits aux personnes âgées de la communauté.",
-    "Compétition sportive pour la cohésion sociale": "Compétition sportive visant à renforcer la cohésion sociale et promouvoir un mode de vie sain.",
-    "Journée de sensibilisation à la protection des animaux sauvages": "Journée de sensibilisation pour la protection et la conservation des espèces animales menacées.",
-    "Forum sur l'innovation sociale et technologique": "Forum réunissant des leaders d'opinion pour discuter de l'innovation sociale et technologique.",
-    "Cours de secourisme pour les bénévoles": "Formation en premiers secours pour préparer les bénévoles à intervenir en cas d'urgence.",
-    "Distribution de fournitures scolaires aux enfants démunis": "Distribution de fournitures scolaires essentielles pour soutenir l'éducation des enfants défavorisés.",
-    "Campagne de vaccination pour les communautés isolées": "Campagne visant à assurer une couverture vaccinale complète dans les communautés isolées.",
-    "Spectacle de théâtre pour sensibiliser sur les droits des femmes": "Spectacle théâtral pour sensibiliser et promouvoir les droits et l'égalité des femmes.",
-    "Hackathon pour développer des solutions numériques sociales": "Hackathon pour encourager l'innovation numérique au service du bien social.",
-    "Course caritative pour soutenir les victimes de catastrophes naturelles": "Course caritative pour collecter des fonds en faveur des victimes de catastrophes naturelles et soutenir la reconstruction."
-  };
+    "Amélioration des infrastructures éducatives dans les régions rurales":
+      "Amélioration des infrastructures éducatives dans les régions rurales, visant à fournir un meilleur accès à l'éducation pour les communautés éloignées.",
+    "Campagne de sensibilisation sur la santé maternelle":
+      "Campagne de sensibilisation visant à promouvoir la santé maternelle et à réduire les taux de mortalité maternelle dans les zones défavorisées.",
+    "Distribution de kits d'hygiène dans les zones défavorisées":
+      "Distribution de kits d'hygiène pour améliorer les conditions sanitaires dans les zones défavorisées et prévenir les maladies.",
+    "Séminaire sur l'entrepreneuriat social pour les jeunes":
+      "Séminaire visant à inspirer et à éduquer les jeunes sur l'entrepreneuriat social pour stimuler le développement économique local.",
+    "Plantation d'arbres pour lutter contre le changement climatique":
+      "Initiative de plantation d'arbres pour restaurer l'écosystème local et lutter contre les effets du changement climatique.",
+    "Formation professionnelle pour les femmes en situation de précarité":
+      "Programme de formation visant à renforcer les compétences professionnelles des femmes en situation de précarité économique.",
+    "Journée de nettoyage des plages pour la préservation de l'environnement":
+      "Journée dédiée au nettoyage des plages pour sensibiliser à la préservation de l'environnement côtier.",
+    "Clinique mobile pour les soins de santé primaires":
+      "Clinique mobile offrant des services de santé primaires pour les communautés éloignées et difficilement accessibles.",
+    "Ateliers de sensibilisation sur les droits des enfants":
+      "Ateliers éducatifs visant à informer et à protéger les droits des enfants dans la société.",
+    "Programme de micro-financement pour les petites entreprises locales":
+      "Programme de micro-financement pour soutenir le démarrage et la croissance des petites entreprises locales.",
+    "Exposition d'art au profit des initiatives sociales":
+      "Exposition artistique pour sensibiliser et collecter des fonds pour des initiatives sociales locales.",
+    "Conférence sur l'éducation numérique pour les enseignants":
+      "Conférence visant à améliorer les compétences numériques des enseignants pour une meilleure éducation.",
+    "Collecte de fonds pour l'accès à l'eau potable dans les villages":
+      "Collecte de fonds pour financer l'accès à l'eau potable dans les villages isolés.",
+    "Ateliers de formation agricole pour une agriculture durable":
+      "Ateliers de formation pour promouvoir des pratiques agricoles durables et améliorer la sécurité alimentaire.",
+    "Séminaire sur les énergies renouvelables et leur impact":
+      "Séminaire sur l'adoption des énergies renouvelables pour réduire l'empreinte carbone et promouvoir la durabilité.",
+    "Visite médicale gratuite pour les personnes âgées":
+      "Initiative de santé publique offrant des soins médicaux gratuits aux personnes âgées de la communauté.",
+    "Compétition sportive pour la cohésion sociale":
+      "Compétition sportive visant à renforcer la cohésion sociale et promouvoir un mode de vie sain.",
+    "Journée de sensibilisation à la protection des animaux sauvages":
+      "Journée de sensibilisation pour la protection et la conservation des espèces animales menacées.",
+    "Forum sur l'innovation sociale et technologique":
+      "Forum réunissant des leaders d'opinion pour discuter de l'innovation sociale et technologique.",
+    "Cours de secourisme pour les bénévoles":
+      "Formation en premiers secours pour préparer les bénévoles à intervenir en cas d'urgence.",
+    "Distribution de fournitures scolaires aux enfants démunis":
+      "Distribution de fournitures scolaires essentielles pour soutenir l'éducation des enfants défavorisés.",
+    "Campagne de vaccination pour les communautés isolées":
+      "Campagne visant à assurer une couverture vaccinale complète dans les communautés isolées.",
+    "Spectacle de théâtre pour sensibiliser sur les droits des femmes":
+      "Spectacle théâtral pour sensibiliser et promouvoir les droits et l'égalité des femmes.",
+    "Hackathon pour développer des solutions numériques sociales":
+      "Hackathon pour encourager l'innovation numérique au service du bien social.",
+    "Course caritative pour soutenir les victimes de catastrophes naturelles":
+      "Course caritative pour collecter des fonds en faveur des victimes de catastrophes naturelles et soutenir la reconstruction.",
+  }
 
-  // Simuler la génération aléatoire de 25 événements
   const generateEvents = () => {
     const events = [];
 
@@ -41,37 +66,34 @@ export default function EventArea() {
       const eventName = Object.keys(eventDescriptions)[randomIndex];
       const eventDate = getRandomDate();
       const eventTime = getRandomTime();
-      const eventImage = `/img/event-${i % 3 + 1}.jpg`; // Random image selection
       const eventDescription = eventDescriptions[eventName];
 
       const event = (
-        <div className="event-item rounded-lg overflow-hidden shadow-md" key={i}>
-          <div className="event-thumb relative">
-            {/* <img src={eventImage} alt="Event Thumbnail" className="w-full h-auto" /> */}
-            <div
-              className="date absolute top-2 left-2 bg-white rounded-full py-1 px-2"
-              style={{ border: "1px solid #3bcf93", background: "transparent" }}
-            >
+        <div className="event-item bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full flex flex-col" key={i}>
+          <div className="event-thumb relative h-40 bg-gray-200">
+            <div className="date absolute top-4 left-4 bg-[#3bcf93] text-white rounded-full py-2 px-4 font-semibold text-sm">
               {eventDate}
             </div>
           </div>
-          <div className="event-info p-4 bg-white rounded">
-            <div className="time text-gray-600 mb-2 pt-4">
-                <i className="fas fa-clock"></i> {eventTime}
+          <div className="event-info p-6 flex-grow flex flex-col justify-between">
+            <div>
+              <div className="time text-gray-600 mb-2 text-sm">
+                <i className="fas fa-clock mr-2"></i> {eventTime}
               </div>
-              <h4 className="event-title text-xl lg:text-2xl font-semibold mb-2">
+              <h4 className="event-title text-lg sm:text-xl font-bold mb-3 text-gray-800">
                 {eventName}
               </h4>
-              <p className="event-description text-gray-700 mb-4">
+              <p className="event-description text-gray-600 mb-4 text-sm sm:text-base line-clamp-3">
                 {eventDescription}
               </p>
-              {/* <a
-                className="btn btn-theme border btn-md hover:bg-gray-200 inline-block animate__animated animate__fadeInUp lg:animate__delay-1s"
-                href="#"
-              >
-                En savoir plus
-              </a> */}
             </div>
+            <Link 
+              to="/contact" 
+              className="btn bg-[#3bcf93] text-white py-2 px-4 rounded-full hover:bg-[#2aa77b] transition-colors duration-300 text-sm sm:text-base w-full text-center"
+            >
+              Contacter SOTRADONS pour en savoir plus
+            </Link>
+          </div>
         </div>
       );
 
@@ -83,51 +105,89 @@ export default function EventArea() {
 
   // Générer une date aléatoire pour simuler les événements à venir
   const getRandomDate = () => {
-    const day = Math.floor(Math.random() * 28) + 1; // Random day between 1 and 28
-    const month = getRandomMonth();
-    return `${day} ${month}`;
-  };
+    const day = Math.floor(Math.random() * 28) + 1 // Random day between 1 and 28
+    const month = getRandomMonth()
+    return `${day} ${month}`
+  }
 
   // Générer un mois aléatoire pour les événements
   const getRandomMonth = () => {
-    const months = ["Janv", "Fév", "Mars", "Avr", "Mai", "Juin", "Juillet", "Août", "Sept", "Oct", "Nov", "Déc"];
-    const randomIndex = Math.floor(Math.random() * months.length);
-    return months[randomIndex];
-  };
+    const months = [
+      "Janv",
+      "Fév",
+      "Mars",
+      "Avr",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Déc",
+    ]
+    const randomIndex = Math.floor(Math.random() * months.length)
+    return months[randomIndex]
+  }
 
   // Générer une heure aléatoire pour les événements
   const getRandomTime = () => {
-    const hours = Math.floor(Math.random() * 12) + 8; // Random hour between 8 and 19
-    const minutes = Math.floor(Math.random() * 2) * 30; // Either 0 or 30 minutes
-    const period = hours >= 12 ? "pm" : "am";
-    return `${hours}:${minutes === 0 ? "00" : minutes} ${period}`;
-  };
+    const hours = Math.floor(Math.random() * 12) + 8 // Random hour between 8 and 19
+    const minutes = Math.floor(Math.random() * 2) * 30 // Either 0 or 30 minutes
+    const period = hours >= 12 ? "pm" : "am"
+    return `${hours}:${minutes === 0 ? "00" : minutes} ${period}`
+  }
 
   return (
-    <div className="event-area bg-gray-100 py-20">
-      <div className="shape-bottom-left absolute z-0">
-        <img src="/shape/8.png" alt="Shape" />
-      </div>
-      <div className="container relative z-10 mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="animate__animated animate__fadeInLeft lg:animate__delay-1s">
-            <h5 className="text-lg text-gray-600 font-semibold mb-2">Événements à venir à ne pas manquer</h5>
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              Découvrez nos initiatives futures et engagez-vous pour une cause qui compte
-            </h2>
-          </div>
-          <div className="animate__animated animate__fadeInRight lg:animate__delay-1s">
-            <p className="text-gray-700 mb-4">
-              Notre engagement pour le progrès social guide chacune de nos actions. Explorez les événements locaux à venir et participez à notre mouvement pour un changement positif en République Démocratique du Congo.
-            </p>
-          </div>
+    <section className="event-area py-12 sm:py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h5 className="text-lg font-semibold text-[#3bcf93] mb-2 animate__animated animate__fadeIn">Événements à venir</h5>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+            Découvrez nos initiatives futures
+          </h2>
+          <div className="w-16 sm:w-20 h-1 bg-[#3bcf93] mx-auto mb-4 sm:mb-6 animate__animated animate__fadeIn animate__delay-2s"></div>
+          <p className="text-gray-600 max-w-xl sm:max-w-2xl mx-auto text-sm sm:text-base animate__animated animate__fadeIn animate__delay-3s">
+            Notre engagement pour le progrès social guide chacune de nos actions. Explorez les événements locaux à venir et participez à notre mouvement pour un changement positif en République Démocratique du Congo.
+          </p>
         </div>
-      </div>
-      <div className="container mx-auto px-4 mt-8 relative z-10">
-        <Carousel autoplay dots={false}>
-          {generateEvents()}
+
+        <Carousel
+          autoplay
+          dots={true}
+          slidesToShow={3}
+          slidesToScroll={1}
+          responsive={[
+            {
+              breakpoint: 1280,
+              settings: {
+                slidesToShow: 3,
+              },
+            },
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2,
+              },
+            },
+            {
+              breakpoint: 640,
+              settings: {
+                slidesToShow: 1,
+              },
+            },
+          ]}
+          className="event-carousel -mx-2"
+        >
+          {generateEvents().map((event, index) => (
+            <div key={index} className="px-2">
+              {React.cloneElement(event, {
+                className: `${event.props.className} animate__animated animate__fadeIn animate__delay-${index % 3}s`
+              })}
+            </div>
+          ))}
         </Carousel>
       </div>
-    </div>
+    </section>
   );
 }

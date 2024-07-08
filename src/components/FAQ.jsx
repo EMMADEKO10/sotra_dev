@@ -5,65 +5,51 @@ const FAQ = () => {
 
   const faqItems = [
     {
-      question: "Qu'est-ce qu'un Social Bond dans le contexte de la RSE Market Place ?",
+      question: "Qu'est-ce que la RSE Market Place by Gouvernix propose aux grandes entreprises ?",
       answer: (
         <>
           <p>
-            Un <strong>Social Bond</strong> est une unité de mesure financière utilisée pour les investissements dans des projets sociaux via la RSE Market Place. Chaque bond représente une contribution spécifique à un projet social soumis par un prestataire accrédité. En général, 1 Social Bond équivaut à 1000 USD, permettant aux sponsors de quantifier et de suivre leur engagement en matière de responsabilité sociale.
+            La RSE Market Place by Gouvernix offre aux grandes entreprises un marché innovant pour investir dans des projets socialement viables. Cela favorise le développement durable et la transformation sociale en facilitant les collaborations entre les entreprises et les prestataires sociaux.
           </p>
         </>
       )
     },
     {
-      question: "Comment les Social Bonds sont-ils utilisés pour financer les projets sociaux ?",
+      question: "Comment la Fondation SARA assure-t-elle l'intégrité du processus de sélection des projets ?",
       answer: (
         <>
           <p>
-            Les Social Bonds permettent aux sponsors d'investir dans divers projets en achetant des bonds. Par exemple, une entreprise peut diversifier son portefeuille en allouant différents bonds à divers projets selon leurs besoins et impacts potentiels. Le nombre de bonds détenus par une entreprise reflète son engagement social. Les fonds collectés sont utilisés pour financer des projets en accord avec les standards de qualité et d'impact établis par la RSE Market Place.
+            La Fondation SARA agit en tant qu'opérateur en évaluant rigoureusement les projets soumis par les prestataires sociaux. Elle garantit que seuls les projets de haute qualité et à fort impact sont présentés aux sponsors via la RSE Market Place.
           </p>
         </>
       )
     },
     {
-      question: "Quels sont les avantages pour une entreprise d'investir dans des Social Bonds ?",
-      answer: (
-        <>
-          <ul className="list-disc pl-5 mb-4">
-            <li>
-              <strong>Visibilité :</strong> Les entreprises augmentent leur visibilité et crédibilité en participant activement à des projets sociaux.
-            </li>
-            <li>
-              <strong>Faible Risque :</strong> Investir dans des Social Bonds est considéré comme à faible risque car les projets sont bien évalués et les prestataires sont accrédités.
-            </li>
-            <li>
-              <strong>Reconnaissance :</strong> Les entreprises obtiennent une reconnaissance pour leurs contributions via les rapports annuels et les RSE Awards.
-            </li>
-            <li>
-              <strong>Impact Positif :</strong> Les investissements permettent de soutenir des causes sociales et environnementales significatives, contribuant à un impact positif durable.
-            </li>
-          </ul>
-        </>
-      )
-    },
-    {
-      question: "Comment les performances des projets financés par des Social Bonds sont-elles évaluées ?",
+      question: "Quels sont les objectifs à court terme de la RSE Market Place by Gouvernix ?",
       answer: (
         <>
           <p>
-            Les performances des projets sont évaluées en fonction de leur <strong>impact social</strong> et de leur <strong>efficacité</strong>. Cela inclut des critères comme la qualité de la mise en œuvre, l'atteinte des objectifs sociaux, l'innovation, et la durabilité des résultats. La Fondation Entreprendre et la Fondation SARA jouent un rôle clé en surveillant et en régulant le processus, garantissant ainsi la transparence et l'intégrité de chaque projet financé.
+            À court terme, la RSE Market Place vise à établir une plateforme robuste pour la soumission, l'évaluation et le financement des projets sociaux. Elle organise également des événements périodiques pour sensibiliser et mobiliser les entreprises et les acteurs de la RSE.
           </p>
         </>
       )
     },
     {
-      question: "Comment une entreprise peut-elle commencer à investir dans des Social Bonds ?",
+      question: "Comment la RSE Market Place encourage-t-elle l'innovation sociale ?",
       answer: (
         <>
           <p>
-            Pour commencer à investir dans des Social Bonds, une entreprise doit d'abord <strong>identifier des projets</strong> alignés avec ses objectifs de RSE sur la RSE Market Place. Ensuite, elle peut acheter des Social Bonds correspondant à ces projets. Chaque bond acheté permet de financer une partie du projet choisi. Les entreprises peuvent suivre l'impact de leur investissement à travers les rapports fournis par la Fondation SARA et la Fondation Entreprendre, qui supervisent le processus de bout en bout.
+            La RSE Market Place aspire à devenir le principal hub d'innovation sociale, en encourageant les entreprises à soutenir des projets innovants ayant un impact positif et durable sur la société et l'environnement.
           </p>
+        </>
+      )
+    },
+    {
+      question: "Quels sont les critères de performance utilisés pour évaluer l'impact des projets financés ?",
+      answer: (
+        <>
           <p>
-            Pour plus d'informations ou pour démarrer, contactez-nous à <a href="mailto:fondationentreprendrerdc@gmail.com" className="text-[#3bcf93] hover:underline">fondationentreprendrerdc@gmail.com</a> ou appelez le +243 820 294 352.
+            Les projets sont évalués selon leur impact social, leur durabilité, leur capacité à atteindre les objectifs fixés, ainsi que leur degré d'innovation. Cette évaluation est essentielle pour maximiser la contribution des projets soutenus au bien-être communautaire et environnemental.
           </p>
         </>
       )

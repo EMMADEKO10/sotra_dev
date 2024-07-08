@@ -20,7 +20,7 @@ const Testimonials = () => {
       content: "La RSE Market Place nous a permis de diversifier nos investissements socialement responsables de manière efficace. Les Social Bonds ont été un outil précieux pour soutenir des projets prometteurs, tout en respectant des standards élevés de qualité et d'impact.",
       name: "Christelle Haridi",
       role: "Directeur financier",
-      image: "/path-to-image/christelle-haridi.png"
+      image: "/chris.PNG"
     }
   ];
 

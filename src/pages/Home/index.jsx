@@ -6,6 +6,7 @@ import RetourEnHaut from "../../components/bouton/RetourEnHaut";
 import SponsorCarousel from '../../components/SponsorCarousel';
 import SocialBondsSection from '../../components/SocialBondsSection';
 import FAQ from '../../components/FAQ';
+import SkeletonLoader from '../../components/SkeletonLoader/SkeletonLoader';
 
 // Lazy load components
 const HomeSponsortClassement = lazy(() => import("../../components/HomeSponsortClassement"));
@@ -27,7 +28,7 @@ function Home() {
       <NavBar />
       <main>
         <Banner />
-        <Suspense fallback={<div>Chargement...</div>}>
+        <Suspense fallback={<SkeletonLoader />}>
           <AboutArea />
           <Causes />
           <Activity />
@@ -45,7 +46,7 @@ function Home() {
         </Suspense>
       </main>
       <RetourEnHaut />
-      <Suspense fallback={<div>Chargement...</div>}>
+      <Suspense fallback={<SkeletonLoader />}>
         <Footer />
       </Suspense>
     </>

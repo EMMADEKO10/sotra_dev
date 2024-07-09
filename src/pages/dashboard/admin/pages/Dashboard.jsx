@@ -1,5 +1,6 @@
+import React, { useEffect } from "react";
 import { Card } from "antd";
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   UserOutlined,
   IdcardOutlined,
@@ -8,7 +9,29 @@ import {
 } from "@ant-design/icons";
 import ClassementSponsort from "./ClassementSponsort";
 
+const isTokenExpired = (token) => {
+  if (!token) {
+    return true;
+  }
+
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const expiry = payload.exp * 1000; // exp est en secondes, convertir en millisecondes
+  const now = new Date().getTime();
+  return now > expiry;
+};
+
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    
+    if (!token || isTokenExpired(token) || role !== 'admin') {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex max-lg:flex-col flex-row justify-evenly mt-8 xl:gap-8 md:gap-4 gap-2">

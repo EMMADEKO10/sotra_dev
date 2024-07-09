@@ -1,10 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Table, Space, Button, message, Dropdown, Badge } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import AdminNavbar from "../layouts/notifications/DashNotification"; // Si nécessaire pour votre application
 
+const isTokenExpired = (token) => {
+  if (!token) {
+    return true;
+  }
+
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const expiry = payload.exp * 1000; // exp est en secondes, convertir en millisecondes
+  const now = new Date().getTime();
+  return now > expiry;
+};
+
 export default function DashPrestataire() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    
+    if (!token || isTokenExpired(token) || role !== 'admin') {
+      navigate('/login');
+    }
+  }, [navigate]);
+  
   const [prestataires, setPrestataire] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");

@@ -2,11 +2,35 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Badge, Dropdown, Menu, Space, Button, Image } from "antd";
 import { DownOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
+
+
+const isTokenExpired = (token) => {
+  if (!token) {
+    return true;
+  }
+
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const expiry = payload.exp * 1000; // exp est en secondes, convertir en millisecondes
+  const now = new Date().getTime();
+  return now > expiry;
+};
 
 export default function AdminDashboardProjet() {
   const [projects, setProjects] = useState([]);
   const [reload, setReload] = useState(false);
   const token = localStorage.getItem("token");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    
+    if (!token || isTokenExpired(token) || role !== 'admin') {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   // -------------------------------------------------------------------------------------------
   useEffect(() => {

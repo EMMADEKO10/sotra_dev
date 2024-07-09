@@ -1,5 +1,6 @@
 import { useState, useCallback, memo, useRef, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
 import {
   LogoutOutlined,
   UserOutlined,
@@ -9,14 +10,15 @@ import {
   ProfileOutlined,
   DashboardOutlined,
   CheckCircleOutlined,
-  CloseCircleOutlined,
+  CloseCircleOutlined,BellOutlined,
 } from "@ant-design/icons"
-import { Button, Modal } from "antd"
+import { Button, Modal, Popover, Badge } from "antd"
 
 const NavItem = memo(({ item, roleUserConnect }) => {
   const [isOpen, setIsOpen] = useState(false)
   const timeoutRef = useRef(null)
   const navItemRef = useRef(null)
+
 
   const handleMouseEnter = () => {
     clearTimeout(timeoutRef.current)
@@ -90,6 +92,10 @@ const Navbar = () => {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const navigate = useNavigate()
+
+     // ... (états existants)
+     const [notifications, setNotifications] = useState([])
+     const [unreadCount, setUnreadCount] = useState(0)
 
   const userConnect = localStorage.getItem("user")
   let roleUserConnect = localStorage.getItem("role") || "user"
@@ -202,6 +208,63 @@ const Navbar = () => {
     setIsModalVisible(false)
   }
 
+  useEffect(() => {
+    if (roleUserConnect === "sponsor") {
+      fetchNotifications()
+    }
+  }, [roleUserConnect])
+
+  const fetchNotifications = async () => {
+    try {
+    const apiUrl = import.meta.env.VITE_API_URL
+
+      const response = await axios.get(`${apiUrl}/notif`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      setNotifications(response.data)
+      setUnreadCount(response.data.filter(notif => !notif.read).length)
+    } catch (error) {
+      console.error("Erreur lors de la récupération des notifications:", error)
+    }
+  }
+
+  const markAsRead = async (notificationId) => {
+    try {
+      await axios.put(`/api/notifications/${notificationId}/read`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      setUnreadCount(prev => prev - 1)
+      setNotifications(prev => prev.map(notif => 
+        notif._id === notificationId ? {...notif, read: true} : notif
+      ))
+    } catch (error) {
+      console.error("Erreur lors du marquage de la notification comme lue:", error)
+    }
+  }
+
+
+  const NotificationList = () => (
+    <div className="max-h-80 overflow-y-auto">
+      {notifications.length > 0 ? (
+        notifications.map((notif) => (
+          <div 
+            key={notif._id} 
+            className={`p-2 border-b ${notif.read ? 'bg-gray-100' : 'bg-white'}`}
+            onClick={() => markAsRead(notif._id)}
+          >
+            <p>{notif.message}</p>
+            <small>{new Date(notif.date).toLocaleString()}</small>
+          </div>
+        ))
+      ) : (
+        <p>Pas de notifications</p>
+      )}
+    </div>
+  )
   return (
     <nav className="sticky top-0 bg-white z-50 shadow-md transition-all duration-300">
       <div className="flex flex-row justify-between items-center container mx-auto px-4 py-1">
@@ -286,6 +349,8 @@ const Navbar = () => {
           ))}
         </div>
 
+        
+
         {/* User Actions */}
         <div className="hidden lg:flex items-center space-x-4">
           {userConnect ? (
@@ -301,6 +366,20 @@ const Navbar = () => {
                   </button>
                 </Link>
               )}
+
+              {roleUserConnect === "sponsor" && (
+                <Popover 
+                  content={<NotificationList />} 
+                  title="Notifications" 
+                  trigger="click"
+                  placement="bottomRight"
+                >
+                  <Badge count={unreadCount}>
+                    <Button icon={<BellOutlined />} />
+                  </Badge>
+                </Popover>
+              )}
+
 
               {!isValidRole && (
                 <button

@@ -48,9 +48,10 @@ const DashNotification = ({ reload }) => {
 const handleMarkAllAsRead = async () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     try {
-        const unreadNotifications = notifications.filter(notification => !notification.read);
-        await Promise.all(unreadNotifications.map(notification => axios.patch(`${apiUrl}/notif/${notification._id}`)));
-        const updatedNotifications = notifications.map(notification => ({ ...notification, read: true }));
+        await axios.patch(`${apiUrl}/notif`);
+        const updatedNotifications = notifications.map(notification =>
+            !notification.isCredit ? { ...notification, read: true } : notification
+        );
         setNotifications(updatedNotifications);
         updateCurrentNotifications(currentType, updatedNotifications);
     } catch (error) {

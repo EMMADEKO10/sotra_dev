@@ -58,6 +58,7 @@ const DashboardPageSponsor = () => {
   const [sponsorSocialBond, setSponsorSocialBond] = useState(0)
   const [totalSocialBondsInvested, setTotalSocialBondsInvested] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [transactions, setTransactions] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +67,8 @@ const DashboardPageSponsor = () => {
         const apiUrl = import.meta.env.VITE_API_URL
         const response = await axios.get(`${apiUrl}/sponsors/pjtmontants/${id}`)
         const responseStat = await axios.get(`${apiUrl}/sponsor-contributions`)
+        const responseTransaction = await axios.get(`${apiUrl}/${id}/transactions`)
+        setTransactions(responseTransaction.data)
         setSponsorStat(responseStat.data)
 
         let fetchedProjects = []
@@ -232,21 +235,24 @@ const DashboardPageSponsor = () => {
   // Define transaction columns
   const transactionColumns = [
     {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
+      title: 'Date',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (text) => new Date(text).toLocaleDateString(),
     },
     {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
+      title: 'Montant',
+      dataIndex: 'montant_reduit',
+      key: 'montant_reduit',
     },
     {
-      title: "Montant",
-      dataIndex: "amount",
-      key: "amount",
+      title: 'Projet',
+      dataIndex: ['projet', 'projectTitle'],
+      key: 'projet',
     },
-  ]
+    // Ajoutez d'autres colonnes selon vos besoins
+  ];
+  
 
   return (
     <div>
@@ -420,18 +426,19 @@ const DashboardPageSponsor = () => {
 
             {/* Modals */}
             <Modal
-              title="Transactions"
-              visible={isModalVisible}
-              onCancel={() => setIsModalVisible(false)}
-              footer={null}
-              width={800}
-            >
-              <Table
-                columns={transactionColumns}
-                dataSource={projects} // Replace with your transaction data source
-                rowKey="id"
-              />
-            </Modal>
+      title="Transactions"
+      visible={isModalVisible}
+      onCancel={() => setIsModalVisible(false)}
+      footer={null}
+      width={800}
+    >
+      <Table
+        columns={transactionColumns}
+        dataSource={transactions}
+        rowKey="_id"
+        loading={loading}
+      />
+    </Modal>
 
             <Modal
               title="Demander un crédit"

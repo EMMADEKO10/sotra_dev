@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Button,
   Form,
@@ -12,6 +12,7 @@ import {
   message,
   notification,
   Select,
+  Modal,
 } from "antd"
 import { UploadOutlined, PlusOutlined } from "@ant-design/icons"
 import "tailwindcss/tailwind.css"
@@ -19,6 +20,7 @@ import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
 import axios from "axios"
 import RetourEnHaut from "../../components/bouton/RetourEnHaut"
+import { Link, NavLink } from "react-router-dom"
 
 const { TextArea } = Input
 const { Title, Paragraph, Text } = Typography
@@ -31,9 +33,12 @@ const ProjectSubmission = () => {
   const [fileList, setFileList] = useState([])
   const [proposalFile, setProposalFile] = useState(null)
   const [budgetFile, setBudgetFile] = useState(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const token = localStorage.getItem("token") // Supposez que vous stockez le token sous le nom 'authToken'
+  const token = localStorage.getItem("token")
   const user = localStorage.getItem("user")
+  const role = localStorage.getItem("role")
+
   // Notification de succès
   const openNotificationWithIcon = (type, messageText, description) => {
     notification[type]({
@@ -81,6 +86,11 @@ const ProjectSubmission = () => {
   }
 
   const onFinish = async (values) => {
+    if (role !== "prestataire") {
+      setIsModalVisible(true)
+      return
+    }
+
     setSubmitting(true)
 
     // Préparer les données du formulaire pour l'envoi
@@ -102,7 +112,7 @@ const ProjectSubmission = () => {
     formData.append("projectTitle", projectTitle)
     formData.append("projectDescription", projectDescription)
     formData.append("projectCategory", projectCategory)
-    formData.append("projectImage", projectImage) // Ce code assume que projectImage est un objet fichier
+    formData.append("projectImage", projectImage)
     formData.append("projectGoals", projectGoals)
     formData.append("projectTimeline", JSON.stringify(projectTimeline))
     formData.append("projectAmount", projectAmount)
@@ -152,6 +162,10 @@ const ProjectSubmission = () => {
     }
   }
 
+  const handleOk = () => {
+    setIsModalVisible(false)
+  }
+
   const validateMessages = {
     required: "${label} est obligatoire",
     types: {
@@ -170,6 +184,7 @@ const ProjectSubmission = () => {
       <div style={{ marginTop: 8 }}>Télécharger</div>
     </div>
   )
+
 
   return (
     <>
@@ -554,17 +569,46 @@ const ProjectSubmission = () => {
                       </Upload>
                     </Form.Item>
 
-                    <Button
-                      type="primary"
-                      shape="round"
-                      className="bg-[#3bcf93] border-none mt-4"
-                      htmlType="submit"
-                      disabled={submitting}
-                    >
-                      {submitting
-                        ? "Soumission en cours..."
-                        : "Soumettre le projet"}
-                    </Button>
+                    <Form.Item>
+        <Button
+          type="primary"
+          shape="round"
+          className="bg-[#3bcf93] border-none mt-4"
+          htmlType="submit"
+          disabled={submitting}
+          onClick={() => {
+            if (role !== "prestataire") {
+              setIsModalVisible(true)
+            } else {
+              onFinish(form.getFieldsValue())
+            }
+          }}
+        >
+          {submitting ? "Soumission en cours..." : "Soumettre le projet"}
+        </Button>
+      </Form.Item>
+
+      <Modal
+        title="Accès non autorisé"
+        open={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleOk}
+        footer={[
+          <Button key="ok" type="primary" onClick={handleOk}>
+            J'ai compris
+          </Button>,
+        ]}
+      >
+        <p className="mb-4">
+      Nous sommes désolés, mais seuls les prestataires sont autorisés à soumettre des projets.
+      Si vous êtes un prestataire et que vous rencontrez des difficultés pour accéder à cette fonctionnalité,
+      veuillez nous contacter à <a to="mailto:support@example.com" className="text-blue-500 underline">support@example.com</a> ou appeler le <a href="tel:+1234567890" className="text-blue-500 underline">+1 234 567 890</a> pour obtenir de l'aide.
+    </p>
+    <p>
+      Si vous souhaitez devenir prestataire, nous vous invitons à consulter notre page <Link to="/register" className="text-blue-500 underline">d'inscription </Link> 
+      des prestataires ou à nous <Link to="/contact" className="text-blue-500 underline">contacter</Link> pour plus d'informations sur le processus.
+    </p>
+      </Modal>
                   </Form>
 
                   <div className="mt-8">

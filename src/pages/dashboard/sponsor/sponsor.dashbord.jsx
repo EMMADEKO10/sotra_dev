@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
+import { useNavigate, useParams, NavLink } from 'react-router-dom';
 import axios from "axios"
-import { NavLink, useParams } from "react-router-dom"
 import {
   Skeleton,
   Layout,
@@ -37,10 +37,33 @@ import "antd/dist/reset.css"
 import "tailwindcss/tailwind.css"
 import SbIcon from "../../../components/Social Bonds/SbIcon"
 
+// const isTokenExpired = (token) => {
+//   if (!token) {
+//     return true;
+//   }
+
+//   const payload = JSON.parse(atob(token.split('.')[1]));
+//   const expiry = payload.exp * 1000; // exp est en secondes, convertir en millisecondes
+//   const now = new Date().getTime();
+//   return now > expiry;
+// };
 const { Content } = Layout
 const { TextArea } = Input
 
 const DashboardPageSponsor = () => {
+  // const navigate = useNavigate();
+
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   const role = localStorage.getItem('role');
+  //   const userId = localStorage.getItem('user');
+
+  //   if (!token || isTokenExpired(token) || role !== 'sponsor' || userId !== id) {
+  //     navigate('/login');
+  //   }
+  // }, [navigate, id]);
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])

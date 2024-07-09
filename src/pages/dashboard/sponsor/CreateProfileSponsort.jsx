@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Typography } from 'antd';
 import axios from "axios";
 import {
@@ -17,7 +17,33 @@ import Footer from '../../../components/Footer';
 
 const { Title, Paragraph } = Typography;
 
+// const isTokenExpired = (token) => {
+//   if (!token) {
+//     return true;
+//   }
+
+//   const payload = JSON.parse(atob(token.split('.')[1]));
+//   const expiry = payload.exp * 1000; // exp est en secondes, convertir en millisecondes
+//   const now = new Date().getTime();
+//   return now > expiry;
+// };
+
 const CreateProfileSponsor = () => {
+
+  // const navigate = useNavigate();
+  // const { id } = useParams();
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   const role = localStorage.getItem('role');
+  //   const userId = localStorage.getItem('user');
+
+  //   if (!token || isTokenExpired(token) || role !== 'sponsor' || userId !== id) {
+  //     navigate('/login');
+  //   }
+  // }, [navigate, id]);
+
+
   const [showSocialLinks, setShowSocialLinks] = useState(false);
   const { id } = useParams()
 

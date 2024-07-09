@@ -1,13 +1,19 @@
-import { useState, useEffect } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../../components/Navbars/NavBar"
 import Footer from "../../../components/Footer"
-import { Skeleton, Avatar, Card, Typography, Button, Progress, Tooltip } from "antd";
+import { Skeleton, Avatar, Card, Typography, Button, Progress, Tooltip, message } from "antd";
 import { EditOutlined, ProjectOutlined, UserOutlined } from "@ant-design/icons";
 import SbIcon from "../../../components/Social Bonds/SbIcon";
 
 const { Title, Paragraph } = Typography;
+
+const isTokenExpired = (token) => {
+  if (!token) return true;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return Date.now() >= payload.exp * 1000;
+};
 
 const PrestataireDashboard = () => {
   const [profileData] = useState({
@@ -19,27 +25,47 @@ const PrestataireDashboard = () => {
   const [prestaireName, setPrestaireName] = useState("");
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('role');
+    const userId = localStorage.getItem('user');
+
+    if (!token || isTokenExpired(token) || userRole !== 'prestataire' || userId !== id) {
+      message.error("Accès non autorisé");
+      navigate('/login');
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await axios.get(`${apiUrl}/validProjectPrestataire/${id}`);
+        const response = await axios.get(`${apiUrl}/validProjectPrestataire/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         if (response.status === 200) {
           setProjects(response.data.projects);
           setPrestaireName(response.data.prestataireName)
-          console.log("Voici tous les prestataires : ",response.data)
         } else {
           console.error("Failed to fetch projects");
+          message.error("Échec du chargement des projets");
         }
       } catch (error) {
         console.error("Erreur lors de la requête:", error.message);
+        if (error.response && error.response.status === 401) {
+          message.error("Session expirée. Veuillez vous reconnecter.");
+          navigate('/login');
+        } else {
+          message.error("Une erreur est survenue. Veuillez réessayer.");
+        }
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
-  }, [id]);
+  }, [id, navigate]);
 
   if (loading) {
     return (

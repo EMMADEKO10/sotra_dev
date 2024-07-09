@@ -29,6 +29,8 @@ import Inscription from "./pages/Login/Inscription"
 import { useEffect, useState } from "react"
 // import Logins from "./pages/Login/Login";
 import Login from "./pages/Login/Login"
+import PrivateAdminRoute from "./pages/dashboard/routes/PrivateAdminRoute"
+import PrivateSponsorRoute from "./pages/dashboard/routes/PrivateSponsorRoute"
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
 // import DashBoardSponsor from "./pages/dashBoardSponsor"
@@ -73,22 +75,6 @@ function App() {
     }, 10000) // Vérifie toutes les 10 secondes
     return () => clearInterval(interval)
   }, [])
-
-  const PrivateAdminRoute = ({ children }) => {
-    const token = localStorage.getItem("token")
-    const role = localStorage.getItem("role")
-
-    if (!token || isTokenExpired(token) || role !== "admin") {
-      return (
-        <Navigate
-          to="/login"
-          replace
-        />
-      )
-    }
-
-    return children
-  }
 
   return (
     <div>
@@ -171,10 +157,6 @@ function App() {
             element={<Charte />}
           />
           {/* ---------------------------------------------------------------------------------------------------------- */}
-          <Route
-            path="/sponsor/:id"
-            element={<SponsorDashboard />}
-          />
 
           <Route
             path="/profilepagesponsort/:id"
@@ -186,8 +168,20 @@ function App() {
           /> */}
 
           <Route
+            path="/sponsor/:id"
+            element={
+              <PrivateSponsorRoute>
+                <SponsorDashboard />
+              </PrivateSponsorRoute>
+            }
+          />
+          <Route
             path="/createprofilesponsort/:id"
-            element={<CreateProfileSponsort />}
+            element={
+              <PrivateSponsorRoute>
+                <CreateProfileSponsort />
+              </PrivateSponsorRoute>
+            }
           />
 
           {/* ---------------------------------------------------------------------------------------------------------- */}

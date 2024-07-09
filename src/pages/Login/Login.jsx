@@ -1,5 +1,5 @@
 import { Layout, Row, Col } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useEffect } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import HeaderComponent from "./HeaderComponent";
@@ -10,6 +10,13 @@ import signinbg from "/Sotradons A.svg";
 const { Content } = Layout;
 
 function Login() {
+  useEffect(() => {
+    // Supprime les informations du localStorage lors de l'arrivée sur la page
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+  }, []);
+
   const navigate = useNavigate();
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);

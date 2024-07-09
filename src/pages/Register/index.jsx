@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InfoPrestataire from "./InfoPrestataire";
 import SponsorRegistration from "./SponsorRegistration";
 import { Button, Row, Col, Typography, Layout, Card } from "antd";
@@ -12,6 +12,13 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 const FormManager = () => {
+  useEffect(() => {
+    // Supprime les informations du localStorage lors de l'arrivée sur la page
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+  }, []);
+  
   const [activeForm, setActiveForm] = useState(null);
 
   const showForm = (formType) => setActiveForm(formType);

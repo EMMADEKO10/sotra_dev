@@ -15,6 +15,7 @@ import Footer from "../../components/Footer"
 import "animate.css"
 import RetourEnHaut from "../../components/bouton/RetourEnHaut"
 import { motion } from "framer-motion"
+import FollowUs from "../../components/ReseaxSociaux/FollowUs"
 
 const Contact = () => {
 
@@ -216,39 +217,11 @@ const Contact = () => {
                     </a>
                   </li>
                   <li className="flex items-start">
-                    <div className="social flex space-x-4 text-xl">
-                      <Tooltip title="Partager sur Facebook">
-                        <a
-                          href="#"
-                          className="text-blue-600 hover:text-blue-800"
-                        >
-                          <FacebookOutlined />
-                        </a>
-                      </Tooltip>
-                      <Tooltip title="Partager sur Twitter">
-                        <a
-                          href="#"
-                          className="text-blue-400 hover:text-blue-600"
-                        >
-                          <TwitterOutlined />
-                        </a>
-                      </Tooltip>
-                      <Tooltip title="Partager sur Pinterest">
-                        <a
-                          href="#"
-                          className="text-pink-500 hover:text-pink-700"
-                        >
-                          <InstagramOutlined />
-                        </a>
-                      </Tooltip>
-                      <Tooltip title="Partager sur LinkedIn">
-                        <a
-                          href="#"
-                          className="text-blue-700 hover:text-blue-900"
-                        >
-                          <LinkedinOutlined />
-                        </a>
-                      </Tooltip>
+                    <div >
+                    <div className="text-center">
+            <h3 className="text-lg font-semibold mb-4 text-gray-600 opacity-85">Suivez-nous</h3>
+            <FollowUs iconColor="text-gray-600" />
+          </div>
                     </div>
                   </li>
                 </ul>

@@ -1,8 +1,17 @@
 import React from 'react';
 import { Input } from 'antd';
 import 'tailwindcss/tailwind.css';
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, Link } from 'react-router-dom';
+import { Layout, Menu, Space } from "antd";
+import {
+  DribbbleOutlined,
+  TwitterOutlined,
+  InstagramOutlined,
+  FacebookOutlined,
+  LinkedinOutlined,
+  YoutubeOutlined,
+} from "@ant-design/icons";
+import FollowUs from './ReseaxSociaux/FollowUs';
 const { Search } = Input;
 
 export default function Footer() {
@@ -35,13 +44,16 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><NavLink to="/socialbonds" className="hover:text-green-400 text-[#F0F0F0] opacity-85 transition duration-300">Social Bonds</NavLink></li>
               <li><NavLink to="/chart" className="hover:text-green-400 text-[#F0F0F0] opacity-85 transition duration-300">Charte</NavLink></li>
+              <li><NavLink to="/about" className="hover:text-green-400 text-[#F0F0F0] opacity-85 transition duration-300">Vision et Mission</NavLink></li>
+              <li><NavLink to="/contact" className="hover:text-green-400 text-[#F0F0F0] opacity-85 transition duration-300">Contact</NavLink></li>
             </ul>
           </div>
+
           {/* Informations de Contact */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-[#F0F0F0] opacity-85">Infos de Contact</h4>
+            <h4 className="text-lg font-semibold mb-4 text-[#F0F0F0] opacity-85">Contactez-nous</h4>
             <ul className="space-y-2 text-[#F0F0F0] opacity-85">
-              <li>
+              <li className="text-sm text-gray-600 mb-2">
                 <strong>Adresse:</strong>
                 <p className="mt-1">76 Av. de la Justice, Kinshasa, Congo-Kinshasa</p>
               </li>
@@ -56,17 +68,9 @@ export default function Footer() {
             </ul>
           </div>
           {/* Dernières Nouvelles */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-[#F0F0F0] opacity-85">Dernières Nouvelles</h4>
-            <div className="space-y-4 text-[#F0F0F0] opacity-85">
-              <div className="item">
-                <a href="#" className="hover:text-green-400 text-[#7E7E7E] transition duration-300">Découvrez nos récentes initiatives pour un impact social durable.</a>
-                <span className="block text-sm text-gray-400 mt-2">
-                  <i className="fas fa-calendar-alt mr-1"></i> 22 Août, 2020 - 
-                  <a href="#" className="hover:text-green-400 ml-1 transition duration-300">Admin</a>
-                </span>
-              </div>
-            </div>
+          <div className="text-center">
+          <h3 className="text-lg font-semibold mb-4 text-[#F0F0F0] opacity-85">Suivez-nous</h3>
+            <FollowUs />
           </div>
         </div>
       </div>

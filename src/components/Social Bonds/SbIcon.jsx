@@ -17,6 +17,7 @@ const SbIcon = ({ size = 18, color = 'currentColor' }) => {
       viewBox="0 0 24 24" 
       style={svgStyle}
       aria-hidden="true"
+      className='mb-0.5 mx-0.5'
     >
       <circle cx="12" cy="12" r="10" />
       <text

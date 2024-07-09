@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Button } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
+import 'animate.css';
+import SbIcon from './Social Bonds/SbIcon'; // Assuming you have an icon component
 
 const SocialBondsSection = () => {
   return (
@@ -13,15 +17,15 @@ const SocialBondsSection = () => {
             transition={{ duration: 0.5 }}
             className="flex flex-col gap-y-6 md:gap-y-8"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
+            <h2 className="text-3xl font-extrabold mb-4 leading-tight animate__animated animate__fadeInUp">
               Investissez dans l'Impact avec les <span className="text-[#3bcf93]">Social Bonds</span>
             </h2>
-            <p className="text-xl text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-600 font-semibold mb-2 leading-relaxed animate__animated animate__fadeInUp animate__delay-1s">
               Découvrez comment les Social Bonds révolutionnent l'investissement social et maximisent votre impact.
             </p>
-            <ul className="space-y-4 ">
+            <ul className=" animate__animated animate__fadeInUp animate__delay-2s">
               {[
-                'Unité de mesure transparente pour l investissement social',
+                'Unité de mesure transparente pour l’investissement social',
                 'Facilite le financement de projets à haute valeur sociale',
                 'Assure une gestion efficace et responsable des fonds',
                 'Projets soigneusement sélectionnés pour un impact maximum'
@@ -33,33 +37,40 @@ const SocialBondsSection = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="flex items-center space-x-3 text-gray-800"
                 >
-                  <svg className="w-6 h-6 text-[#3bcf93] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
+                  <SbIcon color="#3bcf93" />
                   <span>{item}</span>
                 </motion.li>
               ))}
             </ul>
-            <p className="text-lg text-gray-700 mt-6">
+            <p className="text-lg text-gray-700 mt-6 animate__animated animate__fadeInUp animate__delay-3s">
               À la RSE Market Place by Gouvernix, nous vous offrons la possibilité de maximiser votre impact social grâce à des investissements sécurisés et responsables.
             </p>
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Link to="/social-bonds/details" className="inline-block">
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+            <div className="flex flex-wrap gap-4 mt-8 animate__animated animate__fadeInUp animate__delay-4s">
+              <Link to="/socialbonds">
+                <Button
+                  type="primary"
+                  size="large"
+                  className="btn-theme inline-block"
                 >
                   En savoir plus
-                </motion.button>
+                </Button>
               </Link>
-              <motion.button 
+              <motion.a 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white hover:bg-gray-100 text-gray-800 font-bold py-3 px-6 rounded-lg border-2 border-gray-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+                href="/RSE Market Place.pdf"
+                download
+                className="inline-block"
               >
-                Téléchargez la brochure
-              </motion.button>
+                <Button
+                  type="default"
+                  size="large"
+                  icon={<DownloadOutlined />}
+                  className="bg-white text-gray-800 font-bold rounded-lg border-2 border-gray-300 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+                >
+                  Téléchargez la brochure
+                </Button>
+              </motion.a>
             </div>
           </motion.div>
           <motion.div 

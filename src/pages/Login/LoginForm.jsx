@@ -136,19 +136,19 @@ const LoginForm = ({
                 <Checkbox
                   defaultChecked={defaultChecked}
                   onChange={onChange}
-                  className="transition-all duration-300 ease-in-out transform focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md"
+                  className="transition-all duration-300 ease-in-out transform focus:ring-2 focus:ring-offset-2 focus:ring-[#3bcf93]"
                 >
                   Se souvenir de moi
                 </Checkbox>
               </Tooltip>
             </div>
 
-            <Link
+            {/* <Link
               to="#"
               className="text-[#3bcf93] hover:text-[#34b684] text-sm"
             >
               Mot de passe oublié ?
-            </Link>
+            </Link> */}
           </div>
           <Form.Item>
             <Button

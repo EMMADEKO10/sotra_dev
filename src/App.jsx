@@ -25,7 +25,7 @@ import ProfilePageSponsort from "./pages/dashboard/sponsor/ProfilePageSponsort"
 // import DashboardPageSponsor from "./pages/dashboard/sponsor/DashboardPageSponsor";
 import CreateProfileSponsort from "./pages/dashboard/sponsor/CreateProfileSponsort"
 import SocialBonds from "./pages/Info/SocialBonds"
-import Inscription from "./pages/Login/Inscription"
+// import Inscription from "./pages/Login/Inscription"
 import { useEffect, useState } from "react"
 // import Logins from "./pages/Login/Login";
 import Login from "./pages/Login/Login"
@@ -85,10 +85,10 @@ function App() {
             element={<Home />}
           />
 
-          <Route
+          {/* <Route
             path="/inscription"
             element={<Inscription />}
-          />
+          /> */}
 
           <Route
             path="/login"

@@ -7,7 +7,7 @@ const SomethingWentWrong = () => {
       <Result
         status="500"
         title="500"
-        subTitle="Sorry, something went wrong."
+        subTitle="Désolé, quelque chose a mal tourné."
         extra={
           <a href="/">
             <Button type="primary">Back Home</Button>

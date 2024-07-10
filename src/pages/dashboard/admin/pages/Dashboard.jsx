@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card } from "antd";
+import { Card, Row, Col, Typography, Statistic } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   UserOutlined,
@@ -9,16 +9,38 @@ import {
 } from "@ant-design/icons";
 import ClassementSponsort from "./ClassementSponsort";
 
-const isTokenExpired = (token) => {
-  if (!token) {
-    return true;
-  }
+const { Title } = Typography;
 
+const isTokenExpired = (token) => {
+  if (!token) return true;
   const payload = JSON.parse(atob(token.split('.')[1]));
-  const expiry = payload.exp * 1000; // exp est en secondes, convertir en millisecondes
-  const now = new Date().getTime();
-  return now > expiry;
+  const expiry = payload.exp * 1000;
+  return new Date().getTime() > expiry;
 };
+
+const DashboardCard = ({ title, value, icon, color }) => (
+  <Card
+    hoverable
+    className="h-full shadow-md transition-all duration-300 hover:shadow-xl"
+    bodyStyle={{ padding: "24px" }}
+  >
+    <Statistic
+      title={<Title level={4}>{title}</Title>}
+      value={value}
+      valueStyle={{ color: color, fontSize: '2rem' }}
+      prefix={React.cloneElement(icon, { 
+        style: { 
+          fontSize: '2rem',
+          backgroundColor: color,
+          color: 'white',
+          padding: '12px',
+          borderRadius: '50%',
+          marginRight: '16px'
+        } 
+      })}
+    />
+  </Card>
+);
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -32,78 +54,23 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
+  const cardData = [
+    { title: "Utilisateurs", value: 100, icon: <UserOutlined />, color: "#2944df" },
+    { title: "Cartes", value: 100, icon: <IdcardOutlined />, color: "#1aaa6e" },
+    { title: "Changements", value: 100, icon: <UserSwitchOutlined />, color: "#b36f16" },
+    { title: "Équipes", value: 100, icon: <TeamOutlined />, color: "#7c1919" },
+  ];
+
   return (
-    <div className="flex flex-col w-full">
-      <div className="flex max-lg:flex-col flex-row justify-evenly mt-8 xl:gap-8 md:gap-4 gap-2">
-        <Card
-          hoverable={true}
-          loading={false}
-          className="shadow-lg max-lg:w-full w-1/4"
-        >
-          <div className="flex flex-col justify-center items-center ">
-            <div className="flex flex-row w-full justify-between">
-              <div className="xl:text-5xl text-3xl text-black font-bold">
-                100
-              </div>
-              <UserOutlined className="flex xl:text-3xl text-2xl text-white bg-[#2944df] p-4 rounded-full hover:shadow-xl" />
-            </div>
-            <div className="mt-4 xl:text-2xl text-xl  text-black font-bold">
-              Test
-            </div>
-          </div>
-        </Card>
-        <Card
-          hoverable={true}
-          loading={false}
-          className="shadow-lg max-lg:w-full w-1/4"
-        >
-          <div className="flex flex-col justify-center items-center ">
-            <div className="flex flex-row w-full justify-between">
-              <div className="xl:text-5xl text-3xl text-black font-bold">
-                100
-              </div>
-              <IdcardOutlined className="flex xl:text-3xl text-2xl text-white bg-[#1aaa6e] p-4 rounded-full hover:shadow-xl" />
-            </div>
-            <div className="mt-4 xl:text-2xl text-xl text-black font-bold">
-              Test
-            </div>
-          </div>
-        </Card>
-        <Card
-          hoverable={true}
-          loading={false}
-          className="shadow-lg max-lg:w-full w-1/4"
-        >
-          <div className="flex flex-col justify-center items-center ">
-            <div className="flex flex-row w-full justify-between">
-              <div className="xl:text-5xl text-3xl text-black font-bold">
-                100
-              </div>
-              <UserSwitchOutlined className="flex xl:text-3xl text-2xl text-white bg-[#b36f16] p-4 rounded-full hover:shadow-xl" />
-            </div>
-            <div className="mt-4 xl:text-2xl text-xl text-black font-bold text-center">
-              Test
-            </div>
-          </div>
-        </Card>
-        <Card
-          hoverable={true}
-          loading={false}
-          className="shadow-lg max-lg:w-full w-1/4"
-        >
-          <div className="flex flex-col justify-center items-center ">
-            <div className="flex flex-row w-full justify-between">
-              <div className="xl:text-5xl text-3xl text-black font-bold">
-                100
-              </div>
-              <TeamOutlined className="flex xl:text-3xl text-2xl text-white bg-[#7c1919] p-4 rounded-full hover:shadow-xl" />
-            </div>
-            <div className="mt-4 xl:text-2xl text-xl text-black font-bold text-center">
-              Test
-            </div>
-          </div>
-        </Card>
-      </div>
+    <div className="p-6 space-y-8">
+      <Title level={2}>Tableau de bord</Title>
+      <Row gutter={[16, 16]}>
+        {cardData.map((card, index) => (
+          <Col xs={24} sm={12} lg={6} key={index}>
+            <DashboardCard {...card} />
+          </Col>
+        ))}
+      </Row>
       <ClassementSponsort />
     </div>
   );

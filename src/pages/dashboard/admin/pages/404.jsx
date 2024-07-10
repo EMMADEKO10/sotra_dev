@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 const NotFound = () => {
   const path = window.location.pathname;
   const [text, setText] = useState(
-    "Sorry, the page you visited does not exist."
+    "La page que vous avez demandée n’existe pas."
   );
   const [code, setCode] = useState("404");
 
@@ -25,10 +25,10 @@ const NotFound = () => {
 
   useEffect(() => {
     if (path === "/" || path === "/dashboard" || path === "/map") {
-      setText("Sorry, you are not authorized to access this page.");
+      setText("Désolé, vous n’êtes pas autorisé à accéder à cette page.");
       setCode("403");
     } else {
-      setText("Sorry, the page you visited does not exist.");
+      setText("La page que vous avez demandée n’existe pas.");
       setCode("404");
     }
   }, [path]);
@@ -52,7 +52,7 @@ const NotFound = () => {
             </div>
             <a href="/login" className="">
               <Button className="bg-blue-500 mt-4" type="primary">
-                Back to Login
+              Retour à la connexion
               </Button>
             </a>
           </>

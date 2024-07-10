@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Card, Typography, Spin, Select, Empty,Row,Col } from 'antd';
 import { Column } from '@ant-design/charts';
 import { motion } from 'framer-motion';
+import ClassementSponsort from '../admin/pages/ClassementSponsort';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -125,6 +126,7 @@ const SponsorMonthlyContributions = () => {
           </Col>
         </Row>
       )}
+      <ClassementSponsort />
     </motion.div>
   );
 };

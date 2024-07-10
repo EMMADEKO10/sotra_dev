@@ -13,6 +13,7 @@ import {
 import "tailwindcss/tailwind.css"
 import "animate.css"
 import { motion } from "framer-motion"
+import SbIcon from "../../../../components/Social Bonds/SbIcon"
 
 const { Title } = Typography
 
@@ -102,14 +103,16 @@ const ClassementSponsort = () => {
       width: 300,
     },
     {
-      title: "T.I (Social bonds)",
+      title: <span>Capital investis</span>,
       dataIndex: "totalInvested",
       key: "totalInvested",
       sorter: (a, b) => b.totalInvested - a.totalInvested,
-      render: (text) => `${text.toLocaleString()} Sb`,
+      render:  (text) => <span>{text.toLocaleString()}<SbIcon color="#ff9800"/></span>,
       className: "text-center text-blue-600 font-semibold",
       width: 295,
     },
+
+    
   ]
 
   return (

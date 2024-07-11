@@ -80,6 +80,7 @@ const AllProjets = () => {
         const apiUrl = import.meta.env.VITE_API_URL
         const response = await axios.get(`${apiUrl}/projects/validated`)
         setProjects(response.data)
+        console.log("voici la reponse : ",response.data)
         setLoading(false)
       } catch (error) {
         console.error("Erreur lors de la requête:", error.message)
@@ -238,7 +239,7 @@ const AllProjets = () => {
                               <div className="relative pt-[56.25%] bg-gray-200 overflow-hidden">
                                 <img
                                   alt="Thumb"
-                                  src={`${import.meta.env.VITE_URL_IMAGE}${
+                                  src={`${
                                     project.projectImage
                                   }`}
                                   className="absolute inset-0 w-full h-full object-cover"

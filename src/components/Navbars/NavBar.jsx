@@ -209,21 +209,28 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    if (roleUserConnect === "sponsor") {
+    if (["admin", "sponsor", "prestataire", "user"].includes(roleUserConnect)) {
       fetchNotifications()
     }
   }, [roleUserConnect])
 
   const fetchNotifications = async () => {
     try {
-    const apiUrl = import.meta.env.VITE_API_URL
-
-      const response = await axios.get(`${apiUrl}/sponsorNotif/${userConnect}`, {
+      const apiUrl = import.meta.env.VITE_API_URL
+      const endpoint = {
+        admin: 'adminNotif',
+        sponsor: 'sponsorNotif',
+        prestataire: 'prestataireNotif',
+        user: 'userNotif'
+      }[roleUserConnect]
+  console.log("Voici les users info Connect = ",userConnect )
+      const response = await axios.get(`${apiUrl}/${endpoint}/${userConnect}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
       setNotifications(response.data)
+      console.log("voici la reponse : ", response.data)
       setUnreadCount(response.data.filter(notif => !notif.read).length)
     } catch (error) {
       console.error("Erreur lors de la récupération des notifications:", error)
@@ -367,18 +374,31 @@ const Navbar = () => {
                 </Link>
               )}
 
-              {roleUserConnect === "sponsor" && (
-                <Popover 
-                  content={<NotificationList />} 
-                  title="Notifications" 
-                  trigger="click"
-                  placement="bottomRight"
-                >
-                  <Badge count={unreadCount}>
-                    <Button icon={<BellOutlined />} />
-                  </Badge>
-                </Popover>
-              )}
+{["admin", "sponsor", "prestataire", "user"].includes(roleUserConnect) && (
+  <Popover 
+    content={<NotificationList />} 
+    title="Notifications" 
+    trigger="click"
+    placement="bottomRight"
+  >
+    <Badge count={unreadCount}>
+      <Button icon={<BellOutlined />} />
+    </Badge>
+  </Popover>
+)}
+
+{/* {["admin", "sponsor", "prestataire", "user"].includes(roleUserConnect) && (
+  <Popover 
+    content={<NotificationList />} 
+    title="Notifications" 
+    trigger="click"
+    placement="bottomRight"
+  >
+    <Badge count={unreadCount}>
+      <Button icon={<BellOutlined />} className="w-full" />
+    </Badge>
+  </Popover>
+)} */}
 
 
               {!isValidRole && (
@@ -513,16 +533,13 @@ const Navbar = () => {
                   )}
 
                   {!isValidRole && (
-  <button
-    className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`}
-    onClick={showModal}
-  >
+  <button className={`w-full flex items-center justify-center gap-2 px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg ${roleButtonStyle}`} onClick={showModal}>
     {roleIcon}
     {roleButtonText}
   </button>
 )}
 
-                  <Button
+             <Button
                     className="w-full bg-[#3bcf94] text-white border-[#3bcf94] hover:bg-[#1e8159] hover:border-[#1e8159] px-4 py-1.5 rounded transition-all duration-300 hover:shadow-lg"
                     type="primary"
                     danger

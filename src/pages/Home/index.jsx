@@ -1,24 +1,26 @@
 import React, { lazy, Suspense } from 'react';
-import HeaderTop from "../../components/HeaderTop";
-import NavBar from "../../components/Navbars/NavBar";
-import Banner from "../../components/Banner";
-import RetourEnHaut from "../../components/bouton/RetourEnHaut";
-import SponsorCarousel from '../../components/SponsorCarousel';
-import SocialBondsSection from '../../components/SocialBondsSection';
-import FAQ from '../../components/FAQ';
-import SkeletonLoader from '../../components/SkeletonLoader/SkeletonLoader';
+import HeaderTop from "../../components/home/HeaderTop"
+import NavBar from "../../components/Navbars/NavBar"
+import Banner from "../../components/home/Banner"
+import RetourEnHaut from "../../components/bouton/RetourEnHaut"
+import SponsorCarousel from "../../components/home/SponsorCarousel"
+import SocialBondsSection from "../../components/home/SocialBondsSection"
+import FAQ from "../../components/home/FAQ"
+import SkeletonLoader from "../../components/SkeletonLoader/SkeletonLoader"
 
 // Lazy load components
-const HomeSponsortClassement = lazy(() => import("../../components/HomeSponsortClassement"));
-const AboutArea = lazy(() => import("../../components/AboutArea"));
-const Activity = lazy(() => import("../../components/Activity"));
-const OurMission = lazy(() => import("../../components/OurMission"));
-const Causes = lazy(() => import("../../components/Causes"));
-const Volunteer = lazy(() => import("../../components/Volunteer"));
-const EventArea = lazy(() => import("../../components/EventArea"));
-const Testimonials = lazy(() => import("../../components/Testimonials"));
-const GalleryArea = lazy(() => import("../../components/GalleryArea"));
-const Blog = lazy(() => import("../../components/Blog"));
+const HomeSponsortClassement = lazy(() =>
+  import("../../components/home/HomeSponsortClassement")
+)
+const AboutArea = lazy(() => import("../../components/home/AboutArea"))
+const Activity = lazy(() => import("../../components/home/Activity"))
+const OurMission = lazy(() => import("../../components/home/OurMission"))
+const Causes = lazy(() => import("../../components/home/Causes"))
+const Volunteer = lazy(() => import("../../components/home/Volunteer"))
+const EventArea = lazy(() => import("../../components/home/EventArea"))
+const Testimonials = lazy(() => import("../../components/home/Testimonials"))
+const GalleryArea = lazy(() => import("../../components/home/GalleryArea"))
+const Blog = lazy(() => import("../../components/home/Blog"))
 const Footer = lazy(() => import("../../components/Footer"));
 
 function Home() {

@@ -157,7 +157,7 @@ const ProjectDetails = ({ project }) => (
   <div className="bg-white shadow-lg rounded-lg overflow-hidden">
     <div className="relative h-64 sm:h-80 md:h-96">
       <img
-        src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
+        src={project.projectImage}
         alt={project.projectTitle}
         className="w-full h-full object-cover"
       />

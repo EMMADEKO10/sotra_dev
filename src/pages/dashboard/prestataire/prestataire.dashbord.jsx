@@ -118,7 +118,7 @@ const PrestataireDashboard = () => {
                       <Tooltip title={project.projectValidated ? "Validé" : "Non Validé"} placement="topRight">
                         <div className={`absolute top-2 right-2 h-4 w-4 rounded-full ${project.projectValidated ? "bg-green-500" : "bg-red-500"}`} />
                       </Tooltip>
-                      <img src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`} alt={project.projectName} className="w-full h-48 object-cover mb-4 rounded-lg" />
+                      <img src={project.projectImage} alt={project.projectName} className="w-full h-48 object-cover mb-4 rounded-lg" />
                       <h2 className="text-xl font-semibold mb-2">{project.projectName}</h2>
                       <p className="text-gray-600 mb-4">{project.projectDescription}</p>
                       <div className="flex justify-between items-center">

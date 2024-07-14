@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react';
-import { Progress, Button } from 'antd';
-import 'animate.css';
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import SbIcon from './Social Bonds/SbIcon';
+import { useState, useEffect } from "react"
+import { Progress, Button } from "antd"
+import "animate.css"
+import { NavLink } from "react-router-dom"
+import axios from "axios"
+import SbIcon from "../Social Bonds/SbIcon"
 
 export default function AboutArea() {
-  const [topProjects, setTopProjects] = useState([]);
+  const [topProjects, setTopProjects] = useState([])
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const response = await axios.get(`${apiUrl}/projects/validated`);
+        const apiUrl = import.meta.env.VITE_API_URL
+        const response = await axios.get(`${apiUrl}/projects/validated`)
         const sortedProjects = response.data
           .sort((a, b) => b.socialBondsCollect - a.socialBondsCollect)
-          .slice(0, 3);
-        setTopProjects(sortedProjects);
+          .slice(0, 3)
+        setTopProjects(sortedProjects)
       } catch (error) {
-        console.error("Erreur lors de la requête:", error.message);
+        console.error("Erreur lors de la requête:", error.message)
       }
-    };
-    fetchProjects();
-  }, []);
+    }
+    fetchProjects()
+  }, [])
 
   return (
     <div className="about-area bg-gray-100 py-20">
@@ -38,12 +38,17 @@ export default function AboutArea() {
                 <CauseItem
                   key={index}
                   project={project}
-                  image={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
+                  image={`${import.meta.env.VITE_URL_IMAGE}${
+                    project.projectImage
+                  }`}
                   category={project.projectCategory}
                   title={project.projectTitle}
                   raised={project.socialBondsCollect}
                   goal={project.socialBonds}
-                  percent={((project.socialBondsCollect / project.socialBonds) * 100).toFixed(2)}
+                  percent={(
+                    (project.socialBondsCollect / project.socialBonds) *
+                    100
+                  ).toFixed(2)}
                 />
               ))}
             </div>
@@ -57,15 +62,30 @@ export default function AboutArea() {
               La RSE Market Place by Gouvernix
             </h2>
             <p className="mb-4 leading-relaxed">
-              Notre plateforme est conçue comme un marché innovant où les grandes entreprises peuvent investir dans des projets socialement viables, favorisant le développement durable et la transformation sociale.
+              Notre plateforme est conçue comme un marché innovant où les
+              grandes entreprises peuvent investir dans des projets socialement
+              viables, favorisant le développement durable et la transformation
+              sociale.
             </p>
             <p className="mb-8 leading-relaxed">
-              Nous visons à combler le manque de financements pour des projets sociaux en République Démocratique du Congo en facilitant les collaborations entre les sponsors et les prestataires sociaux via notre plateforme dédiée.
+              Nous visons à combler le manque de financements pour des projets
+              sociaux en République Démocratique du Congo en facilitant les
+              collaborations entre les sponsors et les prestataires sociaux via
+              notre plateforme dédiée.
             </p>
             <ul className="flex space-x-8 mb-8">
-              <InfoItem count="16K" label="Plantes protégées" />
-              <InfoItem count="2M Ton" label="Eau économisés" />
-              <InfoItem count="7K Sqmi." label="Ocean Protégé" />
+              <InfoItem
+                count="16K"
+                label="Plantes protégées"
+              />
+              <InfoItem
+                count="2M Ton"
+                label="Eau économisés"
+              />
+              <InfoItem
+                count="7K Sqmi."
+                label="Ocean Protégé"
+              />
             </ul>
             <NavLink to="/about">
               <Button
@@ -80,7 +100,7 @@ export default function AboutArea() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 // Composant pour les items de cause
@@ -89,24 +109,37 @@ function CauseItem({ project, image, category, title, raised, goal, percent }) {
     <NavLink to={`/oneprojet/${project._id}`}>
       <div className="flex space-x-6 animate__animated animate__fadeIn">
         <div className="w-1/3">
-          <img src={image} alt="Thumb" className="rounded-lg object-cover h-full" />
+          <img
+            src={image}
+            alt="Thumb"
+            className="rounded-lg object-cover h-full"
+          />
         </div>
         <div className="w-2/3">
           <span className="block text-sm text-gray-500">{category}</span>
-          <h4 className="text-lg font-bold mb-2">
-            {title}
-          </h4>
+          <h4 className="text-lg font-bold mb-2">{title}</h4>
           <div className="progress-box">
             <p>
-              Collecté : {raised}<SbIcon color="#ff9800" /> <span className="float-right">Objectif : {goal}<SbIcon color="#52c41a" /></span>
+              Collecté : {raised}
+              <SbIcon color="#ff9800" />{" "}
+              <span className="float-right">
+                Objectif : {goal}
+                <SbIcon color="#52c41a" />
+              </span>
             </p>
-            <Progress percent={percent} showInfo={false} strokeColor="#3bcf93"/>
-            <span className="block text-sm mt-2">Collecte de fonds : {percent}%</span>
+            <Progress
+              percent={percent}
+              showInfo={false}
+              strokeColor="#3bcf93"
+            />
+            <span className="block text-sm mt-2">
+              Collecte de fonds : {percent}%
+            </span>
           </div>
         </div>
       </div>
     </NavLink>
-  );
+  )
 }
 
 // Composant pour les items d'informations
@@ -116,5 +149,5 @@ function InfoItem({ count, label }) {
       <h5 className="text-2xl font-bold">{count}</h5>
       <span>{label}</span>
     </li>
-  );
+  )
 }

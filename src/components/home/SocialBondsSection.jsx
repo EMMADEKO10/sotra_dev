@@ -1,36 +1,38 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Button } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
-import 'animate.css';
-import SbIcon from './Social Bonds/SbIcon'; // Assuming you have an icon component
+import React from "react"
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
+import { Button } from "antd"
+import { DownloadOutlined } from "@ant-design/icons"
+import "animate.css"
+import SbIcon from "../Social Bonds/SbIcon" // Assuming you have an icon component
 
 const SocialBondsSection = () => {
   return (
     <section className="py-16 md:py-24 xl:py-32 bg-gradient-to-br from-white to-gray-100">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="flex flex-col gap-y-6 md:gap-y-8"
           >
             <h2 className="text-3xl font-extrabold mb-4 leading-tight animate__animated animate__fadeInUp">
-              Investissez dans l'Impact avec les <span className="text-[#3bcf93]">Social Bonds</span>
+              Investissez dans l'Impact avec les{" "}
+              <span className="text-[#3bcf93]">Social Bonds</span>
             </h2>
             <p className="text-lg text-gray-600 font-semibold mb-2 leading-relaxed animate__animated animate__fadeInUp animate__delay-1s">
-              Découvrez comment les Social Bonds révolutionnent l'investissement social et maximisent votre impact.
+              Découvrez comment les Social Bonds révolutionnent l'investissement
+              social et maximisent votre impact.
             </p>
             <ul className=" animate__animated animate__fadeInUp animate__delay-2s">
               {[
-                'Unité de mesure transparente pour l’investissement social',
-                'Facilite le financement de projets à haute valeur sociale',
-                'Assure une gestion efficace et responsable des fonds',
-                'Projets soigneusement sélectionnés pour un impact maximum'
+                "Unité de mesure transparente pour l’investissement social",
+                "Facilite le financement de projets à haute valeur sociale",
+                "Assure une gestion efficace et responsable des fonds",
+                "Projets soigneusement sélectionnés pour un impact maximum",
               ].map((item, index) => (
-                <motion.li 
+                <motion.li
                   key={index}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -43,7 +45,9 @@ const SocialBondsSection = () => {
               ))}
             </ul>
             <p className="text-lg text-gray-700 mt-6 animate__animated animate__fadeInUp animate__delay-3s">
-              À la RSE Market Place by Gouvernix, nous vous offrons la possibilité de maximiser votre impact social grâce à des investissements sécurisés et responsables.
+              À la RSE Market Place by Gouvernix, nous vous offrons la
+              possibilité de maximiser votre impact social grâce à des
+              investissements sécurisés et responsables.
             </p>
             <div className="flex flex-wrap gap-4 mt-8 animate__animated animate__fadeInUp animate__delay-4s">
               <Link to="/socialbonds">
@@ -55,7 +59,7 @@ const SocialBondsSection = () => {
                   En savoir plus
                 </Button>
               </Link>
-              <motion.a 
+              <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="/RSE Market Place.pdf"
@@ -73,7 +77,7 @@ const SocialBondsSection = () => {
               </motion.a>
             </div>
           </motion.div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -90,7 +94,7 @@ const SocialBondsSection = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default SocialBondsSection;
+export default SocialBondsSection

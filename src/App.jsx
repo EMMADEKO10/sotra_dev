@@ -31,6 +31,7 @@ import { useEffect, useState } from "react"
 import Login from "./pages/Login/Login"
 import PrivateAdminRoute from "./pages/dashboard/routes/PrivateAdminRoute"
 import PrivateSponsorRoute from "./pages/dashboard/routes/PrivateSponsorRoute"
+import ScrollToTop from "./components/ScrollToTop"
 // import DashBoardAdmin from "./pages/dashBoardAdmin"
 // import DashBoardPrestataire from "./pages/dashBoardPrestataire"
 // import DashBoardSponsor from "./pages/dashBoardSponsor"
@@ -79,6 +80,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+      <ScrollToTop />
         <Routes>
           <Route
             path="/"
@@ -227,9 +229,6 @@ function App() {
             path="*"
             element={<NotFound />}
           />
-          {/* <Route path="/admin" element={<DashBoardAdmin />} />
-          <Route path="/sponsor" element={<DashBoardSponsor />} />
-          <Route path="/admin" element={<DashBoardPrestataire />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

@@ -13,9 +13,9 @@ import "tailwindcss/tailwind.css"
 import Navbar from "../../components/Navbars/NavBar"
 import Footer from "../../components/Footer"
 import { NavLink } from "react-router-dom"
-import Volunteer from "../../components/Volunteer"
+import Volunteer from "../../components/home/Volunteer"
 import RetourEnHaut from "../../components/bouton/RetourEnHaut"
-import FAQ from "../../components/FAQ"
+import FAQ from "../../components/home/FAQ"
 
 const About = () => {
   // Définitions des images des partenaires

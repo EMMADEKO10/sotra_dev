@@ -114,9 +114,9 @@ const Causes = () => {
                           <div className="w-full h-64 overflow-hidden relative bg-gray-200">
                             <img
                               alt="Thumb"
-                              src={`${import.meta.env.VITE_URL_IMAGE}${
+                              src={
                                 project.projectImage
-                              }`}
+                              }
                               className="absolute top-0 left-0 w-full h-full object-cover"
                               onError={(e) => (e.target.style.display = "none")} // Hide image if it fails to load
                             />

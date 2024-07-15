@@ -90,7 +90,7 @@ const SponsorDashboard = ({ index, moveRow, className, style, ...restProps }) =>
               <div key={index} className="bg-white rounded-lg shadow-md p-6">
                 <NavLink to={`/oneprojet/${project._id}`}>
                   <img
-                    src={`${import.meta.env.VITE_URL_IMAGE}${project.projectImage}`}
+                    src={project.projectImage}
                     alt={project.projectName}
                     className="w-full h-48 object-cover mb-4 rounded-lg"
                   />

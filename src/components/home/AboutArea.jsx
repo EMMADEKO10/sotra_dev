@@ -38,9 +38,7 @@ export default function AboutArea() {
                 <CauseItem
                   key={index}
                   project={project}
-                  image={`${import.meta.env.VITE_URL_IMAGE}${
-                    project.projectImage
-                  }`}
+                  image={project.projectImage}
                   category={project.projectCategory}
                   title={project.projectTitle}
                   raised={project.socialBondsCollect}
